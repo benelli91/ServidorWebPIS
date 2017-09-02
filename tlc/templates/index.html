@@ -1,0 +1,170 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Wacky Trip a Travel Agency Category Bootstrap responsive Website Template | Home :: w3layouts</title>
+<!-- meta-tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Wacky Trip Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //meta-tags -->
+<link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static "css/owl.carousel.css" %}" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
+<link rel="stylesheet" href="{% static "css/flexslider.css" %}" type="text/css" media="screen" property="" />
+<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="{% static "css/lightbox.css" %}">
+<!--web-fonts-->
+<link href="{% static "//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" %}" rel="stylesheet">
+<link href="{% static "//fonts.googleapis.com/css?family=Lato:300,400,700" %}" rel="stylesheet">
+<link href="{% static "//fonts.googleapis.com/css?family=Tangerine:400,700" %}" rel="stylesheet">
+<!--//web-fonts-->
+</head>
+<body>
+<!-- banner -->
+	<div class="banner" id="home">
+<div class="agileinfo-dot">
+<div class="container">
+		<!-- header -->
+		<header>
+			<!-- navigation -->
+			<div class="w3_navigation">
+			<nav class="navbar navbar-default">
+				<div class="navbar-header navbar-left">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class="w3_navigation_pos">
+						<h1><a href="{% static "index.html" %}"><span>T</span>rip <span>L</span>ow <span>C</span>ost</a></h1>
+					</div>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+					<nav class="cl-effect-4" id="cl-effect-4">
+						<ul class="nav navbar-nav menu__list">
+							<li><a href="{% static "index.html" %}">Home</a></li>
+							<li><a href="{% static "#about" %}" class=" scroll">About</a></li>
+							<li><a href="{% static "#team" %}" class=" scroll">Team</a></li>
+							<li><a href="{% static "#gallery" %}" class=" scroll">Destinations</a></li>
+							<li><a href="{% static "#contact" %}" class=" scroll">Contact</a></li>
+						</ul>
+					</nav>
+				</div>
+			</nav>
+	</div>
+	<div class="clearfix"></div>
+		<!-- //navigation -->
+		</header>
+	<!-- //header -->
+	<!-- banner-text -->
+		<div class="banner-text">
+			<h2>WE ARE OUR BEST CHOICE CHECKED</h2>
+			<div class="book-form" id="register">
+			<p>Pick your destination</p>
+			   <form action="#" method="post">
+					<div class="col-md-3 form-time-w3layouts">
+							<label>Travelling From</label>
+							<select class="form-control">
+								<option>From</option>
+								<option>New York</option>
+								<option>Lisbon</option>
+								<option>Melbourne</option>
+								<option>Berlin</option>
+								<option>Other</option>
+							</select>
+					</div>
+					<div class="col-md-3 form-left-agileits-w3layouts ">
+							<label>Travelling To</label>
+							<select class="form-control">
+								<option>To</option>
+								<option>Torino</option>
+								<option>Madrid</option>
+								<option>London</option>
+								<option>Wellington</option>
+								<option>Other</option>
+							</select>
+					</div>
+					<div class="col-md-3 form-date-w3-agileits">
+						        <label>Departure Date</label>
+									<input  id="datepicker1" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+								</div>
+					<div class="col-md-3 form-left-agileits-submit">
+						  <input type="submit" value="search">
+					</div>
+				</form>
+				<div class="clearfix"></div>
+			</div>
+			<div class="banner-btm-agileits">
+
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- //banner -->
+<!-- about -->
+<!-- banner-bottom -->
+
+<!-- //Footer -->
+<script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
+
+					<script src="{% static "js/lightbox-plus-jquery.min.js" %}"></script>
+			<!-- Owl-Carousel-JavaScript -->
+	<script src="{% static "js/owl.carousel.js" %}"></script>
+	<script>
+		$(document).ready(function() {
+			$("#owl-demo").owlCarousel ({
+				items : 4,
+				lazyLoad : true,
+				autoPlay : true,
+				pagination : true,
+			});
+		});
+	</script>
+	<!-- //Owl-Carousel-JavaScript -->
+	<!-- flexSlider -->
+					<script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+					<script type="text/javascript">
+					$(window).load(function(){
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						start: function(slider){
+						  $('body').removeClass('loading');
+						}
+					  });
+					});
+				  </script>
+				<!-- //flexSlider -->
+ <!-- Move-top-scrolling -->
+<script type="text/javascript" src="{% static "js/move-top.js" %}"></script>
+<script type="text/javascript" src="{% static "js/easing.js" %}"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- Move-top-scrolling -->
+<!-- Calendar -->
+				<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+				<script src="{% static "js/jquery-ui.js" %}"></script>
+				  <script>
+						  $(function() {
+							$( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker();
+						  });
+				  </script>
+			<!-- //Calendar -->
+<!--js for bootstrap working-->
+	<script src="{% static "js/bootstrap.js" %}"></script>
+<!-- //for bootstrap working -->
+</body>
+</html>
