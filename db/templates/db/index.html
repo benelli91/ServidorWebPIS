@@ -14,20 +14,14 @@
       {% if latest_question_list %}
           <ul class="list-group">
             <li class="list-group-item"> TravelId - Fecha y hora -  Precio  - Pais de origen  - ciudad de origen - Pais de destino - ciudad de destino</li>
-          {% for q in latest_question_list %}
-            <li class="list-group-item">
-            {% for question in q %}
+          {% for question in latest_question_list %}
               <  <li class="list-group-item">{{question.idtravel}} | {{question.departure}} | {{question.price}} |
                    {{question.origin_country}} | {{question.origin_city}} | {{question.destination_country}} | {{question.destination_city}}</a></li>
               >
                 {{question.idtravel}}</a>
-
-              {% endfor %}
             </li>
           {%endfor%}
           </ul>
       {% else %}
           <p>No polls are available.</p>
-      {% endif %}
-
-</div>
+{% endif %}
