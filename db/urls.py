@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^traveltype/$', views.TraveltypeList.as_view()),
     url(r'^traveltype/(?P<pk>[0-9]+)/$', views.TraveltypeDetail.as_view()),
     url(r'^travel/$', views.TravelList.as_view()),
-    url(r'^travel/(?P<pk>[0-9]+)/$', views.TravelDetail.as_view())
+    url(r'^travel/(?P<pk>[0-9]+)/$', views.TravelDetail.as_view()),
+    url(r'^index/$', views.index)
 ]

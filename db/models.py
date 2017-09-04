@@ -78,17 +78,15 @@ class AuthUserUserPermissions(models.Model):
 
 class City(models.Model):
     id = models.IntegerField(primary_key=True)
-    country = models.ForeignKey('Country', models.DO_NOTHING, db_column='country')
+    country = models.CharField(max_length = 3)
     name = models.TextField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
     class Meta:
         managed = False
         db_table = 'city'
         unique_together = (('id', 'country'),)
-    
-    def __str__(self):
-        return str(self.id) + '-' +str(self.country) + '-' + self.name + '\n'
-
 
 
 class Country(models.Model):
@@ -98,10 +96,6 @@ class Country(models.Model):
     class Meta:
         managed = False
         db_table = 'country'
-    
-    def __str__(self):
-        return str(self.id) + '-' + self.name + '\n'
-
 
 
 class DjangoAdminLog(models.Model):
@@ -151,9 +145,9 @@ class DjangoSession(models.Model):
 class Travel(models.Model):
     idtravel = models.IntegerField(primary_key=True)
     departure = models.DateTimeField()
-    origin_country = models.TextField()
+    origin_country = models.CharField(max_length=3)
     origin_city = models.IntegerField()
-    destination_country = models.TextField()
+    destination_country = models.CharField(max_length=3)
     destination_city = models.IntegerField()
     price = models.IntegerField()
     duration = models.TimeField()
@@ -172,7 +166,3 @@ class Traveltype(models.Model):
     class Meta:
         managed = False
         db_table = 'traveltype'
-
-    def __str__(self):
-        return str(self.traveltype) + '-' + self.travelname + '\n'
-
