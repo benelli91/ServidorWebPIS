@@ -2,60 +2,107 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime,timedelta
 from .models import *
+import sys
+
+
+
+
+def find_max(list_precios_travels):
+    to_remove = 0
+    new_max = 0
+    index_to_remove = 0
+    index = 0
+    for n in list_precios_travels:
+        aux = int(n)
+        if aux > to_remove:
+            new_max = to_remove
+            to_remove = aux
+            index_to_remove = index
+        index += 1
+    return (new_max,to_remove,index_to_remove)
 
 
 #recurcion
-def recursion(origin_country,origin_city,destination_country,destination_city,cost,datetime_object,list_travels,lista_recorridos,cant_travels,max_escalas):
-    if max_escalas <= 3 :
-        cost[0] += 1
-        dAux=datetime_object+timedelta(days=3)
-        max_escalas +=1
-        string_destino = destination_country +'-' + str(destination_city)
-        list_aux = Travel.objects.filter(origin_country=origin_country, origin_city = origin_city,departure__gte=  datetime_object,departure__lte=  dAux).order_by('origin_country','origin_city','destination_country','destination_city')
-        lista_a_recorrer = []
-        for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
-            aux_string = t.destination_country + '-' +  str(t.destination_city)
-            if aux_string not in lista_a_recorrer :
-                if aux_string not in lista_recorridos:
-                    lista_a_recorrer.append(aux_string)
+def recursion(origin_country,origin_city,destination_country,destination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost):
+    #if max_escalas <= 9 :
+    max_escalas +=1
+    string_destino = destination_country +'-' + str(destination_city)
+    list_aux = Travel.objects.filter(origin_country=origin_country, origin_city = origin_city,departure__gte=  datetime_object,departure__lte=  datetime_object_max).order_by('price','-departure')
+    lista_a_recorrer = []
+    lista_precios = []
+    #aux_time = datetime.time()
+    aux_departure = None
+    for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
+        aux_string = t.destination_country + '-' +  str(t.destination_city)
 
+        aux_time = t.duration
+        aux_departure = t.departure
 
-        #para cada par paisDestino-ciudadDestino que tengo a partir del nodo que estoy parado me fijo si tengo algun camino para llegar al destino final
-        for l in lista_a_recorrer:
-            lista2 = []
-            lista_recorridos[len(lista_recorridos):] = [l]
+        datetime_object= aux_departure + timedelta(hours=aux_time.hour, minutes = aux_time.minute, seconds = aux_time.second)
+        if t not in lista_recorridos:
+            #para cada par paisDestino-ciudadDestino que tengo a partir del nodo que estoy parado me fijo si tengo algun camino para llegar al destino final
+            index = 0
+            #for l in lista_a_recorrer:
+            #cost += lista_precios[index]
+            cost += t.price
+            lista_recorridos[len(lista_recorridos):] = [t]
+            if cost < max_cost[0] or cant_travels[0] < 100 :
+                #if l == string_destino:#si en el que estoy parado es el final, agrego el camino recorrido a la lista de viajes
+                if aux_string == string_destino:#si en el que estoy parado es el final, agrego el camino recorrido a la lista de viajes
+                    lista2 = []
+                    #Este for se hace por 2 morivos:
+                    #si hago lista2 = lista_recorridos, comparten memoria y una vez que hago el pop al final pierdo tambien el valor en lista2
+                    #pasa lo mismo si hago list_travels[len(list_travels):]= [lista_recorridos], comparten memoria y pierdo elementos en list_travels cuando hago el pop
+                    #por eso creo una nueva lista y si me sirve la agrego a la lista final de viajes
+                    x = 0
+                    for x in xrange(len(lista_recorridos)):
+                        lista2.append(lista_recorridos[x])
 
-            #Este for se hace por 2 morivos:
-            #si hago lista2 = lista_recorridos, comparten memoria y una vez que hago el pop al final pierdo tambien el valor en lista2
-            #pasa lo mismo si hago list_travels[len(list_travels):]= [lista_recorridos], comparten memoria y pierdo elementos en list_travels cuando hago el pop
-            #por eso creo una nueva lista y si me sirve la agrego a la lista final de viajes
-            x = 0
-            for x in xrange(len(lista_recorridos)):
-                lista2.append(lista_recorridos[x])
+                    #list_travels[len(list_travels):]= [t.idtravel]
+                    #list_travels[len(list_travels):]= [lista2]
+                    list_travels[len(list_travels):]= [lista2]
+                    list_precios_travels[len(list_precios_travels):]= [str(t.price)]
+                    if cant_travels[0] >= 100:
+                        max_cost[0],to_delete,index_to_remove = find_max(list_precios_travels)
+                        list_precios_travels.remove(str(to_delete))
+                        string_to_remove = list_travels[index_to_remove]
+                        list_travels.remove(string_to_remove)
+                    else:
+                        cant_travels[0] += 1
+                    if cost > max_cost[0]:
+                        max_cost[0] = cost
 
-            if l == string_destino:#si en el que estoy parado es el final, agrego el camino recorrido a la lista de viajes
-                list_travels[len(list_travels):]= [lista2]
-                cant_travels[0] += 1
-            else:#Sino, hago el paso recursivo
-                vOrigin_country,vOrigin_city = l.split('-')
-                recursion(vOrigin_country,vOrigin_city,destination_country,destination_city,cost,datetime_object,list_travels,lista_recorridos,cant_travels,max_escalas)
+                else:#Sino, hago el paso recursivo
+                    vOrigin_country,vOrigin_city = aux_string.split('-')
+                    recursion(vOrigin_country,vOrigin_city,destination_country,destination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost)
             lista_recorridos.pop()
-
+            #cost -= lista_precios[index]
+            cost -= t.price
+        #index += 1
 
 def index(request):
     print(str(datetime.now()) + '  --inicio' )
     datetime_object = datetime.strptime('Sep 1 2017  2:33PM', '%b %d %Y %I:%M%p')
+    datetime_object_max=datetime_object+timedelta(days=3)
     vOrigin_country = 'URU'
     vOrigin_city = 6
     vDestination_country = 'ARG'
-    vDestination_city = 29
+    vDestination_city = 25
     list_travels = []
-    lista_recorridos = ['URU-6']
+    list_precios_travels = []
+    lista_recorridos = [] #['URU-6']
     cant_travels = [0]
-    cost = [0]
-    recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,list_travels,lista_recorridos,cant_travels,0)
-    print(cost[0])
+    cost = 0
+    max_cost = [0]
+    recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
+    print(cant_travels[0])
+    index = 0
+    #for index in xrange(len(list_travels)):
+    #    list_travels[index].append(' precio = ' + list_precios_travels[index])
+
     context = {
-    'latest_question_list': list_travels}
+    'latest_question_list': list_travels,
+
+    'max_cost' :max_cost}
     print(str(datetime.now())+ '  --fin')
     return render(request, 'db/index.html', context)
