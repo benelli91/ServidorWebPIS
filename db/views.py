@@ -81,6 +81,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
         #index += 1
 
 def index(request):
+    list_paises = Country.objects.all()
     print(str(datetime.now()) + '  --inicio' )
     datetime_object = datetime.strptime('Sep 1 2017  2:33PM', '%b %d %Y %I:%M%p')
     datetime_object_max=datetime_object+timedelta(days=3)
@@ -102,7 +103,7 @@ def index(request):
 
     context = {
     'latest_question_list': list_travels,
-
+    'list_paises' : list_paises,
     'max_cost' :max_cost}
     print(str(datetime.now())+ '  --fin')
     return render(request, 'db/index.html', context)
