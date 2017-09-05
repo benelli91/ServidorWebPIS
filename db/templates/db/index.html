@@ -12,38 +12,73 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container">
-      <div class="form-group">
-      <label for="sel1">País origen:</label>
-      <select class="form-control" id="sel1">
-        {%for p in list_paises%}
-          <option>{{p.name}}</option>
-        {%endfor%}
-      </select>
+    <form  action="/" method="post">
+      <div class="container">
+        <div class="form-group">
+          <label for="sel1">País origen:[ID]</label>
+          <input type="text" class="form-control" name="paisOrig" id="usr">
+        </div>
+        <div class="form-group">
+          <label for="usr">Ciudad Origen:[ID]</label>
+          <input type="text" class="form-control" name="ciudOrig" id="usr">
+        </div>
+        <div class="form-group">
+          <label for="sel1">País destino:[ID]</label>
+          <input type="text" class="form-control" name="paisDest" id="usr">
+        </div>
+        <div class="form-group">
+          <label for="usr">Ciudad Destino:[ID]</label>
+          <input type="text" class="form-control" name="ciudDest" id="usr">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <label for="usr">Fecha de partida: mm-dd-aaaa-hh-mmPM/AM</label>
+                    <input type='text' class="form-control" name="datetime" id='datetimepicker4' />
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker4').datetimepicker();
+                    });
+                </script>
+            </div>
+        </div>
       </div>
-    </div>
-    <div class="container-fluid">
-      {{max_cost}}
-      {% if latest_question_list %}
-          <ul class="list-group">
-            <li class="list-group-item"> TravelId - Fecha y hora -  Precio  - Pais de origen  - ciudad de origen - Pais de destino - ciudad de destino</li>
-          {% for q in latest_question_list %}
-            <li class="list-group-item">
-            {% for question in q %}
-              <!--  <li class="list-group-item">{{question.idtravel}} | {{question.departure}} | {{question.price}} |
-                   {{question.origin_country}} | {{question.origin_city}} | {{question.destination_country}} | {{question.destination_city}}</a></li>
-              -->
-                {{question.idtravel}}</a>
 
-              {% endfor %}
-            </li>
-          {%endfor%}
-          </ul>
-      {% else %}
-          <p>No polls are available.</p>
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit" />
+  </form>
+  <from>
+    {%if msg_err == "" %}
+      <div>
+        <label for="sel1">Origen: {{paisOrigen}} - {{ciudadOrigen}}</label>
+      </div>
+      <div>
+        <label for="sel1">Destino: {{paisDestino}} - {{ciudadDestino}}</label>
+      </div>
+      <div class="container-fluid">
+        {% if latest_question_list %}
+            <ul class="list-group">
+              {% for q in latest_question_list %}
+              <li class="list-group-item">
+              {% for question in q %}
+                <!--  <li class="list-group-item">{{question.idtravel}} | {{question.departure}} | {{question.price}} |
+                     {{question.origin_country}} | {{question.origin_city}} | {{question.destination_country}} | {{question.destination_city}}</a></li>
+                -->
+                  {{question.idtravel}}</a>
+
+                {% endfor %}
+            {%endfor%}
+            </ul>
+        {% else %}
+            <p>No polls are available.</p>
+        {% endif %}
+      {%else%}
+        <p>{{msg_err}}</p>
       {% endif %}
-
     </div>
+  </from>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

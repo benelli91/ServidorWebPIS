@@ -81,29 +81,79 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
         #index += 1
 
 def index(request):
-    list_paises = Country.objects.all()
-    print(str(datetime.now()) + '  --inicio' )
-    datetime_object = datetime.strptime('Sep 1 2017  2:33PM', '%b %d %Y %I:%M%p')
-    datetime_object_max=datetime_object+timedelta(days=3)
-    vOrigin_country = 'URU'
-    vOrigin_city = 6
-    vDestination_country = 'ARG'
-    vDestination_city = 25
+    context = {}
+    msg_err = ""
     list_travels = []
     list_precios_travels = []
     lista_recorridos = [] #['URU-6']
     cant_travels = [0]
     cost = 0
     max_cost = [0]
-    recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
-    print(cant_travels[0])
-    index = 0
-    #for index in xrange(len(list_travels)):
-    #    list_travels[index].append(' precio = ' + list_precios_travels[index])
+    list_paises = Country.objects.all()
 
-    context = {
-    'latest_question_list': list_travels,
-    'list_paises' : list_paises,
-    'max_cost' :max_cost}
-    print(str(datetime.now())+ '  --fin')
+    aux_country_orig = Country.objects
+    aux_city_orig = City.objects
+    aux_country_dest = Country.objects
+    aux_city_des = City.objects
+    if request.method == 'POST':
+        """datetime_object = datetime.strptime('9 1 2017  2:33PM', '%m %d %Y %I:%M%p')
+        datetime_object_max=datetime_object+timedelta(days=3)
+        vOrigin_country = 'URU'
+        vOrigin_city = 6
+        vDestination_country = 'ARG'
+        vDestination_city = 25
+        """
+
+        body = request.body.split('&')
+        print(body)
+        try:
+            aux,vOrigin_country = body[0].split('=')
+            aux,vOrigin_city = body[1].split('=')
+            aux,vDestination_country = body[2].split('=')
+            aux,vDestination_city = body[3].split('=')
+            aux,aux_time = body[4].split('=')
+            try:
+                if aux_time != "":
+                    aux_time2 = aux_time.split('-')
+                    final_aux_time = aux_time2[0]+' '+aux_time2[1]+' '+aux_time2[2]+' '+aux_time2[3]+':'+aux_time2[4]
+                    datetime_object = datetime.strptime(final_aux_time, '%m %d %Y %I:%M%p')
+                    datetime_object_max=datetime_object+timedelta(days=3)
+                else:
+                    msg_err = "hora en formato incorrecto"
+            except ValueError:
+                msg_err = "hora en formato incorrecto"
+        except ValueError:
+            msg_err = "datos de formulario incorrectos"
+
+        try:
+            aux_country_orig = Country.objects.get(id=vOrigin_country)
+            try:
+                aux_city_orig = City.objects.get(id=vOrigin_city,country=vOrigin_country)
+                try:
+                    aux_country_dest = Country.objects.get(id=vDestination_country)
+                    try:
+                        aux_city_des = City.objects.get(id=vDestination_city,country=vDestination_country)
+                    except ValueError:
+                        msg_err = "la ciudad destino no es correcta"
+                except ValueError:
+                    msg_err = "el pais destino no es correcto"
+            except ValueError:
+                msg_err = "la ciudad origen no es correcta"
+        except ValueError:
+            msg_err = "el pais origen no es correcto"
+
+
+        if msg_err == "":
+            recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
+
+
+        context = {
+        'latest_question_list': list_travels,
+        'list_paises' : list_paises,
+        'paisOrigen' : aux_country_orig.name,
+        'ciudadOrigen' : aux_city_orig.name,
+        'paisDestino' : aux_country_dest.name,
+        'ciudadDestino' : aux_city_des.name,
+        'msg_err' : msg_err}
+
     return render(request, 'db/index.html', context)
