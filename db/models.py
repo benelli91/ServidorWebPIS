@@ -158,6 +158,10 @@ class Travel(models.Model):
         managed = False
         db_table = 'travel'
 
+    def __str__(self):
+        return str(self.idtravel) + '-' + self.origin_country + '-' +  str(self.origin_city) + '-' + self.destination_country + '-' + str(self.destination_city) +'\n'
+
+
 
 class Traveltype(models.Model):
     traveltype = models.IntegerField(primary_key=True)

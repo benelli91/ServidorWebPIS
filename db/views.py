@@ -66,56 +66,50 @@ def Eppstein(origin_country, origin_city, destination_country, destination_city,
 
     P = []
     B = []
-    countU = [[]]
+    countU = [[None]*len(cities)]*len(countries)
     for ci in cities:
-        for hour in range(0, 71):
-            countU[countries.index(ci.country)][ci.id] = 0
+        countU[countries.index(ci.country)][ci.id] = 0
 
+    B.append([[start_city], 0])
+    while len(B) > 0 and countFinal < k:
+        Pu = B[0]
+        for b in B:
+            if b[1] < Pu[1]:
+                Pu = b
+        B.remove(b)
+        countU[countries.index(Pu[0][-1].country)][Pu[0][-1].id] += 1
+        if Pu[0][-1].country == destination_country and Pu[0][-1].id == destination_city:
+            P.append(Pu)
+        if countU[countries.index(Pu[0][-1].country)][Pu[0][-1].id] <= k:
+            neighbors = []
+            if Pu[0][-1].country == origin_country and Pu[0][-1].id == origin_city:
+                neighbors = Travel.objects.raw('''SELECT * FROM travel WHERE origin_country = %s AND origin_city = %s AND departure > %s AND departure + duration < %s''', [Pu[0][-1].country, Pu[0][-1].id, start_date, finish_date])
+            else:
+                arrival_interval = datetime.combine(P[0][-2].departure, P[0][-2].duration) - start_date
+                arrival = int(arrival_interval.total_seconds() // 3600)
+                neighbors = Travel.objects.raw('''SELECT * FROM travel WHERE origin_country = %s AND origin_city = %s AND departure > %s AND departure + duration < %s''', [Pu[0][-1].country, Pu[0][-1].id, start_date + timedelta(hours = arrival]), finish_date])
 
-
-
-    for ci in cities:
-        for hour in range(0, 71):
-            gScore[countries.index(ci.country)][ci.id][hour] = float('inf')
-            fScore[countries.index(ci.country)][ci.id][hour] = float('inf')
-
-    gScore[countries.index(origin_country)][origin_city][0] = 0
-    fScore[countries.index(origin_country)][origin_city][0] = heuristic(start_city, final_city)
-
-    cameFrom[1][29][15] = ['basura', 'basura', 'basura', 'basura']
-    while len(openSet) > 0:
-        current = [openSet[0][0], openSet[0][1], openSet[0][2]]
-        for i in range(0, len(openSet)-1):
-            if fScore[countries.index(openSet[i][0])][openSet[i][1]][openSet[i][2]] < fScore[countries.index(current[0])][current[1]][current[2]]:
-                current = openSet[i]
-
-        if current[0] == destination_country and current[1] == destination_city:
-            return reconstruct_path(cameFrom, current, countries, origin_country, origin_city)
-
-        current_city = City.objects.filter(country = current[0], id  = current[1])[0]
-        closedSet.append([current[0], current[1], current[2]])
-        openSet.remove([current[0], current[1], current[2]])
-
-
-        neighbors = Travel.objects.raw('''SELECT * FROM travel WHERE origin_country = %s AND origin_city = %s AND departure > %s AND departure + duration < %s''', [current[0], current[1], start_date + timedelta(hours = current[2]), finish_date])
-        for n in neighbors:
-            arrival_interval = datetime.combine(n.departure, n.duration) - start_date
-            arrival = int(arrival_interval.total_seconds() // 3600)
-            if not [n.destination_country, n.destination_city, arrival] in closedSet:
-                if not [n.destination_country, n.destination_city, arrival] in openSet:
-                    openSet.append([n.destination_country, n.destination_city, arrival])
-
-                current_gScore = gScore[countries.index(current[0])][current[1]][current[2]]
-                tentative_gScore = current_gScore + n.price
-                if tentative_gScore < gScore[countries.index(n.destination_country)][n.destination_city][arrival]:
-                    cameFrom[countries.index(n.destination_country)][n.destination_city][arrival] = [current[0], current[1], current[2], n]
-                    gScore[countries.index(n.destination_country)][n.destination_city][arrival] = tentative_gScore
-                    destiny = cities[0]
-                    for ci in cities:
-                        if ci.country == n.destination_country and ci.id == n.destination_city:
-                            destiny = ci
-                    fScore[countries.index(n.destination_country)][n.destination_city][arrival] + heuristic(destiny, final_city)
-    return []
+            for n in neighbors:
+                flag = False
+                counter = 1
+                while (counter < len(Pu[0])) and (not flag):
+                    if Pu[0][counter].idtravel == n.idtravel:
+                        flag = True
+                    counter += 2
+                if not flag:
+                    Pv = Pu
+                    middle_city = City.objects.filter(country = n.destination_country, id = n.destination_city)[0]
+                    Pv[0].append(n)
+                    Pv[0].append(middle_city)
+                    Pv[1] += n.price
+                    print(Pu, Pv)
+                    B.append(Pv)
+    result = [[]]
+    counter = 0
+    for p_aux in P:
+        for i in range(1, len(p_aux[0])//2):
+            result[counter].append(p_aux[0][i*2 - 1])
+    return result
 
 
 def index(request):
