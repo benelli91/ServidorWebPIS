@@ -55,7 +55,7 @@ def reconstruct_path(cameFrom, current, countries, origin_country, origin_city):
             total_path.append(cameFrom[countries.index(current[0])][current[1]][current[2]][3])
     return total_path
 
-def AAster(origin_country, origin_city, destination_country, destination_city, start_date, finish_date, max_stopover):
+def Eppstein(origin_country, origin_city, destination_country, destination_city, start_date, finish_date, k):
     start_city = City.objects.filter(country = origin_country, id = origin_city)[0]
     final_city = City.objects.filter(country = destination_country, id = destination_city)[0]
     aux_countries = Country.objects.all()
@@ -64,11 +64,15 @@ def AAster(origin_country, origin_city, destination_country, destination_city, s
     for co in aux_countries:
         countries.append(co.id)
 
-    closedSet = [[]]
-    openSet = [[origin_country,origin_city, 0]]
-    cameFrom = [[[None]*72]*(len(cities) + 1)]*len(countries)
-    gScore = [[[None]*72]*(len(cities) + 1)]*len(countries)
-    fScore = [[[None]*72]*(len(cities) + 1)]*len(countries)
+    P = []
+    B = []
+    countU = [[]]
+    for ci in cities:
+        for hour in range(0, 71):
+            countU[countries.index(ci.country)][ci.id] = 0
+
+
+
 
     for ci in cities:
         for hour in range(0, 71):
