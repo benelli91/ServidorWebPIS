@@ -88,6 +88,10 @@ class City(models.Model):
         db_table = 'city'
         unique_together = (('id', 'country'),)
 
+    def __str__(self):
+        return str(self.id) + '-' +str(self.country) + '-' + self.name + '\n'
+
+
 
 class Country(models.Model):
     id = models.CharField(primary_key=True, max_length=3)
@@ -96,6 +100,10 @@ class Country(models.Model):
     class Meta:
         managed = False
         db_table = 'country'
+
+    def __str__(self):
+        return str(self.id) + '-' + self.name + '\n'
+
 
 
 class DjangoAdminLog(models.Model):
@@ -158,6 +166,9 @@ class Travel(models.Model):
         managed = False
         db_table = 'travel'
 
+    def __str__(self):
+        return str(self.idtravel) + '-' + self.origin_country + '-' + str(self.origin_city) + '-' + self.destination_country + '-' + str(self.destination_city) + '-' + self.origin_country + '-' + str(self.departure) + '-' + str(self.duration) +  '\n'
+
 
 class Traveltype(models.Model):
     traveltype = models.IntegerField(primary_key=True)
@@ -166,3 +177,6 @@ class Traveltype(models.Model):
     class Meta:
         managed = False
         db_table = 'traveltype'
+
+    def __str__(self):
+        return str(self.traveltype) + '-' + self.travelname + '\n'

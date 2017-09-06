@@ -64,29 +64,28 @@ def AAster(origin_country, origin_city, destination_country, destination_city, s
     for co in aux_countries:
         countries.append(co.id)
 
+    max_solutions = 10
+    cant_solutions = 0
+    solutions = []
     closedSet = [[]]
     openSet = [[origin_country,origin_city, 0]]
-    cameFrom = [[[None]*72]*(len(cities) + 1)]*len(countries)
-    gScore = [[[None]*72]*(len(cities) + 1)]*len(countries)
-    fScore = [[[None]*72]*(len(cities) + 1)]*len(countries)
-
-    for ci in cities:
-        for hour in range(0, 71):
-            gScore[countries.index(ci.country)][ci.id][hour] = float('inf')
-            fScore[countries.index(ci.country)][ci.id][hour] = float('inf')
+    cameFrom = [[[None for k in range(72)] for j in range(len(cities) + 1)] for i in range(len(countries))]
+    gScore = [[[float('inf') for k in range(72)] for j in range(len(cities) + 1)] for i in range(len(countries))]
+    fScore = [[[float('inf') for k in range(72)] for j in range(len(cities) + 1)] for i in range(len(countries))]
 
     gScore[countries.index(origin_country)][origin_city][0] = 0
     fScore[countries.index(origin_country)][origin_city][0] = heuristic(start_city, final_city)
 
-    cameFrom[1][29][15] = ['basura', 'basura', 'basura', 'basura']
-    while len(openSet) > 0:
+    while len(openSet) > 0 and cant_solutions < max_solutions:
         current = [openSet[0][0], openSet[0][1], openSet[0][2]]
         for i in range(0, len(openSet)-1):
             if fScore[countries.index(openSet[i][0])][openSet[i][1]][openSet[i][2]] < fScore[countries.index(current[0])][current[1]][current[2]]:
                 current = openSet[i]
 
         if current[0] == destination_country and current[1] == destination_city:
-            return reconstruct_path(cameFrom, current, countries, origin_country, origin_city)
+            sol = reconstruct_path(cameFrom, current, countries, origin_country, origin_city)
+            solutions.append(sol)
+            cant_solutions += 1
 
         current_city = City.objects.filter(country = current[0], id  = current[1])[0]
         closedSet.append([current[0], current[1], current[2]])
@@ -95,7 +94,8 @@ def AAster(origin_country, origin_city, destination_country, destination_city, s
 
         neighbors = Travel.objects.raw('''SELECT * FROM travel WHERE origin_country = %s AND origin_city = %s AND departure > %s AND departure + duration < %s''', [current[0], current[1], start_date + timedelta(hours = current[2]), finish_date])
         for n in neighbors:
-            arrival_interval = datetime.combine(n.departure, n.duration) - start_date
+            travel_duration = n.duration.hour
+            arrival_interval = n.departure + timedelta(hours = travel_duration) - start_date
             arrival = int(arrival_interval.total_seconds() // 3600)
             if not [n.destination_country, n.destination_city, arrival] in closedSet:
                 if not [n.destination_country, n.destination_city, arrival] in openSet:
@@ -111,16 +111,16 @@ def AAster(origin_country, origin_city, destination_country, destination_city, s
                         if ci.country == n.destination_country and ci.id == n.destination_city:
                             destiny = ci
                     fScore[countries.index(n.destination_country)][n.destination_city][arrival] + heuristic(destiny, final_city)
-    return []
+    return solutions
 
 
 def index(request):
     start_date = datetime.strptime('2017-09-01  00:00:00', '%Y-%m-%d %H:%M:%S')
     finish_date = datetime.strptime('2017-09-04  00:00:00', '%Y-%m-%d %H:%M:%S')
-    vOrigin_country = 'URU'
-    vOrigin_city = 6
-    vDestination_country = 'ARG'
-    vDestination_city = 29
+    vOrigin_country = 'ARG'
+    vOrigin_city = 20
+    vDestination_country = 'URU'
+    vDestination_city = 8
     print(str(datetime.now()) + '  --inicio' )
     list_travels = AAster(vOrigin_country, vOrigin_city, vDestination_country, vDestination_city, start_date, finish_date, 3)
     print(str(datetime.now())+ '  --fin')
