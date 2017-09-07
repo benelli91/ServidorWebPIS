@@ -5,13 +5,50 @@ from .models import *
 import sys
 
 
+def ordenarVectores(list_travels,list_precios_travels,cant_travels):
+    i = 0
+    list_precio_int = [0]
+    x = 0
+    for x in xrange(len(list_precios_travels)):
+        if x == 0:
+            list_precio_int[0] = int(list_precios_travels[x])
+        else :
+            list_precio_int.append(int(list_precios_travels[x]))
 
+    while i < cant_travels[0] :
+        precio_actual = list_precio_int[i]
+        elemento_actual = list_travels[i]
+        minimo = precio_actual
+        j = i
+        while j <= cant_travels[0] -1:
+            if list_precio_int[j] < minimo:
+                minimo = list_precio_int[j]
+                indice_minimo = j
+            j += 1
+        if minimo < precio_actual:
+            print(precio_actual)
+            print(minimo)
+            aux_precio = list_precio_int[i]
+            aux_elemento = elemento_actual
+            list_precio_int[i] = list_precio_int[indice_minimo]
+            list_travels[i] = list_travels[indice_minimo]
+            list_precio_int[indice_minimo] = precio_actual
+            list_travels[indice_minimo] = elemento_actual
+        i += 1
+    x = 0
+    list_precios_travels= []
+    for x in xrange(len(list_precio_int)):
+        list_precios_travels.append(str(list_precio_int[x]))
+
+    return (list_travels,list_precios_travels)
 
 def find_max(list_precios_travels):
     to_remove = 0
     new_max = 0
     index_to_remove = 0
     index = 0
+    
+
     for n in list_precios_travels:
         aux = int(n)
         if aux > to_remove:
@@ -46,7 +83,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
             #cost += lista_precios[index]
             cost += t.price
             lista_recorridos[len(lista_recorridos):] = [t]
-            if cost < max_cost[0] or cant_travels[0] < 100 :
+            if cost < max_cost[0] or cant_travels[0] < 10 :
                 #if l == string_destino:#si en el que estoy parado es el final, agrego el camino recorrido a la lista de viajes
                 if aux_string == string_destino:#si en el que estoy parado es el final, agrego el camino recorrido a la lista de viajes
                     lista2 = []
@@ -61,8 +98,8 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
                     #list_travels[len(list_travels):]= [t.idtravel]
                     #list_travels[len(list_travels):]= [lista2]
                     list_travels[len(list_travels):]= [lista2]
-                    list_precios_travels[len(list_precios_travels):]= [str(t.price)]
-                    if cant_travels[0] >= 100:
+                    list_precios_travels[len(list_precios_travels):]= [str(cost)]
+                    if cant_travels[0] >= 10:
                         max_cost[0],to_delete,index_to_remove = find_max(list_precios_travels)
                         list_precios_travels.remove(str(to_delete))
                         string_to_remove = list_travels[index_to_remove]
@@ -145,8 +182,9 @@ def index(request):
 
         if msg_err == "":
             recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
-
-
+            print(list_precios_travels)
+            list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
+            print(list_precios_travels)
         context = {
         'latest_question_list': list_travels,
         'list_paises' : list_paises,

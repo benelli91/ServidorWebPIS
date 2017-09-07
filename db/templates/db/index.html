@@ -66,9 +66,14 @@
                 <!--  <li class="list-group-item">{{question.idtravel}} | {{question.departure}} | {{question.price}} |
                      {{question.origin_country}} | {{question.origin_city}} | {{question.destination_country}} | {{question.destination_city}}</a></li>
                 -->
-                  {{question.idtravel}}</a>
-
-                {% endfor %}
+                <div>
+                  Origen: {{question.origin_country}} - {{question.origin_city}} |
+                  Destino: {{question.destination_country}} - {{question.destination_city}} |
+                  Fecha de partida: {{question.departure}} |
+                  Precio : {{question.price}} |
+                </div>
+              {% endfor %}
+              </li>
             {%endfor%}
             </ul>
         {% else %}
