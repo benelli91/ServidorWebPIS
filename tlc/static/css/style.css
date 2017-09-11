@@ -213,6 +213,7 @@ header {
     font-weight: 500;
     margin-bottom: 7px;
     letter-spacing: 1px;
+		font-weight: bold;
 }
 .book-form label i {
     font-size: 1em;
@@ -221,19 +222,18 @@ header {
 }
 .book-form input[type="text"],.book-form input[type="date"],.book-form input[type="time"],.book-form input[type="email"] {
       width: 100%;
-    color: #fff;
+    color: #000;
     outline: none;
     font-size: 0.9em;
     line-height: 25px;
     padding: 3px 10px;
-    border: 2px solid #fff;
+    border: 2px solid #000;
     -webkit-appearance: none;
     margin-bottom: 1em;
-    background: none;
 	    font-family: 'Open Sans', sans-serif;
 }
 .book-form input[type="text"]{
-	 border: 2px solid #fff;
+	 border: 2px solid #ffa200;
 }
 .book-form form input[type="submit"] {
     text-transform: capitalize;
