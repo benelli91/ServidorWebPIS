@@ -68,10 +68,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="book-form" id="register">
 			<p>Pick your destination</p>
 			   <form action="#" method="post">
+					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
 							<label>Travelling From</label>
-							<select class="form-control">
-								<option>From</option>
+							<select class="form-control" value="Hola">
+								<option selected disabled>From</option>
 								<option>Montevideo</option>
 								<option>Colonia</option>
 								<option>Maldonado</option>
@@ -81,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="col-md-3 form-left-agileits-w3layouts ">
 							<label>Travelling To</label>
 							<select class="form-control">
-								<option>To</option>
+								<option selected disabled>To</option>
 								<option>Buenos Aires</option>
 								<option>Colonia</option>
 								<option>Maldonado</option>
@@ -91,12 +92,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-3 form-date-w3-agileits">
 						        <label>Departure Date</label>
-									<input  id="datepicker1" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+									<input  id="datepickerr" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 								</div>
 					<div class="col-md-3 form-left-agileits-submit">
 						  <input type="submit" value="search">
 					</div>
 				</form>
+
+				<form action="/" method="post">
+					{% csrf_token %}
+			    {{form}}
+			    <input type="submit" value="OK">
+				</form>
+
+
 				<div class="clearfix"></div>
 			</div>
 			<div class="banner-btm-agileits">
