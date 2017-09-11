@@ -23,7 +23,15 @@ def index(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            redirect('tlc.views.index')
+            #redirect('tlc.views.index')
+            resultado = {
+            'latest_question_list': list_travels,
+            'list_paises' : list_paises,
+            'paisOrigen' : aux_country_orig.name,
+            'ciudadOrigen' : aux_city_orig.name,
+            'paisDestino' : aux_country_dest.name,
+            'ciudadDestino' : aux_city_des.name,
+            'msg_err' : msg_err}
 
     # if a GET (or any other method) we'll create a blank form
     else:

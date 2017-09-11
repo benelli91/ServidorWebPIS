@@ -71,24 +71,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
 							<label>Travelling From</label>
-							<select class="form-control" value="Hola">
+							<!--<select class="form-control" value="Hola">
 								<option selected disabled>From</option>
 								<option>Montevideo</option>
 								<option>Colonia</option>
 								<option>Maldonado</option>
 								<option>Buenos Aires</option>
-							</select>
+							</select>-->
+							<input type="text" name="from" value="from" onfocus="this.value = '';"/>
 					</div>
 					<div class="col-md-3 form-left-agileits-w3layouts ">
 							<label>Travelling To</label>
-							<select class="form-control">
+							<!--<select class="form-control">
 								<option selected disabled>To</option>
 								<option>Buenos Aires</option>
 								<option>Colonia</option>
 								<option>Maldonado</option>
 								<option>New York</option>
 								<option>Miami</option>
-							</select>
+							</select>-->
+							<input type="text" name="to" value="to" onfocus="this.value = '';"/>
 					</div>
 					<div class="col-md-3 form-date-w3-agileits">
 						        <label>Departure Date</label>
@@ -99,11 +101,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</form>
 
+				<!--FORM A LO DJANGO
 				<form action="/" method="post">
 					{% csrf_token %}
 			    {{form}}
 			    <input type="submit" value="OK">
-				</form>
+				</form>-->
 
 
 				<div class="clearfix"></div>
