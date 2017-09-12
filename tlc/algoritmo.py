@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime,timedelta
-from tlc.models import *
+from .models import *
 import sys
-
 
 def ordenarVectores(list_travels,list_precios_travels,cant_travels):
     i = 0
@@ -62,6 +61,8 @@ def find_max(list_precios_travels):
 #recurcion
 def recursion(origin_country,origin_city,destination_country,destination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost):
     #if max_escalas <= 9 :
+
+
     max_escalas +=1
     string_destino = destination_country +'-' + str(destination_city)
     list_aux = Travel.objects.filter(origin_country=origin_country, origin_city = origin_city,departure__gte=  datetime_object,departure__lte=  datetime_object_max).order_by('price','-departure')
@@ -117,9 +118,23 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
             cost -= t.price
         #index += 1
 
-def index(request):
+def do_search(origin_city,destination_city,date):
+
+    #CON LAS 3 lineas COMENTADAS ABAJO TE TIRA DATOS Y ES BUENA PARA HACER EL FRONT-END
+    vOrigin_country = 'URU'
+    #vOrigin_city = 11
+    vDestination_country = 'ARG'
+    #vDestination_city = 20
+    #date = '08/24/2017'
+    aux_time = datetime.strptime(date+' 01:00AM', '%m/%d/%Y %I:%M%p')
+
+    return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
+
+
+
+def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time):
     context = {}
-    msg_err = ""
+    #msg_err = ""
     list_travels = []
     list_precios_travels = []
     lista_recorridos = [] #['URU-6']
@@ -132,14 +147,14 @@ def index(request):
     aux_city_orig = City.objects
     aux_country_dest = Country.objects
     aux_city_des = City.objects
-    if request.method == 'POST':
-        """datetime_object = datetime.strptime('9 1 2017  2:33PM', '%m %d %Y %I:%M%p')
+    """if request.method == 'POST':
+        ###datetime_object = datetime.strptime('9 1 2017  2:33PM', '%m %d %Y %I:%M%p')
         datetime_object_max=datetime_object+timedelta(days=3)
         vOrigin_country = 'URU'
         vOrigin_city = 6
         vDestination_country = 'ARG'
         vDestination_city = 25
-        """
+        ###
 
         body = request.body.split('&')
         print(body)
@@ -161,37 +176,37 @@ def index(request):
                 msg_err = "hora en formato incorrecto"
         except ValueError:
             msg_err = "datos de formulario incorrectos"
-
+        """
+    try:
+        aux_country_orig = Country.objects.get(id=vOrigin_country)
         try:
-            aux_country_orig = Country.objects.get(id=vOrigin_country)
+            aux_city_orig = City.objects.get(id=vOrigin_city,country=vOrigin_country)
             try:
-                aux_city_orig = City.objects.get(id=vOrigin_city,country=vOrigin_country)
+                aux_country_dest = Country.objects.get(id=vDestination_country)
                 try:
-                    aux_country_dest = Country.objects.get(id=vDestination_country)
-                    try:
-                        aux_city_des = City.objects.get(id=vDestination_city,country=vDestination_country)
-                    except ValueError:
-                        msg_err = "la ciudad destino no es correcta"
+                    aux_city_des = City.objects.get(id=vDestination_city,country=vDestination_country)
                 except ValueError:
-                    msg_err = "el pais destino no es correcto"
+                    print "la ciudad destino no es correcta"
             except ValueError:
-                msg_err = "la ciudad origen no es correcta"
+                print "el pais destino no es correcto"
         except ValueError:
-            msg_err = "el pais origen no es correcto"
+            print "la ciudad origen no es correcta"
+    except ValueError:
+        print "el pais origen no es correcto"
 
-
-        if msg_err == "":
-            recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
-            print(list_precios_travels)
-            list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
-            print(list_precios_travels)
-        context = {
-        'latest_question_list': list_travels,
-        'list_paises' : list_paises,
-        'paisOrigen' : aux_country_orig.name,
-        'ciudadOrigen' : aux_city_orig.name,
-        'paisDestino' : aux_country_dest.name,
-        'ciudadDestino' : aux_city_des.name,
-        'msg_err' : msg_err}
-
-    return render(request, 'db/index.html', context)
+    datetime_object = aux_time
+    print datetime_object
+    datetime_object_max=datetime_object+timedelta(days=3)
+    print datetime_object_max
+    recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
+    print(list_precios_travels)
+    list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
+    print(list_precios_travels)
+    context = {
+    'list_travels': list_travels,
+    'list_paises' : list_paises,
+    'paisOrigen' : aux_country_orig.name,
+    'ciudadOrigen' : aux_city_orig.name,
+    'paisDestino' : aux_country_dest.name,
+    'ciudadDestino' : aux_city_des.name}
+    return context

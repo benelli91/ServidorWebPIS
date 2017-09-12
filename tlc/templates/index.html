@@ -94,7 +94,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-3 form-date-w3-agileits">
 						        <label>Departure Date</label>
-									<input  id="datepickerr" name="Text" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+									<input  id="datepickerr" name="date" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 								</div>
 					<div class="col-md-3 form-left-agileits-submit">
 						  <input type="submit" value="search">
@@ -111,6 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<div class="clearfix"></div>
 			</div>
+
 			<div class="banner-btm-agileits">
 
 
@@ -123,6 +124,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="contact" id="contact">
 	<div class="container">
 		<h3 class="title-agileits-w3layouts">Your best options</h3>
+		EMPIEZA LISTA DE DATOS
+		{% if list_travels %}
+		<ul class="list-group">
+						 {% for travel in list_travels %}
+						 VIAJE
+              <li class="list-group-item">
+								 {% for link in travel %}
+								 <div>
+									 Origen: {{link.origin_country}} - {{link.origin_city}} |
+									 Destino: {{link.destination_country}} - {{link.destination_city}} |
+									 Fecha de partida: {{link.departure}} |
+									 Precio : {{link.price}} |
+									 Tipo:  {{link.traveltype}}
+							 	</div>
+								{% endfor %}
+							</li>
+							{% endfor %}
+		{% endif %}
+		TERMINA LISTA DE DATOS
+		</ul>
 	  <div class="panel-group">
 			<div class="panel panel-primary">
 	      <div class="panel-heading">Montevideo - Colonia - Buenos Aires</div>
