@@ -2,12 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Wacky Trip a Travel Agency Category Bootstrap responsive Website Template | Home :: w3layouts</title>
+<title>Low Cost Trip</title>
 <!-- meta-tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Wacky Trip Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //meta-tags -->
@@ -32,18 +30,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<header>
 			<!-- navigation -->
 			<div class="w3_navigation">
-			<nav class="navbar navbar-default">
-				<div class="navbar-header navbar-left">
+			<!--<nav class="navbar navbar-default">-->
+				<!--<div class="navbar-header navbar-left">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
-					</button>
+					</button>-->
 					<div class="w3_navigation_pos">
 						<h1><a href="{% static "index.html" %}"><span>T</span>rip <span>L</span>ow <span>C</span>ost</a></h1>
 					</div>
-				</div>
+				<!--</div>-->
 				<!-- Collect the nav links, forms, and other content for toggling
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<nav class="cl-effect-4" id="cl-effect-4">
@@ -66,7 +64,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="banner-text">
 			<h2>WE ARE YOUR BEST CHOICE</h2>
 			<div class="book-form" id="register">
-			<p>Pick your destination</p>
+			<p style="font-weight:bold">Pick your destination</p>
 			   <form action="#" method="post">
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
@@ -94,7 +92,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class="col-md-3 form-date-w3-agileits">
 						        <label>Departure Date</label>
-									<input  id="datepickerr" name="date" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+									<input  id="datepicker1" name="date" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 								</div>
 					<div class="col-md-3 form-left-agileits-submit">
 						  <input type="submit" value="search">
@@ -150,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	      <div class="panel-body"><i class="fa fa-bus fa-2x" aria-hidden="true"></i> <i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus omnibus + Buquebus Antlantic 3</div>
 				<div class="panel-body">U$S 70</div>
 	    </div>
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 	      <div class="panel-heading">Montevideo - Buenos Aires</div>
 	      <div class="panel-body"><i class="fa fa-ship fa-2x" aria-hidden="true"></i> SeaCat</div>
 				<div class="panel-body">U$S 145</div>
@@ -160,7 +158,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	      <div class="panel-body"><i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus</div>
 				<div class="panel-body">U$S 155</div>
 	    </div>
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 	      <div class="panel-heading">Montevideo - Buenos Aires</div>
 	      <div class="panel-body"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> Alas Uruguay</div>
 				<div class="panel-body">U$S 198</div>
