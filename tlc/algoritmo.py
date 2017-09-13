@@ -61,17 +61,17 @@ def find_max(list_precios_travels):
 #recurcion
 def recursion(origin_country,origin_city,destination_country,destination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost):
     #if max_escalas <= 9 :
-
-
+    #antes se accedia a origin_country directo, ahora es Travel.origin_city.country.id
     max_escalas +=1
     string_destino = destination_country +'-' + str(destination_city)
-    list_aux = Travel.objects.filter(origin_country=origin_country, origin_city = origin_city,departure__gte=  datetime_object,departure__lte=  datetime_object_max).order_by('price','-departure')
+    list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte=  datetime_object,departure__lte=  datetime_object_max).order_by('price','-departure')
     lista_a_recorrer = []
     lista_precios = []
     #aux_time = datetime.time()
     aux_departure = None
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
-        aux_string = t.destination_country + '-' +  str(t.destination_city)
+        #print t.destination_city.country.name
+        aux_string = t.destination_city.country.id + '-' +  str(t.destination_city.id)
 
         aux_time = t.duration
         aux_departure = t.departure
@@ -121,9 +121,9 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
 def do_search(origin_city,destination_city,date):
 
     #CON LAS 3 lineas COMENTADAS ABAJO TE TIRA DATOS Y ES BUENA PARA HACER EL FRONT-END
-    vOrigin_country = 'URU'
+    vOrigin_country = City.objects.filter(id = origin_city)[0].country.id
     #vOrigin_city = 11
-    vDestination_country = 'ARG'
+    vDestination_country = City.objects.filter(id = destination_city)[0].country.id
     #vDestination_city = 20
     #date = '08/24/2017'
     aux_time = datetime.strptime(date+' 01:00AM', '%m/%d/%Y %I:%M%p')

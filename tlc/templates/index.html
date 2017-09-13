@@ -130,11 +130,12 @@
               <li class="list-group-item">
 								 {% for link in travel %}
 								 <div>
-									 Origen: {{link.origin_country}} - {{link.origin_city}} |
-									 Destino: {{link.destination_country}} - {{link.destination_city}} |
+									 Origen: {{link.origin_city.country.id}} - {{link.origin_city.name}} |
+									 Destino: {{link.destination_city.country.id}} - {{link.destination_city.name}} |
 									 Fecha de partida: {{link.departure}} |
 									 Precio : {{link.price}} |
-									 Tipo:  {{link.traveltype}}
+									 Tipo:  {{link.traveltype.travelname}} |
+									 Info: {{link.description}}
 							 	</div>
 								{% endfor %}
 							</li>

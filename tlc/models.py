@@ -84,11 +84,6 @@ class City(models.Model):
     class Meta:
         managed = False
         db_table = 'city'
-        unique_together = (('id', 'country'),)
-
-    def __str__(self):
-        return str(self.id) + '-' +str(self.country) + '-' + self.name + '\n'
-
 
 
 class Country(models.Model):
@@ -98,10 +93,6 @@ class Country(models.Model):
     class Meta:
         managed = False
         db_table = 'country'
-
-    def __str__(self):
-        return str(self.id) + '-' + self.name + '\n'
-
 
 
 class DjangoAdminLog(models.Model):
@@ -151,10 +142,8 @@ class DjangoSession(models.Model):
 class Travel(models.Model):
     idtravel = models.IntegerField(primary_key=True)
     departure = models.DateTimeField()
-    origin_country = models.TextField()
-    origin_city = models.IntegerField()
-    destination_country = models.TextField()
-    destination_city = models.IntegerField()
+    origin_city = models.ForeignKey(City, models.DO_NOTHING, db_column='origin_city',related_name='origin')
+    destination_city = models.ForeignKey(City, models.DO_NOTHING, db_column='destination_city',)
     price = models.IntegerField()
     duration = models.TimeField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
@@ -172,5 +161,3 @@ class Traveltype(models.Model):
     class Meta:
         managed = False
         db_table = 'traveltype'
-    def __str__(self):
-        return str(self.traveltype) + '-' + self.travelname + '\n'
