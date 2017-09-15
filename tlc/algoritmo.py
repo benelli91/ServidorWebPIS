@@ -78,7 +78,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
         #print t.destination_city.country.name
         if t.departure >= fecha_actual:
-            print(t.departure , fecha_actual , fecha_maxima)
+            #print(t.departure , fecha_actual , fecha_maxima)
             aux_string = t.destination_city.country.id + '-' +  str(t.destination_city.id)
 
             aux_time = t.duration
