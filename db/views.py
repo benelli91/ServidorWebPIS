@@ -26,8 +26,6 @@ def ordenarVectores(list_travels,list_precios_travels,cant_travels):
                 indice_minimo = j
             j += 1
         if minimo < precio_actual:
-            print(precio_actual)
-            print(minimo)
             aux_precio = list_precio_int[i]
             aux_elemento = elemento_actual
             list_precio_int[i] = list_precio_int[indice_minimo]
@@ -142,7 +140,6 @@ def index(request):
         """
 
         body = request.body.split('&')
-        print(body)
         try:
             aux,vOrigin_country = body[0].split('=')
             aux,vOrigin_city = body[1].split('=')
@@ -182,9 +179,7 @@ def index(request):
 
         if msg_err == "":
             recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,datetime_object,datetime_object_max,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost)
-            print(list_precios_travels)
             list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
-            print(list_precios_travels)
         context = {
         'latest_question_list': list_travels,
         'list_paises' : list_paises,
