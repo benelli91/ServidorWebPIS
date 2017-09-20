@@ -33,3 +33,6 @@ coverage.xml
 
 # Translations
 *.mo
+
+# Settings
+servidorwebpis/settings.py
