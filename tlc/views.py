@@ -7,6 +7,8 @@ from .forms import NameForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from algoritmo import do_search
+from cargaGoogleBatch import cargaGoogleB
+
 # Create your views here.
 
 #def index(request):
@@ -25,13 +27,16 @@ def index(request):
             #redirect('tlc.views.index')
         data = request.POST
         resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
-        """print 'resultado:'
-        print resultado
-        print 'Travels:'
-        print resultado.get('list_travels')[0][0].origin_city.country.id
-        """
     # if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
 
     return render(request, 'index.html',  resultado)
+
+def cargaGoogle(request):
+    resultado = {}
+    #if request.method == 'POST':
+    #    resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
+    cargaGoogleB()
+
+    return render(request, 'scraping.html',  resultado)
