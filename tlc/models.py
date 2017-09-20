@@ -148,7 +148,7 @@ class Travel(models.Model):
     origin_city = models.ForeignKey(City, models.DO_NOTHING, related_name='origin_city', db_column='origin_city')
     destination_city = models.ForeignKey(City, models.DO_NOTHING, related_name='destination_city', db_column='destination_city')
     price = models.IntegerField()
-    duration = models.TextField()  # This field type is a guess.
+    duration = models.IntegerField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
     travel_agency = models.IntegerField(blank=True, null=True)
     description = models.TextField()
