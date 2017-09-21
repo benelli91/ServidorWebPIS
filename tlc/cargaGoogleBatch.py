@@ -37,7 +37,7 @@ def cargaGoogleB():
     Travel.objects.filter(traveltype = 1).delete()
     #Para cargar un solo dia hay que modificar la variable dia para la fecha que quieran, y en el range poner 0,1
     dia = 1
-    for d in range(0,1): 
+    for d in range(0,1):
         dia += d
         charDia = str(dia)
         if dia < 10:
@@ -92,18 +92,18 @@ def cargaGoogleB():
                         datetime_object = datetime.strptime(meses.get(auxDeparture[5]) + ' ' + auxDeparture[3] + ' ' + auxDeparture[7] + ' ' + auxDeparture[0], '%m %d %Y %H:%M')
                         #print (auxDeparture[0],auxDeparture[3],auxDeparture[5],auxDeparture[7])
                         #print(datetime_object)
-                        #"""
-                        #hora  = str(duracion[ix].contents[0]).split('h ')[0]
-                        #minuto = str(duracion[ix].contents[0]).split('h ',1)[1].split('m')[0]
-                        #valDuracion = hora + ' ' + minuto
+
+                        hora  = str(duracion[ix].contents[0]).split('h ')[0]
+                        minuto = str(duracion[ix].contents[0]).split('h ',1)[1].split('m')[0]
+                        valDuracion = int(hora) * 60 + + int(minuto)
                         #valDuracion = datetime.strptime('9 1 2017  '+hora+':'+minuto+':00', '%m %d %Y %I:%M:%S')
                         #valDuracion = datetime,timedelta(minutes = int(minuto),hours = int(hora))
                         #print(valDuracion)
-                        #"""
 
-                        newTravel = Travel.objects.create(duration = t,traveltype = avion,origin_city = codCiudades[i],destination_city=codCiudades[j],price = valPrecio,description = valInfo,departure = datetime_object)
+
+                        newTravel = Travel.objects.create(duration = valDuracion,traveltype = avion,origin_city = codCiudades[i],destination_city=codCiudades[j],price = valPrecio,description = valInfo,departure = datetime_object)
 
 
 
     HTMLfile.close()
-    print('fin')
+    #print('fin')

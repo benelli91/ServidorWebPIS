@@ -36,3 +36,6 @@ coverage.xml
 
 # Settings
 servidorwebpis/settings.py
+
+# Log Scraping
+ghostdriver.log

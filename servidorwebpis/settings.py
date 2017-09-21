@@ -25,7 +25,7 @@ SECRET_KEY = 'onzykc7d!+1p)$a0-efrn!x5aqo+!#^+$d#i=*!m5u=1%bk%yx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['091576dd.ngrok.io', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'servidorwebpis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pis1',
-        'USER': 'pis',
-        'PASSWORD': 'pis2017...',
+        'NAME': 'myproject',
+        'USER': 'juan',
+        'PASSWORD': '13158141',
         'HOST': 'localhost',
         'PORT': '',
     }

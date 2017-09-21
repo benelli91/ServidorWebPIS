@@ -80,11 +80,13 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
         if t.departure >= fecha_actual:
             #print(t.departure , fecha_actual , fecha_maxima)
             aux_string = t.destination_city.country.id + '-' +  str(t.destination_city.id)
-
-            aux_time = t.duration
+            aux_duration = t.duration
+            minutos  = aux_duration % 60
+            horas = (aux_duration - minutos) / 60
+            print( horas,minutos , aux_duration)
             aux_departure = t.departure
 
-            fecha_actual_aux= aux_departure + timedelta(hours=aux_time.hour, minutes = aux_time.minute, seconds = aux_time.second)
+            fecha_actual_aux= aux_departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
             if t not in lista_recorridos:
                 #para cada par paisDestino-ciudadDestino que tengo a partir del nodo que estoy parado me fijo si tengo algun camino para llegar al destino final
                 index = 0
