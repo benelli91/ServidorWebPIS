@@ -6,13 +6,11 @@ from .forms import NameForm
 from .forms import NameForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from algoritmo import do_search
+from cooler import estimate_path
+from db_direct import getUniGraph
 # Create your views here.
 
-#def index(request):
-#    return render(request,'index.html')
-
-
+ady,costs = getUniGraph()
 
 def index(request):
     # if this is a POST request we need to process the form data
@@ -24,7 +22,7 @@ def index(request):
         #if form.is_valid(): //FALTA CHEQUEAR QUE SEA VALIDO EL FORM
             #redirect('tlc.views.index')
         data = request.POST
-        resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
+        resultado = retriev_graph()
         print 'resultado:'
         print resultado
         print 'Travels:'

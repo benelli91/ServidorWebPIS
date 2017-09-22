@@ -76,6 +76,17 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class AverageCosts(models.Model):
+    city1 = models.ForeignKey('City', models.DO_NOTHING, db_column='city1', primary_key=True,related_name='city1')
+    city2 = models.ForeignKey('City', models.DO_NOTHING, db_column='city2')
+    cost = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'average_costs'
+        unique_together = (('city1', 'city2'),)
+
+
 class City(models.Model):
     id = models.IntegerField(primary_key=True)
     country = models.ForeignKey('Country', models.DO_NOTHING, db_column='country')
@@ -142,8 +153,8 @@ class DjangoSession(models.Model):
 class Travel(models.Model):
     idtravel = models.IntegerField(primary_key=True)
     departure = models.DateTimeField()
-    origin_city = models.ForeignKey(City, models.DO_NOTHING, db_column='origin_city',related_name='origin')
-    destination_city = models.ForeignKey(City, models.DO_NOTHING, db_column='destination_city',)
+    origin_city = models.ForeignKey(City, models.DO_NOTHING, db_column='origin_city',related_name='origin_city')
+    destination_city = models.ForeignKey(City, models.DO_NOTHING, db_column='destination_city')
     price = models.IntegerField()
     duration = models.TimeField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
