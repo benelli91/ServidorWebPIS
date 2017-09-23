@@ -23,7 +23,7 @@ def cargaGoogleB():
     NYK = City.objects.get(id = 36)
     codCiudades = [MVD,BUE,MIA,NYK]
     avion = Traveltype.objects.get(traveltype = 1)
-    aeropuertos = {'MVD' : ['MVD'] , 'BUE':['AEP','EZE'], 'MIA' : ['MIA'] , 'NYK' : ['JFK','EWR','LGA']  }
+    aeropuertos = {'MVD' : ['MVD'] , 'BUE':['AEP','EZE'], 'MIA' : ['MIA'] , 'NYC' : ['JFK','EWR','LGA']  }
     meses = {'enero' : '1' , 'febrero': '2', 'marzo' : '3' , 'abril' : '4', 'mayo' : '5', 'junio' : '6' , 'julio' : '7' ,\
                 'agosto' : '8' , 'septiembre' : '9' ,  'octubre' : '10', 'noviembre' : '11', 'diciembre' : '12'   }
 
@@ -67,11 +67,11 @@ def cargaGoogleB():
 
                     # let's parse our html
                     soup = BeautifulSoup(phantom.page_source, "html.parser")
-                    precios = soup.find_all('div',{'class': 'EIGTDNC-d-Ab'})
-                    horarios = soup.find_all('div',{'class': 'EIGTDNC-d-Zb'})
-                    compania = soup.find_all('div',{'class': 'EIGTDNC-d-j'})
-                    duracion = soup.find_all('div',{'class': 'EIGTDNC-d-E'})
-                    info = soup.find_all('div',{'class': 'EIGTDNC-d-Qb'})
+                    precios = soup.find_all('div',{'class': 'DQX2Q1B-d-Ab'})
+                    horarios = soup.find_all('div',{'class': 'DQX2Q1B-d-Zb'})
+                    compania = soup.find_all('div',{'class': 'DQX2Q1B-d-j'})
+                    duracion = soup.find_all('div',{'class': 'DQX2Q1B-d-E'})
+                    info = soup.find_all('div',{'class': 'DQX2Q1B-d-Qb'})
 
                     # and print out the html for first game
                     HTMLfile.write('<div>' + url+ '</div>')
