@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from selenium import webdriver
@@ -61,7 +62,7 @@ def cargaGoogleB():
                         else :
                             destino = destino + ',' + aux[z]
 
-                    url = 'https://www.google.es/flights/#search;f=' + origen +';t=' + destino+';d=2017-10-'+charDia+';r=2017-10-'+charDia+';tt=o;eo=e'
+                    url = 'https://www.google.es/flights/?curr=USD#search;f=' + origen +';t=' + destino+';d=2017-10-'+charDia+';r=2017-10-'+charDia+';tt=o;eo=e'
                     phantom.get(url)
                     time.sleep(2)
 
@@ -83,10 +84,9 @@ def cargaGoogleB():
                         HTMLfile.write('info ' + str(info[ix]))
                         HTMLfile.write('<div> </div>')
 
-                        valPrecio = int(''.join(str(precios[ix].contents[0])[3:].split(',')))
+                        valPrecio = int(''.join(str(precios[ix].contents[0]).encode('utf-8')[3:].split(',')))
                         valDuracion = str(duracion[ix].contents[0])
-                        valInfo = str(info[ix].contents[0]) + '- duracion : ' + str(duracion[ix].contents[0])
-
+                        valInfo = str(info[ix].contents[0]).encode('utf-8') #+ '; empresa ' + ''.join(str(compania[ix])).split('span')[1]
 
                         auxDeparture = ''.join(str(horarios[ix])).split('span')[1].split('"')[1].split(' ')
                         datetime_object = datetime.strptime(meses.get(auxDeparture[5]) + ' ' + auxDeparture[3] + ' ' + auxDeparture[7] + ' ' + auxDeparture[0], '%m %d %Y %H:%M')
