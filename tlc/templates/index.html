@@ -39,7 +39,7 @@
 						<span class="icon-bar"></span>
 					</button>-->
 					<div class="w3_navigation_pos">
-						<h1><a href="{% static "index.html" %}"><span>T</span>rip <span>L</span>ow <span>C</span>ost</a></h1>
+						<h1><a href="{% static "index.html" %}"><span>L</span>ow <span>C</span>ost <span>T</span>rip</a></h1>
 					</div>
 				<!--</div>-->
 				<!-- Collect the nav links, forms, and other content for toggling
@@ -63,7 +63,7 @@
 	<!-- banner-text -->
 		<div class="banner-text">
 			<h2>WE ARE YOUR BEST CHOICE</h2>
-			<div class="book-form" id="register">
+			<div style="background: rgba(0,0,0, 0.5); padding-bottom:5%" class="book-form" id="register">
 			<p style="font-weight:bold">Pick your destination</p>
 			   <form action="#" method="post">
 					{% csrf_token %}
@@ -119,16 +119,17 @@
 </div>
 </div>
 <!-- //prueba -->
+{% if list_travels %}
 <div class="contact" id="contact">
 	<div class="container">
+
 		<h3 class="title-agileits-w3layouts">Your best options</h3>
-		EMPIEZA LISTA DE DATOS
-		{% if list_travels %}
 		<ul class="list-group">
 						 {% for travel in list_travels %}
-						 VIAJE
-              <li class="list-group-item">
-								 {% for link in travel %}
+              <!--<li class="list-group-item">-->
+							<li>
+								{% for link in travel %}
+								<!--
 								 <div>
 									 Origen: {{link.origin_city.country.id}} - {{link.origin_city.name}} |
 									 Destino: {{link.destination_city.country.id}} - {{link.destination_city.name}} |
@@ -136,14 +137,18 @@
 									 Precio : {{link.price}} |
 									 Tipo:  {{link.traveltype.travelname}} |
 									 Info: {{link.description}}
+							 	</div>-->
+								<div class="panel panel-primary">
+								 <div class="panel-heading">{{link.origin_city.country.id}} - {{link.origin_city.name}} - {{link.destination_city.country.id}} - {{link.destination_city.name}}</div>
+								 <div class="panel-body">{{link.traveltype.travelname}} - {{link.description}}</div>
+								 <div class="panel-body">{{link.price}}</div>
 							 	</div>
 								{% endfor %}
 							</li>
 							{% endfor %}
-		{% endif %}
-		TERMINA LISTA DE DATOS
+
 		</ul>
-	  <div class="panel-group">
+	 <!-- <div class="panel-group">
 			<div class="panel panel-primary">
 	      <div class="panel-heading">Montevideo - Colonia - Buenos Aires</div>
 	      <div class="panel-body"><i class="fa fa-bus fa-2x" aria-hidden="true"></i> <i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus omnibus + Buquebus Antlantic 3</div>
@@ -164,9 +169,10 @@
 	      <div class="panel-body"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> Alas Uruguay</div>
 				<div class="panel-body">U$S 198</div>
 	    </div>
-	  </div>
+	  </div>-->
 	</div>
 </div>
+{% endif %}
 <!-- //prueba -->
 <div class="map-w3-agile">
 	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9253.435046029665!2d-56.1693701401609!3d-34.91690447923392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf302eed9b9f6410a!2sFacultad+de+Ingenier%C3%ADa-UdelaR!5e0!3m2!1ses!2ses!4v1504366253820" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
