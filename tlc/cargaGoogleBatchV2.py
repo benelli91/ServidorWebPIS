@@ -9,6 +9,7 @@ import time
 import sys
 import os
 
+
 def obtenerValor(valAux):
     str1 = valAux.split('>')
     atributo = str1[0].split('<')[1]
@@ -16,8 +17,6 @@ def obtenerValor(valAux):
     return valor
 
 def cargaGoogleB():
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
     ciudades = ['MVD','BUE','MIA','NYK']
     MVD = City.objects.get(id = 11)
     BUE = City.objects.get(id = 20)
@@ -37,6 +36,7 @@ def cargaGoogleB():
     phantom = webdriver.PhantomJS()
 
     Travel.objects.filter(traveltype = 1).delete()
+    start = datetime.now()
     #Para cargar un solo dia hay que modificar la variable dia para la fecha que quieran, y en el range poner 0,1
     dia = 1
     for d in range(0,1):
@@ -85,14 +85,12 @@ def cargaGoogleB():
                         HTMLfile.write('info ' + str(info[ix]))
                         HTMLfile.write('<div> </div>')
 
-                        auxPrecie = ''.join(str(precios[ix].contents[0])[:-3].split(','))
-                        auxPrecie = str.replace(auxPrecie,".","")
-                        valPrecio = int(auxPrecie)
+                        valPrecio = int(''.join(str(precios[ix].contents[0])[3:].split(',')))
                         valDuracion = str(duracion[ix].contents[0])
-                        valInfo = str(info[ix].contents[0]).encode('utf-8') #+ '; empresa ' + ''.join(str(compania[ix])).split('span')[1]
+                        valInfo = str(info[ix].contents[0])#+ '; empresa ' + ''.join(str(compania[ix])).split('span')[1]
 
                         auxDeparture = ''.join(str(horarios[ix])).split('span')[1].split('"')[1].split(' ')
-                        datetime_object = datetime.strptime(meses.get(auxDeparture[7]) + ' ' + auxDeparture[5] + ' ' + auxDeparture[9] + ' ' + auxDeparture[2], '%m %d %Y %H:%M')
+                        datetime_object = datetime.strptime(meses.get(auxDeparture[5]) + ' ' + auxDeparture[3] + ' ' + auxDeparture[7] + ' ' + auxDeparture[0], '%m %d %Y %H:%M')
                         #print (auxDeparture[0],auxDeparture[3],auxDeparture[5],auxDeparture[7])
                         #print(datetime_object)
 
@@ -109,4 +107,6 @@ def cargaGoogleB():
 
 
     HTMLfile.close()
-    #print('fin')
+    fin = datetime.now()
+    #print(start)
+    #print(fin)

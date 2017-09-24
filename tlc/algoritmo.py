@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from datetime import datetime,timedelta
 from .models import *
 import sys
-import ipdb
+#import ipdb
 
 def ordenarVectores(list_travels,list_precios_travels,cant_travels):
     i = 0
@@ -89,7 +89,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
             aux_duration = t.duration
             minutos  = aux_duration % 60
             horas = (aux_duration - minutos) / 60
-            print( horas,minutos , aux_duration)
+            #print( horas,minutos , aux_duration)
             aux_departure = t.departure
 
             fecha_actual_aux= aux_departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
