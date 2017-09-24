@@ -1,0 +1,46 @@
+{"webpage":{
+	"name": "Google Flights",
+	"uri_start": "www.google.es/flights/?curr=USD#search;tt=o",
+	"uri_end": "",
+	"travel_type": 1,
+	"sleep_time": 2,
+	"date_span": 0,
+	"frecuency_format":"",
+	"javascript": false,
+	"header_parameters":{
+		"separator": ";",
+		"parameters":[
+			{"data": "origin_alias", "parameter": "f="},
+			{"data": "destination_alias", "parameter": "t="},
+			{"data": "departure", "parameter": "d="}]
+		},
+	"inputs":{},
+	"extraction_tags":{
+			"departure":{
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"}, {"tag_type": "span", "field_type":"", "position": 0}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"price":{
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Ab"}],
+				"format":"(\\d*) $",
+				"formula":""
+			},
+			"duration": {
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-E"}],
+				"format":"(\\d\\d) h (\\d\\d) min",
+				"formula":""
+			},
+			"travel_agency": {
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-j"}],
+				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
+				"formula":""
+			},
+			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			}
+		}
+	}
+}

@@ -1,0 +1,48 @@
+{"webpage":{
+	"name": "Buquebus",
+	"uri_start": "https://www.buquebus.com.uy/BQBWebV2/web/Compra/",
+	"uri_end": "_NNN_NNN_00-00-0000_I_1_0_0_SB",
+	"travel_type": 2,
+	"sleep_time": 2,
+	"date_span":0,
+	"frecuency_format":"",
+	"javascript": false,
+	"header_parameters":{
+		"separator": "_",
+		"parameters":[
+			{"data": "actual_date", "parameter": ""},
+			{"data": "origin_country_alias", "parameter": ""},
+			{"data": "origin_alias", "parameter": ""},
+			{"data": "destination_alias", "parameter": ""},
+			{"data": "departure", "parameter": ""}]
+		},
+	"inputs":{},
+	"extraction_tags":{
+			"departure":{
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}, {"tag_type": "div", "field_type":"class", "name": "cont_datos"}, {"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 0}, {"tag_type": "span", "field_type": "class", "name": "bold"}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"price":{
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}, {"tag_type": "div", "field_type":"class", "name": "cont_opciones"}, {"tag_type": "div", "field_type": "class", "name": "con-dis td_n radio_serv", "position": 0}, {"tag_type": "span", "field_type": "class", "name": "impor_tabla"}],
+				"format":"(\\d)?.(\\d*)",
+				"formula":""
+			},
+			"arrival": {
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}, {"tag_type": "div", "field_type":"class", "name": "cont_datos"}, {"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 1}, {"tag_type": "span", "field_type": "class", "name": "bold"}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"travel_agency": {
+				"fields":[],
+				"format":"Buquebus",
+				"formula":""
+			},
+			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			}
+		}
+	}
+}

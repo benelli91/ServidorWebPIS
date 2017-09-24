@@ -1,0 +1,44 @@
+{"webpage":{
+	"name": "Tres Cruces",
+	"uri_start": "http://www.trescruces.com.uy/",
+	"uri_end": "",
+	"travel_type": 3,
+	"sleep_time": 2,
+	"date_span": 0,
+	"frecuency_format":"L-MA-MI-J-V-S-D-DIARIO",
+	"javascript": true,
+	"header_parameters":{},
+	"inputs": {
+		"wait":2,
+		"buttons":[
+			{"field_type":"select", "id":"searcher_origin", "data":"origin_city"},
+			{"field_type":"select", "id":"searcher_destination", "data":"destination_city"}]},
+	"extraction_tags":{
+			"departure":{
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"price":{
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
+				"format":"(\\d*)",
+				"formula":"(\\1  * 2.015 + 13)/28"
+			},
+			"duration": {
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"travel_agency": {
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "DQX2Q1B-d-j"}],
+				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
+				"formula":""
+			},
+			"frequency": {
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
+				"format":"(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?.",
+				"formula":""
+			}
+		}
+	}
+}

@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from algoritmo import do_search
 from cargaGoogleBatch import cargaGoogleB
+from cargaGenericaBatch import genericLoader
 
 # Create your views here.
 
@@ -40,3 +41,8 @@ def cargaGoogle(request):
     cargaGoogleB()
 
     return render(request, 'scraping.html',  resultado)
+
+def cargaGenerica(request):
+    genericLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
