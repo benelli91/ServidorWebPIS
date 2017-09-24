@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from datetime import datetime,timedelta
 from .models import *
 import sys
+import ipdb
 
 def ordenarVectores(list_travels,list_precios_travels,cant_travels):
     i = 0
@@ -57,6 +58,12 @@ def find_max(list_precios_travels):
         index += 1
     return (new_max,to_remove,index_to_remove)
 
+def have_i_passed(t,recorrido):
+    passed = False
+    for i in range (0,len(recorrido)):
+        if t.destination_city.id == recorrido[i].origin_city.id:
+            return True
+
 
 #recurcion
 def recursion(origin_country,origin_city,destination_country,destination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_Analizadas):
@@ -64,7 +71,6 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     #antes se accedia a origin_country directo, ahora es Travel.origin_city.country.id
     max_escalas +=1
     string_destino = destination_country +'-' + str(destination_city)
-
     if ciudades_Analizadas.has_key(origin_city):
         list_aux = ciudades_Analizadas.get(origin_city)
     else:
@@ -87,7 +93,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
             aux_departure = t.departure
 
             fecha_actual_aux= aux_departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
-            if t not in lista_recorridos:
+            if t not in lista_recorridos and not have_i_passed(t,lista_recorridos):
                 #para cada par paisDestino-ciudadDestino que tengo a partir del nodo que estoy parado me fijo si tengo algun camino para llegar al destino final
                 index = 0
                 #for l in lista_a_recorrer:
