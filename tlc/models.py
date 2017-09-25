@@ -150,6 +150,7 @@ class Travel(models.Model):
     price = models.IntegerField()
     duration = models.IntegerField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
+    webpage = models.TextField()
     travel_agency = models.IntegerField(blank=True, null=True)
     description = models.TextField()
     idtravel = models.BigAutoField(primary_key=True)
@@ -176,4 +177,4 @@ class Traveltype(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'traveltype'
+db_table = 'traveltype'

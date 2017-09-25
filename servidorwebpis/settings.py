@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'servidorwebpis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'juan',
-        'PASSWORD': '13158141',
+        'NAME': 'santiago',
+        'USER': 'santiago',
+        'PASSWORD': 'grupo8',
         'HOST': 'localhost',
         'PORT': '',
     }

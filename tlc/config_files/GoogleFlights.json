@@ -9,6 +9,7 @@
 	"javascript": false,
 	"header_parameters":{
 		"separator": ";",
+		"date_format": "%Y-%m-%d",
 		"parameters":[
 			{"data": "origin_alias", "parameter": "f="},
 			{"data": "destination_alias", "parameter": "t="},
