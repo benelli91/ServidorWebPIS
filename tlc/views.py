@@ -8,26 +8,23 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from cooler import estimate_path
 from db_direct import getUniGraph
+from util import load_all_costs_unigraph
 # Create your views here.
 
 ady,costs = getUniGraph()
+load_all_costs_unigraph()
 
 def index(request):
     # if this is a POST request we need to process the form data
     resultado = {}
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        #if form.is_valid(): //FALTA CHEQUEAR QUE SEA VALIDO EL FORM
-            #redirect('tlc.views.index')
-        data = request.POST
-        resultado = retriev_graph()
-        print 'resultado:'
-        print resultado
-        print 'Travels:'
-        print resultado.get('list_travels')[0][0].origin_city.country.id
-    # if a GET (or any other method) we'll create a blank form
+        #form = NameForm(request.POST)
+
+        #data = request.POST
+        #resultado = estimate_path(ady,costs,int(data.get("from")),int(data.get("to")))
+        #print 'resultado:'
+        #print resultado
+        1
     else:
         form = NameForm()
 

@@ -1,8 +1,10 @@
 import heapq
 from .models import *
 import sys
-from utils import draw_graph
-from utils import querys
+from util import draw_graph
+from util import populate
+from util import querys
+from util import load_all_costs_unigraph
 
 """
 LA IDEA ES, EN UNA PRIMER VERSION DEVOLVER UNA LISTA DE NODOS QUE SON EL MENOR CAMINO DE UNA CIUDAD A OTRA
@@ -60,7 +62,9 @@ def make_undirected(cost):
         ucost[(k[1],k[0])] = w
     return ucost
 
-def estimate_path(ady,cost):
+
+
+def estimate_path(adj,cost,source,destination):
     """
     toma un grafo dirigido y devuelve el camino de menor costo
     adj = { 1: [2,3,6],2: [1,3,4],3: [1,2,4,6], 4: [2,3,5,7], 5: [4,6,7], 6: [1,3,5,7],7: [4,5,6]}
@@ -76,7 +80,7 @@ def estimate_path(ady,cost):
 
     cost = make_undirected(cost)
 
-    s, t = 1, 2
+    s, t = source, destination
     predecessors, min_cost = dijkstra(adj, cost, s, t)
     c = t
     path = [c]
@@ -86,7 +90,12 @@ def estimate_path(ady,cost):
         c = predecessors[c]
 
     print 'shortest path:', path
+    return path
     #querys()
+
+
+#load_all_costs_unigraph()
 
 #retriev_graph()
 #draw_graph()
+#populate()

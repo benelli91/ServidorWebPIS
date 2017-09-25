@@ -77,7 +77,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class AverageCosts(models.Model):
-    city1 = models.ForeignKey('City', models.DO_NOTHING, db_column='city1', primary_key=True,related_name='city1')
+    city1 = models.ForeignKey('City', models.DO_NOTHING, db_column='city1', primary_key=True,related_name='cit1')
     city2 = models.ForeignKey('City', models.DO_NOTHING, db_column='city2')
     cost = models.IntegerField()
 
@@ -91,6 +91,10 @@ class City(models.Model):
     id = models.IntegerField(primary_key=True)
     country = models.ForeignKey('Country', models.DO_NOTHING, db_column='country')
     name = models.TextField()
+    alias_flight = models.CharField(max_length=3, blank=True, null=True)
+    airport = models.BooleanField()
+    port = models.BooleanField()
+    bus_station = models.BooleanField()
 
     class Meta:
         managed = False
@@ -151,18 +155,30 @@ class DjangoSession(models.Model):
 
 
 class Travel(models.Model):
-    idtravel = models.IntegerField(primary_key=True)
     departure = models.DateTimeField()
-    origin_city = models.ForeignKey(City, models.DO_NOTHING, db_column='origin_city',related_name='origin_city')
+    origin_city = models.ForeignKey(City, models.DO_NOTHING, db_column='origin_city',related_name='orig_city')
     destination_city = models.ForeignKey(City, models.DO_NOTHING, db_column='destination_city')
     price = models.IntegerField()
-    duration = models.TimeField()
+    duration = models.IntegerField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
+    travel_agency = models.IntegerField(blank=True, null=True)
     description = models.TextField()
+    idtravel = models.BigAutoField(primary_key=True)
 
     class Meta:
         managed = False
         db_table = 'travel'
+
+
+class Travelagency(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.TextField()
+    reference = models.TextField()
+    traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
+
+    class Meta:
+        managed = False
+        db_table = 'travelagency'
 
 
 class Traveltype(models.Model):

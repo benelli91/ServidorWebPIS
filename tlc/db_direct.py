@@ -8,10 +8,10 @@ eng = create_engine('postgresql://jalvez:pis2017...@localhost/pis_db')
 def getUniGraph():
     """
     devuelve dos parametros:
-    1)devuelve un grafo de adyacencia, ejecuta una sola query
+    1) un grafo de adyacencia, ejecuta una sola query
     el grafo es un diccionario {idCity1: [ady1, ady2, ..], idCity2: [ady3,...]}
 
-    2)devuelve un diccionario de costos
+    2) un diccionario de costos
     ejemplo: {(1, 2): 7, (4, 7): 20 .. }
     """
     with eng.connect() as con:
