@@ -7,6 +7,7 @@
 	"date_span": 0,
 	"frecuency_format":"L-MA-MI-J-V-S-D-DIARIO",
 	"javascript": true,
+	"simple_page": false,
 	"header_parameters":{},
 	"inputs": {
 		"wait":2,
@@ -37,6 +38,21 @@
 			"frequency": {
 				"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
 				"format":"(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?.",
+				"formula":""
+			},
+			"origin_city": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"destination_city": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"date": {
+				"fields":[],
+				"format":"",
 				"formula":""
 			}
 		}

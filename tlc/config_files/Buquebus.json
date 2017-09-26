@@ -7,6 +7,7 @@
 	"date_span":0,
 	"frecuency_format":"",
 	"javascript": false,
+	"simple_page": false,
 	"header_parameters":{
 		"separator": "_",
 		"date_format": "%d-%m-%Y",
@@ -40,6 +41,21 @@
 				"formula":""
 			},
 			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"origin_city": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"destination_city": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"date": {
 				"fields":[],
 				"format":"",
 				"formula":""

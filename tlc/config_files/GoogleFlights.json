@@ -1,12 +1,13 @@
 {"webpage":{
 	"name": "Google Flights",
-	"uri_start": "www.google.es/flights/?curr=USD#search;tt=o",
+	"uri_start": "www.google.es/flights/?curr=USD#search;tt=o;eo=e;",
 	"uri_end": "",
 	"travel_type": 1,
 	"sleep_time": 2,
 	"date_span": 0,
 	"frecuency_format":"",
 	"javascript": false,
+	"simple_page": false,
 	"header_parameters":{
 		"separator": ";",
 		"date_format": "%Y-%m-%d",
@@ -38,6 +39,21 @@
 				"formula":""
 			},
 			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"origin_city": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"destination_city": {
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"date": {
 				"fields":[],
 				"format":"",
 				"formula":""

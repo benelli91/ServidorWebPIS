@@ -78,7 +78,7 @@ class AuthUserUserPermissions(models.Model):
 
 class City(models.Model):
     id = models.IntegerField(primary_key=True)
-    country = models.ForeignKey('Country', models.DO_NOTHING, db_column='country')
+    country = models.CharField(primary_key=True, max_length=3)
     name = models.TextField()
     alias_flight = models.CharField(max_length=3, blank=True, null=True)
     airport = models.BooleanField()

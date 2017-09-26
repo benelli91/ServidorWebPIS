@@ -22,7 +22,7 @@ def genericLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    print webpage_name
+    phantom = webdriver.PhantomJS()
 
     cities = []
     if(conf_file["webpage"]["travel_type"] == 1):
@@ -44,19 +44,28 @@ def loadWebpage(conf_file):
     travels = []
     url = conf_file["webpage"]["uri_start"]
 
-    for origin_city in cities:
-        for destination_city in cities:
-            if(origin_city.id != destination_city.id):
-                if(conf_file["webpage"]["frecuency_format"] == ""):
-                    for departure in dates:
+    if(conf_file["webpage"]["simple_page"] == False):
+        for origin_city in cities:
+            for destination_city in cities:
+                if(origin_city.id != destination_city.id):
+                    if(conf_file["webpage"]["frecuency_format"] == ""):
+                        for departure in dates:
+                            if(conf_file["webpage"]["javascript"] == False):
+                                output_HTML = createURL(conf_file, origin_city, destination_city, departure)
+                            else:
+                                output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
+                            travels = travels + extractData(conf_file, output_HTML)
+                    else:
                         if(conf_file["webpage"]["javascript"] == False):
-                            url = createURL(conf_file, origin_city, destination_city, departure)
-                            print url
-                        travels = travels + extractData(conf_file, url)
-                else:
-                    if(conf_file["webpage"]["javascript"] == False):
-                        url = createURL(conf_file, origin_city, destination_city, datetime.today().date())
-                    travels = travels + extractData(conf_file, url)
+                            output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
+                        else:
+                            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
+                        travels = travels + extractData(conf_file, output_HTML)
+    else:
+        phantom.get(url)
+        time.sleep(conf_file["webpage"]["sleep_time"])
+        output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
+        travels = extractData(conf_file, output_HTML)
 
     """with transaction.atomic():
         Travel.objects.filter(webpage = webpage_name).delete()
@@ -70,28 +79,31 @@ def createURL(conf_file, origin_city, destination_city, departure):
     date_format = conf_file["webpage"]["header_parameters"]["date_format"]
     total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
     counter = 0
-    while counter < total_parameters:
-        parameter = conf_file["webpage"]["header_parameters"]["parameters"][counter]
-        url += parameter["parameter"]
-        data = str(parameter["data"])
-        #explosion = conf_file["webpage"]["header_parameters"]["parameters"][900]
+    origin_country = Country.objects.filter(id = origin_city.country)[0]
+    destination_country = Country.objects.filter(id = destination_city.country)[0]
+    for line in conf_file["webpage"]["header_parameters"]["parameters"]:
+        url += line["parameter"]
+        data = str(line["data"])
         #CASE for each posible value of the "data" attribute of the configuration file
-        if(data == u"origin_country"):
+        if(data == "origin_country"):
+            url += origin_country.name
+        elif(data == "destination_country"):
+            url += destination_country.name
+        elif(data == "origin_country_alias"):
             url += str(origin_city.country)
-        elif(data == u"destination_country"):
+        elif(data == "destination_country_alias"):
             url += str(destination_city.country)
-        elif(data == u"origin_city"):
+        elif(data == "origin_city"):
             url += str(origin_city.name)
-        elif(data == u"destination_city"):
-            print "llegue aca"
+        elif(data == "destination_city"):
             url += str(destination_city.name)
-        elif(data == u"alias_origin"):
+        elif(data == "origin_alias"):
             url += str(origin_city.alias_flight)
-        elif(data == u"alias_destination"):
+        elif(data == "destination_alias"):
             url += str(destination_city.alias_flight)
-        elif(data == u"departure"):
+        elif(data == "departure"):
             url += departure.strftime(date_format)
-        elif(data == u"actual_date"):
+        elif(data == "actual_date"):
             today = datetime.today().date()
             url += today.strftime(date_format)
 
@@ -100,11 +112,19 @@ def createURL(conf_file, origin_city, destination_city, departure):
         counter += 1
 
     url += conf_file["webpage"]["uri_end"]
+    phantom = webdriver.PhantomJS()
+    phantom.get(url)
+    time.sleep(conf_file["webpage"]["sleep_time"])
+    soup = BeautifulSoup(phantom.page_source, "html.parser")
+    return soup
 
-    return url
+def executeJavaScript(conf_file, origin_city, destination_city, departure):
+    #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
+    #ciudad de destino y fecha de partida
+    return ""
 
-def extractData(conf_file, url):
-    #TODO: extraer los datos de la url con el archivo de configuracion, transformarlos en instancias de
+
+def extractData(conf_file, html_file):
+    #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
     #Travel y devolverlos
-    #TODO: dividir en dos casos, extraer los datos con javascript y sin javascript
     return []
