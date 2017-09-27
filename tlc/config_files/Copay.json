@@ -1,0 +1,64 @@
+{"webpage":{
+	"name": "Copay",
+	"uri_start": "http://www.copay.coop/destinos.html",
+	"uri_end": "",
+	"travel_type": 3,
+	"sleep_time": 2,
+	"date_span": 0,
+	"frecuency_format":"Lun%Mar%Mie%Jue%Vie%Sab%Dom%Diario%a",
+	"page_type": 3,
+	"header_parameters":{},
+	"inputs":{},
+	"iterators":{
+			"travel_block":[{"tag_type": "div", "field_type": "class", "name": "content"}],
+			"origin_city": {
+				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
+					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],
+				"format":"(\\w*)",
+				"formula":""
+			},
+			"destination_city": {
+				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
+					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],
+				"format":"(\\w*)",
+				"formula":""
+			}
+	},
+	"extraction_tags":{
+			"departure":{
+				"fields":[
+					{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position": 0}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"price":{
+				"fields":[],
+				"format":"",
+				"formula":"(distance * 2.015 + 13)/28"
+			},
+			"duration": {
+				"fields":[
+					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":1 }],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"travel_agency": {
+				"fields":[],
+				"format":"Copay",
+				"formula":""
+			},
+			"frequency": {
+				"fields":[
+					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": ""}],
+				"format":"",
+				"formula":""
+			}
+		}
+	}
+}

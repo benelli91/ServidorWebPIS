@@ -6,8 +6,7 @@
 	"sleep_time": 2,
 	"date_span": 0,
 	"frecuency_format":"",
-	"javascript": false,
-	"simple_page": false,
+	"page_type":1,
 	"header_parameters":{
 		"separator": ";",
 		"date_format": "%Y-%m-%d",
@@ -17,9 +16,12 @@
 			{"data": "departure", "parameter": "d="}]
 		},
 	"inputs":{},
+	"iterators":{},
 	"extraction_tags":{
 			"departure":{
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"}, {"tag_type": "span", "field_type":"", "position": 0}],
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"}, 
+					{"tag_type": "span", "field_type":"", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
@@ -39,21 +41,6 @@
 				"formula":""
 			},
 			"frequency": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"origin_city": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"destination_city": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"date": {
 				"fields":[],
 				"format":"",
 				"formula":""

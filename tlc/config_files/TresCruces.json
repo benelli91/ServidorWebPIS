@@ -6,14 +6,14 @@
 	"sleep_time": 2,
 	"date_span": 0,
 	"frecuency_format":"L-MA-MI-J-V-S-D-DIARIO",
-	"javascript": true,
-	"simple_page": false,
+	"page_type":2,
 	"header_parameters":{},
 	"inputs": {
 		"wait":2,
 		"buttons":[
 			{"field_type":"select", "id":"searcher_origin", "data":"origin_city"},
 			{"field_type":"select", "id":"searcher_destination", "data":"destination_city"}]},
+	"iterators":{},
 	"extraction_tags":{
 			"departure":{
 				"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
@@ -31,27 +31,12 @@
 				"formula":""
 			},
 			"travel_agency": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "DQX2Q1B-d-j"}],
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "company"}],
 				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
 				"formula":""
 			},
 			"frequency": {
 				"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
-				"format":"(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?,?(\\w+)?.",
-				"formula":""
-			},
-			"origin_city": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"destination_city": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"date": {
-				"fields":[],
 				"format":"",
 				"formula":""
 			}

@@ -6,8 +6,7 @@
 	"sleep_time": 2,
 	"date_span":0,
 	"frecuency_format":"",
-	"javascript": false,
-	"simple_page": false,
+	"page_type":1,
 	"header_parameters":{
 		"separator": "_",
 		"date_format": "%d-%m-%Y",
@@ -19,19 +18,32 @@
 			{"data": "departure", "parameter": ""}]
 		},
 	"inputs":{},
+	"iterators":{},
 	"extraction_tags":{
 			"departure":{
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}, {"tag_type": "div", "field_type":"class", "name": "cont_datos"}, {"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 0}, {"tag_type": "span", "field_type": "class", "name": "bold"}],
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 0},
+					{"tag_type": "span", "field_type": "class", "name": "bold"}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
 			"price":{
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}, {"tag_type": "div", "field_type":"class", "name": "cont_opciones"}, {"tag_type": "div", "field_type": "class", "name": "con-dis td_n radio_serv", "position": 0}, {"tag_type": "span", "field_type": "class", "name": "impor_tabla"}],
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+			 		{"tag_type": "div", "field_type":"class", "name": "cont_opciones"},
+					{"tag_type": "div", "field_type": "class", "name": "con-dis td_n radio_serv", "position": 0},
+					{"tag_type": "span", "field_type": "class", "name": "impor_tabla"}],
 				"format":"(\\d)?.(\\d*)",
 				"formula":""
 			},
-			"arrival": {
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}, {"tag_type": "div", "field_type":"class", "name": "cont_datos"}, {"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 1}, {"tag_type": "span", "field_type": "class", "name": "bold"}],
+			"duration": {
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 1},
+					{"tag_type": "span", "field_type": "class", "name": "bold"}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
@@ -41,21 +53,6 @@
 				"formula":""
 			},
 			"frequency": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"origin_city": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"destination_city": {
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"date": {
 				"fields":[],
 				"format":"",
 				"formula":""
