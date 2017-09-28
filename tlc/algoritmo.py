@@ -83,7 +83,15 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     aux_departure = None
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
         #print t.destination_city.country.name
-        if t.departure >= fecha_actual:
+        if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
+            #print("igual")
+            date_condition= t.departure.date() == fecha_actual.date()
+        else:
+            #print("distinto")
+            date_condition= t.departure >= fecha_actual
+        #print(date_condition)
+
+        if date_condition:
             #print(t.departure , fecha_actual , fecha_maxima)
             aux_string = t.destination_city.country.id + '-' +  str(t.destination_city.id)
             aux_duration = t.duration
