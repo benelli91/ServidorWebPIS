@@ -9,10 +9,11 @@ import sys
 import os
 import json
 from django.db import transaction
-import unidecode
 import unicodedata
 
 DEFAULT_SPAN = 30
+TRIPLE_QUOTES = '\"\"\"'
+
 
 def genericLoader():
     config_directory = 'tlc/config_files/'
@@ -37,9 +38,9 @@ def loadWebpage(conf_file):
     span = conf_file["webpage"]["date_span"]
     if(span == 0):
         span = DEFAULT_SPAN
-    dates = [datetime.today().date()]
+    dates = [datetime.today().date()+ timedelta(days=1)]
     for i in range(1, span):
-        print dates[-1]
+        #print dates[-1]
         dates.append(dates[-1] + timedelta(days=1))
 
     travels = []
@@ -127,9 +128,12 @@ def createURL(conf_file, origin_city, destination_city, departure):
         counter += 1
 
     url += conf_file["webpage"]["uri_end"]
+    print url
     phantom = webdriver.PhantomJS()
     phantom.get(url)
-    time.sleep(conf_file["webpage"]["sleep_time"])
+    aux_sleep =conf_file["webpage"]["sleep_time"]
+    print aux_sleep
+    time.sleep(aux_sleep)
     soup = BeautifulSoup(phantom.page_source, "html.parser")
     return soup
 
@@ -211,46 +215,43 @@ def extractData(conf_file, html_file, origin_city, destination_city):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
     #Travel y devolverlos
 
-    if(conf_file["webpage"]["simple_page"] == False):
-        #departure extraction_tags
-        departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
-        departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
-        departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
-        #price extraction_tags
-        price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
-        price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
-        price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
-        #duration extraction_tags
-        duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
-        duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
-        duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
-        #travel_agency extraction_tags
-        travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
-        travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
-        travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
-        #frequency extraction_tags
-        frequency_agency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
-        frequency_agency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
-        frequency_agency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
+    #departure extraction_tags
+    departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
+    departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
+    departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+    #price extraction_tags
+    price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
+    price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
+    price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
+    #duration extraction_tags
+    duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
+    duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
+    duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
+    #travel_agency extraction_tags
+    travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
+    travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
+    travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
+    #frequency extraction_tags
+    frequency_agency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
+    frequency_agency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
+    frequency_agency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
 
-        departure_list = get_data_list(departure_fields,html_file)
-        price_list = get_data_list(price_fields,html_file)
-        duration_list = get_data_list(duration_fields,html_file)
-        travel_agency_list = get_data_list(travel_agency_fields,html_file)
-        frequency_agency_list = get_data_list(frequency_agency_fields,html_file)
-
-        for xx in range(len(departure_list)):
-            print departure_list[xx]
-            print price_list[xx].contents
-            #print duration_list[xx].contents
-            #print travel_agency_list[xx].contents
-            #print frequency_agency_list[xx]
-    else:
-        a = 1
+    departure_list = get_data_list(departure_fields,html_file)
+    price_list = get_data_list(price_fields,html_file)
+    duration_list = get_data_list(duration_fields,html_file)
+    travel_agency_list = get_data_list(travel_agency_fields,html_file)
+    frequency_agency_list = get_data_list(frequency_agency_fields,html_file)
+    print(departure_list)
+    for xx in range(len(departure_list)):
+        print departure_list[xx]
+        print price_list[xx].contents
+        #print duration_list[xx].contents
+        #print travel_agency_list[xx].contents
+        #print frequency_agency_list[xx]
     return []
 
 def get_data_list(fields_list,html_file):
-    #print html_file
+    print html_file
     result = None
     aux_html = html_file
     first = True
