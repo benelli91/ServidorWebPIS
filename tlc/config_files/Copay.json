@@ -4,7 +4,11 @@
 	"uri_end": "",
 	"travel_type": 3,
 	"sleep_time": 2,
-	"date_span": 0,
+	"date_span_start": 0,
+	"date_span_finish": 0,
+	"decimal_mark": ",",
+	"thousands_mark":".",
+	"": "",
 	"frecuency_format":"Lun%Mar%Mie%Jue%Vie%Sab%Dom%Diario%a",
 	"page_type": 3,
 	"header_parameters":{},
@@ -36,8 +40,8 @@
 			},
 			"price":{
 				"fields":[],
-				"format":"",
-				"formula":"(distance * 2.015 + 13)/28"
+				"format":"city_distance",
+				"formula":"(city_distance * 2.015 + 13)/28"
 			},
 			"duration": {
 				"fields":[
