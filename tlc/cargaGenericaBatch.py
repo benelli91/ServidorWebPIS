@@ -154,11 +154,13 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
                 if((tag["field_type"] == "") and ("position" not in tag)):
                     sub_blocks += block.find_all(tag["tag_type"])
                 elif((tag["field_type"] == "") and ("position" in tag)):
-                    sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                    if len(block.find_all(tag["tag_type"])) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
                 elif(tag["field_type"] != "") and ("position" not in tag):
                     sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
                 elif(tag["field_type"] != "") and ("position" in tag):
-                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+                    if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         HTML_blocks = sub_blocks[:]
 
     #We extract the origin city of each travel block
@@ -169,11 +171,13 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
                 if((tag["field_type"] == "") and ("position" not in tag)):
                     sub_blocks += block.find_all(tag["tag_type"])
                 elif((tag["field_type"] == "") and ("position" in tag)):
-                    sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                    if len(block.find_all(tag["tag_type"])) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
                 elif(tag["field_type"] != "") and ("position" not in tag):
                     sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
                 elif(tag["field_type"] != "") and ("position" in tag):
-                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+                    if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         aux_origin_cities = sub_blocks[:]
 
     for aux_origin_city in aux_origin_cities:
@@ -185,23 +189,23 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
     for tag in conf_file["webpage"]["iterators"]["destination_city"]["fields"]:
         sub_blocks = []
         for block in aux_destination_cities:
-            #if block != "\n":
+            if block != "\n":
                 if((tag["field_type"] == "") and ("position" not in tag)):
                     sub_blocks += block.find_all(tag["tag_type"])
                 elif((tag["field_type"] == "") and ("position" in tag)):
-                    sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                    if len(block.find_all(tag["tag_type"])) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
                 elif(tag["field_type"] != "") and ("position" not in tag):
                     sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
                 elif(tag["field_type"] != "") and ("position" in tag):
-                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+                    if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         aux_destination_cities = sub_blocks[:]
 
     for aux_destination_city in aux_destination_cities:
         if (aux_destination_city != "\n"):
             raw_text = aux_destination_city.getText()
             destination_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
-
-    print explosion[900]
 
 def extractData(conf_file, html_file, origin_city, destination_city):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
