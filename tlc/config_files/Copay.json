@@ -18,7 +18,8 @@
 				"formula":""
 			},
 			"destination_city": {
-				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "content"},
+					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
 					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],
 				"format":"(\\w*)",
 				"formula":""

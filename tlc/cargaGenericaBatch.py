@@ -10,6 +10,7 @@ import os
 import json
 from django.db import transaction
 import unidecode
+import unicodedata
 
 DEFAULT_SPAN = 30
 
@@ -141,61 +142,64 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
     phantom = webdriver.PhantomJS()
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
-    soup = BeautifulSoup(phantom.page_source, "html.parser")
-
-    HTML_blocks = [soup]
-    aux_origin_cities = [soup]
-    aux_destination_cities = [soup]
+    aux_origin_cities = [BeautifulSoup(phantom.page_source, "html.parser")]
+    aux_destination_cities = [BeautifulSoup(phantom.page_source, "html.parser")]
+    HTML_blocks = [BeautifulSoup(phantom.page_source, "html.parser")]
 
     #We extract the travel blocks
     for tag in conf_file["webpage"]["iterators"]["travel_block"]:
         sub_blocks = []
         for block in HTML_blocks:
-            if((tag["field_type"] == "") and ("position" not in tag)):
-                sub_blocks += block.find_all(tag["tag_type"])
-            elif((tag["field_type"] == "") and ("position" in tag)):
-                sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-            elif(tag["field_type"] != "") and ("position" not in tag):
-                sub_blocks += soup.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-            elif(tag["field_type"] != "") and ("position" in tag):
-                sub_blocks += soup.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+            if block != "\n":
+                if((tag["field_type"] == "") and ("position" not in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])
+                elif((tag["field_type"] == "") and ("position" in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                elif(tag["field_type"] != "") and ("position" not in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                elif(tag["field_type"] != "") and ("position" in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         HTML_blocks = sub_blocks[:]
 
     #We extract the origin city of each travel block
     for tag in conf_file["webpage"]["iterators"]["origin_city"]["fields"]:
         sub_blocks = []
         for block in aux_origin_cities:
-            if((tag["field_type"] == "") and ("position" not in tag)):
-                sub_blocks += block.find_all(tag["tag_type"])
-            elif((tag["field_type"] == "") and ("position" in tag)):
-                sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-            elif(tag["field_type"] != "") and ("position" not in tag):
-                sub_blocks += soup.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-            elif(tag["field_type"] != "") and ("position" in tag):
-                sub_blocks += soup.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+            if block != "\n":
+                if((tag["field_type"] == "") and ("position" not in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])
+                elif((tag["field_type"] == "") and ("position" in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                elif(tag["field_type"] != "") and ("position" not in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                elif(tag["field_type"] != "") and ("position" in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         aux_origin_cities = sub_blocks[:]
 
     for aux_origin_city in aux_origin_cities:
         if (aux_origin_city != "\n"):
-            origin_cities += [unidecode(aux_origin_city.getText())]
+            raw_text = aux_origin_city.getText()
+            origin_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
 
     #We extract the destination city of each travel block
     for tag in conf_file["webpage"]["iterators"]["destination_city"]["fields"]:
         sub_blocks = []
         for block in aux_destination_cities:
-            if((tag["field_type"] == "") and ("position" not in tag)):
-                sub_blocks += block.find_all(tag["tag_type"])
-            elif((tag["field_type"] == "") and ("position" in tag)):
-                sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-            elif(tag["field_type"] != "") and ("position" not in tag):
-                sub_blocks += soup.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-            elif(tag["field_type"] != "") and ("position" in tag):
-                sub_blocks += soup.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+            #if block != "\n":
+                if((tag["field_type"] == "") and ("position" not in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])
+                elif((tag["field_type"] == "") and ("position" in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                elif(tag["field_type"] != "") and ("position" not in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                elif(tag["field_type"] != "") and ("position" in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         aux_destination_cities = sub_blocks[:]
 
     for aux_destination_city in aux_destination_cities:
         if (aux_destination_city != "\n"):
-            destination_cities += [unidecode(aux_destination_city.getText())]
+            raw_text = aux_destination_city.getText()
+            destination_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
 
     print explosion[900]
 
