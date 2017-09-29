@@ -81,6 +81,8 @@ class City(models.Model):
     country = models.CharField(primary_key=True, max_length=3)
     name = models.TextField()
     alias_flight = models.CharField(max_length=3, blank=True, null=True)
+    alias_port = models.TextField()
+    alias_bus = models.TextField()
     airport = models.BooleanField()
     port = models.BooleanField()
     bus_station = models.BooleanField()

@@ -116,9 +116,19 @@ def createURL(conf_file, origin_city, destination_city, departure):
         elif(data == "destination_city"):
             url += str(destination_city.name)
         elif(data == "origin_alias"):
-            url += str(origin_city.alias_flight)
+            if(conf_file["webpage"]["travel_type"] == 1):
+                url += str(origin_city.alias_flight)
+            elif(conf_file["webpage"]["travel_type"] == 2):
+                url += str(origin_city.alias_port)
+            elif(conf_file["webpage"]["travel_type"] == 3):
+                url += str(origin_city.alias_bus)
         elif(data == "destination_alias"):
-            url += str(destination_city.alias_flight)
+            if(conf_file["webpage"]["travel_type"] == 1):
+                url += str(destination_city.alias_flight)
+            elif(conf_file["webpage"]["travel_type"] == 2):
+                url += str(destination_city.alias_port)
+            elif(conf_file["webpage"]["travel_type"] == 3):
+                url += str(destination_city.alias_bus)
         elif(data == "departure"):
             url += departure.strftime(date_format)
         elif(data == "actual_date"):
