@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from selenium import webdriver
+from selenium.webdriver.support.ui import Select
 from bs4 import BeautifulSoup
 from datetime import datetime,timedelta,tzinfo
 from .models import *
@@ -11,6 +12,7 @@ import json
 from django.db import transaction
 import unicodedata
 from citiesDistanceMatrix import DISTANCE_MATRIX
+from dataParameterOptions import dataParameterOptions
 import re
 
 DEFAULT_SPAN = 30
@@ -68,10 +70,13 @@ def loadWebpage(conf_file):
                     if(conf_file["webpage"]["frecuency_format"] == ""):
                         for departure in dates:
                             output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
-                            travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+                            #if output_HTML != "":
+                                #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
                     else:
                         output_HTML = output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
-                        travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+                        #if output_HTML != "":
+                            #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+                    print output_HTML
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
@@ -94,48 +99,13 @@ def loadWebpage(conf_file):
 def createURL(conf_file, origin_city, destination_city, departure):
     url = conf_file["webpage"]["uri_start"]
     separator = conf_file["webpage"]["header_parameters"]["separator"]
-    data = ""
-    date_format = conf_file["webpage"]["header_parameters"]["date_format"]
     total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
     counter = 0
     origin_country = Country.objects.filter(id = origin_city.country)[0]
     destination_country = Country.objects.filter(id = destination_city.country)[0]
     for line in conf_file["webpage"]["header_parameters"]["parameters"]:
         url += line["parameter"]
-        data = str(line["data"])
-        #CASE for each posible value of the "data" attribute of the configuration file
-        if(data == "origin_country"):
-            url += origin_country.name
-        elif(data == "destination_country"):
-            url += destination_country.name
-        elif(data == "origin_country_alias"):
-            url += str(origin_city.country)
-        elif(data == "destination_country_alias"):
-            url += str(destination_city.country)
-        elif(data == "origin_city"):
-            url += str(origin_city.name)
-        elif(data == "destination_city"):
-            url += str(destination_city.name)
-        elif(data == "origin_alias"):
-            if(conf_file["webpage"]["travel_type"] == 1):
-                url += str(origin_city.alias_flight)
-            elif(conf_file["webpage"]["travel_type"] == 2):
-                url += str(origin_city.alias_port)
-            elif(conf_file["webpage"]["travel_type"] == 3):
-                url += str(origin_city.alias_bus)
-        elif(data == "destination_alias"):
-            if(conf_file["webpage"]["travel_type"] == 1):
-                url += str(destination_city.alias_flight)
-            elif(conf_file["webpage"]["travel_type"] == 2):
-                url += str(destination_city.alias_port)
-            elif(conf_file["webpage"]["travel_type"] == 3):
-                url += str(destination_city.alias_bus)
-        elif(data == "departure"):
-            url += departure.strftime(date_format)
-        elif(data == "actual_date"):
-            today = datetime.today().date()
-            url += today.strftime(date_format)
-
+        url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
         if(counter < total_parameters - 1):
             url += separator
         counter += 1
@@ -153,7 +123,31 @@ def createURL(conf_file, origin_city, destination_city, departure):
 def executeJavaScript(conf_file, origin_city, destination_city, departure):
     #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
-    return ""
+    phantom = webdriver.PhantomJS()
+    phantom.get(conf_file["webpage"]["uri_start"])
+    time.sleep(conf_file["webpage"]["sleep_time"])
+    for line in conf_file["webpage"]["inputs"]["buttons"]:
+        data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+        if line["field_type"] == "select":
+            element = Select(phantom.find_element_by_id(line["id"]))
+            options = []
+            for option in element.options:
+                options += [option.text]
+            if data in options:
+                element.select_by_visible_text(data)
+            else:
+                return ""
+            print data
+        elif line["field_type"] == "input":
+            element = phantom.find_element_by_id(line["id"])
+            if data == "click":
+                element.click()
+            else:
+                element.send_keys(data)
+        print data
+        time.sleep(conf_file["webpage"]["inputs"]["wait"])
+    output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
+    return output_HTML
 
 def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
     phantom = webdriver.PhantomJS()

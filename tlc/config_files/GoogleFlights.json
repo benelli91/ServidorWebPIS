@@ -9,10 +9,10 @@
 	"decimal_mark": ",",
 	"thousands_mark":".",
 	"frecuency_format":"",
+	"date_format": "%Y-%m-%d",
 	"page_type":1,
 	"header_parameters":{
 		"separator": ";",
-		"date_format": "%Y-%m-%d",
 		"parameters":[
 			{"data": "origin_alias", "parameter": "f="},
 			{"data": "destination_alias", "parameter": "t="},

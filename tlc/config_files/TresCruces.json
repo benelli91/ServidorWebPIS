@@ -9,13 +9,14 @@
 	"decimal_mark": ",",
 	"thousands_mark":".",
 	"frecuency_format":"L-MA-MI-J-V-S-D-DIARIO",
+	"date_format": "",
 	"page_type":2,
 	"header_parameters":{},
 	"inputs": {
 		"wait":2,
 		"buttons":[
-			{"field_type":"select", "id":"searcher_origin", "data":"origin_city"},
-			{"field_type":"select", "id":"searcher_destination", "data":"destination_city"}]},
+			{"field_type":"select", "id":"searcher_origin", "data":"origin_city_upper"},
+			{"field_type":"select", "id":"searcher_destination", "data":"destination_city_upper"}]},
 	"iterators":{},
 	"extraction_tags":{
 			"departure":{
