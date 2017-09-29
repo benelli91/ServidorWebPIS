@@ -24,7 +24,7 @@ def genericLoader():
         with open(config_directory + conf_file) as data_file:
             data = json.load(data_file)
         loadWebpage(data)
-        
+
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     phantom = webdriver.PhantomJS()
@@ -254,10 +254,16 @@ def extractData(conf_file, html_file, origin_city, destination_city):
     duration_list = get_data_list(duration_fields,html_file)
     travel_agency_list = get_data_list(travel_agency_fields,html_file)
     frequency_agency_list = get_data_list(frequency_agency_fields,html_file)
-    print(departure_list)
-    for xx in range(len(departure_list)):
-        print departure_list[xx]
-        print price_list[xx].contents
+    #print(departure_list)
+    print departure_format,departure_formula
+    for i in departure_list :
+        print '----------------------------------'
+        print (str(i))
+        print str((processRawText(conf_file,str(i),departure_format,departure_formula,origin_city, destination_city)))
+
+    #for xx in range(len(departure_list)):
+    #    print departure_list[xx]
+    #    print price_list[xx].contents
         #print duration_list[xx].contents
         #print travel_agency_list[xx].contents
         #print frequency_agency_list[xx]
@@ -301,6 +307,8 @@ def get_data_list(fields_list,html_file):
         else:
             soup = BeautifulSoup(TRIPLE_QUOTES + str(aux_html) + TRIPLE_QUOTES,"html.parser")
             result =soup.find_all(find_tag,{find_field:find_name})
+
+
     return result
 
 def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, destination_city):
@@ -310,8 +318,8 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     decimal = unicodedata.normalize('NFKD', conf_file["webpage"]["decimal_mark"]).encode('ascii','ignore')
     thousands = unicodedata.normalize('NFKD', conf_file["webpage"]["thousands_mark"]).encode('ascii','ignore')
     raw_text_aux = raw_text
-    raw_text_aux = str.replace(raw_text_aux, decimal, ".")
     raw_text_aux = str.replace(raw_text_aux, thousands, "")
+    raw_text_aux = str.replace(raw_text_aux, decimal, ".")
     if(raw_format_aux == ""):   #if there's no format specified we return the given text without modifications
         output_text = [raw_text_aux]
     elif(raw_formula_aux == ""):

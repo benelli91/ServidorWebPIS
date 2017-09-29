@@ -27,7 +27,7 @@
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
-					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 0},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3", "position": 0},
 					{"tag_type": "span", "field_type": "class", "name": "bold"}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
