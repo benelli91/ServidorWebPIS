@@ -11,6 +11,7 @@ import json
 from django.db import transaction
 import unicodedata
 from citiesDistanceMatrix import DISTANCE_MATRIX
+import re
 
 DEFAULT_SPAN = 30
 TRIPLE_QUOTES = '\"\"\"'
@@ -23,7 +24,7 @@ def genericLoader():
         with open(config_directory + conf_file) as data_file:
             data = json.load(data_file)
         loadWebpage(data)
-
+        
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     phantom = webdriver.PhantomJS()
@@ -303,30 +304,33 @@ def get_data_list(fields_list,html_file):
     return result
 
 def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, destination_city):
-    output_text = [raw_text]
+    output_text = []
     raw_format_aux = str.replace(unicodedata.normalize('NFKD', raw_format).encode('ascii','ignore'), "\\\\", "\\")
     raw_formula_aux = unicodedata.normalize('NFKD', raw_formula).encode('ascii','ignore')
-    raw_text_aux = str.replace(output_text[0], conf_file["webpage"]["decimal_mark"], ".")
-    raw_text_aux = str.replace(output_text[0], conf_file["webpage"]["thousands_mark"], "")
+    decimal = unicodedata.normalize('NFKD', conf_file["webpage"]["decimal_mark"]).encode('ascii','ignore')
+    thousands = unicodedata.normalize('NFKD', conf_file["webpage"]["thousands_mark"]).encode('ascii','ignore')
+    raw_text_aux = raw_text
+    raw_text_aux = str.replace(raw_text_aux, decimal, ".")
+    raw_text_aux = str.replace(raw_text_aux, thousands, "")
     if(raw_format_aux == ""):   #if there's no format specified we return the given text without modifications
         output_text = [raw_text_aux]
     elif(raw_formula_aux == ""):
         compiled_format = re.compile(raw_format_aux)
-        if(compiled_format.search("(")):    #if there's a regular expression as format and no formula we parse it and return the result
-            output_text = re.match(raw_format_aux, raw_text_aux)
+        if(re.match("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
+            matches = re.match(raw_format_aux, raw_text_aux)
+            for i in range(1, len(matches.groups()) + 1):
+                output_text += [matches.group(i)]
         else:   #if there's a constant as format we return the constant
             output_text = [raw_format_aux]
     else:
         if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
-            output_text = [eval(final_formula)]
+            output_text = [str(round(eval(final_formula), 0))]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
-            results = re.match(raw_format_aux, raw_text_aux)
-            counter = 1
+            matches = re.match(raw_format_aux, raw_text_aux)
             final_formula = raw_formula_aux
-            for result in results:
-                final_formula = str.replace(final_formula, "$" + str(counter), result)
-                counter += 1
-            output_text = [eval(final_formula)]
+            for i in range(1, len(matches.groups()) + 1):
+                final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
+            output_text = [str(round(eval(final_formula), 2))]
 
     return output_text

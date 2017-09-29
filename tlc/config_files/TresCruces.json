@@ -26,7 +26,7 @@
 			"price":{
 				"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
 				"format":"(\\d+)",
-				"formula":"($1  * 2.015 + 13)/28"
+				"formula":"($1 * 2.015 + 13)/28"
 			},
 			"duration": {
 				"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
