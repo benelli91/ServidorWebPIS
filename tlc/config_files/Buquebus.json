@@ -4,16 +4,15 @@
 	"uri_end": "_NNN_NNN_00-00-0000_I_1_0_0_SB",
 	"travel_type": 2,
 	"sleep_time": 2,
-	"date_span_start": 0,
-	"date_span_finish": 0,
+	"date_span_start": 1,
+	"date_span_finish": 8,
 	"decimal_mark": ",",
 	"thousands_mark":".",
 	"frecuency_format":"",
-	"date_format": "%d-%m-%Y",
 	"page_type":1,
 	"header_parameters":{
 		"separator": "_",
-
+		"date_format": "%d-%m-%Y",
 		"parameters":[
 			{"data": "actual_date", "parameter": ""},
 			{"data": "origin_country_alias", "parameter": ""},
@@ -28,8 +27,8 @@
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
-					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3", "position": 0},
-					{"tag_type": "span", "field_type": "class", "name": "bold"}],
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3"},
+					{"tag_type": "span", "field_type": "class", "name": "bold","position":0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
@@ -37,8 +36,8 @@
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 			 		{"tag_type": "div", "field_type":"class", "name": "cont_opciones"},
-					{"tag_type": "div", "field_type": "class", "name": "con-dis td_n radio_serv", "position": 0},
-					{"tag_type": "span", "field_type": "class", "name": "impor_tabla"}],
+					{"tag_type": "div", "field_type": "name", "name": "L_CAB_ECO"},
+					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position": 0}],
 				"format":"(\\d*.?\\d+)",
 				"formula":""
 			},
@@ -46,8 +45,8 @@
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
-					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2", "position": 1},
-					{"tag_type": "span", "field_type": "class", "name": "bold"}],
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 last"},
+					{"tag_type": "span", "field_type": "class", "name": "bold", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
