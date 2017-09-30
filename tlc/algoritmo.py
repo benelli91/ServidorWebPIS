@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime,timedelta
 from .models import *
+from django.db.models import F
 import sys
 #import ipdb
 
@@ -74,7 +75,8 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     if ciudades_Analizadas.has_key(origin_city):
         list_aux = ciudades_Analizadas.get(origin_city)
     else:
-        list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte=  fecha_comienzo,departure__lte=  fecha_maxima).order_by('price','-departure')
+        list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte=  fecha_comienzo,departure__lte=  fecha_maxima - timedelta(minutes=1)*F("duration")).order_by('price','-departure')
+
         ciudades_Analizadas[origin_city] = list_aux
 
 
@@ -84,10 +86,8 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
         #print t.destination_city.country.name
         if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
-            #print("igual")
             date_condition= t.departure.date() == fecha_actual.date()
         else:
-            #print("distinto")
             date_condition= t.departure >= fecha_actual
         #print(date_condition)
 
@@ -102,6 +102,9 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
 
             fecha_actual_aux= aux_departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
             if t not in lista_recorridos and not have_i_passed(t,lista_recorridos):
+                ##print("           ")
+                ##print("    no esta en lista de recorridos!     ")
+                ##print("lista de recorridos: ", lista_recorridos)
                 #para cada par paisDestino-ciudadDestino que tengo a partir del nodo que estoy parado me fijo si tengo algun camino para llegar al destino final
                 index = 0
                 #for l in lista_a_recorrer:
@@ -141,6 +144,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
                 #cost -= lista_precios[index]
                 cost -= t.price
             #index += 1
+
 
 def do_search(origin_city,destination_city,date):
 
@@ -228,6 +232,8 @@ def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_
     #print(list_precios_travels)
     list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
     #print(list_precios_travels)
+
+
     context = {
     'list_travels': list_travels,
     'list_paises' : list_paises,
