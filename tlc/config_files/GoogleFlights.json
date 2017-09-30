@@ -1,6 +1,6 @@
 {"webpage":{
 	"name": "Google Flights",
-	"uri_start": "www.google.es/flights/?curr=USD#search;tt=o;eo=e;",
+	"uri_start": "https://www.google.es/flights/?curr=USD#search;tt=o;eo=e;",
 	"uri_end": "",
 	"travel_type": 1,
 	"sleep_time": 2,
@@ -13,7 +13,7 @@
 	"page_type":1,
 	"header_parameters":{
 		"separator": ";",
-		"parameters":[
+		"parameters":[ 
 			{"data": "origin_alias", "parameter": "f="},
 			{"data": "destination_alias", "parameter": "t="},
 			{"data": "departure", "parameter": "d="}]
