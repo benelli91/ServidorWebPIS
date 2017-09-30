@@ -75,14 +75,14 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     if ciudades_Analizadas.has_key(origin_city):
         list_aux = ciudades_Analizadas.get(origin_city)
     else:
-        list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte=  fecha_comienzo,departure__lte=  fecha_maxima - timedelta(minutes=1)*F("duration")).order_by('price','-departure')
-
+        list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte = fecha_comienzo,departure__lte = fecha_maxima - timedelta(minutes=1)*F("duration")).order_by('price','-departure')
         ciudades_Analizadas[origin_city] = list_aux
 
 
     lista_a_recorrer = []
     lista_precios = []
     aux_departure = None
+    i=1
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
         #print t.destination_city.country.name
         if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
@@ -102,9 +102,6 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
 
             fecha_actual_aux= aux_departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
             if t not in lista_recorridos and not have_i_passed(t,lista_recorridos):
-                ##print("           ")
-                ##print("    no esta en lista de recorridos!     ")
-                ##print("lista de recorridos: ", lista_recorridos)
                 #para cada par paisDestino-ciudadDestino que tengo a partir del nodo que estoy parado me fijo si tengo algun camino para llegar al destino final
                 index = 0
                 #for l in lista_a_recorrer:
@@ -154,8 +151,14 @@ def do_search(origin_city,destination_city,date):
     vDestination_country = City.objects.filter(id = destination_city)[0].country.id
     #vDestination_city = 20
     #date = '08/24/2017'
-    aux_time = datetime.strptime(date+' 01:00AM', '%m/%d/%Y %I:%M%p')
-
+    print (date)
+    #date = date - timedelta(days=1)
+    aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
+    #print (aux_time)
+    #aux_time= aux  - timedelta(days=1)
+    #print (aux_time)
+    #aux_time = datetime.strptime(date+' 01:00AM', '%m/%d/%Y %I:%M%p')
+    print (aux_time)
     return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
 
 
@@ -225,7 +228,7 @@ def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_
     fecha_comienzo = aux_time
     fecha_actual = aux_time
     #print datetime_object
-    fecha_maxima=fecha_comienzo+timedelta(days=3)
+    fecha_maxima=fecha_comienzo + timedelta(days=3)
     #print datetime_object_max
 
     recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost,ciudades_Analizadas)
