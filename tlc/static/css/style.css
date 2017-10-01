@@ -2176,3 +2176,14 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 	}
 }
 /*--responsive--*/
+
+img .boat{
+    vertical-align: middle;
+    size: a3;
+    height: 5vh;
+    border-radius: 20px;
+    box-shadow: 3px 2px 5px;
+    opacity: 0.87;
+}
+
+

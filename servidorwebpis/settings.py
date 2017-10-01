@@ -25,7 +25,7 @@ SECRET_KEY = 'onzykc7d!+1p)$a0-efrn!x5aqo+!#^+$d#i=*!m5u=1%bk%yx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','lowcosttrip.ddns.net']
 
 
 # Application definition
