@@ -82,7 +82,6 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     lista_a_recorrer = []
     lista_precios = []
     aux_departure = None
-    i=1
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
         #print t.destination_city.country.name
         if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
@@ -152,13 +151,7 @@ def do_search(origin_city,destination_city,date):
     #vDestination_city = 20
     #date = '08/24/2017'
     print (date)
-    #date = date - timedelta(days=1)
     aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
-    #print (aux_time)
-    #aux_time= aux  - timedelta(days=1)
-    #print (aux_time)
-    #aux_time = datetime.strptime(date+' 01:00AM', '%m/%d/%Y %I:%M%p')
-    print (aux_time)
     return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
 
 
