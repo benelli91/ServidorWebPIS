@@ -20,6 +20,15 @@
 <link href="{% static "//fonts.googleapis.com/css?family=Lato:300,400,700" %}" rel="stylesheet">
 <link href="{% static "//fonts.googleapis.com/css?family=Tangerine:400,700" %}" rel="stylesheet">
 <!--//web-fonts-->
+<style>
+        html, button, input, select, textarea, .pure-g [class *= "pure-u"] { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 1.02em; }
+
+        ::selection { color: #fff; background: #328efd; }
+        ::-moz-selection { color: #fff; background: #328efd; }
+
+        input[type="text"] { border-radius: 0 !important; }
+    </style>
+    <link rel="stylesheet" href="{% static "css/auto-complete.css" %}">
 </head>
 <body>
 <!-- banner -->
@@ -64,7 +73,7 @@
 		<div class="banner-text">
 			<h2>WE ARE YOUR BEST CHOICE</h2>
 			<div style="background: rgba(0,0,0, 0.5); padding-bottom:5%" class="book-form" id="register">
-			<p style="font-weight:bold">Pick your destination</p>
+			<p style="font-weight:bold">Select your destination</p>
 			   <form action="#" method="post">
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
@@ -75,8 +84,9 @@
 								<option>Colonia</option>
 								<option>Maldonado</option>
 								<option>Buenos Aires</option>
-							</select>-->
-							<input type="text" name="from" value="from" onfocus="this.value = '';"/>
+							</select>
+							<input type="text" name="from" value="from" onfocus="this.value = '';"/>-->
+							<input id="hero-demo" autofocus type="text" name="q" placeholder="From ..." style="width:100%;max-width:600px;outline:0">
 					</div>
 					<div class="col-md-3 form-left-agileits-w3layouts ">
 							<label>Travelling To</label>
@@ -87,8 +97,9 @@
 								<option>Maldonado</option>
 								<option>New York</option>
 								<option>Miami</option>
-							</select>-->
-							<input type="text" name="to" value="to" onfocus="this.value = '';"/>
+							</select>
+							<input type="text" name="to" value="to" onfocus="this.value = '';"/>-->
+							<input id="hero-demo2" autofocus type="text" name="q" placeholder="To ..." style="width:100%;max-width:600px;outline:0">
 					</div>
 					<div class="col-md-3 form-date-w3-agileits">
 						        <label>Departure Date</label>
@@ -217,6 +228,35 @@
 <!-- banner-bottom -->
 
 <!-- //Footer -->
+<script src="{% static "js/auto-complete.js" %}"></script>
+    <script>
+        var demo1 = new autoComplete({
+            selector: '#hero-demo',
+            minChars: 1,
+            source: function(term, suggest){
+                term = term.toLowerCase();
+                var choices = ['New York', 'Buenos Aires', 'Montevideo','Miami', 'Colonia', 'Maldonado'];
+                var suggestions = [];
+                for (i=0;i<choices.length;i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            }
+        });
+    </script>
+		<script>
+        var demo1 = new autoComplete({
+            selector: '#hero-demo2',
+            minChars: 1,
+            source: function(term, suggest){
+                term = term.toLowerCase();
+                var choices = ['New York', 'Buenos Aires', 'Montevideo','Miami', 'Colonia', 'Maldonado'];
+                var suggestions = [];
+                for (i=0;i<choices.length;i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) suggestions.push(choices[i]);
+                suggest(suggestions);
+            }
+        });
+    </script>
 <script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
 
 					<script src="{% static "js/lightbox-plus-jquery.min.js" %}"></script>
