@@ -13,7 +13,7 @@
 	"page_type":1,
 	"header_parameters":{
 		"separator": ";",
-		"parameters":[ 
+		"parameters":[
 			{"data": "origin_alias", "parameter": "f="},
 			{"data": "destination_alias", "parameter": "t="},
 			{"data": "departure", "parameter": "d="}]
@@ -26,6 +26,11 @@
 					{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"},
 					{"tag_type": "span", "field_type":"", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"arrival":{
+				"fields":[],
+				"format":"",
 				"formula":""
 			},
 			"price":{

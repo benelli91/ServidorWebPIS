@@ -226,6 +226,10 @@ def extractData(conf_file, html_file, origin_city, destination_city):
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+    #arrival extraction_tags
+    arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
+    arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
+    arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
@@ -244,17 +248,16 @@ def extractData(conf_file, html_file, origin_city, destination_city):
     frequency_agency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
 
     departure_list = get_data_list(departure_fields,html_file)
+    arrival_list = get_data_list(arrival_fields,html_file)
     price_list = get_data_list(price_fields,html_file)
     duration_list = get_data_list(duration_fields,html_file)
     travel_agency_list = get_data_list(travel_agency_fields,html_file)
     frequency_agency_list = get_data_list(frequency_agency_fields,html_file)
     #print(departure_list)
-    print departure_format,departure_formula
     for i in departure_list :
-        print '----------------------------------'
-        print (str(i))
-        print str((processRawText(conf_file,str(i),departure_format,departure_formula,origin_city, destination_city)))
-
+        print i.string
+    for i in arrival_list :
+        print i.string
     #for xx in range(len(departure_list)):
     #    print departure_list[xx]
     #    print price_list[xx].contents
@@ -264,7 +267,6 @@ def extractData(conf_file, html_file, origin_city, destination_city):
     return []
 
 def get_data_list(fields_list,html_file):
-    print html_file
     result = None
     aux_html = html_file
     first = True

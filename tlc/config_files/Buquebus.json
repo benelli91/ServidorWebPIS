@@ -9,10 +9,10 @@
 	"decimal_mark": ",",
 	"thousands_mark":".",
 	"frecuency_format":"",
+	"date_format": "%d-%m-%Y",
 	"page_type":1,
 	"header_parameters":{
 		"separator": "_",
-		"date_format": "%d-%m-%Y",
 		"parameters":[
 			{"data": "actual_date", "parameter": ""},
 			{"data": "origin_country_alias", "parameter": ""},
@@ -28,6 +28,15 @@
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
 					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3"},
+					{"tag_type": "span", "field_type": "class", "name": "bold","position":0}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"arrival":{
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 last"},
 					{"tag_type": "span", "field_type": "class", "name": "bold","position":0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""

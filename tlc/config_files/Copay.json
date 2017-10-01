@@ -38,6 +38,11 @@
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
+			"arrival":{
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
 			"price":{
 				"fields":[],
 				"format":"city_distance",

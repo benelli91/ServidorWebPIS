@@ -24,6 +24,11 @@
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
+			"arrival":{
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
 			"price":{
 				"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
 				"format":"(\\d+)",
