@@ -119,7 +119,8 @@
 
 		<h3 class="title-agileits-w3layouts">Your best options</h3>
 		<ul class="list-group">
-						 {% for travel in list_travels %}
+             
+						 {% for travel in list_travels%}
               <!--<li class="list-group-item">-->
 							<li>
 								
@@ -149,8 +150,8 @@
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
 
-                  
-                 {% endfor %}
+                 
+                 {%  endfor %}
                  </div>
 								 <div class="panel-body">{{link.price}}</div>
                   

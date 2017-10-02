@@ -2177,6 +2177,7 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 }
 /*--responsive--*/
 
+/*cambios custom*/
 img .boat{
     vertical-align: middle;
     size: a3;
@@ -2184,6 +2185,16 @@ img .boat{
     border-radius: 20px;
     box-shadow: 3px 2px 5px;
     opacity: 0.87;
+}
+
+
+.fa {
+    vertical-align: middle;
+    padding: 1vh
+}
+
+.panel-primary > .panel-heading {
+    text-align: right
 }
 
 
