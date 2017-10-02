@@ -39,14 +39,14 @@ def loadWebpage(conf_file):
     elif(conf_file["webpage"]["travel_type"] == 3):
         cities = City.objects.filter(bus_station = True)
 
-    if(conf_file["webpage"]["date_span_start"] < conf_file["webpage"]["date_span_finish"]):
+    if(conf_file["webpage"]["date_span_start"] <= conf_file["webpage"]["date_span_finish"]):
         span = conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]
     else:
         span = DEFAULT_SPAN
     dates = [datetime.today().date() + timedelta(days=conf_file["webpage"]["date_span_start"])]
-    for i in range(1, span):
-        #print dates[-1]
-        dates.append(dates[-1] + timedelta(days=1))
+    if(span != 0):
+        for i in range(1, span):
+            dates.append(dates[-1] + timedelta(days=1))
 
     travels = []
     url = conf_file["webpage"]["uri_start"]
@@ -70,13 +70,16 @@ def loadWebpage(conf_file):
                     if(conf_file["webpage"]["frecuency_format"] == ""):
                         for departure in dates:
                             output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
+                            print output_HTML
+                            print origin_city.name
+                            print destination_city.name
                             #if output_HTML != "":
                                 #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
                     else:
                         output_HTML = output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
                         #if output_HTML != "":
                             #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
-                    print output_HTML
+
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
@@ -84,12 +87,6 @@ def loadWebpage(conf_file):
         extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks)
         for block in HTML_blocks:
             travels += extractData(conf_file, block, origin_cities[counter], destination_cities[counter])
-
-        print origin_cities
-        print "\n"
-        print destination_cities
-        print "\n"
-        print HTML_blocks
 
     """with transaction.atomic():
         Travel.objects.filter(webpage = webpage_name).delete()
@@ -105,7 +102,7 @@ def createURL(conf_file, origin_city, destination_city, departure):
     destination_country = Country.objects.filter(id = destination_city.country)[0]
     for line in conf_file["webpage"]["header_parameters"]["parameters"]:
         url += line["parameter"]
-        url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+        url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)[0]
         if(counter < total_parameters - 1):
             url += separator
         counter += 1
@@ -115,7 +112,6 @@ def createURL(conf_file, origin_city, destination_city, departure):
     phantom = webdriver.PhantomJS()
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
-    print aux_sleep
     time.sleep(aux_sleep)
     soup = BeautifulSoup(phantom.page_source, "html.parser")
     return soup
@@ -128,23 +124,39 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure):
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
         data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+        if(data[0] == "invalid"):
+            return ""
         if line["field_type"] == "select":
             element = Select(phantom.find_element_by_id(line["id"]))
             options = []
             for option in element.options:
                 options += [option.text]
-            if data in options:
-                element.select_by_visible_text(data)
+            if data[0] in options:
+                element.select_by_visible_text(data[0])
             else:
                 return ""
-            print data
         elif line["field_type"] == "input":
             element = phantom.find_element_by_id(line["id"])
-            if data == "click":
+            if data[0] == "click":
                 element.click()
             else:
-                element.send_keys(data)
-        print data
+                element.send_keys(data[0])
+        elif line["field_type"] == "script":
+            fun = line["id"] + "("
+            counter = 0
+            for d in data:
+                fun += "'" + d + "'"
+                if(counter < len(data) - 1):
+                    fun += ", "
+                counter += 1
+            fun += ");"
+            phantom.execute_script(fun)
+        elif line["field_type"] == "attribute":
+            elem = phantom.find_element_by_id(line["id"])
+            attribute = line["attribute"]
+            fun = "var elem = arguments[0]; var value = arguments[1]; elem." + attribute + " = value;"
+            phantom.execute_script(fun, elem, data[0])
+
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
     return output_HTML

@@ -14,11 +14,11 @@
 	"header_parameters":{
 		"separator": "_",
 		"parameters":[
-			{"data": "actual_date", "parameter": ""},
-			{"data": "origin_country_alias", "parameter": ""},
-			{"data": "origin_alias", "parameter": ""},
-			{"data": "destination_alias", "parameter": ""},
-			{"data": "departure", "parameter": ""}]
+			{"data": ["actual_date"], "parameter": ""},
+			{"data": ["origin_country_alias"], "parameter": ""},
+			{"data": ["origin_alias"], "parameter": ""},
+			{"data": ["destination_alias"], "parameter": ""},
+			{"data": ["departure"], "parameter": ""}]
 		},
 	"inputs":{},
 	"iterators":{},

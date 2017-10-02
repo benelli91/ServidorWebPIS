@@ -14,9 +14,9 @@
 	"header_parameters":{
 		"separator": ";",
 		"parameters":[
-			{"data": "origin_alias", "parameter": "f="},
-			{"data": "destination_alias", "parameter": "t="},
-			{"data": "departure", "parameter": "d="}]
+			{"data": ["origin_alias"], "parameter": "f="},
+			{"data": ["destination_alias"], "parameter": "t="},
+			{"data": ["departure"], "parameter": "d="}]
 		},
 	"inputs":{},
 	"iterators":{},
