@@ -2197,4 +2197,7 @@ img .boat{
     text-align: right
 }
 
-
+li {
+    display: initial;
+    text-align: center;
+}

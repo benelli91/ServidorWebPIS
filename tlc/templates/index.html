@@ -119,11 +119,11 @@
 
 		<h3 class="title-agileits-w3layouts">Your best options</h3>
 		<ul class="list-group">
-             
+
 						 {% for travel in list_travels%}
               <!--<li class="list-group-item">-->
 							<li>
-								
+
 								<!--
 								 <div>
 									 Origen: {{link.origin_city.country.id}} - {{link.origin_city.name}} |
@@ -134,29 +134,29 @@
 									 Info: {{link.description}}
 							 	</div>-->
 								<div class="panel panel-primary">
-                  
+
 								 <div class="panel-heading">
                    #OPCION
                  </div>
 								 <div class="panel-body">
-                 {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}}) 
+                 {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}})
                  {% for link in travel %}
                   {% if link.traveltype.travelname == 'Boat' %}
                    <i class="fa fa-ship fa-3x" aria-hidden="true"></i>
                   {% elif link.traveltype.travelname == 'Plane' %}
                     <i class="fa fa-plane fa-3x" aria-hidden="true"></i>
-                  {% else %} 
+                  {% else %}
                       <i class="fa fa-bus fa-3x" aria-hidden="true"></i>
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
 
-                 
+
                  {%  endfor %}
                  </div>
 								 <div class="panel-body">{{link.price}}</div>
-                  
+
 							 	</div>
-								
+
 							</li>
 							{% endfor %}
 
