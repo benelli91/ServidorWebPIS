@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime,timedelta
 from .models import *
+from django.db.models import F
 import sys
 #import ipdb
 
@@ -74,7 +75,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     if ciudades_Analizadas.has_key(origin_city):
         list_aux = ciudades_Analizadas.get(origin_city)
     else:
-        list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte=  fecha_comienzo,departure__lte=  fecha_maxima).order_by('price','-departure')
+        list_aux = Travel.objects.filter(origin_city = origin_city,departure__gte = fecha_comienzo,departure__lte = fecha_maxima - timedelta(minutes=1)*F("duration")).order_by('price','-departure')
         ciudades_Analizadas[origin_city] = list_aux
 
 
@@ -84,10 +85,8 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
         #print t.destination_city.country.name
         if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
-            #print("igual")
             date_condition= t.departure.date() == fecha_actual.date()
         else:
-            #print("distinto")
             date_condition= t.departure >= fecha_actual
         #print(date_condition)
 
@@ -142,6 +141,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
                 cost -= t.price
             #index += 1
 
+
 def do_search(origin_city,destination_city,date):
 
     #CON LAS 3 lineas COMENTADAS ABAJO TE TIRA DATOS Y ES BUENA PARA HACER EL FRONT-END
@@ -150,8 +150,8 @@ def do_search(origin_city,destination_city,date):
     vDestination_country = City.objects.filter(id = destination_city)[0].country.id
     #vDestination_city = 20
     #date = '08/24/2017'
-    aux_time = datetime.strptime(date+' 01:00AM', '%m/%d/%Y %I:%M%p')
-
+    print (date)
+    aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
     return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
 
 
@@ -221,13 +221,15 @@ def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_
     fecha_comienzo = aux_time
     fecha_actual = aux_time
     #print datetime_object
-    fecha_maxima=fecha_comienzo+timedelta(days=3)
+    fecha_maxima=fecha_comienzo + timedelta(days=3)
     #print datetime_object_max
 
     recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost,ciudades_Analizadas)
     #print(list_precios_travels)
     list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
     #print(list_precios_travels)
+
+
     context = {
     'list_travels': list_travels,
     'list_paises' : list_paises,

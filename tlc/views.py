@@ -66,7 +66,8 @@ def index(request):
             #redirect('tlc.views.index')
         data = request.POST
         resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
-    # if a GET (or any other method) we'll create a blank form
+        print resultado
+    	# if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
 
