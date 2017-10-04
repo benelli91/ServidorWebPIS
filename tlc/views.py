@@ -24,9 +24,9 @@ class TravelViewSet(viewsets.ModelViewSet):
     
     @list_route(methods=['get'])
     def do_search(self, request, pk=None):
-        from_city = request.data.get('from', None)
-        to_city = request.data.get('to', None)
-        date = request.data.get('date', None)
+        from_city = request.GET.get('from', None)
+        to_city = request.GET.get('to', None)
+        date = request.GET.get('date', None)
         if from_city is not None and to_city is not None and date is not None:
             resultado = do_search(str(from_city), str(to_city), str(date))
             return Response(status=status.HTTP_200_OK, data=resultado)
@@ -43,11 +43,11 @@ class TravelTypeViewSet(viewsets.ModelViewSet):
     
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
-    serializer_class = TravelSerializer
+    serializer_class = CitySerializer
     
     @list_route(methods=['get'])
     def autocomplete_search(self, request, pk=None):
-        search = request.query_params.get('search', '')
+        search = request.query_params.get('term', '')
         cities = City.objects.filter(name__startswith=search)[:5]
         return Response(status=status.HTTP_200_OK, data=CitySearchSerializer(cities, many=True).data)
 

@@ -14,13 +14,20 @@ class CitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CitySearchSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
+    value = serializers.SerializerMethodField()
+    label = serializers.SerializerMethodField()
 
     class Meta:
         model = City
-        fields = ('id', 'name')
+        fields = ('id', 'value', 'label')
     
-    def get_name(self, obj):
+    def get_value(self, obj):
+        if obj.country:
+            return obj.name + ', ' + obj.country.name
+        else: 
+            return obj.name
+
+    def get_value(self, obj):
         if obj.country:
             return obj.name + ', ' + obj.country.name
         else: 
