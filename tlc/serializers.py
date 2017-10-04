@@ -27,7 +27,7 @@ class CitySearchSerializer(serializers.ModelSerializer):
         else: 
             return obj.name
 
-    def get_value(self, obj):
+    def get_label(self, obj):
         if obj.country:
             return obj.name + ', ' + obj.country.name
         else: 
