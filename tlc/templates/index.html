@@ -63,12 +63,12 @@
 	<!-- banner-text -->
 		<div class="banner-text">
 			<h2>WE ARE YOUR BEST CHOICE</h2>
-			<div style="background: rgba(0,0,0, 0.5); padding-bottom:5%" class="book-form" id="register">
+			<div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
 			<p style="font-weight:bold">Pick your destination</p>
 			   <form action="#" method="post">
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
-							<label>Travelling From</label>
+
 							<!--<select class="form-control" value="Hola">
 								<option selected disabled>From</option>
 								<option>Montevideo</option>
@@ -76,7 +76,12 @@
 								<option>Maldonado</option>
 								<option>Buenos Aires</option>
 							</select>-->
-							<input type="text" name="from" value="from" onfocus="this.value = '';"/>
+							<div class="ui-widget">
+							  <label for="From">Travelling From </label>
+							  <input id="fromName" type="text" name="fromName" placeholder="from..." onfocus="this.value = '';"/>
+								<input id="from" type="hidden" name= "from" display="hidden" />
+
+							</div>
 					</div>
 					<div class="col-md-3 form-left-agileits-w3layouts ">
 							<label>Travelling To</label>
@@ -88,11 +93,12 @@
 								<option>New York</option>
 								<option>Miami</option>
 							</select>-->
-							<input type="text" name="to" value="to" onfocus="this.value = '';"/>
+							<input id="toName"  type="text" name="toName" placeholder="to" onfocus="this.value = '';"/>
+							<input id="to" type="hidden" name= "to" display="hidden" />
 					</div>
 					<div class="col-md-3 form-date-w3-agileits">
 						        <label>Departure Date</label>
-									<input  id="datepicker1" name="date" type="text" value="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+									<input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 								</div>
 					<div class="col-md-3 form-left-agileits-submit">
 						  <input type="submit" value="search">
@@ -142,11 +148,11 @@
                  {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}})
                  {% for link in travel %}
                   {% if link.traveltype.travelname == 'Boat' %}
-                   <i class="fa fa-ship fa-3x" aria-hidden="true"></i>
+                   <i class="fa fa-ship fa-4x" aria-hidden="true"></i>
                   {% elif link.traveltype.travelname == 'Plane' %}
-                    <i class="fa fa-plane fa-3x" aria-hidden="true"></i>
+                    <i class="fa fa-plane fa-4x" aria-hidden="true"></i>
                   {% else %}
-                      <i class="fa fa-bus fa-3x" aria-hidden="true"></i>
+                      <i class="fa fa-bus fa-4x" aria-hidden="true"></i>
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
 
@@ -279,6 +285,48 @@
 							$( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker();
 						  });
 				  </script>
+
+					<script>
+
+					var cities = [
+						{value:"1", label:"Buenos Aires"},
+						{value:"1", label:"Buenos B"},
+					]
+					</script>
+
+					<script>
+					$(document).ready(function() {
+
+						$.get( "/rest/tlc/citys/autocomplete_search/?term=")
+						.done(function( data ) {
+							$("#fromName").autocomplete({
+						    source: data,
+								focus: function (event, ui) {
+							        event.preventDefault();
+							        $("#fromName").val(ui.item.label);
+											$("#from").val(ui.item.id)
+							    },
+					  })
+						;
+
+					  });
+
+						$.get( "/rest/tlc/citys/autocomplete_search/?term=")
+						.done(function( data ) {
+							$("#toName").autocomplete({
+						    source: data,
+								focus: function (event, ui) {
+							        event.preventDefault();
+							        $("#toName").val(ui.item.label);
+											$("#to").val(ui.item.id)
+							    },
+					  })
+						;
+
+					  });
+
+					});
+					</script>
 			<!-- //Calendar -->
 <!--js for bootstrap working-->
 	<script src="{% static "js/bootstrap.js" %}"></script>

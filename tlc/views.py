@@ -21,7 +21,7 @@ from .models import Travel, Traveltype, Travelagency, City, Country
 class TravelViewSet(viewsets.ModelViewSet):
     queryset = Travel.objects.all()
     serializer_class = TravelSerializer
-    
+
     @list_route(methods=['get'])
     def do_search(self, request, pk=None):
         from_city = request.GET.get('from', None)
@@ -40,15 +40,15 @@ class TravelAgencyViewSet(viewsets.ModelViewSet):
 class TravelTypeViewSet(viewsets.ModelViewSet):
     queryset = Traveltype.objects.all()
     serializer_class = TravelTypeSerializer
-    
+
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
-    
+
     @list_route(methods=['get'])
     def autocomplete_search(self, request, pk=None):
         search = request.query_params.get('term', '')
-        cities = City.objects.filter(name__startswith=search)[:5]
+        cities = City.objects.filter(name__startswith=search)
         return Response(status=status.HTTP_200_OK, data=CitySearchSerializer(cities, many=True).data)
 
 class CountryViewSet(viewsets.ModelViewSet):

@@ -214,6 +214,7 @@ header {
     margin-bottom: 7px;
     letter-spacing: 1px;
 		font-weight: bold;
+		text-shadow: 0 0 10px #ffa200;
 }
 .book-form label i {
     font-size: 1em;
@@ -233,7 +234,7 @@ header {
 	    font-family: 'Open Sans', sans-serif;
 }
 .book-form input[type="text"]{
-	 border: 2px solid #ffa200;
+	border: 2px solid #CCCCCC;
 }
 .book-form form input[type="submit"] {
     text-transform: capitalize;
@@ -258,11 +259,11 @@ header {
     margin: 0em auto 0;
 }
 .book-form p {
-    color: #98cb45;
-    margin-bottom: 1em;
-    padding: 0 48px 11px;
-    letter-spacing: 2px;
-    border-bottom: 2px dotted#b3b3b3;
+		color: #98cb45;
+		margin-bottom: 1em;
+		padding: 0 48px 11px;
+		letter-spacing: 2px;
+		border-bottom: 4px dotted #CCCCCC;
     word-spacing: 7px;
     text-shadow: 1px 1px 2px #000;
     display: inline-block;
@@ -1277,7 +1278,7 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 	}
 	.banner-text h2 {
 		font-size: 38px;
-		margin: 2.5em 0 2em;
+		margin: 2em 0 2em;
 	}
 	.w3_navigation_pos span {
 		font-size: 62px;
@@ -1332,7 +1333,7 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 @media(max-width:1280px){
 	.banner-text h2 {
 		font-size: 32px;
-		margin: 2.3em 0 1.8em;
+		margin: 1.3em 0 1.8em;
 	}
 	.bann-left-w3-agile h3 span {
 		font-size: 31px!important;
@@ -2197,7 +2198,76 @@ img .boat{
     text-align: right
 }
 
+.panel-primary  {
+    display: flex;
+}
+
 li {
     display: initial;
     text-align: center;
+}
+
+.panel-body {
+        padding-left: 7%;
+}
+
+@media screen and (max-width: 736px)  {
+  .panel-body  {
+      display: grid;
+      padding-left: 5em;
+  }
+
+}
+
+.panel-heading:hover {
+	background-color:  #70A2CD
+}
+
+
+.fa-ship:hover {
+  	color:  black
+}
+.fa-plane:hover {
+    color:  black
+}
+.fa-bus:hover {
+    color: black;
+}
+
+
+
+input {
+	background: #D9D9D9;
+  box-shadow: 0px 0px 5px #CCCCCC;
+}
+input:hover {
+	background:  #FFFAF2;
+
+}
+
+input:active {
+		box-shadow: 0px 0px 5px #CCCCCC;
+}
+
+
+//.ui-tooltip {
+//    background: #4a4a4a;
+//    color: #96f226;
+//    border: 2px solid #454545;
+//    border-radius: 0px;
+//    box-shadow: 0 0
+//}
+//.ui-autocomplete {
+//    background: #4a4a4a;
+//    border-radius: 0px;
+//}
+//.ui-autocomplete.source:hover {
+//    background: #454545;
+//}
+
+.ui-menu .ui-menu-item a{
+    background: #CCCCCC;
+
+    //height:10px;
+		//font-size:8px;
 }
