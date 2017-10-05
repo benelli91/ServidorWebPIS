@@ -2188,6 +2188,10 @@ img .boat{
     opacity: 0.87;
 }
 
+.price {
+	font-size: 0.24em;
+}
+
 
 .fa {
     vertical-align: middle;
