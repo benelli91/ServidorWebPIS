@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'servidorwebpis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pis_db',
-        'USER': 'jalvez',
+        'NAME': 'pisunitario',
+        'USER': 'pis',
         'PASSWORD': 'pis2017...',
-        'HOST': 'localhost',
+        'HOST': 'lowcosttrip.ddns.net',
         'PORT': '',
     }
 }
