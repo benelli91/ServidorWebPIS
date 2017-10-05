@@ -15,7 +15,8 @@ def dataParameterOptions(line, conf_file, origin_city, destination_city, departu
     local_codes_directory = 'tlc/local_city_codes/'
     data = str(line["data"])
     date_format = conf_file["webpage"]["date_format"]
-    total_result = []
+    #total_result = []
+    total_result = ''
     counter = 1
     for data in line["data"]:
         #CASE for each posible value of the "data" attribute of the configuration file
@@ -145,7 +146,7 @@ def dataParameterOptions(line, conf_file, origin_city, destination_city, departu
         else:
             result = ""
 
-        total_result += [result]
-
+        #total_result += [result]
+        total_result += str(result)
 
     return total_result

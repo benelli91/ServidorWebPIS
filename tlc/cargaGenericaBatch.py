@@ -32,6 +32,7 @@ def loadWebpage(conf_file):
     phantom = webdriver.PhantomJS()
 
     cities = []
+
     if(conf_file["webpage"]["travel_type"] == 1):
         cities = City.objects.filter(airport = True)
     elif(conf_file["webpage"]["travel_type"] == 2):
@@ -39,14 +40,14 @@ def loadWebpage(conf_file):
     elif(conf_file["webpage"]["travel_type"] == 3):
         cities = City.objects.filter(bus_station = True)
 
-    if(conf_file["webpage"]["date_span_start"] <= conf_file["webpage"]["date_span_finish"]):
+    if(conf_file["webpage"]["date_span_start"] < conf_file["webpage"]["date_span_finish"]):
         span = conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]
     else:
         span = DEFAULT_SPAN
     dates = [datetime.today().date() + timedelta(days=conf_file["webpage"]["date_span_start"])]
-    if(span != 0):
-        for i in range(1, span):
-            dates.append(dates[-1] + timedelta(days=1))
+    for i in range(1, span):
+        #print dates[-1]
+        dates.append(dates[-1] + timedelta(days=1))
 
     travels = []
     url = conf_file["webpage"]["uri_start"]
@@ -59,7 +60,7 @@ def loadWebpage(conf_file):
                     if(conf_file["webpage"]["frecuency_format"] == ""):
                         for departure in dates:
                             output_HTML = createURL(conf_file, origin_city, destination_city, departure)
-                            travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+                            travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure)
                     else:
                         output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
@@ -70,16 +71,13 @@ def loadWebpage(conf_file):
                     if(conf_file["webpage"]["frecuency_format"] == ""):
                         for departure in dates:
                             output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
-                            print output_HTML
-                            print origin_city.name
-                            print destination_city.name
                             #if output_HTML != "":
                                 #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
                     else:
                         output_HTML = output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
                         #if output_HTML != "":
                             #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
-
+                    print output_HTML
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
@@ -87,6 +85,12 @@ def loadWebpage(conf_file):
         extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks)
         for block in HTML_blocks:
             travels += extractData(conf_file, block, origin_cities[counter], destination_cities[counter])
+
+        print origin_cities
+        print "\n"
+        print destination_cities
+        print "\n"
+        print HTML_blocks
 
     """with transaction.atomic():
         Travel.objects.filter(webpage = webpage_name).delete()
@@ -102,7 +106,7 @@ def createURL(conf_file, origin_city, destination_city, departure):
     destination_country = Country.objects.filter(id = destination_city.country)[0]
     for line in conf_file["webpage"]["header_parameters"]["parameters"]:
         url += line["parameter"]
-        url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)[0]
+        url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
         if(counter < total_parameters - 1):
             url += separator
         counter += 1
@@ -112,6 +116,7 @@ def createURL(conf_file, origin_city, destination_city, departure):
     phantom = webdriver.PhantomJS()
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
+    print aux_sleep
     time.sleep(aux_sleep)
     soup = BeautifulSoup(phantom.page_source, "html.parser")
     return soup
@@ -124,39 +129,23 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure):
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
         data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-        if(data[0] == "invalid"):
-            return ""
         if line["field_type"] == "select":
             element = Select(phantom.find_element_by_id(line["id"]))
             options = []
             for option in element.options:
                 options += [option.text]
-            if data[0] in options:
-                element.select_by_visible_text(data[0])
+            if data in options:
+                element.select_by_visible_text(data)
             else:
                 return ""
+            print data
         elif line["field_type"] == "input":
             element = phantom.find_element_by_id(line["id"])
-            if data[0] == "click":
+            if data == "click":
                 element.click()
             else:
-                element.send_keys(data[0])
-        elif line["field_type"] == "script":
-            fun = line["id"] + "("
-            counter = 0
-            for d in data:
-                fun += "'" + d + "'"
-                if(counter < len(data) - 1):
-                    fun += ", "
-                counter += 1
-            fun += ");"
-            phantom.execute_script(fun)
-        elif line["field_type"] == "attribute":
-            elem = phantom.find_element_by_id(line["id"])
-            attribute = line["attribute"]
-            fun = "var elem = arguments[0]; var value = arguments[1]; elem." + attribute + " = value;"
-            phantom.execute_script(fun, elem, data[0])
-
+                element.send_keys(data)
+        print data
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
     return output_HTML
@@ -230,52 +219,101 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
             raw_text = aux_destination_city.getText()
             destination_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
 
-def extractData(conf_file, html_file, origin_city, destination_city):
+def extractData(conf_file, html_file, origin_city, destination_city,departure):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
     #Travel y devolverlos
-
+    departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day,)
+    number_traveltype = int(conf_file["webpage"]["travel_type"])
+    print number_traveltype
+    page_traveltype = Traveltype.objects.get(traveltype = 2)
     #departure extraction_tags
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+    departure_list = get_data_list(departure_fields,html_file)
+
     #arrival extraction_tags
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
+    arrival_list = get_data_list(arrival_fields,html_file)
+
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
     price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
+    price_list = get_data_list(price_fields,html_file)
+
     #duration extraction_tags
     duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
     duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
     duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
+    duration_list = get_data_list(duration_fields,html_file)
+
     #travel_agency extraction_tags
     travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
     travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
     travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
-    #frequency extraction_tags
-    frequency_agency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
-    frequency_agency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
-    frequency_agency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
-
-    departure_list = get_data_list(departure_fields,html_file)
-    arrival_list = get_data_list(arrival_fields,html_file)
-    price_list = get_data_list(price_fields,html_file)
-    duration_list = get_data_list(duration_fields,html_file)
     travel_agency_list = get_data_list(travel_agency_fields,html_file)
-    frequency_agency_list = get_data_list(frequency_agency_fields,html_file)
-    #print(departure_list)
-    for i in departure_list :
-        print i.string
-    for i in arrival_list :
-        print i.string
-    #for xx in range(len(departure_list)):
-    #    print departure_list[xx]
-    #    print price_list[xx].contents
-        #print duration_list[xx].contents
-        #print travel_agency_list[xx].contents
-        #print frequency_agency_list[xx]
+
+    #frequency extraction_tags
+    if conf_file["webpage"]["frecuency_format"] != '':
+        frequency_agency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
+        frequency_agency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
+        frequency_agency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
+        frequency_agency_list = get_data_list(frequency_agency_fields,html_file)
+
+    #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    #||Ver que pasa si las listas tienen distinta cantidad de elementos||
+    #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    for x in range(len(departure_list)):
+        new_travel_departure = ''
+        new_travel_arrival = ''
+        new_travel_duration = ''
+        new_travel_price = ''
+        new_travel_agency = ''
+
+        #Extract departure
+        str_departure = str(departure_list[x].string)
+        result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
+        new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+
+        #Extract or calculare duration
+        if duration_list != None :
+            new_travel_duration = duration_list[x].string
+        else:
+            str_arrival = str(arrival_list[x].string)
+            result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
+            new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+            new_travel_duration = new_travel_arrival - new_travel_departure
+
+        #Extract price
+        str_price = str(price_list[x].string)
+        result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
+        new_travel_price = str(result_format[1])
+
+        #Extract travel_agency
+        if travel_agency_list != None :
+            new_travel_agency = Travelagency.objects.get(name=travel_agency_list[x].string)
+        else:
+            new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
+
+
+        if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+            print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
+            newTravel = Travel.objects.create(departure = new_travel_departure, \
+                                                origin_city = origin_city, \
+                                                destination_city = destination_city, \
+                                                price = new_travel_price, \
+                                                duration = new_travel_duration, \
+                                                traveltype = page_traveltype, \
+                                                webpage = new_travel_agency.reference, \
+                                                travel_agency = new_travel_agency.id, \
+                                                description = '')
+            #duration = valDuracion,traveltype = avion,origin_city = codCiudades[i],destination_city=codCiudades[j],price = valPrecio,description = valInfo,departure = datetime_object)
+            travels_to_add.append(new_travel)
+    for x in travels_to_add:
+        print x
     return []
 
 def get_data_list(fields_list,html_file):
@@ -326,18 +364,19 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     decimal = unicodedata.normalize('NFKD', conf_file["webpage"]["decimal_mark"]).encode('ascii','ignore')
     thousands = unicodedata.normalize('NFKD', conf_file["webpage"]["thousands_mark"]).encode('ascii','ignore')
     raw_text_aux = raw_text
-    raw_text_aux = str.replace(raw_text_aux, thousands, "")
+    raw_text_aux = str.replace(raw_text_aux, str(thousands), "")
     raw_text_aux = str.replace(raw_text_aux, decimal, ".")
     if(raw_format_aux == ""):   #if there's no format specified we return the given text without modifications
         output_text = [raw_text_aux]
     elif(raw_formula_aux == ""):
         compiled_format = re.compile(raw_format_aux)
-        if(re.match("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
-            matches = re.match(raw_format_aux, raw_text_aux)
-            for i in range(1, len(matches.groups()) + 1):
-                output_text += [matches.group(i)]
-        else:   #if there's a constant as format we return the constant
-            output_text = [raw_format_aux]
+        #if(re.match("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
+        matches = re.match(raw_format_aux, raw_text_aux)
+        for i in range(1, len(matches.groups()) + 1):
+
+            output_text += [matches.group(i)]
+        #else:   #if there's a constant as format we return the constant
+        #    output_text = [raw_format_aux]
     else:
         if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))

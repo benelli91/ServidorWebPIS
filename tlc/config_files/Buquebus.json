@@ -47,16 +47,12 @@
 			 		{"tag_type": "div", "field_type":"class", "name": "cont_opciones"},
 					{"tag_type": "div", "field_type": "name", "name": "L_CAB_ECO"},
 					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position": 0}],
-				"format":"(\\d*.?\\d+)",
+				"format":"(\\D*)(\\d*)(\\D*)",
 				"formula":""
 			},
 			"duration": {
-				"fields":[
-					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
-					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
-					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 last"},
-					{"tag_type": "span", "field_type": "class", "name": "bold", "position": 0}],
-				"format":"(\\d\\d):(\\d\\d)",
+				"fields":[],
+				"format":"",
 				"formula":""
 			},
 			"travel_agency": {
