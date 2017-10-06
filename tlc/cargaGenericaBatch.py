@@ -64,6 +64,7 @@ def loadWebpage(conf_file):
                     else:
                         output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+
     elif(page_type == 2): #Javascript type pages
         for origin_city in cities:
             for destination_city in cities:
@@ -97,6 +98,15 @@ def loadWebpage(conf_file):
         for travel in travels:
             travel.save()"""
 
+    if len(travels) > 0 :
+        if conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"] != "":
+            travel_agency_to_delete = Travelagency.objects.get(name=conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"])
+            to_delete = Travel.objects.filter(travel_agency = travel_agency_to_delete.id)
+            to_delete.delete()
+        for travel in travels:
+            print travel.idtravel
+            travel.save()
+
 def createURL(conf_file, origin_city, destination_city, departure):
     url = conf_file["webpage"]["uri_start"]
     separator = conf_file["webpage"]["header_parameters"]["separator"]
@@ -116,7 +126,6 @@ def createURL(conf_file, origin_city, destination_city, departure):
     phantom = webdriver.PhantomJS()
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
-    print aux_sleep
     time.sleep(aux_sleep)
     soup = BeautifulSoup(phantom.page_source, "html.parser")
     return soup
@@ -222,10 +231,10 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
 def extractData(conf_file, html_file, origin_city, destination_city,departure):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
     #Travel y devolverlos
+    travels_to_add = []
     departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day,)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
-    print number_traveltype
-    page_traveltype = Traveltype.objects.get(traveltype = 2)
+    page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
     #departure extraction_tags
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
@@ -269,10 +278,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure):
     for x in range(len(departure_list)):
         new_travel_departure = ''
         new_travel_arrival = ''
-        new_travel_duration = ''
+        new_travel_duration = None
         new_travel_price = ''
         new_travel_agency = ''
-
+        aux_new_travel_duration = departure_with_time
         #Extract departure
         str_departure = str(departure_list[x].string)
         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
@@ -280,13 +289,18 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure):
 
         #Extract or calculare duration
         if duration_list != None :
-            new_travel_duration = duration_list[x].string
+            str_duration = str(duration_list[x].string)
+            result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
+            aux_new_travel_duration = departure_with_time - departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+
         else:
             str_arrival = str(arrival_list[x].string)
             result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
             new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
-            new_travel_duration = new_travel_arrival - new_travel_departure
+            aux_new_travel_duration = new_travel_arrival - new_travel_departure
 
+        if aux_new_travel_duration != None:
+            new_travel_duration = aux_new_travel_duration.seconds // 60
         #Extract price
         str_price = str(price_list[x].string)
         result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
@@ -298,10 +312,9 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure):
         else:
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
-
         if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
-            print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
-            newTravel = Travel.objects.create(departure = new_travel_departure, \
+            #print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
+            new_travel = Travel(departure = new_travel_departure, \
                                                 origin_city = origin_city, \
                                                 destination_city = destination_city, \
                                                 price = new_travel_price, \
@@ -311,10 +324,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure):
                                                 travel_agency = new_travel_agency.id, \
                                                 description = '')
             #duration = valDuracion,traveltype = avion,origin_city = codCiudades[i],destination_city=codCiudades[j],price = valPrecio,description = valInfo,departure = datetime_object)
-            travels_to_add.append(new_travel)
-    for x in travels_to_add:
-        print x
-    return []
+            travels_to_add[len(travels_to_add):] = [new_travel]
+
+
+    return travels_to_add
 
 def get_data_list(fields_list,html_file):
     result = None
