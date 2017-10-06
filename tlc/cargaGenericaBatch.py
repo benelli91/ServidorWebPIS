@@ -41,7 +41,7 @@ def loadWebpage(conf_file):
     elif(conf_file["webpage"]["travel_type"] == 3):
         cities = City.objects.filter(bus_station = True)
 
-    if(conf_file["webpage"]["date_span_start"] => conf_file["webpage"]["date_span_finish"]):
+    if(conf_file["webpage"]["date_span_start"] >= conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
     else:
         span = conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]
