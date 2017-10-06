@@ -16,6 +16,7 @@ class CitySerializer(serializers.ModelSerializer):
 class CitySearchSerializer(serializers.ModelSerializer):
     value = serializers.SerializerMethodField()
     label = serializers.SerializerMethodField()
+    
     class Meta:
         model = City
         fields = ('id', 'value','label')
@@ -31,8 +32,6 @@ class CitySearchSerializer(serializers.ModelSerializer):
             return obj.name + ', ' + obj.country.name
         else:
             return obj.name
-
-
 
 class CountrySerializer(serializers.ModelSerializer):
 
@@ -51,3 +50,15 @@ class TravelTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Traveltype
         fields = '__all__'
+
+class CompleteTravelSerializer(serializers.ModelSerializer):
+    
+    origin_city = CitySerializer()
+    destination_city = CitySerializer()
+    traveltype = TravelTypeSerializer()
+    
+    class Meta:
+        model = Travel
+        fields = ('departure','origin_city', 'destination_city', 'price', 'duration', 
+            'traveltype', 'travel_agency', 'description', 'idtravel')
+

@@ -14,7 +14,7 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from .serializers import TravelSerializer, TravelTypeSerializer, \
     TravelAgencySerializer, CountrySerializer, CitySerializer, \
-    CitySearchSerializer
+    CitySearchSerializer, CompleteTravelSerializer
 
 from .models import Travel, Traveltype, Travelagency, City, Country
 
@@ -29,7 +29,11 @@ class TravelViewSet(viewsets.ModelViewSet):
         date = request.GET.get('date', None)
         if from_city is not None and to_city is not None and date is not None:
             resultado = do_search(str(from_city), str(to_city), str(date))
-            return Response(status=status.HTTP_200_OK, data=resultado)
+            travels = {'list_travels':[]}
+            for group in resultado['list_travels']:
+                print group
+                travels['list_travels'].append(CompleteTravelSerializer(group, many=True).data)
+            return Response(status=status.HTTP_200_OK, data=travels)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="Invalid blank input data")
 
