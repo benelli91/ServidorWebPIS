@@ -41,14 +41,16 @@ def loadWebpage(conf_file):
     elif(conf_file["webpage"]["travel_type"] == 3):
         cities = City.objects.filter(bus_station = True)
 
-    if(conf_file["webpage"]["date_span_start"] < conf_file["webpage"]["date_span_finish"]):
-        span = conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]
-    else:
+    if(conf_file["webpage"]["date_span_start"] > conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
+    else:
+        span = conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]
     dates = [datetime.today().date() + timedelta(days=conf_file["webpage"]["date_span_start"])]
-    for i in range(1, span):
-        #print dates[-1]
-        dates.append(dates[-1] + timedelta(days=1))
+
+    if(span != 0):
+        for i in range(0, span):
+            dates.append(dates[-1] + timedelta(days=1))
+    print dates
 
     travels = []
     url = conf_file["webpage"]["uri_start"]
@@ -85,14 +87,20 @@ def loadWebpage(conf_file):
         destination_cities = []
         HTML_blocks = []
         extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks)
+        block_number = 0
         for block in HTML_blocks:
-            travels += extractData(conf_file, block, origin_cities[counter], destination_cities[counter],None,dates) #verificar que no tenga que ir con departure
-
-        print origin_cities
-        print "\n"
-        print destination_cities
-        print "\n"
-        print HTML_blocks
+            counter = 0
+            counter_o = -1
+            counter_d = -1
+            for city in cities:
+                if(city.name.lower() == origin_cities[block_number].lower()):
+                    counter_o = counter
+                if(city.name.lower() == destination_cities[block_number].lower()):
+                    counter_d = counter
+                counter += 1
+            if(counter_o != -1 and counter_d != -1):
+                travels += extractData(conf_file, block, cities[counter_o], cities[counter_d])
+            block_number += 1
 
     """with transaction.atomic():
         Travel.objects.filter(webpage = webpage_name).delete()
@@ -139,23 +147,41 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure):
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
         data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+        if(data[0] == "invalid"):
+            return ""
         if line["field_type"] == "select":
             element = Select(phantom.find_element_by_id(line["id"]))
             options = []
             for option in element.options:
                 options += [option.text]
-            if data in options:
-                element.select_by_visible_text(data)
+            if data[0] in options:
+                element.select_by_visible_text(data[0])
             else:
                 return ""
-            print data
         elif line["field_type"] == "input":
             element = phantom.find_element_by_id(line["id"])
-            if data == "click":
+            if data[0] == "click":
                 element.click()
             else:
-                element.send_keys(data)
-        print data
+                element.send_keys(data[0])
+        elif line["field_type"] == "script":
+            fun = line["id"] + "("
+            counter = 0
+            for d in data:
+                fun += "'" + d + "'"
+                if(counter < len(data) - 1):
+                    fun += ", "
+                counter += 1
+            fun += ");"
+            phantom.execute_script(fun)
+        elif line["field_type"] == "attribute": #ESTA ES LA PARTE QUE NO FUNCIONA
+            elem = phantom.find_element_by_id(line["id"])
+            print elem.get_attribute('data_date')
+            attribute = line["attribute"]
+            fun = "arguments[0]['" + attribute + "'] = arguments[1]; return arguments[0];"
+            elem = phantom.execute_script(fun, elem, data[0])
+            print elem.get_attribute('data_date')
+
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
     return output_HTML
