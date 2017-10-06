@@ -41,15 +41,14 @@ def loadWebpage(conf_file):
     elif(conf_file["webpage"]["travel_type"] == 3):
         cities = City.objects.filter(bus_station = True)
 
-    if(conf_file["webpage"]["date_span_start"] > conf_file["webpage"]["date_span_finish"]):
+    if(conf_file["webpage"]["date_span_start"] => conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
     else:
         span = conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]
     dates = [datetime.today().date() + timedelta(days=conf_file["webpage"]["date_span_start"])]
 
-    if(span != 0):
-        for i in range(0, span):
-            dates.append(dates[-1] + timedelta(days=1))
+    for i in range(1, span):
+        dates.append(dates[-1] + timedelta(days=1))
     print dates
 
     travels = []
@@ -62,7 +61,7 @@ def loadWebpage(conf_file):
                 if(origin_city.id != destination_city.id):
                     if(conf_file["webpage"]["frecuency_format"] == ""):
                         for departure in dates:
-                            output_HTML = createURL(conf_file, origin_city, destination_city, departure,dates)
+                            output_HTML = createURL(conf_file, origin_city, destination_city, departure)
                             travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates)
                     else:
                         output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
