@@ -146,12 +146,17 @@
                  </div>
 								 <div class="panel-body">
                  {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}})
+                 
                  {% for link in travel %}
+                 
                   {% if link.traveltype.travelname == 'Boat' %}
                    <i class="fa fa-ship fa-4x" aria-hidden="true">
 										 <div class="price">
 											 (USD {{link.price}})
 										 </div>
+                     <div class="price">                                                                
+                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     </div>
 									 </i>
 
                   {% elif link.traveltype.travelname == 'Plane' %}
@@ -159,16 +164,22 @@
 											<div class="price">
 											 (USD {{link.price}})
 										 </div>
+                     <div class="price">                                                                
+                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     </div>
 										</i>
                   {% else %}
                       <i class="fa fa-bus fa-4x" aria-hidden="true">
 												<div class="price">
 												 (USD {{link.price}})
 											 </div>
+                       <div class="price">                                                                
+                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     </div>                                                            
 											</i>
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
-
+                  
 
                  {%  endfor %}
                  </div>
