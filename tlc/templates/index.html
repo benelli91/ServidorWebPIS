@@ -101,7 +101,7 @@
 									<input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 								</div>
 					<div class="col-md-3 form-left-agileits-submit">
-						  <input type="submit" value="search">
+						  <input id="btn" type="submit" value="search">
 					</div>
 				</form>
 
@@ -146,12 +146,17 @@
                  </div>
 								 <div class="panel-body">
                  {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}})
+                 
                  {% for link in travel %}
+                 
                   {% if link.traveltype.travelname == 'Boat' %}
                    <i class="fa fa-ship fa-4x" aria-hidden="true">
 										 <div class="price">
 											 (USD {{link.price}})
 										 </div>
+                     <div class="price">                                                                
+                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     </div>
 									 </i>
 
                   {% elif link.traveltype.travelname == 'Plane' %}
@@ -159,16 +164,22 @@
 											<div class="price">
 											 (USD {{link.price}})
 										 </div>
+                     <div class="price">                                                                
+                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     </div>
 										</i>
                   {% else %}
                       <i class="fa fa-bus fa-4x" aria-hidden="true">
 												<div class="price">
 												 (USD {{link.price}})
 											 </div>
+                       <div class="price">                                                                
+                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     </div>                                                            
 											</i>
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
-
+                  
 
                  {%  endfor %}
                  </div>
@@ -335,8 +346,29 @@
 							    },
 					  })
 						;
+              
 
 					  });
+                    
+                    
+              $(function(){
+              $('#btn').click(function() {
+                    var request = $.ajax({
+      			        type: "GET",
+      			        url: "/rest/tlc/travels/do_search/?from=1&to=2&date=10/10/2017",
+      			        dataType: "json"
+                     });
+
+					    request.done(function(JSON_array) {
+									alert(1);
+									alert(JSON_array["list_travels"][0][0]["departure"]);
+                  $("#toName").val(1);
+									$("#to").val(2)
+					        //from here you have your array to play with
+					    });
+              });
+          });      
+                  
 
 					});
 					</script>

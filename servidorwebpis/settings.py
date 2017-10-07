@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'servidorwebpis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pisunitario',
+        'NAME': 'pistesting',
         'USER': 'pis',
         'PASSWORD': 'pis2017...',
         'HOST': 'lowcosttrip.ddns.net',
