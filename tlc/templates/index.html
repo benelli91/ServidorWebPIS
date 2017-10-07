@@ -69,13 +69,6 @@
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
 
-							<!--<select class="form-control" value="Hola">
-								<option selected disabled>From</option>
-								<option>Montevideo</option>
-								<option>Colonia</option>
-								<option>Maldonado</option>
-								<option>Buenos Aires</option>
-							</select>-->
 							<div class="ui-widget">
 							  <label for="From">Travelling From </label>
 							  <input id="fromName" type="text" name="fromName" placeholder="from..." onfocus="this.value = '';"/>
@@ -85,14 +78,7 @@
 					</div>
 					<div class="col-md-3 form-left-agileits-w3layouts ">
 							<label>Travelling To</label>
-							<!--<select class="form-control">
-								<option selected disabled>To</option>
-								<option>Buenos Aires</option>
-								<option>Colonia</option>
-								<option>Maldonado</option>
-								<option>New York</option>
-								<option>Miami</option>
-							</select>-->
+
 							<input id="toName"  type="text" name="toName" placeholder="to" onfocus="this.value = '';"/>
 							<input id="to" type="hidden" name= "to" display="hidden" />
 					</div>
@@ -141,7 +127,7 @@
 							 	</div>-->
 								<div class="panel panel-primary">
 
-								 <div class="panel-heading">
+								 <div  class="panel-heading">
                    #OPTION
                  </div>
 								 <div class="panel-body">
@@ -158,6 +144,7 @@
                       (start: {{link.departure}}. duration: {{link.duration}} min)
                      </div>
 									 </i>
+
 
                   {% elif link.traveltype.travelname == 'Plane' %}
                     <i class="fa fa-plane fa-4x" aria-hidden="true">
@@ -183,7 +170,7 @@
 
                  {%  endfor %}
                  </div>
-								 <div class="panel-body"></div>
+
 
 							 	</div>
 
@@ -326,6 +313,7 @@
 					  });
 
 
+
               $(function(){
               $('#btn').click(function() {
                     var request = $.ajax({
@@ -343,6 +331,15 @@
 					    });
               });
           });
+
+						$('.panel-heading').on('click', function(){
+								if ( $(this).next().hasClass( "grid" )){
+							    $(this).next().removeClass('grid')[0]
+								}else{
+							   $(this).next().addClass('grid')[0]
+								}
+						});
+
 
 
 					});

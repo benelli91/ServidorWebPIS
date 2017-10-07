@@ -2190,8 +2190,12 @@ img .boat{
 
 .price {
 	font-size: 0.24em;
+	display: none
 }
 
+.fa-ship:hover > .price {
+	display: block;
+}
 
 .fa {
     vertical-align: middle;
@@ -2200,10 +2204,16 @@ img .boat{
 
 .panel-primary > .panel-heading {
     text-align: right
+
+}
+.grid{
+	display: grid;
+
 }
 
+
 .panel-primary  {
-    display: flex;
+    display: block;
 }
 
 li {
@@ -2213,6 +2223,7 @@ li {
 
 .panel-body {
         padding-left: 7%;
+				
 }
 
 @media screen and (max-width: 736px)  {
@@ -2220,6 +2231,9 @@ li {
       display: grid;
       padding-left: 5em;
   }
+	.panel-primary  {
+	    display: flex;
+	}
 
 }
 
