@@ -28,6 +28,42 @@ def genericLoader():
             data = json.load(data_file)
         loadWebpage(data)
 
+def BuquebusLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "Buquebus.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
+def GoogleFlightsLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "GoogleFlights.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
+def CopayLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "Copay.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
+def TresCrucesLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "TresCruces.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
+def AgenciaCentralLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "GoogleFlights.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
+def ColoniaExpressLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "ColoniaExpress.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     phantom = webdriver.PhantomJS()

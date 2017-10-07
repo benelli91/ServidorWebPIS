@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from algoritmo import do_search
 from cargaGoogleBatch import cargaGoogleB
-from cargaGenericaBatch import genericLoader
+from cargaGenericaBatch import *
 
 # Create your views here.
 
@@ -44,5 +44,35 @@ def cargaGoogle(request):
 
 def cargaGenerica(request):
     genericLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaBuquebus(request):
+    BuquebusLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaGoogleFlights(request):
+    GoogleFlightsLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaCopay(request):
+    CopayLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaTresCruces(request):
+    TresCrucesLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaAgenciaCentral(request):
+    AgenciaCentralLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaColoniaExpress(request):
+    ColoniaExpressLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
