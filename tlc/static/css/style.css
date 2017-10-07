@@ -2275,3 +2275,8 @@ input:active {
     //height:10px;
 		//font-size:8px;
 }
+
+h1 {
+text-shadow: 0 6px 5px black;
+
+}
