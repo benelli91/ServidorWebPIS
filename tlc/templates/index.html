@@ -64,18 +64,11 @@
 		<div class="banner-text">
 			<h2>WE ARE YOUR BEST CHOICE</h2>
 			<div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
-			<p style="font-weight:bold">Pick your destination</p>
+			<p style="font-weight:bold">Select your destination</p>
 			   <form action="#" method="post">
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
 
-							<!--<select class="form-control" value="Hola">
-								<option selected disabled>From</option>
-								<option>Montevideo</option>
-								<option>Colonia</option>
-								<option>Maldonado</option>
-								<option>Buenos Aires</option>
-							</select>-->
 							<div class="ui-widget">
 							  <label for="From">Travelling From </label>
 							  <input id="fromName" type="text" name="fromName" placeholder="from..." onfocus="this.value = '';"/>
@@ -85,14 +78,7 @@
 					</div>
 					<div class="col-md-3 form-left-agileits-w3layouts ">
 							<label>Travelling To</label>
-							<!--<select class="form-control">
-								<option selected disabled>To</option>
-								<option>Buenos Aires</option>
-								<option>Colonia</option>
-								<option>Maldonado</option>
-								<option>New York</option>
-								<option>Miami</option>
-							</select>-->
+
 							<input id="toName"  type="text" name="toName" placeholder="to" onfocus="this.value = '';"/>
 							<input id="to" type="hidden" name= "to" display="hidden" />
 					</div>
@@ -129,42 +115,35 @@
 						 {% for travel in list_travels%}
               <!--<li class="list-group-item">-->
 							<li>
-
-								<!--
-								 <div>
-									 Origen: {{link.origin_city.country.id}} - {{link.origin_city.name}} |
-									 Destino: {{link.destination_city.country.id}} - {{link.destination_city.name}} |
-									 Fecha de partida: {{link.departure}} |
-									 Precio : {{link.price}} |
-									 Tipo:  {{link.traveltype.travelname}} |
-									 Info: {{link.description}}
-							 	</div>-->
 								<div class="panel panel-primary">
 
-								 <div class="panel-heading">
+								 <div  class="panel-heading">
                    #OPTION
                  </div>
 								 <div class="panel-body">
-                 {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}})
-                 
+								<ul>
+									<li>
+
+
                  {% for link in travel %}
-                 
+								 {{link.origin_city.name}} ({{link.origin_city.country.id}})
                   {% if link.traveltype.travelname == 'Boat' %}
                    <i class="fa fa-ship fa-4x" aria-hidden="true">
 										 <div class="price">
 											 (USD {{link.price}})
 										 </div>
-                     <div class="price">                                                                
+                     <div class="price">
                       (start: {{link.departure}}. duration: {{link.duration}} min)
                      </div>
 									 </i>
+
 
                   {% elif link.traveltype.travelname == 'Plane' %}
                     <i class="fa fa-plane fa-4x" aria-hidden="true">
 											<div class="price">
 											 (USD {{link.price}})
 										 </div>
-                     <div class="price">                                                                
+                     <div class="price">
                       (start: {{link.departure}}. duration: {{link.duration}} min)
                      </div>
 										</i>
@@ -173,21 +152,24 @@
 												<div class="price">
 												 (USD {{link.price}})
 											 </div>
-                       <div class="price">                                                                
+                       <div class="price">
                       (start: {{link.departure}}. duration: {{link.duration}} min)
-                     </div>                                                            
+                     </div>
 											</i>
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
-                  
+								  </li>
+									<li>
 
                  {%  endfor %}
+
+							 	</ul>
                  </div>
-								 <div class="panel-body"></div>
+
 
 							 	</div>
 
-							</li>
+
 							{% endfor %}
 
 		</ul>
@@ -306,7 +288,7 @@
 				<script src="{% static "js/jquery-ui.js" %}"></script>
 				  <script>
 						  $(function() {
-							$( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker();
+							$( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker({minDate: '+30D',maxDate: '+45D'});
 						  });
 				  </script>
 
@@ -348,6 +330,36 @@
 						;
 
 					  });
+
+
+
+              $(function(){
+              $('#btn').click(function() {
+                    var request = $.ajax({
+      			        type: "GET",
+      			        url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
+      			        dataType: "json"
+                     });
+
+					    request.done(function(JSON_array) {
+
+									alert(JSON_array["list_travels"][0][0]["departure"]);
+                  $("#toName").val(1);
+									$("#to").val(2)
+					        //from here you have your array to play with
+					    });
+              });
+          });
+
+						$('.panel-heading').on('click', function(){
+								if ( $(this).next().hasClass( "grid" )){
+							    $(this).next().removeClass('grid')[0]
+								}else{
+							   $(this).next().addClass('grid')[0]
+								}
+						});
+
+
 
 					});
 					</script>

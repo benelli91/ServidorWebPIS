@@ -234,7 +234,7 @@ header {
 	    font-family: 'Open Sans', sans-serif;
 }
 .book-form input[type="text"]{
-	border: 2px solid #CCCCCC;
+	border: 2px solid #ffa200;
 }
 .book-form form input[type="submit"] {
     text-transform: capitalize;
@@ -2190,21 +2190,34 @@ img .boat{
 
 .price {
 	font-size: 0.24em;
+	display: none
 }
 
+.fa-ship:hover > .price {
+	display: block;
+}
 
 .fa {
     vertical-align: middle;
     padding: 1vh
+		
 }
 
 .panel-primary > .panel-heading {
     text-align: right
+
+}
+.grid{
+	display: grid;
+
 }
 
+
 .panel-primary  {
-    display: flex;
+    display: block;
 }
+
+
 
 li {
     display: initial;
@@ -2213,6 +2226,7 @@ li {
 
 .panel-body {
         padding-left: 7%;
+
 }
 
 @media screen and (max-width: 736px)  {
@@ -2220,6 +2234,9 @@ li {
       display: grid;
       padding-left: 5em;
   }
+	.panel-primary  {
+	    display: flex;
+	}
 
 }
 
