@@ -123,8 +123,11 @@
 								 <div class="panel-body">
 								<ul>
 									<li>
-
-
+										 {{ciudadOrigen }} ({{ paisOrigen }}) - {{ ciudadDestino }} ({{ paisDestino }}) - Total Price:  USD 100
+									</li>
+								</ul>
+								<ul class="hideMe">
+									<li>
                  {% for link in travel %}
 								 {{link.origin_city.name}} ({{link.origin_city.country.id}})
                   {% if link.traveltype.travelname == 'Boat' %}
@@ -352,10 +355,12 @@
           });
 
 						$('.panel-heading').on('click', function(){
-								if ( $(this).next().hasClass( "grid" )){
-							    $(this).next().removeClass('grid')[0]
+								if ( $(this).next().next().hasClass( "hideMe" )){
+							    $(this).next().next().removeClass('hideMe')[0]
+									$(this).next().next().addClass('showMe')[0]
 								}else{
-							   $(this).next().addClass('grid')[0]
+									$(this).next().next().removeClass('showMe')[0]
+ 								 $(this).next().next().addClass('hideMe')[0]
 								}
 						});
 
