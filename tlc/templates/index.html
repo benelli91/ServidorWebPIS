@@ -65,7 +65,7 @@
 			<h2>WE ARE YOUR BEST CHOICE</h2>
 			<div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
 			<p style="font-weight:bold">Pick your destination</p>
-			   <form action="#" method="post">
+			   <div id="fakeForm">
 					{% csrf_token %}
 					<div class="col-md-3 form-time-w3layouts">
 
@@ -103,7 +103,7 @@
 					<div class="col-md-3 form-left-agileits-submit">
 						  <input id="btn" type="submit" value="search">
 					</div>
-				</form>
+				</div>
 
 
 
@@ -119,7 +119,7 @@
 </div>
 </div>
 <!-- //prueba -->
-{% if list_travels %}
+{% if  list_travels %}
 <div class="contact" id="contact">
 	<div class="container">
 
@@ -146,15 +146,15 @@
                  </div>
 								 <div class="panel-body">
                  {{travel.0.origin_city.name}} ({{travel.0.origin_city.country.id}})
-                 
+
                  {% for link in travel %}
-                 
+
                   {% if link.traveltype.travelname == 'Boat' %}
                    <i class="fa fa-ship fa-4x" aria-hidden="true">
 										 <div class="price">
 											 (USD {{link.price}})
 										 </div>
-                     <div class="price">                                                                
+                     <div class="price">
                       (start: {{link.departure}}. duration: {{link.duration}} min)
                      </div>
 									 </i>
@@ -164,7 +164,7 @@
 											<div class="price">
 											 (USD {{link.price}})
 										 </div>
-                     <div class="price">                                                                
+                     <div class="price">
                       (start: {{link.departure}}. duration: {{link.duration}} min)
                      </div>
 										</i>
@@ -173,13 +173,13 @@
 												<div class="price">
 												 (USD {{link.price}})
 											 </div>
-                       <div class="price">                                                                
+                       <div class="price">
                       (start: {{link.departure}}. duration: {{link.duration}} min)
-                     </div>                                                            
+                     </div>
 											</i>
                   {% endif %}
                   {{link.destination_city.name}} ({{link.destination_city.country.id}})
-                  
+
 
                  {%  endfor %}
                  </div>
@@ -191,32 +191,11 @@
 							{% endfor %}
 
 		</ul>
-	 <!-- <div class="panel-group">
-			<div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Colonia - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-bus fa-2x" aria-hidden="true"></i> <i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus omnibus + Buquebus Antlantic 3</div>
-				<div class="panel-body">U$S 70</div>
-	    </div>
-			<div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-ship fa-2x" aria-hidden="true"></i> SeaCat</div>
-				<div class="panel-body">U$S 145</div>
-	    </div>
-	    <div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus</div>
-				<div class="panel-body">U$S 155</div>
-	    </div>
-			<div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> Alas Uruguay</div>
-				<div class="panel-body">U$S 198</div>
-	    </div>
-	  </div>-->
+
 	</div>
 </div>
 {% endif %}
-<!-- //prueba -->
+
 <div class="map-w3-agile">
 	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9253.435046029665!2d-56.1693701401609!3d-34.91690447923392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf302eed9b9f6410a!2sFacultad+de+Ingenier%C3%ADa-UdelaR!5e0!3m2!1ses!2ses!4v1504366253820" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 </div>
@@ -254,10 +233,6 @@
 					<div class="clearfix"> </div>
 	</div>
 </div>
-
-<!-- //banner -->
-<!-- about -->
-<!-- banner-bottom -->
 
 <!-- //Footer -->
 <script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
@@ -346,29 +321,29 @@
 							    },
 					  })
 						;
-              
+
 
 					  });
-                    
-                    
+
+
               $(function(){
               $('#btn').click(function() {
                     var request = $.ajax({
       			        type: "GET",
-      			        url: "/rest/tlc/travels/do_search/?from=1&to=2&date=10/10/2017",
+      			        url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
       			        dataType: "json"
                      });
 
 					    request.done(function(JSON_array) {
-									alert(1);
+
 									alert(JSON_array["list_travels"][0][0]["departure"]);
                   $("#toName").val(1);
 									$("#to").val(2)
 					        //from here you have your array to play with
 					    });
               });
-          });      
-                  
+          });
+
 
 					});
 					</script>

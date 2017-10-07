@@ -236,7 +236,7 @@ header {
 .book-form input[type="text"]{
 	border: 2px solid #CCCCCC;
 }
-.book-form form input[type="submit"] {
+.book-form #fakeForm input[type="submit"] {
     text-transform: capitalize;
     background: #ffa200;
     border: solid 1px #ffa200;
@@ -1181,10 +1181,10 @@ ul.top-links li a i.fa:hover {
     padding: 4.62em 2em;
     float: right;
 }
-.subscribe-grid form {
+.subscribe-grid #fakeForm {
     position:relative
 }
-.subscribe-grid form:hover input[type="email"] {
+.subscribe-grid #fakeForm:hover input[type="email"] {
     border: solid 2px rgba(255, 255, 255, 0.14);
 	 -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -1492,7 +1492,7 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 		width:33.3%;
 		float:left;
 	}
-	.book-form form input[type="submit"] {
+	.book-form #fakeForm input[type="submit"] {
 		margin-top: 0.4em;
 		float: left;
 	}
@@ -2153,7 +2153,7 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 	.ui-datepicker {
 		width: 80.3%!important;
 	}
-	.book-form form input[type="submit"] {
+	.book-form #fakeForm input[type="submit"] {
 		font-size: .78em;
 		letter-spacing: 0.5px;
 	}
@@ -2274,4 +2274,9 @@ input:active {
 
     //height:10px;
 		//font-size:8px;
+}
+
+#fakeForm {
+	display: block;
+	margin-top: 0em;
 }
