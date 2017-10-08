@@ -8,13 +8,14 @@
 	"date_span_finish": 0,
 	"decimal_mark": ",",
 	"thousands_mark":".",
-	"frecuency_format":"Lun%Mar%Mie%Jue%Vie%Sab%Dom%Diario%a",
+	"frequency_format":["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom", "Diario", " a ", ", "],
 	"date_format": "",
 	"page_type": 3,
 	"header_parameters":{},
 	"inputs":{},
 	"iterators":{
-			"travel_block":[{"tag_type": "div", "field_type": "class", "name": "content"}],
+			"travel_block":[{"tag_type": "div", "field_type": "class", "name": "content"},
+				{"tag_type": "tr", "field_type": "", "name": "", "position":0}],
 			"origin_city": {
 				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
 					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],

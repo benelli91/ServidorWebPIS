@@ -95,33 +95,33 @@ def loadWebpage(conf_file):
         for origin_city in cities:
             for destination_city in cities:
                 if(origin_city.id != destination_city.id):
-                    if(conf_file["webpage"]["frecuency_format"] == ""):
+                    if(conf_file["webpage"]["frequency_format"] == []):
                         for departure in dates:
                             output_HTML = createURL(conf_file, origin_city, destination_city, departure)
                             travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates)
                     else:
                         output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
-                        travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates)
+                        travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
 
     elif(page_type == 2): #Javascript type pages
         for origin_city in cities:
             for destination_city in cities:
                 if(origin_city.id != destination_city.id):
-                    if(conf_file["webpage"]["frecuency_format"] == ""):
+                    if(conf_file["webpage"]["frequency_format"] == []):
                         for departure in dates:
                             output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
-                            #if output_HTML != "":
-                                #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+                            travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, departure, dates)
                     else:
-                        output_HTML = output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
-                        #if output_HTML != "":
-                            #travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city)
+                        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
+                        travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
                     print output_HTML
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
-        HTML_blocks = []
-        extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks)
+        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities)
+        print len(origin_cities)
+        print len(destination_cities)
+        print len(HTML_blocks)
         block_number = 0
         for block in HTML_blocks:
             counter = 0
@@ -134,7 +134,7 @@ def loadWebpage(conf_file):
                     counter_d = counter
                 counter += 1
             if(counter_o != -1 and counter_d != -1):
-                travels += extractData(conf_file, block, cities[counter_o], cities[counter_d])
+                travels += extractData(conf_file, block, cities[counter_o], cities[counter_d], datetime.today().date(), dates)
             block_number += 1
 
     """with transaction.atomic():
@@ -221,7 +221,7 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure):
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
     return output_HTML
 
-def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
+def extractBlocks(conf_file, origin_cities, destination_cities):
     phantom = webdriver.PhantomJS()
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
@@ -290,6 +290,8 @@ def extractBlocks(conf_file, origin_cities, destination_cities, HTML_blocks):
             raw_text = aux_destination_city.getText()
             destination_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
 
+    return HTML_blocks
+
 def extractData(conf_file, html_file, origin_city, destination_city,departure,dates):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
     #Travel y devolverlos
@@ -335,11 +337,11 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     travel_agency_list = get_data_list(travel_agency_fields,html_file)
 
     #frequency extraction_tags
-    if conf_file["webpage"]["frecuency_format"] != '':
+    if conf_file["webpage"]["frequency_format"] != []:
         frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
         frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
         frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
-        frequency_list = get_data_list(frequency_agency_fields,html_file)
+        frequency_list = get_data_list(frequency_fields,html_file)
 
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     #||Ver que pasa si las listas tienen distinta cantidad de elementos||
@@ -374,7 +376,8 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         #the format must be (non digit or empty) (all digits price's) (non digit or empty)
         str_price = str(price_list[x].string)
         result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
-        new_travel_price = str(result_format[1])
+        new_travel_price = str(result_format[0])
+        print new_travel_price
 
         #Extract travel_agency
         if travel_agency_list != None : #from HTML
@@ -383,9 +386,19 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
         #if all of data is not empty, then create the travel object
+        print "departure"
+        print new_travel_departure
+        print "duration"
+        print new_travel_duration
+        print "price"
+        print new_travel_price
+        print "agency"
+        print new_travel_agency
         if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
-            if conf_file["webpage"]["frecuency_format"] != '': #if the departure does not depend on the days of the week
+            print "holaaaaaa"
+            if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
                 #print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
+                print "llegue"
                 new_travel = Travel(departure = new_travel_departure, \
                                         origin_city = origin_city, \
                                         destination_city = destination_city, \
@@ -398,8 +411,9 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                 #add the travel to result list
                 travels_to_add[len(travels_to_add):] = [new_travel]
             else: #otherwise check the frequency in the dates span
+                print "la cague"
                 for date in dates:#para cada fecha en el rengo de consulta, si la fecha pertenece a la frecuencia, creo el travel
-                    if verifyFrecuency(conf_file,date,frequency_list[x].string):
+                    if verifyFrequency(conf_file,date,frequency_list[x].string):
                         departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
                         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
                         new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
@@ -471,8 +485,8 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
         output_text = [raw_text_aux]
     elif(raw_formula_aux == ""):
         compiled_format = re.compile(raw_format_aux)
-        #if(re.match("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
-        matches = re.match(raw_format_aux, raw_text_aux)
+        #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
+        matches = re.search(raw_format_aux, raw_text_aux)
         for i in range(1, len(matches.groups()) + 1):
 
             output_text += [matches.group(i)]
@@ -483,7 +497,7 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
             output_text = [str(round(eval(final_formula), 0))]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
-            matches = re.match(raw_format_aux, raw_text_aux)
+            matches = re.search(raw_format_aux, raw_text_aux)
             final_formula = raw_formula_aux
             for i in range(1, len(matches.groups()) + 1):
                 final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
@@ -491,8 +505,29 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
 
     return output_text
 
-def verifyFrecuency(conf_file,date,frecuency_data):
+def verifyFrequency(conf_file,date,frequency_data):
     #TODO funcion que retorne un boolean dependiendo si la fecha es una fecha de la frecuencia o no
-
-
+    if(len(conf_file["webpage"]["frequency_format"]) == 9):
+        frequencies = frequency_data.split(conf_file["webpage"]["frequency_format"][9])
+        daily = conf_file["webpage"]["frequency_format"][7]
+        span = conf_file["webpage"]["frequency_format"][8]
+        for raw_freq in frequencies:
+            freq = unicodedata.normalize('NFKD', raw_freq).encode('ascii','ignore')
+            if(re.search(daily, freq)):
+                return True
+            elif(re.search(conf_file["webpage"]["frequency_format"][date.weekday()], freq)):
+                return True
+            elif(re.search(span, frequency_data)):
+                matches = re.search("(.)*" + span + "(.)*", frequency_data)
+                counter = 0
+                for i in range(0, 6):
+                    if(re.search(conf_file["webpage"]["frequency_format"][counter], matches.group(1))):
+                        beginning_day = counter
+                    if(re.search(conf_file["webpage"]["frequency_format"][counter], matches.group(2))):
+                        end_day = counter
+                    counter += 1
+                if((beginning_day < end_day) and (date.weekday() > beginning_day) and (date.weekday() < end_day)):
+                    return True
+                if((beginning_day > end_day) and ((date.weekday() > beginning_day) or (date.weekday() < end_day))):
+                    return True
     return False
