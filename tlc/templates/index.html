@@ -355,12 +355,12 @@
           });
 
 						$('.panel-heading').on('click', function(){
-								if ( $(this).next().next().hasClass( "hideMe" )){
-							    $(this).next().next().removeClass('hideMe')[0]
-									$(this).next().next().addClass('showMe')[0]
+								if ( $(this).next().children().eq(1).hasClass( "hideMe" )){
+							    $(this).next().children().eq(1).removeClass('hideMe')[0]
+									$(this).next().children().eq(1).addClass('showMe')[0]
 								}else{
-									$(this).next().next().removeClass('showMe')[0]
- 								 $(this).next().next().addClass('hideMe')[0]
+									$(this).next().children().eq(1).removeClass('showMe')[0]
+ 								 $(this).next().children().eq(1).addClass('hideMe')[0]
 								}
 						});
 
