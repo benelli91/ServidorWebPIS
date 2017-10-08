@@ -114,16 +114,39 @@
 
 						 {% for travel in list_travels%}
               <!--<li class="list-group-item">-->
-							<li>
+
 								<div class="panel panel-primary">
 
 								 <div  class="panel-heading">
-                   #OPTION
-                 </div>
+                   #OPTION 1:
+									 <div>
+					 						<span >Total</span>
+											<span class="totalPriceClass">
+												<span class="sizePrice">
+													<span class="priceSimbol">U$S</span>
+													<span class="totalPrice" data-test="JourneyDetailsPriceMain">179</span>
+												</span>
+										  </span>
+										</div>
+       						</div>
 								 <div class="panel-body">
 								<ul>
-									<li>
-										 {{ciudadOrigen }} ({{ paisOrigen }}) - {{ ciudadDestino }} ({{ paisDestino }}) - Total Price:  USD 100
+
+
+									 <li>
+										<div class="grey" >
+											<div class="left">
+												departure: {{travel.0.departure}}
+											</div>
+
+											<div class="right">
+												arrival: Nov. 8, 2017, 10:29 a.m.
+											</div>
+									  </div>
+
+									 <div class="center">
+									 		{{ciudadOrigen }} ({{ paisOrigen }}) <i class="fa fa-angle-double-right fa-3x" aria-hidden="true"></i> {{ ciudadDestino }} ({{ paisDestino }})
+								 		</div>
 									</li>
 								</ul>
 								<ul class="hideMe">

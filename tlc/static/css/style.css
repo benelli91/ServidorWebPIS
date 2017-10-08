@@ -2193,7 +2193,10 @@ img .boat{
 	font-size: 0.24em;
 	//display: none
 }
-
+.totalPrice {
+	font-size: xx-large;
+	font-weight: 900;
+}
 .hideMe {
 	display: none;
 }
@@ -2208,13 +2211,13 @@ img .boat{
 
 .fa {
     vertical-align: middle;
-    padding: 1vh
+    padding: 2vh
 
 }
 
 .panel-primary > .panel-heading {
-    text-align: right
-
+    text-align: right;
+		cursor: pointer;
 }
 .grid{
 	display: grid;
@@ -2222,8 +2225,10 @@ img .boat{
 }
 
 
+
 .panel-primary  {
     display: block;
+		border-width: 2px;
 }
 
 ul{
@@ -2233,13 +2238,14 @@ ul{
 
 li {
     display: initial;
-    text-align: center;
+  //  text-align: center;
 }
 
-.panel-body {
-        padding-left: 7%;
-
+.center {
+	text-align: center;
 }
+
+
 
 @media screen and (max-width: 736px)  {
   .panel-body  {
@@ -2253,7 +2259,8 @@ li {
 }
 
 .panel-heading:hover {
-	background-color:  #70A2CD
+	background-color:  #70A2CD;
+
 }
 
 
@@ -2275,6 +2282,10 @@ input {
 }
 input:hover {
 	background:  #FFFAF2;
+
+}
+.panel:hover {
+	box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.6);
 
 }
 
@@ -2308,4 +2319,22 @@ input:active {
 h1 {
 text-shadow: 0 6px 5px black;
 
+}
+
+.grey {
+	color: grey;
+	position: relative;
+	padding: 1vh;
+}
+
+.left {
+	left: 0;
+	top: 0;
+	position: absolute;
+}
+
+.right {
+	right: 0;
+	top: 0;
+	position: absolute;
 }
