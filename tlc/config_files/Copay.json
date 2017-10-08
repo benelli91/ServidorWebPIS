@@ -23,8 +23,7 @@
 				"formula":""
 			},
 			"destination_city": {
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "content"},
-					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
+				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
 					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],
 				"format":"(\\w*)",
 				"formula":""
@@ -40,8 +39,11 @@
 				"formula":""
 			},
 			"arrival":{
-				"fields":[],
-				"format":"",
+				"fields":[
+					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":-1 }],
+				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
 			"price":{
@@ -50,11 +52,8 @@
 				"formula":"(city_distance * 2.015 + 13)/28"
 			},
 			"duration": {
-				"fields":[
-					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
-					{"tag_type": "tr", "field_type": "", "name": ""},
-					{"tag_type": "td", "field_type": "", "name": "", "position":1 }],
-				"format":"(\\d\\d):(\\d\\d)",
+				"fields":[],
+				"format":"",
 				"formula":""
 			},
 			"travel_agency": {

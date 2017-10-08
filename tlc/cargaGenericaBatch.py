@@ -225,8 +225,6 @@ def extractBlocks(conf_file, origin_cities, destination_cities):
     phantom = webdriver.PhantomJS()
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
-    aux_origin_cities = [BeautifulSoup(phantom.page_source, "html.parser")]
-    aux_destination_cities = [BeautifulSoup(phantom.page_source, "html.parser")]
     HTML_blocks = [BeautifulSoup(phantom.page_source, "html.parser")]
 
     #We extract the travel blocks
@@ -246,51 +244,67 @@ def extractBlocks(conf_file, origin_cities, destination_cities):
                         sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
         HTML_blocks = sub_blocks[:]
 
-    #We extract the origin city of each travel block
-    for tag in conf_file["webpage"]["iterators"]["origin_city"]["fields"]:
-        sub_blocks = []
-        for block in aux_origin_cities:
-            if block != "\n":
-                if((tag["field_type"] == "") and ("position" not in tag)):
-                    sub_blocks += block.find_all(tag["tag_type"])
-                elif((tag["field_type"] == "") and ("position" in tag)):
-                    if len(block.find_all(tag["tag_type"])) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-                elif(tag["field_type"] != "") and ("position" not in tag):
-                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                elif(tag["field_type"] != "") and ("position" in tag):
-                    if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
-        aux_origin_cities = sub_blocks[:]
+    aux_blocks = []
+    for block in HTML_blocks:
+        if(block != "\n"):
+            aux_blocks += [[block, "", ""]]
 
-    for aux_origin_city in aux_origin_cities:
-        if (aux_origin_city != "\n"):
-            raw_text = aux_origin_city.getText()
-            origin_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
+    for aux_sub_block in aux_blocks:
+        aux_origin_cities = [aux_sub_block[0]]
+        aux_destination_cities = [aux_sub_block[0]]
+        #We extract the origin city of each travel block
+        for tag in conf_file["webpage"]["iterators"]["origin_city"]["fields"]:
+            sub_blocks = []
+            for block in aux_origin_cities:
+                if block != "\n":
+                    if((tag["field_type"] == "") and ("position" not in tag)):
+                        sub_blocks += block.find_all(tag["tag_type"])
+                    elif((tag["field_type"] == "") and ("position" in tag)):
+                        if len(block.find_all(tag["tag_type"])) > tag["position"]:
+                            sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                    elif(tag["field_type"] != "") and ("position" not in tag):
+                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                    elif(tag["field_type"] != "") and ("position" in tag):
+                        if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
+                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+            aux_origin_cities = sub_blocks[:]
 
-    #We extract the destination city of each travel block
-    for tag in conf_file["webpage"]["iterators"]["destination_city"]["fields"]:
-        sub_blocks = []
-        for block in aux_destination_cities:
-            if block != "\n":
-                if((tag["field_type"] == "") and ("position" not in tag)):
-                    sub_blocks += block.find_all(tag["tag_type"])
-                elif((tag["field_type"] == "") and ("position" in tag)):
-                    if len(block.find_all(tag["tag_type"])) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-                elif(tag["field_type"] != "") and ("position" not in tag):
-                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                elif(tag["field_type"] != "") and ("position" in tag):
-                    if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
-        aux_destination_cities = sub_blocks[:]
+        for aux_origin_city in aux_origin_cities:
+            if (aux_origin_city != "\n"):
+                raw_text = aux_origin_city.getText()
+                aux_sub_block[1] = [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
 
-    for aux_destination_city in aux_destination_cities:
-        if (aux_destination_city != "\n"):
-            raw_text = aux_destination_city.getText()
-            destination_cities += [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
 
-    return HTML_blocks
+        #We extract the destination city of each travel block
+        for tag in conf_file["webpage"]["iterators"]["destination_city"]["fields"]:
+            sub_blocks = []
+            for block in aux_destination_cities:
+                if block != "\n":
+                    if((tag["field_type"] == "") and ("position" not in tag)):
+                        sub_blocks += block.find_all(tag["tag_type"])
+                    elif((tag["field_type"] == "") and ("position" in tag)):
+                        if len(block.find_all(tag["tag_type"])) > tag["position"]:
+                            sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                    elif(tag["field_type"] != "") and ("position" not in tag):
+                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                    elif(tag["field_type"] != "") and ("position" in tag):
+                        if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
+                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+            aux_destination_cities = sub_blocks[:]
+
+        for aux_destination_city in aux_destination_cities:
+            if (aux_destination_city != "\n"):
+                raw_text = aux_destination_city.getText()
+                aux_sub_block[2] = [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
+
+    result = []
+    for block in aux_blocks:
+        if(block[1] != "" and block[2] != ""):
+            result += [block[0]]
+            origin_cities += block[1]
+            destination_cities += block[2]
+
+    return result
 
 def extractData(conf_file, html_file, origin_city, destination_city,departure,dates):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
@@ -484,7 +498,6 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     if(raw_format_aux == ""):   #if there's no format specified we return the given text without modifications
         output_text = [raw_text_aux]
     elif(raw_formula_aux == ""):
-        compiled_format = re.compile(raw_format_aux)
         #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
         matches = re.search(raw_format_aux, raw_text_aux)
         for i in range(1, len(matches.groups()) + 1):
