@@ -2180,6 +2180,14 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 /*--responsive--*/
 
 /*cambios custom*/
+hr {
+	display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
 img .boat{
     vertical-align: middle;
     size: a3;
@@ -2197,9 +2205,7 @@ img .boat{
 	font-size: xx-large;
 	font-weight: 900;
 }
-.hideMe {
-	display: none;
-}
+
 
 .showMe{
 	display: grid;
@@ -2223,8 +2229,6 @@ img .boat{
 	display: grid;
 
 }
-
-
 
 .panel-primary  {
     display: block;
@@ -2294,20 +2298,6 @@ input:active {
 }
 
 
-//.ui-tooltip {
-//    background: #4a4a4a;
-//    color: #96f226;
-//    border: 2px solid #454545;
-//    border-radius: 0px;
-//    box-shadow: 0 0
-//}
-//.ui-autocomplete {
-//    background: #4a4a4a;
-//    border-radius: 0px;
-//}
-//.ui-autocomplete.source:hover {
-//    background: #454545;
-//}
 
 .ui-menu .ui-menu-item a{
     background: #CCCCCC;
@@ -2337,4 +2327,17 @@ text-shadow: 0 6px 5px black;
 	right: 0;
 	top: 0;
 	position: absolute;
+}
+
+
+
+
+.verticalLine:before {
+  background-color: blue;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+}
+.verticalLine:after {
+  border-left: thick solid #ff0000;
 }

@@ -117,8 +117,8 @@
 
 								<div class="panel panel-primary">
 
-								 <div  class="panel-heading">
-                   #OPTION 1:
+								 <div  class="panel-heading" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
+                   #OPTION {{forloop.counter}}:
 									 <div>
 					 						<span >Total</span>
 											<span class="totalPriceClass">
@@ -149,8 +149,10 @@
 								 		</div>
 									</li>
 								</ul>
-								<ul class="hideMe">
+								<ul class="collapse" id="hide{{forloop.counter}}">
+									<hr/> <vr/>
 									<li>
+									
                  {% for link in travel %}
 								 {{link.origin_city.name}} ({{link.origin_city.country.id}})
                   {% if link.traveltype.travelname == 'Boat' %}
@@ -377,15 +379,7 @@
               });
           });
 
-						$('.panel-heading').on('click', function(){
-								if ( $(this).next().children().eq(1).hasClass( "hideMe" )){
-							    $(this).next().children().eq(1).removeClass('hideMe')[0]
-									$(this).next().children().eq(1).addClass('showMe')[0]
-								}else{
-									$(this).next().children().eq(1).removeClass('showMe')[0]
- 								 $(this).next().children().eq(1).addClass('hideMe')[0]
-								}
-						});
+
 
 
 
