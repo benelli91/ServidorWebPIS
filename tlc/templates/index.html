@@ -1,393 +1,325 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Low Cost Trip</title>
-<!-- meta-tags -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //meta-tags -->
-<link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css" media="all" />
-<link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
-<link rel="stylesheet" href="{% static "css/owl.carousel.css" %}" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
-<link rel="stylesheet" href="{% static "css/flexslider.css" %}" type="text/css" media="screen" property="" />
-<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="{% static "css/lightbox.css" %}">
-<!--web-fonts-->
-<link href="{% static "//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" %}" rel="stylesheet">
-<link href="{% static "//fonts.googleapis.com/css?family=Lato:300,400,700" %}" rel="stylesheet">
-<link href="{% static "//fonts.googleapis.com/css?family=Tangerine:400,700" %}" rel="stylesheet">
-<!--//web-fonts-->
-</head>
-<body>
-<!-- banner -->
-	<div class="banner" id="home">
-<div class="agileinfo-dot">
-<div class="container">
-		<!-- header -->
-		<header>
-			<!-- navigation -->
-			<div class="w3_navigation">
-			<!--<nav class="navbar navbar-default">-->
-				<!--<div class="navbar-header navbar-left">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>-->
-					<div class="w3_navigation_pos">
-						<h1><a><span>L</span>ow <span>C</span>ost <span>T</span>rip</a></h1>
-					</div>
-				<!--</div>-->
-				<!-- Collect the nav links, forms, and other content for toggling
-				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-					<nav class="cl-effect-4" id="cl-effect-4">
-						<ul class="nav navbar-nav menu__list">
-							<li><a href="{% static "index.html" %}">Home</a></li>
-							<li><a href="{% static "#about" %}" class=" scroll">About</a></li>
-							<li><a href="{% static "#team" %}" class=" scroll">Team</a></li>
-							<li><a href="{% static "#gallery" %}" class=" scroll">Destinations</a></li>
-							<li><a href="{% static "#contact" %}" class=" scroll">Contact</a></li>
-						</ul>
-					</nav>
-				</div>-->
-			</nav>
-	</div>
-	<div class="clearfix"></div>
-		<!-- //navigation -->
-		</header>
-	<!-- //header -->
-	<!-- banner-text -->
-		<div class="banner-text">
-			<h2>WE ARE YOUR BEST CHOICE</h2>
-			<div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
-			<p style="font-weight:bold">Select your destination</p>
-			   <form action="#" method="post">
-					{% csrf_token %}
-					<div class="col-md-3 form-time-w3layouts">
+   <head>
+      <title>Low Cost Trip</title>
+      <!-- meta-tags -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+         function hideURLbar(){ window.scrollTo(0,1); }
+      </script>
+      <!-- //meta-tags -->
+      <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css" media="all" />
+      <link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static "css/owl.carousel.css" %}" type="text/css" media="all"/> <!-- Owl-Carousel-CSS -->
+      <link rel="stylesheet" href="{% static "css/flexslider.css" %}" type="text/css" media="screen" property="" />
+      <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all" />
+      <link rel="stylesheet" href="{% static "css/lightbox.css" %}">
+      <!--web-fonts-->
+      <link href="{% static "//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" %}" rel="stylesheet">
+      <link href="{% static "//fonts.googleapis.com/css?family=Lato:300,400,700" %}" rel="stylesheet">
+      <link href="{% static "//fonts.googleapis.com/css?family=Tangerine:400,700" %}" rel="stylesheet">
+      <!--//web-fonts-->
+   </head>
+   <body>
+      <!-- banner -->
+      <div class="banner" id="home">
+         <div class="agileinfo-dot" >
+            <div class="container">
+               <!-- header -->
+               <header>
+                  <!-- navigation -->
+                  <div class="w3_navigation">
 
-							<div class="ui-widget">
-							  <label for="From">Travelling From </label>
-							  <input id="fromName" type="text" name="fromName" placeholder="from..." onfocus="this.value = '';"/>
-								<input id="from" type="hidden" name= "from" display="hidden" />
+                     <div class="w3_navigation_pos">
+                        <h1><a><span>L</span>ow <span>C</span>ost <span>T</span>rip</a></h1>
+                     </div>
 
-							</div>
-					</div>
-					<div class="col-md-3 form-left-agileits-w3layouts ">
-							<label>Travelling To</label>
+                     </nav>
+                  </div>
+                  <div class="clearfix"></div>
+                  <!-- //navigation -->
+               </header>
+               <!-- //header -->
+               <!-- banner-text -->
+               <div class="banner-text">
+                  <h2>WE ARE YOUR BEST CHOICE</h2>
+                  <div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
+                     <p style="font-weight:bold">Select your destination</p>
+                     <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="col-md-3 form-time-w3layouts">
+                           <div class="ui-widget">
+                              <label for="From">Travelling From </label>
+                              <input id="fromName" type="text" name="fromName" placeholder="from..." onfocus="this.value = '';"/>
+                              <input id="from" type="hidden" name= "from" display="hidden" />
+                           </div>
+                        </div>
+                        <div class="col-md-3 form-left-agileits-w3layouts ">
+                           <label>Travelling To</label>
+                           <input id="toName"  type="text" name="toName" placeholder="to" onfocus="this.value = '';"/>
+                           <input id="to" type="hidden" name= "to" display="hidden" />
+                        </div>
+                        <div class="col-md-3 form-date-w3-agileits">
+                           <label>Departure Date</label>
+                           <input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+                        </div>
+                        <div class="col-md-3 form-left-agileits-submit">
+                           <input type="submit" value="search">
+                        </div>
+                     </form>
+                     <div class="clearfix"></div>
+                  </div>
+                  <div class="banner-btm-agileits">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+    {% if list_travels %}
+      <div class="contact" id="contact">
+      <div class="container">
+      <h3 class="title-agileits-w3layouts">Your best options</h3>
+      <ul class="list-group">
+        {% for travel in list_travels%}
+         <div class="panel panel-primary">
+            <div  class="panel-heading" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
+               #OPTION {{forloop.counter}}:
+               <div>
+                  <span >Total</span>
+                  <span class="totalPriceClass">
+                  <span class="sizePrice">
+                  <span class="priceSimbol">U$S</span>
+                  <span class="totalPrice" data-test="JourneyDetailsPriceMain">179 (hardcod)</span>
+                  </span>
+                  </span>
+               </div>
+            </div>
+            <div class="panel-body">
+               <ul>
+                  <li>
+                     <div class="grey" >
+                        <div >
+                           departure:  {{travel.0.departure}}
+                        </div>
+                        <div >
+                           arrival: Nov. 8, 2017, 10:29 a.m. (hardcoded)
+                        </div>
+                     </div>
+                    <!-- <div class="center">
+                        {{ciudadOrigen }} ({{ paisOrigen }}) <i class="fa fa-angle-double-right fa-3x" aria-hidden="true"></i> {{ ciudadDestino }} ({{ paisDestino }})
+                     </div> !-->
+                  </li>
+               </ul>
+               <hr/>
 
-							<input id="toName"  type="text" name="toName" placeholder="to" onfocus="this.value = '';"/>
-							<input id="to" type="hidden" name= "to" display="hidden" />
-					</div>
-					<div class="col-md-3 form-date-w3-agileits">
-						        <label>Departure Date</label>
-									<input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
-								</div>
-					<div class="col-md-3 form-left-agileits-submit">
-						  <input type="submit" value="search">
-					</div>
-				</form>
-
-
-
-				<div class="clearfix"></div>
-			</div>
-
-			<div class="banner-btm-agileits">
-
-
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-<!-- //prueba -->
-{% if list_travels %}
-<div class="contact" id="contact">
-	<div class="container">
-
-		<h3 class="title-agileits-w3layouts">Your best options</h3>
-		<ul class="list-group">
-
-						 {% for travel in list_travels%}
-              <!--<li class="list-group-item">-->
-
-								<div class="panel panel-primary">
-
-								 <div  class="panel-heading" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
-                   #OPTION {{forloop.counter}}:
-									 <div>
-					 						<span >Total</span>
-											<span class="totalPriceClass">
-												<span class="sizePrice">
-													<span class="priceSimbol">U$S</span>
-													<span class="totalPrice" data-test="JourneyDetailsPriceMain">179</span>
-												</span>
-										  </span>
-										</div>
-       						</div>
-								 <div class="panel-body">
-								<ul>
-
-
-									 <li>
-										<div class="grey" >
-											<div class="left">
-												departure: {{travel.0.departure}}
-											</div>
-
-											<div class="right">
-												arrival: Nov. 8, 2017, 10:29 a.m.
-											</div>
-									  </div>
-
-									 <div class="center">
-									 		{{ciudadOrigen }} ({{ paisOrigen }}) <i class="fa fa-angle-double-right fa-3x" aria-hidden="true"></i> {{ ciudadDestino }} ({{ paisDestino }})
-								 		</div>
-									</li>
-								</ul>
-								<ul class="collapse" id="hide{{forloop.counter}}">
-									<hr/> <vr/>
-									<li>
-									
+               <ul class="collapse" id="hide{{forloop.counter}}"> <!--Menu desplegable-->
                  {% for link in travel %}
-								 {{link.origin_city.name}} ({{link.origin_city.country.id}})
-                  {% if link.traveltype.travelname == 'Boat' %}
-                   <i class="fa fa-ship fa-4x" aria-hidden="true">
-										 <div class="price">
-											 (USD {{link.price}})
-										 </div>
-                     <div class="price">
-                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                 <div class="detail-container" >
+                     <div class="containerLeft">
+                         <div >
+                             <div><span>{{link.departure}}</span>
+                             </div>
+                         </div>
+                         <div >
+                           {% if link.traveltype.travelname == 'Boat' %}
+                            <i class="fa fa-ship fa-3x" aria-hidden="true">
+                            </i>
+                           {% elif link.traveltype.travelname == 'Plane' %}
+                             <i class="fa fa-plane fa-3x" aria-hidden="true">
+                            </i>
+                           {% else %}
+                               <i class="fa fa-bus fa-3x" aria-hidden="true">
+                              </i>
+                           {% endif %}
+                         </div>
+                         <div data-test="SegmentArrivalTime">
+                             <div class="false"><span>Nov. 8, 23:25 (hardcoded)</span>
+                             </div>
+                         </div>
                      </div>
-									 </i>
-
-
-                  {% elif link.traveltype.travelname == 'Plane' %}
-                    <i class="fa fa-plane fa-4x" aria-hidden="true">
-											<div class="price">
-											 (USD {{link.price}})
-										 </div>
-                     <div class="price">
-                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     <div class="timeLine">
                      </div>
-										</i>
-                  {% else %}
-                      <i class="fa fa-bus fa-4x" aria-hidden="true">
-												<div class="price">
-												 (USD {{link.price}})
-											 </div>
-                       <div class="price">
-                      (start: {{link.departure}}. duration: {{link.duration}} min)
+                     <div class="containerRight">
+                         <div class="DefaultSegment__position___39Chl">{{link.origin_city.name}} ({{link.origin_city.country.id}})</div>
+                         <div><span>compañia?</span>
+                             <div class="DefaultSegment__duration___3x407" ><span> {{link.duration}} min</span>
+                               <span data-key="dw.shortHours">h</span>
+                             </div>
+                         </div>
+                         <div data-test="SegmentArrivalPosition">
+                             <div class="DefaultSegment__position___39Chl">{{link.destination_city.name}} ({{link.destination_city.country.id}})</div>
+                         </div>
                      </div>
-											</i>
-                  {% endif %}
-                  {{link.destination_city.name}} ({{link.destination_city.country.id}})
-								  </li>
-									<li>
-
+                 </div>
                  {%  endfor %}
 
-							 	</ul>
-                 </div>
-
-
-							 	</div>
-
-
-							{% endfor %}
-
-		</ul>
-	 <!-- <div class="panel-group">
-			<div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Colonia - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-bus fa-2x" aria-hidden="true"></i> <i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus omnibus + Buquebus Antlantic 3</div>
-				<div class="panel-body">U$S 70</div>
-	    </div>
-			<div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-ship fa-2x" aria-hidden="true"></i> SeaCat</div>
-				<div class="panel-body">U$S 145</div>
-	    </div>
-	    <div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-anchor fa-2x" aria-hidden="true"></i> Buquebus</div>
-				<div class="panel-body">U$S 155</div>
-	    </div>
-			<div class="panel panel-primary">
-	      <div class="panel-heading">Montevideo - Buenos Aires</div>
-	      <div class="panel-body"><i class="fa fa-plane fa-2x" aria-hidden="true"></i> Alas Uruguay</div>
-				<div class="panel-body">U$S 198</div>
-	    </div>
-	  </div>-->
-	</div>
+          </ul>
+      </div> <!--agregue-->
+    </div>
+    {% endfor %}
+    </ul>
+  </div>
 </div>
-{% endif %}
-<!-- //prueba -->
-<div class="map-w3-agile">
-	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9253.435046029665!2d-56.1693701401609!3d-34.91690447923392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf302eed9b9f6410a!2sFacultad+de+Ingenier%C3%ADa-UdelaR!5e0!3m2!1ses!2ses!4v1504366253820" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-</div>
-<!-- //testimonials -->
-<div class="contact" id="contact">
-	<div class="container">
-		<h3 class="title-agileits-w3layouts">Contact Us</h3>
-					<form action="#" method="post">
-					<div class="col-md-6">
-						<div class="styled-input agile-styled-input-top">
-							<input type="text" name="Name" required="">
-							<label>Name</label>
-							<span></span>
-						</div>
-						<div class="styled-input">
-							<input type="email" name="Email" required="">
-							<label>Email</label>
-							<span></span>
-						</div>
-						<div class="styled-input">
-							<input type="text" name="Subject" required="">
-							<label>Subject</label>
-							<span></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="styled-input textarea-w3ls">
-							<textarea name="Message" required=""></textarea>
-							<label>Message</label>
-							<span></span>
-						</div>
-						<input type="submit" value="SEND">
-					</div>
-					</form>
-					<div class="clearfix"> </div>
-	</div>
-</div>
+    {% endif %}
+      <!-- //prueba -->
+      <div class="map-w3-agile">
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9253.435046029665!2d-56.1693701401609!3d-34.91690447923392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf302eed9b9f6410a!2sFacultad+de+Ingenier%C3%ADa-UdelaR!5e0!3m2!1ses!2ses!4v1504366253820" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+      </div>
+      <!-- //testimonials -->
+      <div class="contact" id="contact">
+         <div class="container">
+            <h3 class="title-agileits-w3layouts">Contact Us</h3>
+            <form action="#" method="post">
+               <div class="col-md-6">
+                  <div class="styled-input agile-styled-input-top">
+                     <input type="text" name="Name" required="">
+                     <label>Name</label>
+                     <span></span>
+                  </div>
+                  <div class="styled-input">
+                     <input type="email" name="Email" required="">
+                     <label>Email</label>
+                     <span></span>
+                  </div>
+                  <div class="styled-input">
+                     <input type="text" name="Subject" required="">
+                     <label>Subject</label>
+                     <span></span>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="styled-input textarea-w3ls">
+                     <textarea name="Message" required=""></textarea>
+                     <label>Message</label>
+                     <span></span>
+                  </div>
+                  <input type="submit" value="SEND">
+               </div>
+            </form>
+            <div class="clearfix"> </div>
+         </div>
+      </div>
+      <!-- //banner -->
+      <!-- about -->
+      <!-- banner-bottom -->
+      <!-- //Footer -->
+      <script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
+      <script src="{% static "js/lightbox-plus-jquery.min.js" %}"></script>
+      <!-- Owl-Carousel-JavaScript -->
+      <script src="{% static "js/owl.carousel.js" %}"></script>
+      <script>
+         $(document).ready(function() {
+         	$("#owl-demo").owlCarousel ({
+         		items : 4,
+         		lazyLoad : true,
+         		autoPlay : true,
+         		pagination : true,
+         	});
+         });
+      </script>
+      <!-- //Owl-Carousel-JavaScript -->
+      <!-- flexSlider -->
+      <script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+      <script type="text/javascript">
+         $(window).load(function(){
+           $('.flexslider').flexslider({
+         	animation: "slide",
+         	start: function(slider){
+         	  $('body').removeClass('loading');
+         	}
+           });
+         });
 
-<!-- //banner -->
-<!-- about -->
-<!-- banner-bottom -->
+      </script>
+      <!-- //flexSlider -->
+      <!-- Move-top-scrolling -->
+      <script type="text/javascript" src="{% static "js/move-top.js" %}"></script>
+      <script type="text/javascript" src="{% static "js/easing.js" %}"></script>
+      <script type="text/javascript">
+         jQuery(document).ready(function($) {
+         	$(".scroll").click(function(event){
+         		event.preventDefault();
+         		$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+         	});
+         });
+      </script>
+      <!-- Move-top-scrolling -->
+      <!-- Calendar -->
+      <link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+      <script src="{% static "js/jquery-ui.js" %}"></script>
+      <script>
+         $(function() {
+         $( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker({minDate: '+30D',maxDate: '+45D'});
+         });
+      </script>
+      <script>
+         var cities = [
+         	{value:"1", label:"Buenos Aires"},
+         	{value:"1", label:"Buenos B"},
+         ]
+      </script>
+      <script>
+         $(document).ready(function() {
 
-<!-- //Footer -->
-<script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
+         	$.get( "/rest/tlc/citys/autocomplete_search/?term=")
+         	.done(function( data ) {
+         		$("#fromName").autocomplete({
+         	    source: data,
+         			focus: function (event, ui) {
+         		        event.preventDefault();
+         		        $("#fromName").val(ui.item.label);
+         						$("#from").val(ui.item.id)
+         		    },
+           })
+         	;
 
-					<script src="{% static "js/lightbox-plus-jquery.min.js" %}"></script>
-			<!-- Owl-Carousel-JavaScript -->
-	<script src="{% static "js/owl.carousel.js" %}"></script>
-	<script>
-		$(document).ready(function() {
-			$("#owl-demo").owlCarousel ({
-				items : 4,
-				lazyLoad : true,
-				autoPlay : true,
-				pagination : true,
-			});
-		});
-	</script>
-	<!-- //Owl-Carousel-JavaScript -->
-	<!-- flexSlider -->
-					<script defer src="{% static "js/jquery.flexslider.js" %}"></script>
-					<script type="text/javascript">
-					$(window).load(function(){
-					  $('.flexslider').flexslider({
-						animation: "slide",
-						start: function(slider){
-						  $('body').removeClass('loading');
-						}
-					  });
-					});
-				  </script>
-				<!-- //flexSlider -->
- <!-- Move-top-scrolling -->
-<script type="text/javascript" src="{% static "js/move-top.js" %}"></script>
-<script type="text/javascript" src="{% static "js/easing.js" %}"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event){
-			event.preventDefault();
-			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-		});
-	});
-</script>
-<!-- Move-top-scrolling -->
-<!-- Calendar -->
-				<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
-				<script src="{% static "js/jquery-ui.js" %}"></script>
-				  <script>
-						  $(function() {
-							$( "#datepicker,#datepicker1,#datepicker2,#datepicker3" ).datepicker({minDate: '+30D',maxDate: '+45D'});
-						  });
-				  </script>
+           });
 
-					<script>
+         	$.get( "/rest/tlc/citys/autocomplete_search/?term=")
+         	.done(function( data ) {
+         		$("#toName").autocomplete({
+         	    source: data,
+         			focus: function (event, ui) {
+         		        event.preventDefault();
+         		        $("#toName").val(ui.item.label);
+         						$("#to").val(ui.item.id)
+         		    },
+           })
+         	;
 
-					var cities = [
-						{value:"1", label:"Buenos Aires"},
-						{value:"1", label:"Buenos B"},
-					]
-					</script>
-
-					<script>
-					$(document).ready(function() {
-
-						$.get( "/rest/tlc/citys/autocomplete_search/?term=")
-						.done(function( data ) {
-							$("#fromName").autocomplete({
-						    source: data,
-								focus: function (event, ui) {
-							        event.preventDefault();
-							        $("#fromName").val(ui.item.label);
-											$("#from").val(ui.item.id)
-							    },
-					  })
-						;
-
-					  });
-
-						$.get( "/rest/tlc/citys/autocomplete_search/?term=")
-						.done(function( data ) {
-							$("#toName").autocomplete({
-						    source: data,
-								focus: function (event, ui) {
-							        event.preventDefault();
-							        $("#toName").val(ui.item.label);
-											$("#to").val(ui.item.id)
-							    },
-					  })
-						;
-
-					  });
+           });
 
 
 
-              $(function(){
-              $('#btn').click(function() {
-                    var request = $.ajax({
-      			        type: "GET",
-      			        url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
-      			        dataType: "json"
-                     });
+                  $(function(){
+                  $('#btn').click(function() {
+                        var request = $.ajax({
+          			        type: "GET",
+          			        url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
+          			        dataType: "json"
+                         });
 
-					    request.done(function(JSON_array) {
+             request.done(function(JSON_array) {
 
-									alert(JSON_array["list_travels"][0][0]["departure"]);
-                  $("#toName").val(1);
-									$("#to").val(2)
-					        //from here you have your array to play with
-					    });
+         				alert(JSON_array["list_travels"][0][0]["departure"]);
+                      $("#toName").val(1);
+         				$("#to").val(2)
+                 //from here you have your array to play with
+             });
+                  });
               });
-          });
 
 
 
 
 
-					});
-					</script>
-			<!-- //Calendar -->
-<!--js for bootstrap working-->
-	<script src="{% static "js/bootstrap.js" %}"></script>
-<!-- //for bootstrap working -->
-</body>
+         });
+      </script>
+      <!-- //Calendar -->
+      <!--js for bootstrap working-->
+      <script src="{% static "js/bootstrap.js" %}"></script>
+      <!-- //for bootstrap working -->
+   </body>
 </html>
