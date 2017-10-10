@@ -265,7 +265,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     price_list = []
     travel_agency_list = []
     frequency_list = []
-
+    print '------', origin_city.name,destination_city.name
     departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
     page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
@@ -273,20 +273,21 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
-    #print 'departure'
+    print 'departure'
     departure_list = get_data_list(departure_fields,html_file, True)
-    #for x in departure_list:
-    #    print x
-    #arrival extraction_tags
+    for q in departure_list:
+        print q
 
+    #arrival extraction_tags
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
     if arrival_fields != []:
         arrival_list = get_data_list(arrival_fields,html_file, True)
-        #print ('arrival')
-        #for x in departure_list:
-        #    print x
+        print ('arrival')
+        for q in arrival_list:
+            print q
+        time.sleep(10)
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
@@ -342,6 +343,8 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
             str_arrival = arrival_list[x]
             result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
             new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+            if new_travel_arrival < new_travel_departure:
+                new_travel_arrival = new_travel_arrival + timedelta(days = 1)
             aux_new_travel_duration = new_travel_arrival - new_travel_departure
 
         if aux_new_travel_duration != []: #convert timedelta in minutes
