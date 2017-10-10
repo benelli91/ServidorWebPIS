@@ -57,7 +57,7 @@
 				"fields":[
 					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":2},
 					{"tag_type": "tr", "field_type": "", "name": ""},
-					{"tag_type": "td", "field_type": "", "name": ""}],
+					{"tag_type": "td", "field_type": "class", "name": ""}],
 				"format":"",
 				"formula":""
 			}

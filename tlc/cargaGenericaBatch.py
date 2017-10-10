@@ -86,7 +86,7 @@ def loadWebpage(conf_file):
 
     for i in range(1, span):
         dates.append(dates[-1] + timedelta(days=1))
-    print dates
+    #print dates
 
     travels = []
     url = conf_file["webpage"]["uri_start"]
@@ -115,14 +115,14 @@ def loadWebpage(conf_file):
                     else:
                         output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
-                    print output_HTML
+                    #print output_HTML
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
         HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities)
-        print len(origin_cities)
-        print len(destination_cities)
-        print len(HTML_blocks)
+        #print len(origin_cities)
+        #print len(destination_cities)
+        #print len(HTML_blocks)
         block_number = 0
         for block in HTML_blocks:
             counter = 0
@@ -151,6 +151,8 @@ def loadWebpage(conf_file):
         for travel in travels:
             print travel.idtravel
             travel.save()
+    else:
+        print 'no hay nadie pariente'
 
 def createURL(conf_file, origin_city, destination_city, departure):
     url = conf_file["webpage"]["uri_start"]
@@ -271,8 +273,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+    #print 'departure'
     departure_list = get_data_list(departure_fields,html_file, True)
-
+    #for x in departure_list:
+    #    print x
     #arrival extraction_tags
 
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
@@ -280,7 +284,9 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
     if arrival_fields != []:
         arrival_list = get_data_list(arrival_fields,html_file, True)
-
+        #print ('arrival')
+        #for x in departure_list:
+        #    print x
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
@@ -342,10 +348,12 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
             new_travel_duration = aux_new_travel_duration.seconds // 60
         #Extract price
         #the format must be (non digit or empty) (all digits price's) (non digit or empty)
-        str_price = price_list[x]
+        if price_formula != "":
+            str_price = '0'
+        else:
+            str_price = price_list[x]
         result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
         new_travel_price = str(result_format[0])
-        print new_travel_price
 
         #Extract travel_agency
         if travel_agency_list != []: #from HTML
@@ -354,14 +362,14 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
         #if all of data is not empty, then create the travel object
-        print "departure"
+        """print "departure"
         print new_travel_departure
         print "duration"
         print new_travel_duration
         print "price"
         print new_travel_price
         print "agency"
-        print new_travel_agency
+        print new_travel_agency"""
         if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
             if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
                 #print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
@@ -378,7 +386,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                 travels_to_add[len(travels_to_add):] = [new_travel]
             else: #otherwise check the frequency in the dates span
                 for date in dates:#para cada fecha en el rengo de consulta, si la fecha pertenece a la frecuencia, creo el travel
+                    #print date.weekday,1
                     if verifyFrequency(conf_file,date,frequency_list[x]):
+                        #print date.weekday,2
+                        print('tamo activo')
                         departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
                         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
                         new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
@@ -455,6 +466,7 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     else:
         if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
+            print final_formula,'formula'
             output_text = [str(round(eval(final_formula), 0))]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
             matches = re.search(raw_format_aux, raw_text_aux)
@@ -467,7 +479,7 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
 
 def verifyFrequency(conf_file,date,frequency_data):
     #TODO funcion que retorne un boolean dependiendo si la fecha es una fecha de la frecuencia o no
-    if(len(conf_file["webpage"]["frequency_format"]) == 9):
+    if(len(conf_file["webpage"]["frequency_format"]) == 10):
         frequencies = frequency_data.split(conf_file["webpage"]["frequency_format"][9])
         daily = conf_file["webpage"]["frequency_format"][7]
         span = conf_file["webpage"]["frequency_format"][8]
