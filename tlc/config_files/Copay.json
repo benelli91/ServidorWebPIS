@@ -32,7 +32,7 @@
 			},
 			"arrival":{
 				"fields":[
-					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
+					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
 					{"tag_type": "tr", "field_type": "", "name": ""},
 					{"tag_type": "td", "field_type": "class", "name": "", "position":-1 }],
 				"format":"(\\d\\d):(\\d\\d)",
