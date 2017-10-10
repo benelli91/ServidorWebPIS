@@ -16,25 +16,17 @@
 	"iterators":{
 			"travel_block":[{"tag_type": "div", "field_type": "class", "name": "content"},
 				{"tag_type": "tr", "field_type": "", "name": "", "position":0}],
-			"origin_city": {
-				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
+			"origin_city": [{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
 					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],
-				"format":"(\\w*)",
-				"formula":""
-			},
-			"destination_city": {
-				"fields":[{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
-					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}],
-				"format":"(\\w*)",
-				"formula":""
-			}
+			"destination_city":[{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
+					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}]
 	},
 	"extraction_tags":{
 			"departure":{
 				"fields":[
 					{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
 					{"tag_type": "tr", "field_type": "", "name": ""},
-					{"tag_type": "td", "field_type": "", "name": "", "position": 0}],
+					{"tag_type": "td", "field_type": "class", "name": "", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
@@ -42,7 +34,7 @@
 				"fields":[
 					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":0},
 					{"tag_type": "tr", "field_type": "", "name": ""},
-					{"tag_type": "td", "field_type": "", "name": "", "position":-1 }],
+					{"tag_type": "td", "field_type": "class", "name": "", "position":-1 }],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
@@ -63,7 +55,7 @@
 			},
 			"frequency": {
 				"fields":[
-					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":1},
+					{"tag_type": "table", "field_type":"class", "name": "blockHours", "position":2},
 					{"tag_type": "tr", "field_type": "", "name": ""},
 					{"tag_type": "td", "field_type": "", "name": ""}],
 				"format":"",

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+import bs4
 from bs4 import BeautifulSoup
 from datetime import datetime,timedelta,tzinfo
 from .models import *
@@ -225,77 +226,24 @@ def extractBlocks(conf_file, origin_cities, destination_cities):
     phantom = webdriver.PhantomJS()
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
-    HTML_blocks = [BeautifulSoup(phantom.page_source, "html.parser")]
+    HTML_blocks = BeautifulSoup(phantom.page_source, "html.parser")
 
     #We extract the travel blocks
-    for tag in conf_file["webpage"]["iterators"]["travel_block"]:
-        sub_blocks = []
-        for block in HTML_blocks:
-            if block != "\n":
-                if((tag["field_type"] == "") and ("position" not in tag)):
-                    sub_blocks += block.find_all(tag["tag_type"])
-                elif((tag["field_type"] == "") and ("position" in tag)):
-                    if len(block.find_all(tag["tag_type"])) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-                elif(tag["field_type"] != "") and ("position" not in tag):
-                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                elif(tag["field_type"] != "") and ("position" in tag):
-                    if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
-        HTML_blocks = sub_blocks[:]
-
+    raw_blocks = get_data_list(conf_file["webpage"]["iterators"]["travel_block"], HTML_blocks, False)
     aux_blocks = []
-    for block in HTML_blocks:
-        if(block != "\n"):
-            aux_blocks += [[block, "", ""]]
+    for block in raw_blocks:
+        aux_blocks += [[block, "", ""]]
 
     for aux_sub_block in aux_blocks:
-        aux_origin_cities = [aux_sub_block[0]]
-        aux_destination_cities = [aux_sub_block[0]]
         #We extract the origin city of each travel block
-        for tag in conf_file["webpage"]["iterators"]["origin_city"]["fields"]:
-            sub_blocks = []
-            for block in aux_origin_cities:
-                if block != "\n":
-                    if((tag["field_type"] == "") and ("position" not in tag)):
-                        sub_blocks += block.find_all(tag["tag_type"])
-                    elif((tag["field_type"] == "") and ("position" in tag)):
-                        if len(block.find_all(tag["tag_type"])) > tag["position"]:
-                            sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-                    elif(tag["field_type"] != "") and ("position" not in tag):
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                    elif(tag["field_type"] != "") and ("position" in tag):
-                        if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
-            aux_origin_cities = sub_blocks[:]
-
+        aux_origin_cities = get_data_list(conf_file["webpage"]["iterators"]["origin_city"], aux_sub_block[0], True)
         for aux_origin_city in aux_origin_cities:
-            if (aux_origin_city != "\n"):
-                raw_text = aux_origin_city.getText()
-                aux_sub_block[1] = [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
-
+            aux_sub_block[1] = [aux_origin_city]
 
         #We extract the destination city of each travel block
-        for tag in conf_file["webpage"]["iterators"]["destination_city"]["fields"]:
-            sub_blocks = []
-            for block in aux_destination_cities:
-                if block != "\n":
-                    if((tag["field_type"] == "") and ("position" not in tag)):
-                        sub_blocks += block.find_all(tag["tag_type"])
-                    elif((tag["field_type"] == "") and ("position" in tag)):
-                        if len(block.find_all(tag["tag_type"])) > tag["position"]:
-                            sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
-                    elif(tag["field_type"] != "") and ("position" not in tag):
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                    elif(tag["field_type"] != "") and ("position" in tag):
-                        if len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
-            aux_destination_cities = sub_blocks[:]
-
+        aux_destination_cities = get_data_list(conf_file["webpage"]["iterators"]["destination_city"], aux_sub_block[0], True)
         for aux_destination_city in aux_destination_cities:
-            if (aux_destination_city != "\n"):
-                raw_text = aux_destination_city.getText()
-                aux_sub_block[2] = [unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')]
+            aux_sub_block[2] = [aux_destination_city]
 
     result = []
     for block in aux_blocks:
@@ -303,7 +251,6 @@ def extractBlocks(conf_file, origin_cities, destination_cities):
             result += [block[0]]
             origin_cities += block[1]
             destination_cities += block[2]
-
     return result
 
 def extractData(conf_file, html_file, origin_city, destination_city,departure,dates):
@@ -324,38 +271,45 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
-    departure_list = get_data_list(departure_fields,html_file)
+    departure_list = get_data_list(departure_fields,html_file, True)
 
     #arrival extraction_tags
+
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
-    arrival_list = get_data_list(arrival_fields,html_file)
+    if arrival_fields != []:
+        arrival_list = get_data_list(arrival_fields,html_file, True)
 
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
     price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
-    price_list = get_data_list(price_fields,html_file)
+    price_list = get_data_list(price_fields,html_file, True)
 
     #duration extraction_tags
+
     duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
     duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
     duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
-    duration_list = get_data_list(duration_fields,html_file)
+    if duration_fields != []:
+        duration_list = get_data_list(duration_fields,html_file, True)
 
     #travel_agency extraction_tags
+
     travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
     travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
     travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
-    travel_agency_list = get_data_list(travel_agency_fields,html_file)
+    if travel_agency_fields != []:
+        travel_agency_list = get_data_list(travel_agency_fields,html_file, True)
 
     #frequency extraction_tags
-    if conf_file["webpage"]["frequency_format"] != []:
-        frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
-        frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
-        frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
-        frequency_list = get_data_list(frequency_fields,html_file)
+
+    frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
+    frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
+    frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
+    if frequency_format != []:
+        frequency_list = get_data_list(frequency_fields,html_file, True)
 
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     #||Ver que pasa si las listas tienen distinta cantidad de elementos||
@@ -369,33 +323,33 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         aux_new_travel_duration = departure_with_time
 
         #Extract departure
-        str_departure = str(departure_list[x].string)
+        str_departure = departure_list[x]
         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
         new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
 
         #Extract or calculare duration
-        if duration_list != None : #if have data of duration then i extract it
-            str_duration = str(duration_list[x].string)
+        if duration_list != [] : #if have data of duration then i extract it
+            str_duration = duration_list[x]
             result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
             aux_new_travel_duration = departure_with_time - departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
         else: #otherwise calculate
-            str_arrival = str(arrival_list[x].string)
+            str_arrival = arrival_list[x]
             result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
             new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
             aux_new_travel_duration = new_travel_arrival - new_travel_departure
 
-        if aux_new_travel_duration != None: #convert timedelta in minutes
+        if aux_new_travel_duration != []: #convert timedelta in minutes
             new_travel_duration = aux_new_travel_duration.seconds // 60
         #Extract price
         #the format must be (non digit or empty) (all digits price's) (non digit or empty)
-        str_price = str(price_list[x].string)
+        str_price = price_list[x]
         result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
         new_travel_price = str(result_format[0])
         print new_travel_price
 
         #Extract travel_agency
-        if travel_agency_list != None : #from HTML
-            new_travel_agency = Travelagency.objects.get(name=travel_agency_list[x].string)
+        if travel_agency_list != []: #from HTML
+            new_travel_agency = Travelagency.objects.get(name=travel_agency_list[x])
         else: #from json
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
@@ -409,10 +363,8 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         print "agency"
         print new_travel_agency
         if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
-            print "holaaaaaa"
             if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
                 #print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
-                print "llegue"
                 new_travel = Travel(departure = new_travel_departure, \
                                         origin_city = origin_city, \
                                         destination_city = destination_city, \
@@ -425,9 +377,8 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                 #add the travel to result list
                 travels_to_add[len(travels_to_add):] = [new_travel]
             else: #otherwise check the frequency in the dates span
-                print "la cague"
                 for date in dates:#para cada fecha en el rengo de consulta, si la fecha pertenece a la frecuencia, creo el travel
-                    if verifyFrequency(conf_file,date,frequency_list[x].string):
+                    if verifyFrequency(conf_file,date,frequency_list[x]):
                         departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
                         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
                         new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
@@ -445,45 +396,41 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
 
     return travels_to_add
 
-def get_data_list(fields_list,html_file):
-    result = None
-    aux_html = html_file
-    first = True
-    for item in fields_list: #for each item in the field list in the config_file
-        if not first: #the first time i have the defaul value in "html_file"
-            aux_html = result #In the following times I have to work with the previous result
-        first = False
+def get_data_list(fields_list,html_file, get_text):
+    HTML_blocks = [html_file]
+    for tag in fields_list:
+        sub_blocks = []
+        for block in HTML_blocks:
+            if block != "\n":
+                if((tag["field_type"] == "") and ("position" not in tag)):
+                    sub_blocks += block.find_all(tag["tag_type"])
+                elif((tag["field_type"] == "") and ("position" in tag)):
+                    if tag["position"] < 0:
+                        if(len(block.find_all(tag["tag_type"])) + tag["position"] >= 0):
+                            sub_blocks += block.find_all(tag["tag_type"])[len(block.find_all(tag["tag_type"])) + tag["position"]]
+                    elif len(block.find_all(tag["tag_type"])) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                elif(tag["field_type"] != "") and ("position" not in tag):
+                    sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                elif(tag["field_type"] != "") and ("position" in tag):
+                    if tag["position"] < 0:
+                        if(len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"] >= 0):
+                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"]]
+                    elif len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
+                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+        HTML_blocks = sub_blocks[:]
 
-        find_tag = ''
-        find_field = ''
-        find_name  = ''
-        find_position = 999999999999 #invalid position value
-        #check if the item in the config_file has the tag
-        if item.has_key("tag_type"):
-            find_tag = item["tag_type"]
-        if item.has_key("field_type"):
-            find_field = item["field_type"]
-        if item.has_key("name"):
-            find_name = item["name"]
-        if item.has_key("position"):
-            find_position = item["position"]
-
-        if find_position != 999999999999: #if i need to find a particular child
-            text_result = ''
-            for child in aux_html:
-                soup = BeautifulSoup(TRIPLE_QUOTES + str(child) + TRIPLE_QUOTES,"html.parser")
-                aux_result = soup.find_all(find_tag,{find_field:find_name})
-                actual_position = 0
-                for litle_child in aux_result:
-                    if actual_position == find_position:
-                        text_result += str(litle_child)
-                    actual_position += 1
-            result = BeautifulSoup(TRIPLE_QUOTES + text_result + TRIPLE_QUOTES,"html.parser").find_all()
-        else:
-            soup = BeautifulSoup(TRIPLE_QUOTES + str(aux_html) + TRIPLE_QUOTES,"html.parser")
-            result =soup.find_all(find_tag,{find_field:find_name})
-
-
+    result = []
+    for block in HTML_blocks:
+        if(block != "\n"):
+            if(get_text == True):
+                if not isinstance(block, bs4.element.NavigableString):
+                    raw_text = block.getText()
+                    result += [str(unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore'))]
+                else:
+                    result += [str(block.encode('ascii','ignore'))]
+            else:
+                result += [block]
     return result
 
 def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, destination_city):

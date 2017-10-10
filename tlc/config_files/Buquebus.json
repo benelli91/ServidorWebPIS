@@ -45,8 +45,8 @@
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 			 		{"tag_type": "div", "field_type":"class", "name": "cont_opciones"},
-					{"tag_type": "div", "field_type": "name", "name": "L_CAB_TUR"},
-					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position": 0}],
+					{"tag_type": "div", "field_type": "col", "name": "2"},
+					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position":0}],
 				"format":"(\\d*\\.?\\d+)",
 				"formula":""
 			},
