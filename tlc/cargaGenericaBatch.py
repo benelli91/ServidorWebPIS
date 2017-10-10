@@ -389,10 +389,26 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                     #print date.weekday,1
                     if verifyFrequency(conf_file,date,frequency_list[x]):
                         #print date.weekday,2
-                        print('tamo activo')
+                        print('TAMO RE ACTIVO')
                         departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
                         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
                         new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+                        print "departure"
+                        print new_travel_departure
+                        print "origen"
+                        print origin_city.name
+                        print "destino"
+                        print destination_city.name
+                        print "precio"
+                        print new_travel_price
+                        print "duracion"
+                        print new_travel_duration
+                        print "travel type"
+                        print page_traveltype
+                        print "webpage"
+                        print new_travel_agency.reference
+                        print "agencia"
+                        print new_travel_agency.id
                         new_travel = Travel(departure = new_travel_departure, \
                                                 origin_city = origin_city, \
                                                 destination_city = destination_city, \
@@ -489,9 +505,11 @@ def verifyFrequency(conf_file,date,frequency_data):
                 return True
             elif(re.search(conf_file["webpage"]["frequency_format"][date.weekday()], freq)):
                 return True
-            elif(re.search(span, frequency_data)):
-                matches = re.search("(.)*" + span + "(.)*", frequency_data)
+            elif(re.search(span, freq)):
+                matches = re.search("(.+)" + span + "(.+)", freq)
                 counter = 0
+                beginning_day = -1
+                end_day = -1
                 for i in range(0, 6):
                     if(re.search(conf_file["webpage"]["frequency_format"][counter], matches.group(1))):
                         beginning_day = counter

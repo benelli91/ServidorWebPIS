@@ -39,7 +39,7 @@ class Travel(models.Model):
     departure = models.DateTimeField()
     origin_city = models.ForeignKey(City, models.DO_NOTHING, related_name='origin_city', db_column='origin_city')
     destination_city = models.ForeignKey(City, models.DO_NOTHING, related_name='destination_city', db_column='destination_city')
-    price = models.IntegerField()
+    price = models.FloatField()
     duration = models.IntegerField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
     webpage = models.TextField()
