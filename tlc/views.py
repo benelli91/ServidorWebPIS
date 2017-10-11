@@ -84,3 +84,38 @@ def cargaGoogle(request):
     cargaGoogleB()
 
     return render(request, 'scraping.html',  resultado)
+
+def cargaGenerica(request):
+    genericLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaBuquebus(request):
+    BuquebusLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaGoogleFlights(request):
+    GoogleFlightsLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaCopay(request):
+    CopayLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaTresCruces(request):
+    TresCrucesLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaAgenciaCentral(request):
+    AgenciaCentralLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaColoniaExpress(request):
+    ColoniaExpressLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)

@@ -1,0 +1,57 @@
+{"webpage":{
+	"name": "Agencia Central",
+	"uri_start": "https://web.agenciacentral.com.uy/index.php",
+	"uri_end": "",
+	"travel_type": 3,
+	"sleep_time": 3,
+	"date_span_start": 5,
+	"date_span_finish": 5,
+	"decimal_mark": ",",
+	"thousands_mark":".",
+	"frequency_format":[],
+	"date_format": "%Y-%m-%d",
+	"page_type":2,
+	"header_parameters":{},
+	"inputs": {
+		"wait":3,
+		"buttons":[
+			{"field_type":"script", "id":"selectOrigen", "data":["origin_local_code", "origin_city"]},
+      {"field_type":"script", "id":"selectDestino", "data":["destination_local_code", "destination_city"]},
+      {"field_type":"attribute", "id":"date_ida", "attribute":"data_date", "data": ["departure"]},
+      {"field_type":"script", "id":"buscar", "data":[""]}
+      ]},
+	"iterators":{},
+	"extraction_tags":{
+			"departure":{
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"arrival":{
+				"fields":[],
+				"format":"",
+				"formula":""
+			},
+			"price":{
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
+				"format":"(\\d+)",
+				"formula":"($1 * 2.015 + 13)/28"
+			},
+			"duration": {
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"travel_agency": {
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "company"}],
+				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
+				"formula":""
+			},
+			"frequency": {
+				"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
+				"format":"",
+				"formula":""
+			}
+		}
+	}
+}
