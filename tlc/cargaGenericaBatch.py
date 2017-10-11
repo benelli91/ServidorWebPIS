@@ -67,7 +67,7 @@ def ColoniaExpressLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    phantom = webdriver.PhantomJS()
+    phantom = webdriver.Firefox()
 
     cities = []
 
@@ -98,10 +98,10 @@ def loadWebpage(conf_file):
                 if(origin_city.id != destination_city.id):
                     if(conf_file["webpage"]["frequency_format"] == []):
                         for departure in dates:
-                            output_HTML = createURL(conf_file, origin_city, destination_city, departure)
+                            output_HTML = createURL(conf_file, origin_city, destination_city, departure, phantom)
                             travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates)
                     else:
-                        output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
+                        output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date(), phantom)
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
 
     elif(page_type == 2): #Javascript type pages
@@ -110,16 +110,16 @@ def loadWebpage(conf_file):
                 if(origin_city.id != destination_city.id):
                     if(conf_file["webpage"]["frequency_format"] == []):
                         for departure in dates:
-                            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
+                            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure, phantom)
                             travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, departure, dates)
                     else:
-                        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
+                        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date(), phantom)
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
                     #print output_HTML
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
-        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities)
+        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities, phantom)
         #print len(origin_cities)
         #print len(destination_cities)
         #print len(HTML_blocks)
@@ -154,7 +154,11 @@ def loadWebpage(conf_file):
     else:
         print 'no hay nadie pariente'
 
-def createURL(conf_file, origin_city, destination_city, departure):
+    phantom.quit()
+
+def createURL(conf_file, origin_city, destination_city, departure, phantom):
+    #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
+    #ciudad de destino y fecha de partida
     url = conf_file["webpage"]["uri_start"]
     separator = conf_file["webpage"]["header_parameters"]["separator"]
     total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
@@ -170,17 +174,15 @@ def createURL(conf_file, origin_city, destination_city, departure):
 
     url += conf_file["webpage"]["uri_end"]
     print url
-    phantom = webdriver.PhantomJS()
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
     time.sleep(aux_sleep)
     soup = BeautifulSoup(phantom.page_source, "html.parser")
     return soup
 
-def executeJavaScript(conf_file, origin_city, destination_city, departure):
+def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
-    phantom = webdriver.PhantomJS()
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
@@ -224,8 +226,7 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure):
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
     return output_HTML
 
-def extractBlocks(conf_file, origin_cities, destination_cities):
-    phantom = webdriver.PhantomJS()
+def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
     HTML_blocks = BeautifulSoup(phantom.page_source, "html.parser")
@@ -439,15 +440,18 @@ def get_data_list(fields_list,html_file, get_text):
                         if(len(block.find_all(tag["tag_type"])) + tag["position"] >= 0):
                             sub_blocks += block.find_all(tag["tag_type"])[len(block.find_all(tag["tag_type"])) + tag["position"]]
                     elif len(block.find_all(tag["tag_type"])) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                        aux_block = block.find_all(tag["tag_type"])
+                        sub_blocks += aux_block[tag["position"]]
                 elif(tag["field_type"] != "") and ("position" not in tag):
                     sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
                 elif(tag["field_type"] != "") and ("position" in tag):
                     if tag["position"] < 0:
                         if(len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"] >= 0):
-                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"]]
+                            aux_block = block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                            sub_blocks += aux_block[len(aux_block) + tag["position"]]
                     elif len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+                        aux_block = block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                        sub_blocks += aux_block[tag["position"]]
         HTML_blocks = sub_blocks[:]
 
     result = []
@@ -478,7 +482,6 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
         #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
         matches = re.search(raw_format_aux, raw_text_aux)
         for i in range(1, len(matches.groups()) + 1):
-
             output_text += [matches.group(i)]
         #else:   #if there's a constant as format we return the constant
         #    output_text = [raw_format_aux]
