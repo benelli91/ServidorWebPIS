@@ -92,10 +92,10 @@ def loadWebpage(conf_file):
 
     config_directory = 'tlc/local_city_codes/'
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
-    for conf_file in raw_files:
-        with open(config_directory + conf_file) as data_file:
+    for files in raw_files:
+        with open(config_directory + files) as data_file:
             data = json.load(data_file)
-            if(data["name"] == conf_file["name"]):
+            if(data["name"] == webpage_name):
                 local_codes = data
 
     if(conf_file["webpage"]["travel_type"] == 1):
