@@ -22,36 +22,36 @@
 			{"field_type":"select", "id":"searcher_destination", "data":["destination_city_upper"]}]},
 	"iterators":{},
 	"extraction_tags":{
-			"departure":{
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
-				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
-			},
-			"arrival":{
-				"fields":[],
-				"format":"",
-				"formula":""
-			},
-			"price":{
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
-				"format":"(\\d+)",
-				"formula":"($1 * 2.015 + 13)/28"
-			},
-			"duration": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
-				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
-			},
-			"travel_agency": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "company"}],
-				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
-				"formula":""
-			},
-			"frequency": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
-				"format":"",
-				"formula":""
-			}
+		"departure":{
+			"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
+			"format":"(\\d\\d):(\\d\\d)",
+			"formula":""
+		},
+		"arrival":{
+			"fields":[],
+			"format":"",
+			"formula":""
+		},
+		"price":{
+			"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
+			"format":"(\\d+)",
+			"formula":"($1 * 2.015 + 13)/28"
+		},
+		"duration": {
+			"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
+			"format":"(\\d\\d):(\\d\\d)",
+			"formula":""
+		},
+		"travel_agency": {
+			"fields":[{"tag_type": "td", "field_type": "class", "name": "company"}],
+			"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
+			"formula":""
+		},
+		"frequency": {
+			"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
+			"format":"",
+			"formula":""
 		}
 	}
+}
 }
