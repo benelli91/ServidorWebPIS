@@ -11,6 +11,7 @@
 	"frequency_format":["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom", "Diario", " a ", ", "],
 	"date_format": "",
 	"page_type": 3,
+	"reload_time": 24,
 	"header_parameters":{},
 	"inputs":{},
 	"iterators":{

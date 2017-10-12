@@ -11,9 +11,11 @@
 	"frecuency_format":"",
 	"date_format": "%m/%d/%Y",
 	"page_type":2,
+	"reload_time": 2,
 	"header_parameters":{},
 	"inputs": {
-		"wait":8,
+		"wait":1,
+		"loading_time":8,
 		"buttons":[
 			{"field_type":"input", "id":"fromLocation", "data":["origin_local_code"]},
       {"field_type":"input", "id":"toLocation", "data":["destination_local_code"]},

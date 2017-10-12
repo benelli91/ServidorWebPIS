@@ -13,13 +13,31 @@ import json
 from django.db import transaction
 import unicodedata
 from citiesDistanceMatrix import DISTANCE_MATRIX
-from dataParameterOptions import dataParameterOptions
+from parameterOptions import *
 import re
 import calendar
 
 DEFAULT_SPAN = 30
 TRIPLE_QUOTES = '\"\"\"'
 
+def timedGenericLoader():
+    config_directory = 'tlc/config_files/'
+    raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
+    files = []
+    for conf_file in raw_files:
+        with open(config_directory + conf_file) as data_file:
+            files += [json.load(data_file)]
+
+    timers = []
+    for f in files:
+        t = Timer(f["webpage"]["reload_time"]*3600, loadWebpage(f))
+        t.start()
+        timers += [t]
+
+    while True:
+        for t in timers:
+            if not t.is_alive():
+                t.start()
 
 def genericLoader():
     config_directory = 'tlc/config_files/'
@@ -55,7 +73,7 @@ def TresCrucesLoader():
 
 def AgenciaCentralLoader():
     config_directory = 'tlc/config_files/'
-    with open(config_directory + "GoogleFlights.json") as data_file:
+    with open(config_directory + "AgenciaCentral.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
@@ -187,43 +205,37 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
         data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-        if(data[0] == "invalid"):
+        if(data == "invalid"):
             return ""
         if line["field_type"] == "select":
-            element = Select(phantom.find_element_by_id(line["id"]))
+            element = Select(javascriptParameterOptions(line, phantom))
             options = []
             for option in element.options:
                 options += [option.text]
-            if data[0] in options:
-                element.select_by_visible_text(data[0])
+            if data in options:
+                element.select_by_visible_text(data)
             else:
                 return ""
         elif line["field_type"] == "input":
-            element = phantom.find_element_by_id(line["id"])
-            if data[0] == "click":
+            element = javascriptParameterOptions(line, phantom)
+            if data == "click":
                 element.click()
             else:
-                element.send_keys(data[0])
+                element.send_keys(data)
         elif line["field_type"] == "script":
-            fun = line["id"] + "("
-            counter = 0
-            for d in data:
-                fun += "'" + d + "'"
-                if(counter < len(data) - 1):
-                    fun += ", "
-                counter += 1
-            fun += ");"
+            fun = line["id"] + data
             phantom.execute_script(fun)
         elif line["field_type"] == "attribute": #ESTA ES LA PARTE QUE NO FUNCIONA
-            elem = phantom.find_element_by_id(line["id"])
-            print elem.get_attribute('data_date')
+            element = javascriptParameterOptions(line, phantom)
             attribute = line["attribute"]
-            fun = "arguments[0]['" + attribute + "'] = arguments[1]; return arguments[0];"
-            elem = phantom.execute_script(fun, elem, data[0])
-            print elem.get_attribute('data_date')
+            fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
+            phantom.execute_script(fun, element, data)
+            print phantom.page_source
 
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
+    time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
+    print output_HTML
     return output_HTML
 
 def extractBlocks(conf_file, origin_cities, destination_cities, phantom):

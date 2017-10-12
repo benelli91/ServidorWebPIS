@@ -18,6 +18,20 @@ def dataParameterOptions(line, conf_file, origin_city, destination_city, departu
     #total_result = []
     total_result = ''
     counter = 1
+    #Special case for scripts
+    if(line["field_type"] == "script"):
+        total_result += '('
+        for data in line["data"]:
+            new_line = json.loads('{"field_type":"", "id":"", "data":["' + data + '"]}')
+            total_result += "'"
+            total_result += dataParameterOptions(new_line, conf_file, origin_city, destination_city, departure)
+            total_result += "'"
+            if(counter < len(line["data"])):
+                total_result += ", "
+            counter += 1
+        total_result += ')'
+        return total_result
+
     for data in line["data"]:
         #CASE for each posible value of the "data" attribute of the configuration file
         if(data == "origin_country"):
@@ -150,3 +164,23 @@ def dataParameterOptions(line, conf_file, origin_city, destination_city, departu
         total_result += str(result)
 
     return total_result
+
+def javascriptParameterOptions(line, phantom):
+    element = ""
+    if(line["tag_type"] == "id"):
+        element = phantom.find_element_by_id(line["id"])
+    elif(line["tag_type"] == "class_name"):
+        element = phantom.find_element_by_class_name(line["id"])
+    elif(line["tag_type"] == "name"):
+        element = phantom.find_element_by_name(line["id"])
+    elif(line["tag_type"] == "xpath"):
+        element = phantom.find_element_by_xpath(line["id"])
+    elif(line["tag_type"] == "link_text"):
+        element = phantom.find_element_by_link_text(line["id"])
+    elif(line["tag_type"] == "partial_link_text"):
+        element = phantom.find_element_by_partial_link_text(line["id"])
+    elif(line["tag_type"] == "tag_name"):
+        element = phantom.find_element_by_class(line["tag_name"])
+    elif(line["tag_type"] == "css_selector"):
+        element = phantom.find_element_by_css_selector(line["id"])
+    return element
