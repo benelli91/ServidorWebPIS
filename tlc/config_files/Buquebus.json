@@ -10,6 +10,8 @@
 	"thousands_mark":".",
 	"frequency_format":[],
 	"date_format": "%d-%m-%Y",
+	"UTC":-3,
+	"currecny":"UYU",
 	"page_type":1,
 	"reload_time": 24,
 	"header_parameters":{
@@ -17,8 +19,8 @@
 		"parameters":[
 			{"data": ["actual_date"], "parameter": ""},
 			{"data": ["origin_country_alias"], "parameter": ""},
-			{"data": ["origin_alias"], "parameter": ""},
-			{"data": ["destination_alias"], "parameter": ""},
+			{"data": ["origin_local_code"], "parameter": ""},
+			{"data": ["destination_local_code"], "parameter": ""},
 			{"data": ["departure"], "parameter": ""}]
 		},
 	"inputs":{},

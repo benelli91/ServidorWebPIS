@@ -10,6 +10,8 @@
 	"thousands_mark":".",
 	"frequency_format":["L", "MA", "MI", "J", "V", "S", "D", "DIARIO", " a "],
 	"date_format": "",
+	"UTC":-3,
+	"currecny":"UYU",
 	"page_type":2,
 	"reload_time": 24,
 	"header_parameters":{},

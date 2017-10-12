@@ -87,14 +87,27 @@ def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     phantom = webdriver.Firefox()
 
+    aux_cities = []
     cities = []
 
+    config_directory = 'tlc/local_city_codes/'
+    raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
+    for conf_file in raw_files:
+        with open(config_directory + conf_file) as data_file:
+            data = json.load(data_file)
+            if(data["name"] == conf_file["name"]):
+                local_codes = data
+
     if(conf_file["webpage"]["travel_type"] == 1):
-        cities = City.objects.filter(airport = True)
+        aux_cities = City.objects.filter(airport = True)
     elif(conf_file["webpage"]["travel_type"] == 2):
-        cities = City.objects.filter(port = True)
+        aux_cities = City.objects.filter(port = True)
     elif(conf_file["webpage"]["travel_type"] == 3):
-        cities = City.objects.filter(bus_station = True)
+        aux_cities = City.objects.filter(bus_station = True)
+
+    for city in aux_cities:
+        if(city.name in local_codes["codes"]):
+            cities += [city]
 
     if(conf_file["webpage"]["date_span_start"] >= conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
@@ -278,6 +291,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     price_list = []
     travel_agency_list = []
     frequency_list = []
+    UTC = conf_file["webpage"]["UTC"]
     print '------', origin_city.name,destination_city.name
     departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
@@ -345,17 +359,17 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         #Extract departure
         str_departure = departure_list[x]
         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
-        new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+        new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
 
-        #Extract or calculare duration
-        if duration_list != [] : #if have data of duration then i extract it
+        #Extract or calculate duration
+        if duration_list != [] : #if I have duration data then I extract it
             str_duration = duration_list[x]
             result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
             aux_new_travel_duration = departure_with_time - departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
         else: #otherwise calculate
             str_arrival = arrival_list[x]
             result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
-            new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+            new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
             if new_travel_arrival < new_travel_departure:
                 new_travel_arrival = new_travel_arrival + timedelta(days = 1)
             aux_new_travel_duration = new_travel_arrival - new_travel_departure
@@ -377,7 +391,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         else: #from json
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
-        #if all of data is not empty, then create the travel object
+        #if none of the data fields are empty, then create the travel object
         """print "departure"
         print new_travel_departure
         print "duration"

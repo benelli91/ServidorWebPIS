@@ -10,13 +10,15 @@
 	"thousands_mark":",",
 	"frequency_format":[],
 	"date_format":"%d-%m-%Y",
+	"UTC":-3,
+	"currecny":"ARS",
 	"page_type":1,
 	"reload_time": 24,
 	"header_parameters":{
 		"separator": "&",
 		"parameters":[
-			{"data": ["origin_alias_lower"], "parameter": "booking[from]="},
-			{"data": ["destination_alias_lower"], "parameter": "booking[to]="},
+			{"data": ["origin_local_code"], "parameter": "booking[from]="},
+			{"data": ["destination_local_code"], "parameter": "booking[to]="},
 			{"data": ["departure"], "parameter": "booking[departure_date]="}]
 		},
 	"inputs":{},

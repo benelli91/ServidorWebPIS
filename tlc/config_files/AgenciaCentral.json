@@ -10,6 +10,8 @@
 	"thousands_mark":".",
 	"frequency_format":[],
 	"date_format": "%Y-%m-%d",
+	"UTC":-3,
+	"currecny":"UYU",
 	"page_type":2,
 	"reload_time": 24,
 	"header_parameters":{},
