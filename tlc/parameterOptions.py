@@ -19,18 +19,20 @@ def dataParameterOptions(line, conf_file, origin_city, destination_city, departu
     total_result = ''
     counter = 1
     #Special case for scripts
-    if(line["field_type"] == "script"):
-        total_result += '('
-        for data in line["data"]:
-            new_line = json.loads('{"field_type":"", "id":"", "data":["' + data + '"]}')
-            total_result += "'"
-            total_result += dataParameterOptions(new_line, conf_file, origin_city, destination_city, departure)
-            total_result += "'"
-            if(counter < len(line["data"])):
-                total_result += ", "
-            counter += 1
-        total_result += ')'
-        return total_result
+    if isinstance(line,dict):
+        if line.has_key("field_type"):
+            if(line["field_type"] == "script"):
+                total_result += '('
+                for data in line["data"]:
+                    new_line = json.loads('{"field_type":"", "id":"", "data":["' + data + '"]}')
+                    total_result += "'"
+                    total_result += dataParameterOptions(new_line, conf_file, origin_city, destination_city, departure)
+                    total_result += "'"
+                    if(counter < len(line["data"])):
+                        total_result += ", "
+                    counter += 1
+                total_result += ')'
+                return total_result
 
     for data in line["data"]:
         #CASE for each posible value of the "data" attribute of the configuration file
