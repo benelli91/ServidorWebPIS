@@ -1,0 +1,141 @@
+{% load staticfiles %}
+
+<!--This code was previously with imports and meta links -->
+<script type="application/x-javascript"> 
+ addEventListener("load", function() { 
+   setTimeout(hideURLbar, 0); 
+ }, false);
+ function hideURLbar() { window.scrollTo(0,1); }
+</script>
+<!--------------------------------------------------------->
+
+<script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
+<script src="{% static "js/lightbox-plus-jquery.min.js" %}"></script>
+
+<!-- Owl-Carousel-JavaScript -->
+<script src="{% static "js/owl.carousel.js" %}"></script>
+<script>
+   $(document).ready(function() {
+    $("#owl-demo").owlCarousel ({
+      items : 4,
+      lazyLoad : true,
+      autoPlay : true,
+      pagination : true,
+    });
+   });
+</script>
+<!-- Owl-Carousel-JavaScript -->
+
+<!-- flexSlider -->
+<script defer src="{% static "js/jquery.flexslider.js" %}"></script>
+<script type="text/javascript">
+   $(window).load(function(){
+     $('.flexslider').flexslider({
+    animation: "slide",
+    start: function(slider){
+      $('body').removeClass('loading');
+    }
+     });
+   });
+
+</script>
+<!-- flexSlider -->
+
+
+<!-- Move-top-scrolling -->
+<script type="text/javascript" src="{% static "js/move-top.js" %}"></script>
+<script type="text/javascript" src="{% static "js/easing.js" %}"></script>
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+    $(".scroll").click(function(event){
+      event.preventDefault();
+      $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+    });
+   });
+</script>
+<!-- Move-top-scrolling -->
+
+
+<!-- Calendar -->
+<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" />
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<script>
+  $(function() {
+    $( "#datepicker,#datepicker1,#datepicker2,#datepicker3" )
+      .datepicker({minDate: '+30D',maxDate: '+45D'});
+  });
+</script>
+<!-- Calendar -->
+
+
+<script>
+   var cities = [
+    {value:"1", label:"Buenos Aires"},
+    {value:"1", label:"Buenos B"},
+   ]
+</script>
+
+
+<script>
+  $(document).ready(function() {
+
+    $.get( "/rest/tlc/citys/autocomplete_search/?term=")
+      .done(function( data ) {
+        $("#fromName").autocomplete({
+          source: data,
+          focus: function (event, ui) {
+                event.preventDefault();
+                $("#fromName").val(ui.item.label);
+                $("#from").val(ui.item.id)
+            },
+        });
+      });
+
+    $.get( "/rest/tlc/citys/autocomplete_search/?term=")
+      .done(function( data ) {
+        $("#toName").autocomplete({
+          source: data,
+          focus: function (event, ui) {
+            event.preventDefault();
+            $("#toName").val(ui.item.label);
+            $("#to").val(ui.item.id)
+          },
+        });
+      });
+
+    $(function(){
+      $('#btn').click(function() {
+        var request = $.ajax({
+          type: "GET",
+          url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
+          dataType: "json"
+        });
+
+        request.done(function(JSON_array) {
+          alert(JSON_array["list_travels"][0][0]["departure"]);
+          $("#toName").val(1);
+          $("#to").val(2)
+          //from here you have your array to play with
+        });
+      });
+    });   
+
+  });
+</script>
+
+<!-- Auxiliary Sum -->
+<script>
+var i = 0;
+var sum = 0;
+{% for travel in list_travels %}
+  i++;
+  var sum = 0;
+  {% for link in travel %}
+    sum = sum + {{ link.price }}; 
+  {% endfor %}
+  $("#totalPrice_" + i).text(sum);   
+{% endfor %}   
+</script>
+<!---------------->
+<!--js for bootstrap working-->
+<script src="{% static "js/bootstrap.js" %}"></script>

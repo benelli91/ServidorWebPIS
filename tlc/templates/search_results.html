@@ -1,0 +1,95 @@
+<!-- This HTML contains Travels search results -->
+  {% load filters %}
+  <div class="contact" id="contact">
+    <div class="container">
+      <h3 class="title-agileits-w3layouts">Your best options</h3>
+      <ul class="list-group">
+
+        {% for travel in list_travels %}
+          <div class="panel panel-primary">
+            
+            <div class="panel-heading" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
+              <span>#OPTION {{forloop.counter}}:</span>
+              <div>
+                <span>Total</span>
+                <!--Anidar spans no esta bien, 
+                    hay que unificar los estilos en una clase
+                    o agregarle varias clases al span -->
+                <span class="totalPriceClass">
+                  <span class="sizePrice">
+                    <span class="priceSimbol">U$S</span>
+                    <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}"></span>
+                  </span>
+                </span>
+              </div>
+            </div>
+            
+            <div class="panel-body">
+              <ul>
+                <li>
+                  <div class="grey">
+                    <div>
+                      <span>Departure: {{travel.0.departure}}</span>
+                    </div>
+                    <div>
+                      {% with travel|last as last %}
+                        <span>Arrival: {{last.departure|add_duration:last.duration }} </span>
+                      {% endwith %}
+                    </div>
+                  </div>
+                </li>
+              </ul>
+           
+              <hr/>
+
+              <ul class="collapse" id="hide{{forloop.counter}}"> <!--Menu desplegable-->
+                
+                {% for link in travel %}
+                  <div class="detail-container" >
+                    <div class="containerLeft">
+                      <div>
+                        <span>{{link.departure}}</span>
+                      </div>
+                      <div>
+                        {% if link.traveltype.travelname == 'Boat' %}
+                          <i class="fa fa-ship fa-3x" aria-hidden="true"></i>
+                        {% elif link.traveltype.travelname == 'Plane' %}
+                          <i class="fa fa-plane fa-3x" aria-hidden="true"></i>
+                        {% else %}
+                           <i class="fa fa-bus fa-3x" aria-hidden="true"></i>
+                        {% endif %}
+                      </div>
+                      <div data-test="SegmentArrivalTime">
+                        <div class="false">
+                          <span>{{link.departure|add_duration:link.duration}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="timeLine"></div>
+                    
+                    <div class="containerRight">
+                      <div class="w-600">
+                        <span>{{link.origin_city.name}} ({{link.origin_city.country.id}})</span>
+                      </div>
+                      <div>
+                        {# <span>Compañia: {{link.travel_agency}}</span>#}
+                         <div>
+                           <span>{{link.duration}} min - price: U$S{{link.price}}</span>
+                         </div>
+                      </div>
+                      <div>
+                        {% if forloop.counter == travel|length %}
+                        <div class="w-600">{{link.destination_city.name}} ({{link.destination_city.country.id}})</div>
+                        {% endif %}
+                      </div>  
+                    </div>
+                  </div>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
