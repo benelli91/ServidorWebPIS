@@ -92,10 +92,10 @@ def loadWebpage(conf_file):
 
     config_directory = 'tlc/local_city_codes/'
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
-    for conf_file in raw_files:
-        with open(config_directory + conf_file) as data_file:
+    for files in raw_files:
+        with open(config_directory + files) as data_file:
             data = json.load(data_file)
-            if(data["name"] == conf_file["name"]):
+            if(data["name"] == webpage_name):
                 local_codes = data
 
     if(conf_file["webpage"]["travel_type"] == 1):
@@ -109,6 +109,7 @@ def loadWebpage(conf_file):
         if(city.name in local_codes["codes"]):
             cities += [city]
 
+    cities = aux_cities
     if(conf_file["webpage"]["date_span_start"] >= conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
     else:
@@ -180,10 +181,10 @@ def loadWebpage(conf_file):
             to_delete = Travel.objects.filter(travel_agency = travel_agency_to_delete.id)
             to_delete.delete()
         for travel in travels:
-            print travel.idtravel
+            #print travel.idtravel
             travel.save()
-    else:
-        print 'no hay nadie pariente'
+    #else:
+        #print 'no hay nadie pariente'
 
     phantom.quit()
 
@@ -204,7 +205,7 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
         counter += 1
 
     url += conf_file["webpage"]["uri_end"]
-    print url
+    #print url
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
     time.sleep(aux_sleep)
@@ -243,12 +244,12 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
             attribute = line["attribute"]
             fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
             phantom.execute_script(fun, element, data)
-            print phantom.page_source
+            #print phantom.page_source
 
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
     time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
-    print output_HTML
+    #print output_HTML
     return output_HTML
 
 def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
@@ -292,7 +293,8 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     travel_agency_list = []
     frequency_list = []
     UTC = conf_file["webpage"]["UTC"]
-    print '------', origin_city.name,destination_city.name
+    STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
+    #print '------', STATUS
     departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
     page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
@@ -300,21 +302,21 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
-    print 'departure'
+    #print 'departure'
     departure_list = get_data_list(departure_fields,html_file, True)
-    for q in departure_list:
-        print q
+    #departure_list = get_data_list2(arrival_fields,html_file, True,STATUS)
+    #for q in departure_list:
+    #    print q
 
     #arrival extraction_tags
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
     if arrival_fields != []:
+        #print ('arrival')
         arrival_list = get_data_list(arrival_fields,html_file, True)
-        print ('arrival')
-        for q in arrival_list:
-            print q
-        time.sleep(10)
+        #for q in arrival_list:
+        #    print q
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
@@ -359,23 +361,32 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         #Extract departure
         str_departure = departure_list[x]
         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
-        new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
+        if len(result_format) == 0 :
+            new_travel_departure = None
+        else:
+            new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
 
         #Extract or calculate duration
         if duration_list != [] : #if I have duration data then I extract it
             str_duration = duration_list[x]
             result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
-            aux_new_travel_duration = departure_with_time - departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+            if len(result_format) == 0 :
+                new_travel_duration = None
+            else:
+                new_travel_duration =  int(result_format[0]) * 60 + int(result_format[1])
         else: #otherwise calculate
             str_arrival = arrival_list[x]
             result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
-            new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
-            if new_travel_arrival < new_travel_departure:
-                new_travel_arrival = new_travel_arrival + timedelta(days = 1)
-            aux_new_travel_duration = new_travel_arrival - new_travel_departure
+            if len(result_format) == 0 :
+                aux_new_travel_duration = None
+            else:
+                new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
+                if new_travel_arrival < new_travel_departure:
+                    new_travel_arrival = new_travel_arrival + timedelta(days = 1)
+                aux_new_travel_duration = new_travel_arrival - new_travel_departure
 
-        if aux_new_travel_duration != []: #convert timedelta in minutes
-            new_travel_duration = aux_new_travel_duration.seconds // 60
+            if aux_new_travel_duration != None: #convert timedelta in minutes
+                new_travel_duration = aux_new_travel_duration.seconds // 60
         #Extract price
         #the format must be (non digit or empty) (all digits price's) (non digit or empty)
         if price_formula != "":
@@ -383,7 +394,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         else:
             str_price = price_list[x]
         result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
-        new_travel_price = str(result_format[0])
+        if len(result_format) == 0 :
+            new_travel_price = None
+        else:
+            new_travel_price = str(result_format[0])
 
         #Extract travel_agency
         if travel_agency_list != []: #from HTML
@@ -392,17 +406,9 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
         #if none of the data fields are empty, then create the travel object
-        """print "departure"
-        print new_travel_departure
-        print "duration"
-        print new_travel_duration
-        print "price"
-        print new_travel_price
-        print "agency"
-        print new_travel_agency"""
-        if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+        if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+        #if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
             if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
-                #print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
                 new_travel = Travel(departure = new_travel_departure, \
                                         origin_city = origin_city, \
                                         destination_city = destination_city, \
@@ -419,11 +425,11 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                     #print date.weekday,1
                     if verifyFrequency(conf_file,date,frequency_list[x]):
                         #print date.weekday,2
-                        print('TAMO RE ACTIVO')
+                        #print('TAMO RE ACTIVO')
                         departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
                         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
                         new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
-                        print "departure"
+                        """print "departure"
                         print new_travel_departure
                         print "origen"
                         print origin_city.name
@@ -438,7 +444,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                         print "webpage"
                         print new_travel_agency.reference
                         print "agencia"
-                        print new_travel_agency.id
+                        print new_travel_agency.id"""
                         new_travel = Travel(departure = new_travel_departure, \
                                                 origin_city = origin_city, \
                                                 destination_city = destination_city, \
@@ -474,10 +480,10 @@ def get_data_list(fields_list,html_file, get_text):
                     if tag["position"] < 0:
                         if(len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"] >= 0):
                             aux_block = block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                            sub_blocks += aux_block[len(aux_block) + tag["position"]]
+                            sub_blocks += [aux_block[len(aux_block) + tag["position"]]]
                     elif len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
                         aux_block = block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
-                        sub_blocks += aux_block[tag["position"]]
+                        sub_blocks += [aux_block[tag["position"]]]
         HTML_blocks = sub_blocks[:]
 
     result = []
@@ -507,14 +513,15 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     elif(raw_formula_aux == ""):
         #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
         matches = re.search(raw_format_aux, raw_text_aux)
-        for i in range(1, len(matches.groups()) + 1):
-            output_text += [matches.group(i)]
+        if matches != None:
+            for i in range(1, len(matches.groups()) + 1):
+                output_text += [matches.group(i)]
         #else:   #if there's a constant as format we return the constant
         #    output_text = [raw_format_aux]
     else:
         if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
-            print final_formula,'formula'
+            #print final_formula,'formula'
             output_text = [str(round(eval(final_formula), 0))]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
             matches = re.search(raw_format_aux, raw_text_aux)
