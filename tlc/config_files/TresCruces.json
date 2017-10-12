@@ -16,7 +16,8 @@
 	"reload_time": 24,
 	"header_parameters":{},
 	"inputs": {
-		"wait":2,
+		"wait":0,
+		"loading_time":3,
 		"buttons":[
 			{"field_type":"select", "id":"searcher_origin", "data":["origin_city_upper"]},
 			{"field_type":"select", "id":"searcher_destination", "data":["destination_city_upper"]}]},
@@ -35,7 +36,7 @@
 		"price":{
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
 			"format":"(\\d+)",
-			"formula":"($1 * 2.015 + 13)/28"
+			"formula":"[($1 * 2.015 + 13)/28]"
 		},
 		"duration": {
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],

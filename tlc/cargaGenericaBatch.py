@@ -235,6 +235,7 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
             if data == "click":
                 element.click()
             else:
+                element.clear()
                 element.send_keys(data)
         elif line["field_type"] == "script":
             fun = line["id"] + data
@@ -522,13 +523,16 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
         if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
             #print final_formula,'formula'
-            output_text = [str(round(eval(final_formula), 0))]
+            exec(final_formula)
+            output_text = str(round(x, 0))
         else:   #if there's a format and a formula we retrieve the data and execute the formula
             matches = re.search(raw_format_aux, raw_text_aux)
             final_formula = raw_formula_aux
             for i in range(1, len(matches.groups()) + 1):
                 final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
-            output_text = [str(round(eval(final_formula), 2))]
+            exec(final_formula)
+            for i in x:
+                output_text += [str(round(i, 2))]
 
     return output_text
 
