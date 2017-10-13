@@ -524,13 +524,14 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
             #print final_formula,'formula'
             exec(final_formula)
-            output_text = str(round(x, 0))
+            output_text = [str(round(x[0], 0))]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
             matches = re.search(raw_format_aux, raw_text_aux)
             final_formula = raw_formula_aux
             for i in range(1, len(matches.groups()) + 1):
                 final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
             exec(final_formula)
+            output_text = []
             for i in x:
                 output_text += [str(round(i, 2))]
 

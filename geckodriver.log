@@ -1,0 +1,149 @@
+1507852535722	geckodriver	INFO	geckodriver 0.19.0
+1507852535726	geckodriver	INFO	Listening on 127.0.0.1:40429
+1507852536819	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.8M28NCJbHTwa"
+1507852536996	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507852537656	Marionette	INFO	Enabled via --marionette
+1507852540664	Marionette	INFO	Listening on port 39429
+1507852540740	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507852540786	Marionette	DEBUG	Register listener.js for window 2147483649
+1507852540815	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507852546676	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507852546676	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507852547232	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.copay.coop/destinos.html"
+1507852556864	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 9452] WARNING: pipe error (3): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1507852692152	geckodriver	INFO	geckodriver 0.19.0
+1507852692154	geckodriver	INFO	Listening on 127.0.0.1:38349
+1507852693246	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.jZy60ehHYhdx"
+1507852693449	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507852694233	Marionette	INFO	Enabled via --marionette
+1507852697040	Marionette	INFO	Listening on port 41925
+1507852697067	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507852697112	Marionette	DEBUG	Register listener.js for window 2147483649
+1507852697136	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507852697746	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507852697747	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507852698307	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.copay.coop/destinos.html"
+1507852703621	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
+1507852814344	geckodriver	INFO	geckodriver 0.19.0
+1507852814350	geckodriver	INFO	Listening on 127.0.0.1:52341
+1507852815444	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.U5ueHAYfQan7"
+1507852815616	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507852816305	Marionette	INFO	Enabled via --marionette
+1507852818927	Marionette	INFO	Listening on port 35135
+1507852819051	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507852819094	Marionette	DEBUG	Register listener.js for window 2147483649
+1507852819138	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507852819572	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507852819572	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507852819582	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.copay.coop/destinos.html"
+1507852830009	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
+1507852840222	Marionette	INFO	New connections will no longer be accepted
+1507852871888	geckodriver	INFO	geckodriver 0.19.0
+1507852871891	geckodriver	INFO	Listening on 127.0.0.1:46891
+1507852872986	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.cwxqgPYQUinX"
+1507852873163	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507852873869	Marionette	INFO	Enabled via --marionette
+1507852877183	Marionette	INFO	Listening on port 34388
+1507852877219	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507852877270	Marionette	DEBUG	Register listener.js for window 2147483649
+1507852877314	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507852877925	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507852877925	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507852884636	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852896980	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852899031	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852902993	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852902994	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852903049	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1507852903050	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1507852903050	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+1507852904645	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852905140	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852907209	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852907538	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852907538	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852907613	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483663"
+1507852907614	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483666"
+1507852907614	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483668"
+1507852908057	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852908449	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852910538	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852910873	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852910873	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_COL_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852910953	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483672"
+1507852910954	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483675"
+1507852910954	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483677"
+1507852911156	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852911849	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852913885	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852918290	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852918291	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852918369	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483681"
+1507852918370	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483684"
+1507852918371	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483687"
+1507852919238	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852919806	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852921908	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852922236	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852922236	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852922316	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483691"
+1507852922316	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483694"
+1507852922317	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483696"
+1507852922790	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852923142	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852925223	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852929390	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852929390	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_MVD_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852929468	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483700"
+1507852929468	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483703"
+1507852929469	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483705"
+1507852929469	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483707"
+1507852929786	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852930482	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852932551	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852937809	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852937810	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852937884	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483712"
+1507852937884	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483715"
+1507852937885	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483717"
+1507852938292	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852939019	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852941115	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852945093	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852945093	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852945183	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483721"
+1507852945183	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483724"
+1507852945184	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483727"
+1507852945509	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852946117	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852948198	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852948565	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852948566	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_ARG_BUE_PDP_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852948649	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483731"
+1507852948649	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483734"
+1507852948649	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483736"
+1507852949177	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852949755	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852951801	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852952298	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852952299	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_COL_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852952373	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483740"
+1507852952374	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483743"
+1507852952374	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483746"
+1507852953252	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852953929	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852955996	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852958615	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852958616	Marionette	DEBUG	Received DOM event "unload" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_MVD_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852958690	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483750"
+1507852958690	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483753"
+1507852958691	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483755"
+1507852958692	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483757"
+1507852959052	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852959610	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.buquebus.com.uy/BQBWebV2/web/Compra/13-10-2017_URU_PDP_BUE_14-10-2017_NNN_NNN_00-00-0000_I_1_0_0_SB"
+1507852962109	Marionette	INFO	New connections will no longer be accepted
+[Child 9966] WARNING: pipe error (19): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 9966] WARNING: pipe error (35): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 9966] WARNING: pipe error (3): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
