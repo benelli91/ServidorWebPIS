@@ -66,8 +66,12 @@
                         </div>
                       </div>
                     </div>
-
-                    <div class="timeLine"></div>
+                    
+                    {% if forloop.counter == travel|length %}
+                      <div class="timeLineDouble"></div>
+                    {% else %}
+                      <div class="timeLine"></div>
+                    {% endif %}
 
                     <div class="containerRight">
                       <div class="w-600">
@@ -80,7 +84,7 @@
                       </div>
                       <div>
                         {% if forloop.counter == travel|length %}
-                        <div class="w-600"><b>{{link.destination_city.name}} ({{link.destination_city.country.id}})</b></div>
+                          <div class="w-600"><b>{{link.destination_city.name}} ({{link.destination_city.country.id}})</b></div>
                         {% endif %}
                       </div>
                     </div>
