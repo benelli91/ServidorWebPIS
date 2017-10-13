@@ -149,13 +149,15 @@ header {
 
 /*-- //header --*/
 .banner {
-    background: url(../images/travelpasenger.jpg)no-repeat 0px 0px;
+  background: url(../images/travelpasenger.jpg)no-repeat 0px 0px;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	-ms-background-size: cover;
-    background-size: cover;
+  background-size: cover;
 	position:relative;
+	box-shadow: 0 10px 100px black;
+	height: 100vh;
 }
 .agileinfo-dot {
     background: url(../images/dott.png)repeat 0px 0px;
@@ -198,6 +200,8 @@ header {
     text-shadow: 2px 2px 1px #000;
     letter-spacing: 2px;
     margin: 2.68em 0;
+		font-family: 'Lato';
+    font-size: 3.1em;
 }
 /*-- banner-form--*/
 .book-form label {
@@ -210,7 +214,7 @@ header {
     margin-bottom: 7px;
     letter-spacing: 1px;
 		font-weight: bold;
-		text-shadow: 0 0 10px #ffa200;
+		/*text-shadow: 0 0 10px #ffa200;*/
 }
 .book-form label i {
     font-size: 1em;
@@ -458,10 +462,10 @@ p.para-w3l {
     margin: 2em 0 3em;
 }
 h3.title-agileits-w3layouts {
-    font-family: 'Tangerine', cursive;
+    font-family: 'Lato';
     font-weight: bold;
     display: block;
-    font-size: 4em;
+    font-size: 2.7em;
     letter-spacing: 1px;
     color: #000;
     text-align: center;
@@ -1363,8 +1367,16 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 	.banner_bottom_left {
 		min-height: 778px;
 	}
+	.title-agileits-w3layouts {
+	text-shadow: 0 1px 2px darkgrey;
+}
+
+
+
+
+
 	h3.title-agileits-w3layouts {
-		font-size: 3.4em;
+		font-size: 2.6em;
 		letter-spacing: 2px;
 	}
 	.ui-datepicker {
@@ -1813,6 +1825,7 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 	}
 	.services, .gallery, .contact, .testimonials, .team {
 		padding: 1.5em 0em 1.8em;
+		font-size: 0.8em;
 	}
 	.banner_bottom_left {
 		padding: 1.5em 1.5em 1.8em;
@@ -2006,9 +2019,10 @@ button.btn1:hover i.fa.fa-paper-plane-o{
 		padding: 7px 7px;
 	}
 	h3.title-agileits-w3layouts {
-		font-size: 2.5em;
-		margin-bottom: 0.2em;
-		line-height: 39px;
+		font-size: 1.8em;
+    margin-bottom: 0.2em;
+    line-height: 39px;
+    margin-top: 0.5em;
 	}
 	.agile-dish-caption {
 		padding: 2.3em 1em;

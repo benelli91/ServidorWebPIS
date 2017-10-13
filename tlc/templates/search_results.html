@@ -2,7 +2,7 @@
   {% load filters %}
   <div class="contact" id="contact">
     <div class="container">
-      <h3 class="title-agileits-w3layouts">Your best options</h3>
+      <h3 class="title-agileits-w3layouts"> • Your best options • </h3>
       <ul class="list-group">
 
         {% include 'search_info.html' %}
@@ -10,7 +10,7 @@
         {% for travel in list_travels %}
           <div class="panel panel-primary">
 
-            <div class="panel-heading flex-between" id ="rotate" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
+            <div class="panel-heading flex-between" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
               <div>
                 <div>
                   <span>OPTION #{{forloop.counter}}</span>
@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div>
-                <span id="to_rotate" class="fa fa-chevron-down"></span>
+                <span class="fa fa-chevron-down"></span>
               </div>
             </div>
 
@@ -74,8 +74,11 @@
                         <span><b>{{link.origin_city.name}} ({{link.origin_city.country.id}})</b></span>
                       </div>
                       <div class="containerRight-info">
-                        <span>U$S {{link.price}}</span>
-                         <span>{{link.duration}} minutes</span>
+                        <span><br/></span>
+                        <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
+                         <span><br/></span>
+                         <span>U$S {{link.price}} - {{link.duration}} minutes</span>
+
                       </div>
                       <div>
                         {% if forloop.counter == travel|length %}
