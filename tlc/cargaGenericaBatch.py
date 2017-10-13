@@ -422,7 +422,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                                         duration = new_travel_duration, \
                                         traveltype = page_traveltype, \
                                         webpage = new_travel_agency.reference, \
-                                        travel_agency = new_travel_agency.id, \
+                                        travel_agency = new_travel_agency, \
                                         description = '')
                 #add the travel to result list
                 travels_to_add[len(travels_to_add):] = [new_travel]
@@ -458,7 +458,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                                                 duration = new_travel_duration, \
                                                 traveltype = page_traveltype, \
                                                 webpage = new_travel_agency.reference, \
-                                                travel_agency = new_travel_agency.id, \
+                                                travel_agency = new_travel_agency, \
                                                 description = '')
 
                         travels_to_add[len(travels_to_add):] = [new_travel]

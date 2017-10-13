@@ -9,10 +9,18 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+class Country(models.Model):
+    id = models.CharField(primary_key=True, max_length=3)
+    name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'country'
+
 
 class City(models.Model):
     id = models.IntegerField(primary_key=True)
-    country = models.CharField(max_length=3)
+    country = models.ForeignKey(Country, models.DO_NOTHING, db_column='country')
     name = models.TextField()
     alias_flight = models.CharField(max_length=3, blank=True, null=True)
     alias_port = models.TextField()
@@ -26,14 +34,6 @@ class City(models.Model):
         db_table = 'city'
 
 
-class Country(models.Model):
-    id = models.CharField(primary_key=True, max_length=3)
-    name = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table = 'country'
-
 
 class Travel(models.Model):
     departure = models.DateTimeField()
@@ -43,7 +43,7 @@ class Travel(models.Model):
     duration = models.IntegerField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
     webpage = models.TextField()
-    travel_agency = models.IntegerField(blank=True, null=True)
+    travel_agency = models.ForeignKey('Travelagency', models.DO_NOTHING, db_column='travel_agency')
     description = models.TextField()
     idtravel = models.BigAutoField(primary_key=True)
 
