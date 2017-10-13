@@ -232,6 +232,7 @@ def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_
 
     context = {
     'list_travels': list_travels,
+    'no_results': len(list_travels) == 0,
     'list_paises' : list_paises,
     'paisOrigen' : aux_country_orig.name,
     'ciudadOrigen' : aux_city_orig.name,

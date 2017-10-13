@@ -49,6 +49,8 @@
       
       {% if list_travels %}
         {% include 'search_results.html' %}
+      {% elif no_results %}
+        {% include 'no_results_message.html'%}
       {% endif %}
       
       <div class="map-w3-agile">

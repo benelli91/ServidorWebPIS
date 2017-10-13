@@ -156,7 +156,7 @@ header {
 	-ms-background-size: cover;
   background-size: cover;
 	position:relative;
-	box-shadow: 0 10px 100px black;
+	box-shadow: 0 0px 15px black;
 	height: 100vh;
 }
 .agileinfo-dot {
