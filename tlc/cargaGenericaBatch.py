@@ -93,7 +93,7 @@ def GreyhoundLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    display = Display(visible=0, size=(1024, 768)) 
+    display = Display(visible=0, size=(1024, 768))
     display.start()
     phantom = webdriver.Firefox()
 
@@ -186,12 +186,18 @@ def loadWebpage(conf_file):
 
     if len(travels) > 0 :
         if conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"] != "":
-            travel_agency_to_delete = Travelagency.objects.get(name=conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"])
-            to_delete = Travel.objects.filter(travel_agency = travel_agency_to_delete.id)
-            to_delete.delete()
+            try:
+                travel_agency_to_delete = Travelagency.objects.get(name=conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"])
+                to_delete = Travel.objects.filter(travel_agency = travel_agency_to_delete.id)
+                to_delete.delete()
+            except:
+                asd = 1
         for travel in travels:
             #print travel.idtravel
-            travel.save()
+            try:
+                travel.save()
+            except:
+                asd = 1
     #else:
         #print 'no hay nadie pariente'
 
@@ -362,112 +368,117 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     #||Ver que pasa si las listas tienen distinta cantidad de elementos||
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     for x in range(len(departure_list)):
-        new_travel_departure = ''
-        new_travel_arrival = ''
-        new_travel_duration = None
-        new_travel_price = ''
-        new_travel_agency = ''
-        aux_new_travel_duration = departure_with_time
+        try:
+            new_travel_departure = ''
+            new_travel_arrival = ''
+            new_travel_duration = None
+            new_travel_price = ''
+            new_travel_agency = ''
+            aux_new_travel_duration = departure_with_time
 
-        #Extract departure
-        str_departure = departure_list[x]
-        result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
-        if len(result_format) == 0 :
-            new_travel_departure = None
-        else:
-            new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
-
-        #Extract or calculate duration
-        if duration_list != [] : #if I have duration data then I extract it
-            str_duration = duration_list[x]
-            result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
+            #Extract departure
+            str_departure = departure_list[x]
+            result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
             if len(result_format) == 0 :
-                new_travel_duration = None
+                new_travel_departure = None
             else:
-                new_travel_duration =  int(result_format[0]) * 60 + int(result_format[1])
-        else: #otherwise calculate
-            str_arrival = arrival_list[x]
-            result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
+                new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
+
+            #Extract or calculate duration
+            if duration_list != [] : #if I have duration data then I extract it
+                str_duration = duration_list[x]
+                result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
+                if len(result_format) == 0 :
+                    new_travel_duration = None
+                else:
+                    new_travel_duration =  int(result_format[0]) * 60 + int(result_format[1])
+            else: #otherwise calculate
+                str_arrival = arrival_list[x]
+                result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
+                if len(result_format) == 0 :
+                    aux_new_travel_duration = None
+                else:
+                    new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
+                    if new_travel_arrival < new_travel_departure:
+                        new_travel_arrival = new_travel_arrival + timedelta(days = 1)
+                    aux_new_travel_duration = new_travel_arrival - new_travel_departure
+
+                if aux_new_travel_duration != None: #convert timedelta in minutes
+                    new_travel_duration = aux_new_travel_duration.seconds // 60
+            #Extract price
+            #the format must be (non digit or empty) (all digits price's) (non digit or empty)
+            if price_formula != "":
+                str_price = '0'
+            else:
+                str_price = price_list[x]
+            result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
             if len(result_format) == 0 :
-                aux_new_travel_duration = None
+                new_travel_price = None
             else:
-                new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
-                if new_travel_arrival < new_travel_departure:
-                    new_travel_arrival = new_travel_arrival + timedelta(days = 1)
-                aux_new_travel_duration = new_travel_arrival - new_travel_departure
+                new_travel_price = str(result_format[0])
 
-            if aux_new_travel_duration != None: #convert timedelta in minutes
-                new_travel_duration = aux_new_travel_duration.seconds // 60
-        #Extract price
-        #the format must be (non digit or empty) (all digits price's) (non digit or empty)
-        if price_formula != "":
-            str_price = '0'
-        else:
-            str_price = price_list[x]
-        result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
-        if len(result_format) == 0 :
-            new_travel_price = None
-        else:
-            new_travel_price = str(result_format[0])
+            #Extract travel_agency
+            try:
+                if travel_agency_list != []: #from HTML
+                    new_travel_agency = Travelagency.objects.get(name=travel_agency_list[x])
+                else: #from json
+                    new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
+            except:
+                new_travel_agency  = Travelagency.objects.get(name='Generica')
 
-        #Extract travel_agency
-        if travel_agency_list != []: #from HTML
-            new_travel_agency = Travelagency.objects.get(name=travel_agency_list[x])
-        else: #from json
-            new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
+            #if none of the data fields are empty, then create the travel object
+            if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+            #if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+                if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
+                    new_travel = Travel(departure = new_travel_departure, \
+                                            origin_city = origin_city, \
+                                            destination_city = destination_city, \
+                                            price = new_travel_price, \
+                                            duration = new_travel_duration, \
+                                            traveltype = page_traveltype, \
+                                            webpage = new_travel_agency.reference, \
+                                            travel_agency = new_travel_agency, \
+                                            description = '')
+                    #add the travel to result list
+                    travels_to_add[len(travels_to_add):] = [new_travel]
+                else: #otherwise check the frequency in the dates span
+                    for date in dates:#para cada fecha en el rengo de consulta, si la fecha pertenece a la frecuencia, creo el travel
+                        #print date.weekday,1
+                        if verifyFrequency(conf_file,date,frequency_list[x]):
+                            #print date.weekday,2
+                            #print('TAMO RE ACTIVO')
+                            departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
+                            result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
+                            new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+                            """print "departure"
+                            print new_travel_departure
+                            print "origen"
+                            print origin_city.name
+                            print "destino"
+                            print destination_city.name
+                            print "precio"
+                            print new_travel_price
+                            print "duracion"
+                            print new_travel_duration
+                            print "travel type"
+                            print page_traveltype
+                            print "webpage"
+                            print new_travel_agency.reference
+                            print "agencia"
+                            print new_travel_agency.id"""
+                            new_travel = Travel(departure = new_travel_departure, \
+                                                    origin_city = origin_city, \
+                                                    destination_city = destination_city, \
+                                                    price = new_travel_price, \
+                                                    duration = new_travel_duration, \
+                                                    traveltype = page_traveltype, \
+                                                    webpage = new_travel_agency.reference, \
+                                                    travel_agency = new_travel_agency, \
+                                                    description = '')
 
-        #if none of the data fields are empty, then create the travel object
-        if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
-        #if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
-            if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
-                new_travel = Travel(departure = new_travel_departure, \
-                                        origin_city = origin_city, \
-                                        destination_city = destination_city, \
-                                        price = new_travel_price, \
-                                        duration = new_travel_duration, \
-                                        traveltype = page_traveltype, \
-                                        webpage = new_travel_agency.reference, \
-                                        travel_agency = new_travel_agency, \
-                                        description = '')
-                #add the travel to result list
-                travels_to_add[len(travels_to_add):] = [new_travel]
-            else: #otherwise check the frequency in the dates span
-                for date in dates:#para cada fecha en el rengo de consulta, si la fecha pertenece a la frecuencia, creo el travel
-                    #print date.weekday,1
-                    if verifyFrequency(conf_file,date,frequency_list[x]):
-                        #print date.weekday,2
-                        #print('TAMO RE ACTIVO')
-                        departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
-                        result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
-                        new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
-                        """print "departure"
-                        print new_travel_departure
-                        print "origen"
-                        print origin_city.name
-                        print "destino"
-                        print destination_city.name
-                        print "precio"
-                        print new_travel_price
-                        print "duracion"
-                        print new_travel_duration
-                        print "travel type"
-                        print page_traveltype
-                        print "webpage"
-                        print new_travel_agency.reference
-                        print "agencia"
-                        print new_travel_agency.id"""
-                        new_travel = Travel(departure = new_travel_departure, \
-                                                origin_city = origin_city, \
-                                                destination_city = destination_city, \
-                                                price = new_travel_price, \
-                                                duration = new_travel_duration, \
-                                                traveltype = page_traveltype, \
-                                                webpage = new_travel_agency.reference, \
-                                                travel_agency = new_travel_agency, \
-                                                description = '')
-
-                        travels_to_add[len(travels_to_add):] = [new_travel]
-
+                            travels_to_add[len(travels_to_add):] = [new_travel]
+        except:
+            asd = 1
     return travels_to_add
 
 def get_data_list(fields_list,html_file, get_text):
