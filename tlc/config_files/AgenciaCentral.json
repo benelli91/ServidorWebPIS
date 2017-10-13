@@ -46,7 +46,7 @@
 					{"tag_type": "div", "field_type": "class", "name": "viaje"},
 					{"tag_type": "div", "field_type": "class", "name": "precio_viaje text-center"}],
 				"format":"(\\d+)",
-				"formula":"x=[($1 * 2.015 + 13)/28]"
+				"formula":"x=[round(($1 * 2.015 + 13)/28,2)]"
 			},
 			"duration": {
 				"fields":[],

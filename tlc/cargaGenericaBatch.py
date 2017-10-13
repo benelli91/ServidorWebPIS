@@ -200,8 +200,8 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
     separator = conf_file["webpage"]["header_parameters"]["separator"]
     total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
     counter = 0
-    origin_country = Country.objects.filter(id = origin_city.country)[0]
-    destination_country = Country.objects.filter(id = destination_city.country)[0]
+    origin_country = Country.objects.filter(id = origin_city.country.id)[0]
+    destination_country = Country.objects.filter(id = destination_city.country.id)[0]
     for line in conf_file["webpage"]["header_parameters"]["parameters"]:
         url += line["parameter"]
         url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
@@ -529,7 +529,7 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
             #print final_formula,'formula'
             exec(final_formula)
-            output_text = [str(round(x[0], 0))]
+            output_text = [str(x[0])]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
             matches = re.search(raw_format_aux, raw_text_aux)
             final_formula = raw_formula_aux
@@ -538,7 +538,7 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
             exec(final_formula)
             output_text = []
             for i in x:
-                output_text += [str(round(i, 2))]
+                output_text += [str(i)]
 
     return output_text
 

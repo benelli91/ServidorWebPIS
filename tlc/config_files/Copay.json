@@ -44,7 +44,7 @@
 			"price":{
 				"fields":[],
 				"format":"city_distance",
-				"formula":"x=[(city_distance * 2.015 + 13)/28]"
+				"formula":"x=[round((city_distance * 2.015 + 13)/28,2)]"
 			},
 			"duration": {
 				"fields":[],
