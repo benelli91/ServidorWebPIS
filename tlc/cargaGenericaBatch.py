@@ -200,8 +200,8 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
     separator = conf_file["webpage"]["header_parameters"]["separator"]
     total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
     counter = 0
-    origin_country = Country.objects.filter(id = origin_city.country)[0]
-    destination_country = Country.objects.filter(id = destination_city.country)[0]
+    origin_country = Country.objects.filter(id = origin_city.country.id)[0]
+    destination_country = Country.objects.filter(id = destination_city.country.id)[0]
     for line in conf_file["webpage"]["header_parameters"]["parameters"]:
         url += line["parameter"]
         url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
