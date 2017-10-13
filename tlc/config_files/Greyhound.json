@@ -18,10 +18,10 @@
 		"wait":5,
 		"loading_time":15,
 		"buttons":[
-			{"field_type":"input", "id":"fromLocation", "data":["origin_local_code"]},
-      {"field_type":"input", "id":"toLocation", "data":["destination_local_code"]},
-      {"field_type":"input", "id":"datepicker-from", "data": ["departure"]},
-      {"field_type":"input", "id":"fare-search-btn", "data":["click"]}
+			{"field_type":"input", "tag_type": "id" , "id":"fromLocation", "data":["origin_local_code"]},
+      {"field_type":"input", "tag_type": "id" , "id":"toLocation", "data":["destination_local_code"]},
+      {"field_type":"input", "tag_type": "id" , "id":"datepicker-from", "data": ["departure"]},
+      {"field_type":"input", "tag_type": "id" , "id":"fare-search-btn", "data":["click"]}
       ]},
 	"iterators":{},
 	"extraction_tags":{
@@ -31,7 +31,7 @@
 					{"tag_type": "p", "field_type": "class", "name": "trip-time trip-time-lg","position": 0}
 				],
 				"format":"(\\d?\\d):(\\d\\d)\\s(\\w\\w)",
-				"formula":"if ($3 == 'am') : x=[$1, $2]\nelse: x=[(int($1) +12) % 24, $2]"
+				"formula":"if ('$3' == 'am') : x=[$1, $2]\nelse: x=[(int($1) +12) % 24, $2]"
 			},
 			"arrival":{
 				"fields":[],
