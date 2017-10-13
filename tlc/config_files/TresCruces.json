@@ -19,8 +19,8 @@
 		"wait":0,
 		"loading_time":3,
 		"buttons":[
-			{"field_type":"select", "id":"searcher_origin", "data":["origin_city_upper"]},
-			{"field_type":"select", "id":"searcher_destination", "data":["destination_city_upper"]}]},
+			{"field_type":"select", "tag_type": "id" , "id":"searcher_origin", "data":["origin_city_upper"]},
+			{"field_type":"select", "tag_type": "id" , "id":"searcher_destination", "data":["destination_city_upper"]}]},
 	"iterators":{},
 	"extraction_tags":{
 		"departure":{
