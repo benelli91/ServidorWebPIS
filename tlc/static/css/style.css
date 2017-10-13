@@ -2217,7 +2217,7 @@ img .boat{
 }
 
 .panel-primary > .panel-heading {
-    text-align: right;
+    text-align: left;
 		cursor: pointer;
 }
 .grid{
@@ -2228,7 +2228,14 @@ img .boat{
 .panel-primary  {
     display: block;
 		border-width: 2px;
+
 }
+@media screen and (max-width: 736px)  {
+  .panel-primary {
+      font-size: 0.80em;
+  }
+}
+
 
 ul{
 	display: grid;
@@ -2249,13 +2256,7 @@ li {
 @media screen and (max-width: 736px)  {
   .panel-body  {
       display: grid;
-      padding-left: 5em;
   }
-	.panel-primary  {
-	    display: flex;
-	}
-	
-
 }
 
 .panel-heading:hover {
@@ -2332,7 +2333,16 @@ text-shadow: 0 6px 5px black;
 .containerLeft {
 	text-align: center;
 	justify-content: space-between;
+	min-width: 30%;
+	max-width: 30%;
 }
+@media screen and (max-width: 736px)  {
+  .containerLeft  {
+		min-width: 40%;
+		max-width: 40%;
+  }
+}
+
 .timeLine {
 	box-sizing: border-box;
 	background-color: #2a84b7;
@@ -2360,4 +2370,33 @@ text-shadow: 0 6px 5px black;
     -webkit-box-direction: normal;
     flex-direction: column;
 		justify-content: space-between;
+}
+
+.search-info {
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	margin-bottom: 25px;
+}
+
+.search-info-body {
+	padding: 15px 15px;
+}
+
+.flex-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+.containerRight-info {
+	display: flex;
+	flex-direction: column;
+	color: gray;
+}
+
+.rotated {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }

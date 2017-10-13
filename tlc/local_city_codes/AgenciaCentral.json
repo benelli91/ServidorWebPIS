@@ -1,0 +1,18 @@
+{ "name":"Agencia Central",
+  "codes":{
+    "Artigas":"21760",
+    "Canelones":"21823",
+    "Colonia":"21757",
+    "Durazno":"21758",
+    "Florida":"21783",
+    "Fray Bentos":"21752",
+    "Mercedes":"21753",
+    "Montevideo":"21739",
+    "Paysandu":"21746",
+    "Rivera":"21749",
+    "Salto":"21745",
+    "San Jose":"21742",
+    "Tacuarembo":"21748",
+    "Trinidad":"21743"
+  }
+}

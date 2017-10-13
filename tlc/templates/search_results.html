@@ -5,25 +5,26 @@
       <h3 class="title-agileits-w3layouts">Your best options</h3>
       <ul class="list-group">
 
+        {% include 'search_info.html' %}
+
         {% for travel in list_travels %}
           <div class="panel panel-primary">
-            
-            <div class="panel-heading" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
-              <span>#OPTION {{forloop.counter}}:</span>
+
+            <div class="panel-heading flex-between" id ="rotate" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
               <div>
-                <span>Total</span>
-                <!--Anidar spans no esta bien, 
-                    hay que unificar los estilos en una clase
-                    o agregarle varias clases al span -->
-                <span class="totalPriceClass">
-                  <span class="sizePrice">
-                    <span class="priceSimbol">U$S</span>
-                    <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}"></span>
-                  </span>
-                </span>
+                <div>
+                  <span>OPTION #{{forloop.counter}}</span>
+                </div>
+                <div>
+                  <span>Total U$S</span>
+                  <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}"></span>
+                </div>
+              </div>
+              <div>
+                <span id="to_rotate" class="fa fa-chevron-down"></span>
               </div>
             </div>
-            
+
             <div class="panel-body">
               <ul>
                 <li>
@@ -39,11 +40,11 @@
                   </div>
                 </li>
               </ul>
-           
+
               <hr/>
 
               <ul class="collapse" id="hide{{forloop.counter}}"> <!--Menu desplegable-->
-                
+
                 {% for link in travel %}
                   <div class="detail-container" >
                     <div class="containerLeft">
@@ -65,24 +66,22 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     <div class="timeLine"></div>
-                    
+
                     <div class="containerRight">
                       <div class="w-600">
-                        <span>{{link.origin_city.name}} ({{link.origin_city.country.id}})</span>
+                        <span><b>{{link.origin_city.name}} ({{link.origin_city.country.id}})</b></span>
                       </div>
-                      <div>
-                        {# <span>Compañia: {{link.travel_agency}}</span>#}
-                         <div>
-                           <span>{{link.duration}} min - price: U$S{{link.price}}</span>
-                         </div>
+                      <div class="containerRight-info">
+                        <span>U$S {{link.price}}</span>
+                         <span>{{link.duration}} minutes</span>
                       </div>
                       <div>
                         {% if forloop.counter == travel|length %}
-                        <div class="w-600">{{link.destination_city.name}} ({{link.destination_city.country.id}})</div>
+                        <div class="w-600"><b>{{link.destination_city.name}} ({{link.destination_city.country.id}})</b></div>
                         {% endif %}
-                      </div>  
+                      </div>
                     </div>
                   </div>
                 {% endfor %}

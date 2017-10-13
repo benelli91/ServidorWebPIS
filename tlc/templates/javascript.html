@@ -1,12 +1,7 @@
 {% load staticfiles %}
 
 <!--This code was previously with imports and meta links -->
-<script type="application/x-javascript"> 
- addEventListener("load", function() { 
-   setTimeout(hideURLbar, 0); 
- }, false);
- function hideURLbar() { window.scrollTo(0,1); }
-</script>
+
 <!--------------------------------------------------------->
 
 <script src="{% static "js/jquery-2.2.3.min.js" %}"></script>
@@ -45,14 +40,7 @@
 <!-- Move-top-scrolling -->
 <script type="text/javascript" src="{% static "js/move-top.js" %}"></script>
 <script type="text/javascript" src="{% static "js/easing.js" %}"></script>
-<script type="text/javascript">
-   jQuery(document).ready(function($) {
-    $(".scroll").click(function(event){
-      event.preventDefault();
-      $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-    });
-   });
-</script>
+
 <!-- Move-top-scrolling -->
 
 
@@ -118,24 +106,44 @@
           //from here you have your array to play with
         });
       });
-    });   
+    });
+
+    {% if list_travels %}
+      $(document).ready(function () {
+      // Handler for .ready() called.
+      $('html, body').animate({
+          scrollTop: $('#contact').offset().top
+      }, 'slow');
+      });
+    {% endif %}
+
 
   });
 </script>
 
 <!-- Auxiliary Sum -->
 <script>
-var i = 0;
-var sum = 0;
-{% for travel in list_travels %}
-  i++;
+  var i = 0;
   var sum = 0;
-  {% for link in travel %}
-    sum = sum + {{ link.price }}; 
+
+  {% for travel in list_travels %}
+    i++;
+    var sum = 0;
+
+    {% for link in travel %}
+      sum = sum + {{ link.price }};
+    {% endfor %}
+
+    $("#totalPrice_" + i).text(sum);
   {% endfor %}
-  $("#totalPrice_" + i).text(sum);   
-{% endfor %}   
 </script>
 <!---------------->
+
+<script>
+$('#rotate').click(function(){
+    $(this).find('#to_rotate').toggleClass('rotated');
+});
+</script>
+
 <!--js for bootstrap working-->
 <script src="{% static "js/bootstrap.js" %}"></script>
