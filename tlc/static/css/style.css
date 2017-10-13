@@ -2334,12 +2334,12 @@ text-shadow: 0 6px 5px black;
 	text-align: center;
 	justify-content: space-between;
 	min-width: 30%;
-	max-width: 30%;
+	//max-width: 30%;
 }
 @media screen and (max-width: 736px)  {
   .containerLeft  {
 		min-width: 40%;
-		max-width: 40%;
+		//max-width: 40%;
   }
 }
 
