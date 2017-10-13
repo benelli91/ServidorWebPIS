@@ -210,7 +210,7 @@ header {
     margin-bottom: 7px;
     letter-spacing: 1px;
 		font-weight: bold;
-		text-shadow: 0 0 10px #ffa200;
+		/*text-shadow: 0 0 10px #ffa200;*/
 }
 .book-form label i {
     font-size: 1em;

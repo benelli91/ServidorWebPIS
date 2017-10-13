@@ -10,7 +10,7 @@
         {% for travel in list_travels %}
           <div class="panel panel-primary">
 
-            <div class="panel-heading flex-between" id ="rotate" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
+            <div class="panel-heading flex-between" data-toggle="collapse" data-target="#hide{{forloop.counter}}">
               <div>
                 <div>
                   <span>OPTION #{{forloop.counter}}</span>
@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div>
-                <span id="to_rotate" class="fa fa-chevron-down"></span>
+                <span class="fa fa-chevron-down"></span>
               </div>
             </div>
 
