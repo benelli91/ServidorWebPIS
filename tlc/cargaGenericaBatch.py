@@ -16,6 +16,8 @@ from citiesDistanceMatrix import DISTANCE_MATRIX
 from parameterOptions import *
 import re
 import calendar
+from pyvirtualdisplay import Display
+
 
 DEFAULT_SPAN = 30
 TRIPLE_QUOTES = '\"\"\"'
@@ -91,6 +93,8 @@ def GreyhoundLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
+    display = Display(visible=0, size=(1024, 768)) 
+    display.start()
     phantom = webdriver.Firefox()
 
     aux_cities = []
@@ -192,6 +196,7 @@ def loadWebpage(conf_file):
         #print 'no hay nadie pariente'
 
     phantom.quit()
+    display.stop()
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
