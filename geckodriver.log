@@ -147,3 +147,58 @@
 [Child 9966] WARNING: pipe error (19): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
 [Child 9966] WARNING: pipe error (35): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
 [Child 9966] WARNING: pipe error (3): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1507854244058	geckodriver	INFO	geckodriver 0.19.0
+1507854244062	geckodriver	INFO	Listening on 127.0.0.1:34742
+1507854245157	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.H6E96yYvd4US"
+1507854245332	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507854246012	Marionette	INFO	Enabled via --marionette
+1507854248696	Marionette	INFO	Listening on port 35759
+1507854248811	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507854248854	Marionette	DEBUG	Register listener.js for window 2147483649
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1507854301865	geckodriver	INFO	geckodriver 0.19.0
+1507854301871	geckodriver	INFO	Listening on 127.0.0.1:44719
+1507854302986	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.OZ6ouN1UTayd"
+1507854303164	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507854303873	Marionette	INFO	Enabled via --marionette
+1507854306580	Marionette	INFO	Listening on port 42706
+1507854306614	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507854306667	Marionette	DEBUG	Register listener.js for window 2147483649
+1507854306724	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507854310034	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507854310035	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507854316268	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://web.agenciacentral.com.uy/index.php"
+1507854328692	Marionette	DEBUG	Received DOM event "pageshow" for "https://web.agenciacentral.com.uy/index.php"
+1507854331956	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1507854332040	Marionette	DEBUG	Received DOM event "beforeunload" for "https://web.agenciacentral.com.uy/index.php"
+1507854332910	Marionette	DEBUG	Received DOM event "pagehide" for "https://web.agenciacentral.com.uy/index.php"
+1507854332911	Marionette	DEBUG	Received DOM event "unload" for "https://web.agenciacentral.com.uy/index.php"
+1507854333277	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://web.agenciacentral.com.uy/ida.php"
+JavaScript error: https://web.agenciacentral.com.uy/ida.php, line 1: ReferenceError: iniciar is not defined
+1507854334212	Marionette	DEBUG	Received DOM event "pageshow" for "https://web.agenciacentral.com.uy/ida.php"
+1507854337255	Marionette	DEBUG	Received DOM event "beforeunload" for "https://web.agenciacentral.com.uy/ida.php"
+1507854337532	Marionette	DEBUG	Received DOM event "pagehide" for "https://web.agenciacentral.com.uy/ida.php"
+1507854337533	Marionette	DEBUG	Received DOM event "unload" for "https://web.agenciacentral.com.uy/ida.php"
+1507854338491	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://web.agenciacentral.com.uy/index.php"
+1507854338517	Marionette	DEBUG	Received DOM event "pageshow" for "https://web.agenciacentral.com.uy/index.php"
+1507854341765	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1507854341829	Marionette	DEBUG	Received DOM event "beforeunload" for "https://web.agenciacentral.com.uy/index.php"
+1507854342009	Marionette	DEBUG	Received DOM event "pagehide" for "https://web.agenciacentral.com.uy/index.php"
+1507854342009	Marionette	DEBUG	Received DOM event "unload" for "https://web.agenciacentral.com.uy/index.php"
+1507854342118	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://web.agenciacentral.com.uy/ida.php"
+JavaScript error: https://web.agenciacentral.com.uy/ida.php, line 1: ReferenceError: iniciar is not defined
+1507854342452	Marionette	DEBUG	Received DOM event "pageshow" for "https://web.agenciacentral.com.uy/ida.php"
+1507854345527	Marionette	DEBUG	Received DOM event "beforeunload" for "https://web.agenciacentral.com.uy/ida.php"
+1507854345693	Marionette	DEBUG	Received DOM event "pagehide" for "https://web.agenciacentral.com.uy/ida.php"
+1507854345695	Marionette	DEBUG	Received DOM event "unload" for "https://web.agenciacentral.com.uy/ida.php"
+1507854345848	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://web.agenciacentral.com.uy/index.php"
+1507854345910	Marionette	DEBUG	Received DOM event "pageshow" for "https://web.agenciacentral.com.uy/index.php"
+1507854583157	geckodriver	INFO	geckodriver 0.19.0
+1507854583160	geckodriver	INFO	Listening on 127.0.0.1:43107
+1507854584250	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.m7ydxxBZuFII"
+1507854584421	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507854585074	Marionette	INFO	Enabled via --marionette
+1507854588038	Marionette	INFO	Listening on port 35111
+1507854588069	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507854588111	Marionette	DEBUG	Register listener.js for window 2147483649
+1507854588147	Marionette	INFO	New connections will no longer be accepted

@@ -76,3 +76,8 @@ def cargaColoniaExpress(request):
     ColoniaExpressLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
+
+def cargaGreyhound(request):
+    GreyhoundLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)

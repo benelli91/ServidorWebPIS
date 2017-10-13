@@ -83,6 +83,12 @@ def ColoniaExpressLoader():
         data = json.load(data_file)
         loadWebpage(data)
 
+def GreyhoundLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "Greyhound.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     phantom = webdriver.Firefox()
@@ -109,7 +115,6 @@ def loadWebpage(conf_file):
         if(city.name in local_codes["codes"]):
             cities += [city]
 
-    cities = aux_cities
     if(conf_file["webpage"]["date_span_start"] >= conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
     else:
