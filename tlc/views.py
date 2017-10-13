@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from algoritmo import do_search
 from cargaGoogleBatch import cargaGoogleB
-
+from cargaGenericaBatch import *
 from rest_framework import viewsets, status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
@@ -31,7 +31,7 @@ class TravelViewSet(viewsets.ModelViewSet):
             resultado = do_search(str(from_city), str(to_city), str(date))
             travels = {'list_travels':[]}
             for group in resultado['list_travels']:
-                print group
+                #print group
                 travels['list_travels'].append(CompleteTravelSerializer(group, many=True).data)
             return Response(status=status.HTTP_200_OK, data=travels)
         else:
@@ -71,7 +71,7 @@ def index(request):
         data = request.POST
         resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
         # resultado
-        print resultado
+        #print resultado
     	# if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
@@ -118,5 +118,10 @@ def cargaAgenciaCentral(request):
 
 def cargaColoniaExpress(request):
     ColoniaExpressLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaGreyhound(request):
+    GreyhoundLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)

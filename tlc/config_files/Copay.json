@@ -10,7 +10,10 @@
 	"thousands_mark":".",
 	"frequency_format":["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom", "Diario", " a ", ", "],
 	"date_format": "",
+	"UTC":-3,
+	"currecny":"UYU",
 	"page_type": 3,
+	"reload_time": 24,
 	"header_parameters":{},
 	"inputs":{},
 	"iterators":{
@@ -41,7 +44,7 @@
 			"price":{
 				"fields":[],
 				"format":"city_distance",
-				"formula":"(city_distance * 2.015 + 13)/28"
+				"formula":"x=[(city_distance * 2.015 + 13)/28]"
 			},
 			"duration": {
 				"fields":[],

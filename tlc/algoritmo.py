@@ -150,7 +150,7 @@ def do_search(origin_city,destination_city,date):
     vDestination_country = City.objects.filter(id = destination_city)[0].country.id
     #vDestination_city = 20
     #date = '08/24/2017'
-    print (date)
+    #print (date)
     aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
     return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
 

@@ -13,13 +13,31 @@ import json
 from django.db import transaction
 import unicodedata
 from citiesDistanceMatrix import DISTANCE_MATRIX
-from dataParameterOptions import dataParameterOptions
+from parameterOptions import *
 import re
 import calendar
 
 DEFAULT_SPAN = 30
 TRIPLE_QUOTES = '\"\"\"'
 
+def timedGenericLoader():
+    config_directory = 'tlc/config_files/'
+    raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
+    files = []
+    for conf_file in raw_files:
+        with open(config_directory + conf_file) as data_file:
+            files += [json.load(data_file)]
+
+    timers = []
+    for f in files:
+        t = Timer(f["webpage"]["reload_time"]*3600, loadWebpage(f))
+        t.start()
+        timers += [t]
+
+    while True:
+        for t in timers:
+            if not t.is_alive():
+                t.start()
 
 def genericLoader():
     config_directory = 'tlc/config_files/'
@@ -55,7 +73,7 @@ def TresCrucesLoader():
 
 def AgenciaCentralLoader():
     config_directory = 'tlc/config_files/'
-    with open(config_directory + "GoogleFlights.json") as data_file:
+    with open(config_directory + "AgenciaCentral.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
@@ -65,18 +83,37 @@ def ColoniaExpressLoader():
         data = json.load(data_file)
         loadWebpage(data)
 
+def GreyhoundLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "Greyhound.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    phantom = webdriver.PhantomJS()
+    phantom = webdriver.Firefox()
 
+    aux_cities = []
     cities = []
 
+    config_directory = 'tlc/local_city_codes/'
+    raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
+    for files in raw_files:
+        with open(config_directory + files) as data_file:
+            data = json.load(data_file)
+            if(data["name"] == webpage_name):
+                local_codes = data
+
     if(conf_file["webpage"]["travel_type"] == 1):
-        cities = City.objects.filter(airport = True)
+        aux_cities = City.objects.filter(airport = True)
     elif(conf_file["webpage"]["travel_type"] == 2):
-        cities = City.objects.filter(port = True)
+        aux_cities = City.objects.filter(port = True)
     elif(conf_file["webpage"]["travel_type"] == 3):
-        cities = City.objects.filter(bus_station = True)
+        aux_cities = City.objects.filter(bus_station = True)
+
+    for city in aux_cities:
+        if(city.name in local_codes["codes"]):
+            cities += [city]
 
     if(conf_file["webpage"]["date_span_start"] >= conf_file["webpage"]["date_span_finish"]):
         span = DEFAULT_SPAN
@@ -98,10 +135,10 @@ def loadWebpage(conf_file):
                 if(origin_city.id != destination_city.id):
                     if(conf_file["webpage"]["frequency_format"] == []):
                         for departure in dates:
-                            output_HTML = createURL(conf_file, origin_city, destination_city, departure)
+                            output_HTML = createURL(conf_file, origin_city, destination_city, departure, phantom)
                             travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates)
                     else:
-                        output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date())
+                        output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date(), phantom)
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
 
     elif(page_type == 2): #Javascript type pages
@@ -110,16 +147,16 @@ def loadWebpage(conf_file):
                 if(origin_city.id != destination_city.id):
                     if(conf_file["webpage"]["frequency_format"] == []):
                         for departure in dates:
-                            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure)
+                            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure, phantom)
                             travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, departure, dates)
                     else:
-                        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date())
+                        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date(), phantom)
                         travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
                     #print output_HTML
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
-        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities)
+        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities, phantom)
         #print len(origin_cities)
         #print len(destination_cities)
         #print len(HTML_blocks)
@@ -151,10 +188,14 @@ def loadWebpage(conf_file):
         for travel in travels:
             #print travel.idtravel
             travel.save()
-    else:
+    #else:
         #print 'no hay nadie pariente'
 
-def createURL(conf_file, origin_city, destination_city, departure):
+    phantom.quit()
+
+def createURL(conf_file, origin_city, destination_city, departure, phantom):
+    #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
+    #ciudad de destino y fecha de partida
     url = conf_file["webpage"]["uri_start"]
     separator = conf_file["webpage"]["header_parameters"]["separator"]
     total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
@@ -170,62 +211,54 @@ def createURL(conf_file, origin_city, destination_city, departure):
 
     url += conf_file["webpage"]["uri_end"]
     #print url
-    phantom = webdriver.PhantomJS()
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
     time.sleep(aux_sleep)
     soup = BeautifulSoup(phantom.page_source, "html.parser")
     return soup
 
-def executeJavaScript(conf_file, origin_city, destination_city, departure):
+def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
-    phantom = webdriver.PhantomJS()
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
         data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-        if(data[0] == "invalid"):
+        if(data == "invalid"):
             return ""
         if line["field_type"] == "select":
-            element = Select(phantom.find_element_by_id(line["id"]))
+            element = Select(javascriptParameterOptions(line, phantom))
             options = []
             for option in element.options:
                 options += [option.text]
-            if data[0] in options:
-                element.select_by_visible_text(data[0])
+            if data in options:
+                element.select_by_visible_text(data)
             else:
                 return ""
         elif line["field_type"] == "input":
-            element = phantom.find_element_by_id(line["id"])
-            if data[0] == "click":
+            element = javascriptParameterOptions(line, phantom)
+            if data == "click":
                 element.click()
             else:
-                element.send_keys(data[0])
+                element.clear()
+                element.send_keys(data)
         elif line["field_type"] == "script":
-            fun = line["id"] + "("
-            counter = 0
-            for d in data:
-                fun += "'" + d + "'"
-                if(counter < len(data) - 1):
-                    fun += ", "
-                counter += 1
-            fun += ");"
+            fun = line["id"] + data
             phantom.execute_script(fun)
         elif line["field_type"] == "attribute": #ESTA ES LA PARTE QUE NO FUNCIONA
-            elem = phantom.find_element_by_id(line["id"])
-            #print elem.get_attribute('data_date')
+            element = javascriptParameterOptions(line, phantom)
             attribute = line["attribute"]
-            fun = "arguments[0]['" + attribute + "'] = arguments[1]; return arguments[0];"
-            elem = phantom.execute_script(fun, elem, data[0])
-            #print elem.get_attribute('data_date')
+            fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
+            phantom.execute_script(fun, element, data)
+            #print phantom.page_source
 
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
+    time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
     output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
+    #print output_HTML
     return output_HTML
 
-def extractBlocks(conf_file, origin_cities, destination_cities):
-    phantom = webdriver.PhantomJS()
+def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
     HTML_blocks = BeautifulSoup(phantom.page_source, "html.parser")
@@ -265,7 +298,9 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     price_list = []
     travel_agency_list = []
     frequency_list = []
-    #print '------', origin_city.name,destination_city.name
+    UTC = conf_file["webpage"]["UTC"]
+    STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
+    #print '------', STATUS
     departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
     page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
@@ -275,19 +310,19 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
     #print 'departure'
     departure_list = get_data_list(departure_fields,html_file, True)
+    #departure_list = get_data_list2(arrival_fields,html_file, True,STATUS)
     #for q in departure_list:
-        #print q
+    #    print q
 
     #arrival extraction_tags
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
     if arrival_fields != []:
-        arrival_list = get_data_list(arrival_fields,html_file, True)
         #print ('arrival')
+        arrival_list = get_data_list(arrival_fields,html_file, True)
         #for q in arrival_list:
-            #print q
-        #time.sleep(10)
+        #    print q
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
@@ -332,23 +367,32 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         #Extract departure
         str_departure = departure_list[x]
         result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
-        new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+        if len(result_format) == 0 :
+            new_travel_departure = None
+        else:
+            new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
 
-        #Extract or calculare duration
-        if duration_list != [] : #if have data of duration then i extract it
+        #Extract or calculate duration
+        if duration_list != [] : #if I have duration data then I extract it
             str_duration = duration_list[x]
             result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
-            aux_new_travel_duration = departure_with_time - departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
+            if len(result_format) == 0 :
+                new_travel_duration = None
+            else:
+                new_travel_duration =  int(result_format[0]) * 60 + int(result_format[1])
         else: #otherwise calculate
             str_arrival = arrival_list[x]
             result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
-            new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
-            if new_travel_arrival < new_travel_departure:
-                new_travel_arrival = new_travel_arrival + timedelta(days = 1)
-            aux_new_travel_duration = new_travel_arrival - new_travel_departure
+            if len(result_format) == 0 :
+                aux_new_travel_duration = None
+            else:
+                new_travel_arrival = departure_with_time + timedelta(hours=int(result_format[0]) + UTC, minutes = int(result_format[1]), seconds = 0)
+                if new_travel_arrival < new_travel_departure:
+                    new_travel_arrival = new_travel_arrival + timedelta(days = 1)
+                aux_new_travel_duration = new_travel_arrival - new_travel_departure
 
-        if aux_new_travel_duration != []: #convert timedelta in minutes
-            new_travel_duration = aux_new_travel_duration.seconds // 60
+            if aux_new_travel_duration != None: #convert timedelta in minutes
+                new_travel_duration = aux_new_travel_duration.seconds // 60
         #Extract price
         #the format must be (non digit or empty) (all digits price's) (non digit or empty)
         if price_formula != "":
@@ -356,7 +400,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         else:
             str_price = price_list[x]
         result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
-        new_travel_price = str(result_format[0])
+        if len(result_format) == 0 :
+            new_travel_price = None
+        else:
+            new_travel_price = str(result_format[0])
 
         #Extract travel_agency
         if travel_agency_list != []: #from HTML
@@ -364,18 +411,10 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         else: #from json
             new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
 
-        #if all of data is not empty, then create the travel object
-        """print "departure"
-        print new_travel_departure
-        print "duration"
-        print new_travel_duration
-        print "price"
-        print new_travel_price
-        print "agency"
-        print new_travel_agency"""
-        if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+        #if none of the data fields are empty, then create the travel object
+        if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
+        #if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
             if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
-                #print(str(new_travel_departure),str(new_travel_arrival),str(new_travel_duration),new_travel_price,new_travel_agency)
                 new_travel = Travel(departure = new_travel_departure, \
                                         origin_city = origin_city, \
                                         destination_city = destination_city, \
@@ -383,7 +422,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                                         duration = new_travel_duration, \
                                         traveltype = page_traveltype, \
                                         webpage = new_travel_agency.reference, \
-                                        travel_agency = new_travel_agency.id, \
+                                        travel_agency = new_travel_agency, \
                                         description = '')
                 #add the travel to result list
                 travels_to_add[len(travels_to_add):] = [new_travel]
@@ -419,7 +458,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
                                                 duration = new_travel_duration, \
                                                 traveltype = page_traveltype, \
                                                 webpage = new_travel_agency.reference, \
-                                                travel_agency = new_travel_agency.id, \
+                                                travel_agency = new_travel_agency, \
                                                 description = '')
 
                         travels_to_add[len(travels_to_add):] = [new_travel]
@@ -439,15 +478,18 @@ def get_data_list(fields_list,html_file, get_text):
                         if(len(block.find_all(tag["tag_type"])) + tag["position"] >= 0):
                             sub_blocks += block.find_all(tag["tag_type"])[len(block.find_all(tag["tag_type"])) + tag["position"]]
                     elif len(block.find_all(tag["tag_type"])) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"])[tag["position"]]
+                        aux_block = block.find_all(tag["tag_type"])
+                        sub_blocks += aux_block[tag["position"]]
                 elif(tag["field_type"] != "") and ("position" not in tag):
                     sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
                 elif(tag["field_type"] != "") and ("position" in tag):
                     if tag["position"] < 0:
                         if(len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"] >= 0):
-                            sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) + tag["position"]]
+                            aux_block = block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                            sub_blocks += [aux_block[len(aux_block) + tag["position"]]]
                     elif len(block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})) > tag["position"]:
-                        sub_blocks += block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})[tag["position"]]
+                        aux_block = block.find_all(tag["tag_type"],{tag["field_type"]: tag["name"]})
+                        sub_blocks += [aux_block[tag["position"]]]
         HTML_blocks = sub_blocks[:]
 
     result = []
@@ -477,22 +519,26 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     elif(raw_formula_aux == ""):
         #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
         matches = re.search(raw_format_aux, raw_text_aux)
-        for i in range(1, len(matches.groups()) + 1):
-
-            output_text += [matches.group(i)]
+        if matches != None:
+            for i in range(1, len(matches.groups()) + 1):
+                output_text += [matches.group(i)]
         #else:   #if there's a constant as format we return the constant
         #    output_text = [raw_format_aux]
     else:
         if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
             final_formula = str.replace(raw_formula_aux, "city_distance", str(DISTANCE_MATRIX[origin_city.id][destination_city.id]))
             #print final_formula,'formula'
-            output_text = [str(round(eval(final_formula), 0))]
+            exec(final_formula)
+            output_text = [str(round(x[0], 0))]
         else:   #if there's a format and a formula we retrieve the data and execute the formula
             matches = re.search(raw_format_aux, raw_text_aux)
             final_formula = raw_formula_aux
             for i in range(1, len(matches.groups()) + 1):
                 final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
-            output_text = [str(round(eval(final_formula), 2))]
+            exec(final_formula)
+            output_text = []
+            for i in x:
+                output_text += [str(round(i, 2))]
 
     return output_text
 

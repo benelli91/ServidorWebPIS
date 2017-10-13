@@ -10,7 +10,10 @@
 	"thousands_mark":".",
 	"frequency_format":[],
 	"date_format": "%Y-%m-%d",
+	"UTC":-3,
+	"currecny":"USD",
 	"page_type":1,
+	"reload_time": 2,
 	"header_parameters":{
 		"separator": ";",
 		"parameters":[

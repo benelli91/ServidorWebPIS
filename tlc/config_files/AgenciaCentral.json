@@ -5,50 +5,61 @@
 	"travel_type": 3,
 	"sleep_time": 3,
 	"date_span_start": 5,
-	"date_span_finish": 5,
+	"date_span_finish": 7,
 	"decimal_mark": ",",
 	"thousands_mark":".",
 	"frequency_format":[],
 	"date_format": "%Y-%m-%d",
+	"UTC":-3,
+	"currecny":"UYU",
 	"page_type":2,
+	"reload_time": 24,
 	"header_parameters":{},
 	"inputs": {
-		"wait":3,
+		"wait":2,
+		"loading_time": 5,
 		"buttons":[
+			{"field_type":"input", "tag_type": "id", "id":"ida", "data":["click"]},
 			{"field_type":"script", "id":"selectOrigen", "data":["origin_local_code", "origin_city"]},
       {"field_type":"script", "id":"selectDestino", "data":["destination_local_code", "destination_city"]},
-      {"field_type":"attribute", "id":"date_ida", "attribute":"data_date", "data": ["departure"]},
-      {"field_type":"script", "id":"buscar", "data":[""]}
+      {"field_type":"attribute", "tag_type":"id", "id":"date_ida", "attribute":"data_date", "data": ["departure"]},
+      {"field_type":"input", "tag_type": "class_name", "id":"btn_buscar", "data":["click"]}
       ]},
 	"iterators":{},
 	"extraction_tags":{
 			"departure":{
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "viaje"},
+					{"tag_type": "div", "field_type": "class", "name": "clase_viaje text-center", "position":0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""
 			},
 			"arrival":{
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "viaje"},
+					{"tag_type": "div", "field_type": "class", "name": "clase_viaje text-center", "position":1}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":""
+			},
+			"price":{
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "viaje"},
+					{"tag_type": "div", "field_type": "class", "name": "precio_viaje text-center"}],
+				"format":"(\\d+)",
+				"formula":"x=[($1 * 2.015 + 13)/28]"
+			},
+			"duration": {
 				"fields":[],
 				"format":"",
 				"formula":""
 			},
-			"price":{
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
-				"format":"(\\d+)",
-				"formula":"($1 * 2.015 + 13)/28"
-			},
-			"duration": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
-				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
-			},
 			"travel_agency": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "company"}],
-				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
+				"fields":[],
+				"format":"Agencia Central",
 				"formula":""
 			},
 			"frequency": {
-				"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
+				"fields":[],
 				"format":"",
 				"formula":""
 			}

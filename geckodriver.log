@@ -1,0 +1,53 @@
+1507855621285	geckodriver	INFO	geckodriver 0.19.0
+1507855621288	geckodriver	INFO	Listening on 127.0.0.1:60757
+1507855622386	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.j7kNBex1BlwB"
+1507855622579	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507855623186	Marionette	INFO	Enabled via --marionette
+1507855625513	Marionette	INFO	Listening on port 33691
+1507855625629	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507855625664	Marionette	DEBUG	Register listener.js for window 2147483649
+1507855625706	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507855626644	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507855626644	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507855627025	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.copay.coop/destinos.html"
+1507855634045	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1507855634046	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483654"
+1507855634046	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1507855634046	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483656"
+1507855634047	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483657"
+1507855634047	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483658"
+1507855634048	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+1507855634048	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483660"
+1507855634048	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483661"
+1507855634048	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483662"
+1507855634049	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483663"
+1507855634049	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483649"
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1507856529816	geckodriver	INFO	geckodriver 0.19.0
+1507856529818	geckodriver	INFO	Listening on 127.0.0.1:53501
+1507856530908	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.IaqAydqvXHiG"
+1507856531089	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507856531687	Marionette	INFO	Enabled via --marionette
+1507856533769	Marionette	INFO	Listening on port 44733
+1507856533825	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507856533863	Marionette	DEBUG	Register listener.js for window 2147483649
+1507856533967	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507856555623	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507856555623	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507856556072	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.copay.coop/destinos.html"
+1507856570788	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
+1507856580637	Marionette	INFO	New connections will no longer be accepted
+1507856625215	geckodriver	INFO	geckodriver 0.19.0
+1507856625219	geckodriver	INFO	Listening on 127.0.0.1:52795
+1507856626307	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.zAAzv8ex3tND"
+1507856626494	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1507856627148	Marionette	INFO	Enabled via --marionette
+1507856629272	Marionette	INFO	Listening on port 41777
+1507856629409	Marionette	WARN	TLS certificate errors will be ignored for this session
+1507856629455	Marionette	DEBUG	Register listener.js for window 2147483649
+1507856629489	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1507856629900	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1507856629900	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1507856630257	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.copay.coop/destinos.html"
+1507856634538	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
+1507856644344	Marionette	INFO	New connections will no longer be accepted
