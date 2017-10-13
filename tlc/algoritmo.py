@@ -12,9 +12,9 @@ def ordenarVectores(list_travels,list_precios_travels,cant_travels):
     x = 0
     for x in xrange(len(list_precios_travels)):
         if x == 0:
-            list_precio_int[0] = int(list_precios_travels[x])
+            list_precio_int[0] = float(list_precios_travels[x])
         else :
-            list_precio_int.append(int(list_precios_travels[x]))
+            list_precio_int.append(float(list_precios_travels[x]))
 
     while i < cant_travels[0] :
         precio_actual = list_precio_int[i]
@@ -51,7 +51,7 @@ def find_max(list_precios_travels):
 
 
     for n in list_precios_travels:
-        aux = int(n)
+        aux = float(n)
         if aux > to_remove:
             new_max = to_remove
             to_remove = aux
