@@ -43,7 +43,9 @@ class Travel(models.Model):
     duration = models.IntegerField()
     traveltype = models.ForeignKey('Traveltype', models.DO_NOTHING, db_column='traveltype')
     webpage = models.TextField()
-    travel_agency = models.ForeignKey('Travelagency', models.DO_NOTHING, db_column='travel_agency')
+    travel_agency = models.IntegerField(blank=True, null=True)
+    currency = models.TextField()
+    updated = models.BooleanField()
     description = models.TextField()
     idtravel = models.BigAutoField(primary_key=True)
 

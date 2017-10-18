@@ -4,14 +4,14 @@
 	"uri_end": "",
 	"travel_type": 3,
 	"sleep_time": 3,
-	"date_span_start": 30,
-	"date_span_finish": 36,
+	"date_span_start": 5,
+	"date_span_finish": 7,
 	"decimal_mark": ",",
 	"thousands_mark":".",
 	"frequency_format":[],
 	"date_format": "%Y-%m-%d",
 	"UTC":-3,
-	"currecny":"UYU",
+	"currency":"UYU",
 	"page_type":2,
 	"reload_time": 24,
 	"header_parameters":{},
@@ -27,6 +27,7 @@
       ]},
 	"iterators":{},
 	"extraction_tags":{
+			"travel_block":[],
 			"departure":{
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "viaje"},

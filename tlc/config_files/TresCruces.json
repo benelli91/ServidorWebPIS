@@ -11,7 +11,7 @@
 	"frequency_format":["L", "MA", "MI", "J", "V", "S", "D", "DIARIO", " a "],
 	"date_format": "",
 	"UTC":-3,
-	"currecny":"UYU",
+	"currency":"UYU",
 	"page_type":2,
 	"reload_time": 24,
 	"header_parameters":{},
@@ -23,6 +23,7 @@
 			{"field_type":"select", "tag_type": "id" , "id":"searcher_destination", "data":["destination_city_upper"]}]},
 	"iterators":{},
 	"extraction_tags":{
+		"travel_block":[],
 		"departure":{
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
 			"format":"(\\d\\d):(\\d\\d)",

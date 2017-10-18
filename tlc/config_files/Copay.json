@@ -11,7 +11,7 @@
 	"frequency_format":["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom", "Diario", " a ", ", "],
 	"date_format": "",
 	"UTC":-3,
-	"currecny":"UYU",
+	"currency":"UYU",
 	"page_type": 3,
 	"reload_time": 24,
 	"header_parameters":{},
@@ -25,6 +25,7 @@
 					{"tag_type": "tr", "field_type": "", "name": "", "position": 0}]
 	},
 	"extraction_tags":{
+			"travel_block":[],
 			"departure":{
 				"fields":[
 					{"tag_type": "table", "field_type":"class", "name": "blockHours left"},
