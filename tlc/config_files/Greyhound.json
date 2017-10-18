@@ -10,10 +10,11 @@
 	"thousands_mark":",",
 	"frequency_format":[],
 	"date_format": "%m/%d/%Y",
-	"page_type":2,
-	"header_parameters":{},
 	"UTC": -3,
 	"currency": "USD",
+	"page_type":3,
+	"reload_time": 24,
+	"header_parameters":{},
 	"inputs": {
 		"wait":5,
 		"loading_time":15,
@@ -25,6 +26,7 @@
       ]},
 	"iterators":{},
 	"extraction_tags":{
+			"travel_block":[],
 			"departure":{
 				"fields":[
 					{"tag_type": "li", "field_type": "class", "name": "fare"},

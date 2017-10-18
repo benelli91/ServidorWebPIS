@@ -11,7 +11,7 @@
 	"frequency_format":[],
 	"date_format": "%d-%m-%Y",
 	"UTC":-3,
-	"currecny":"UYU",
+	"currency":"UYU",
 	"page_type":1,
 	"reload_time": 24,
 	"header_parameters":{
@@ -26,11 +26,12 @@
 	"inputs":{},
 	"iterators":{},
 	"extraction_tags":{
+			"travel_block":[],
 			"departure":{
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
-					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3"},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2"},
 					{"tag_type": "span", "field_type": "", "name": "", "position":1}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":""

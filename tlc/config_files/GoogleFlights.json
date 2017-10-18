@@ -11,7 +11,7 @@
 	"frequency_format":[],
 	"date_format": "%Y-%m-%d",
 	"UTC":-3,
-	"currecny":"USD",
+	"currency":"USD",
 	"page_type":1,
 	"reload_time": 2,
 	"header_parameters":{
@@ -24,6 +24,7 @@
 	"inputs":{},
 	"iterators":{},
 	"extraction_tags":{
+			"travel_block":[],
 			"departure":{
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"},
