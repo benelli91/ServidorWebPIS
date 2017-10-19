@@ -69,6 +69,8 @@ def dataParameterOptions(line, conf_file, origin_city, destination_city, departu
             result = today.strftime(date_format)
         elif(data == "click"):
             result = "click"
+        elif(data == "remove"):
+            result = "remove"
         elif(data == "origin_local_code"):
             raw_files = [pos_json for pos_json in os.listdir(local_codes_directory) if pos_json.endswith('.json')]
             for local_file in raw_files:

@@ -30,32 +30,38 @@
 					{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"},
 					{"tag_type": "span", "field_type":"", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"arrival":{
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"price":{
 				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Ab"}],
 				"format":"(\\d+)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"duration": {
 				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-E"}],
 				"format":"(\\d\\d) h (\\d\\d) min",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"travel_agency": {
 				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-j"}],
 				"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"frequency": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			}
 		}
 	}

@@ -27,32 +27,38 @@
 		"departure":{
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "hour"}],
 			"format":"(\\d\\d):(\\d\\d)",
-			"formula":""
+			"formula":"",
+			"attribute":""
 		},
 		"arrival":{
 			"fields":[],
 			"format":"",
-			"formula":""
+			"formula":"",
+			"attribute":""
 		},
 		"price":{
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "distance"}],
 			"format":"(\\d+)",
-			"formula":"x=[1000]"
+			"formula":"x=[1000]",
+			"attribute":""
 		},
 		"duration": {
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "duration"}],
 			"format":"(\\d\\d):(\\d\\d)",
-			"formula":""
+			"formula":"",
+			"attribute":""
 		},
 		"travel_agency": {
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "company"}],
 			"format":"(\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?,? (\\w+)?",
-			"formula":""
+			"formula":"",
+			"attribute":""
 		},
 		"frequency": {
 			"fields":[{"tag_type": "td", "field_type": "class", "name": "frequency"}],
 			"format":"",
-			"formula":""
+			"formula":"",
+			"attribute":""
 		}
 	}
 }

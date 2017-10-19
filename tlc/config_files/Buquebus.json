@@ -34,7 +34,8 @@
 					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2"},
 					{"tag_type": "span", "field_type": "", "name": "", "position":1}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"arrival":{
 				"fields":[
@@ -43,7 +44,8 @@
 					{"tag_type": "div", "field_type": "id", "name": "aca"},
 					{"tag_type": "span", "field_type": "class", "name": "bold","position":0}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"price":{
 				"fields":[
@@ -52,22 +54,26 @@
 					{"tag_type": "div", "field_type": "col", "name": "2"},
 					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position":0}],
 				"format":"(\\d*\\.?\\d+)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"duration": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"travel_agency": {
 				"fields":[],
 				"format":"Buquebus",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"frequency": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			}
 		}
 	}

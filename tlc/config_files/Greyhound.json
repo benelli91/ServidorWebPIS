@@ -33,12 +33,14 @@
 					{"tag_type": "p", "field_type": "class", "name": "trip-time trip-time-lg","position": 0}
 				],
 				"format":"(\\d?\\d):(\\d\\d)\\s(\\w\\w)",
-				"formula":"if ('$3' == 'am') : x=[$1, $2]\nelse: x=[(int($1) +12) % 24, $2]"
+				"formula":"if ('$3' == 'am') : x=[$1, $2]\nelse: x=[(int($1) +12) % 24, $2]",
+				"attribute":""
 			},
 			"arrival":{
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"price":{
 				"fields":[
@@ -46,24 +48,28 @@
 					{"tag_type": "div", "field_type": "class", "name": "row fare-prices"},
 					{"tag_type": "span", "field_type": "class", "name": "price","position": 0}],
 				"format":"(\\d+)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"duration": {
 				"fields":[
 					{"tag_type": "li", "field_type": "class", "name": "fare"},
 					{"tag_type": "p", "field_type": "class", "name": "trip-duration","position": 0}],
 			"format":"(\\d?\\d)h\\s?(\\d?\\d)m",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"travel_agency": {
 				"fields":[],
 				"format":"Greyhound",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"frequency": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			}
 		}
 	}

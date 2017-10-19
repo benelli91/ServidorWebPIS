@@ -33,36 +33,42 @@
 					{"tag_type": "div", "field_type": "class", "name": "viaje"},
 					{"tag_type": "div", "field_type": "class", "name": "clase_viaje text-center", "position":0}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"arrival":{
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "viaje"},
 					{"tag_type": "div", "field_type": "class", "name": "clase_viaje text-center", "position":1}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"price":{
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "viaje"},
 					{"tag_type": "div", "field_type": "class", "name": "precio_viaje text-center"}],
 				"format":"(\\d+)",
-				"formula":"x=[round(($1 * 2.015 + 13)/28,2)]"
+				"formula":"x=[round(($1 * 2.015 + 13)/28,2)]",
+				"attribute":""
 			},
 			"duration": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"travel_agency": {
 				"fields":[],
 				"format":"Agencia Central",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"frequency": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			}
 		}
 	}

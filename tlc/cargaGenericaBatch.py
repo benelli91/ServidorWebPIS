@@ -251,8 +251,12 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
         elif line["field_type"] == "attribute":
             element = javascriptParameterOptions(line, phantom)
             attribute = line["attribute"]
-            fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
-            phantom.execute_script(fun, element, data)
+            if data == remove:
+                fun = "arguments[0].removeAttribute('" + attribute + "');"
+                phantom.execute_script(fun, element)
+            else:
+                fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
+                phantom.execute_script(fun, element, data)
             #print phantom.page_source
 
         time.sleep(conf_file["webpage"]["inputs"]["wait"])
@@ -267,19 +271,19 @@ def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
     HTML_blocks = BeautifulSoup(phantom.page_source, "html.parser")
 
     #We extract the travel blocks
-    raw_blocks = get_data_list(conf_file["webpage"]["iterators"]["travel_block"], HTML_blocks, False)
+    raw_blocks = get_data_list(conf_file["webpage"]["iterators"]["travel_block"], HTML_blocks, False, "")
     aux_blocks = []
     for block in raw_blocks:
         aux_blocks += [[block, "", ""]]
 
     for aux_sub_block in aux_blocks:
         #We extract the origin city of each travel block
-        aux_origin_cities = get_data_list(conf_file["webpage"]["iterators"]["origin_city"], aux_sub_block[0], True)
+        aux_origin_cities = get_data_list(conf_file["webpage"]["iterators"]["origin_city"], aux_sub_block[0], True, "")
         for aux_origin_city in aux_origin_cities:
             aux_sub_block[1] = [aux_origin_city]
 
         #We extract the destination city of each travel block
-        aux_destination_cities = get_data_list(conf_file["webpage"]["iterators"]["destination_city"], aux_sub_block[0], True)
+        aux_destination_cities = get_data_list(conf_file["webpage"]["iterators"]["destination_city"], aux_sub_block[0], True, "")
         for aux_destination_city in aux_destination_cities:
             aux_sub_block[2] = [aux_destination_city]
 
@@ -301,7 +305,7 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
         travels_to_add = extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city,departure,dates)
     return travels_to_add
 
-def get_data_list(fields_list,html_file, get_text):
+def get_data_list(fields_list,html_file, get_text, attribute):
     HTML_blocks = [html_file]
     for tag in fields_list:
         sub_blocks = []
@@ -332,11 +336,14 @@ def get_data_list(fields_list,html_file, get_text):
     for block in HTML_blocks:
         if(block != "\n"):
             if(get_text == True):
-                if not isinstance(block, bs4.element.NavigableString):
+                if isinstance(block, bs4.element.NavigableString):
+                    result += [str(block.encode('ascii','ignore'))]
+                elif attribute == "":
                     raw_text = block.getText()
                     result += [str(unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore'))]
                 else:
-                    result += [str(block.encode('ascii','ignore'))]
+                    raw_text = block.get_attribute(attribute)
+                    result += [raw_text]
             else:
                 result += [block]
     return result
@@ -420,37 +427,43 @@ def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,de
 
     #travel_block extraction_tags
     block_fields = conf_file["webpage"]["extraction_tags"]["travel_block"]
-    block_list = get_data_list(block_fields,html_file, False)
+    block_list = get_data_list(block_fields,html_file, False, "")
 
     #departure extraction_tags
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+    departure_attribute = conf_file["webpage"]["extraction_tags"]["departure"]["attribute"]
 
     #arrival extraction_tags
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
+    arrival_attribute = conf_file["webpage"]["extraction_tags"]["arrival"]["attribute"]
 
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
     price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
+    price_attribute = conf_file["webpage"]["extraction_tags"]["price"]["attribute"]
 
     #duration extraction_tags
     duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
     duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
     duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
+    duration_attribute = conf_file["webpage"]["extraction_tags"]["duration"]["attribute"]
 
     #travel_agency extraction_tags
     travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
     travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
     travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
+    travel_agency_attribute = conf_file["webpage"]["extraction_tags"]["travel_agency"]["attribute"]
 
     #frequency extraction_tags
     frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
     frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
     frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
+    frequency_attribute = conf_file["webpage"]["extraction_tags"]["frequency"]["attribute"]
 
     #For each block with an individual travel we extract its values and if they are correct we create a travel instance
     for block in block_list:
@@ -468,16 +481,16 @@ def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,de
         aux_new_travel_duration = departure_with_time
 
         #We extract the raw values of each attribute of the travel
-        departure_list = get_data_list(departure_fields, block, True)
-        price_list = get_data_list(price_fields, block, True)
+        departure_list = get_data_list(departure_fields, block, True, departure_attribute)
+        price_list = get_data_list(price_fields, block, True, price_attribute)
         if arrival_fields != []:
-            arrival_list = get_data_list(arrival_fields, block, True)
+            arrival_list = get_data_list(arrival_fields, block, True, arrival_attribute)
         if duration_fields != []:
-            duration_list = get_data_list(duration_fields, block, True)
+            duration_list = get_data_list(duration_fields, block, True, duration_attribute)
         if travel_agency_fields != []:
-            travel_agency_list = get_data_list(travel_agency_fields, block, True)
+            travel_agency_list = get_data_list(travel_agency_fields, block, True, travel_agency_attribute)
         if frequency_format != []:
-            frequency_list = get_data_list(frequency_fields, block, True)
+            frequency_list = get_data_list(frequency_fields, block, True, frequency_attribute)
 
         #Extract departure
         if(departure_list != []):
@@ -601,8 +614,9 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
     departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
     departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
     departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+    departure_attribute = conf_file["webpage"]["extraction_tags"]["departure"]["attribute"]
     #print 'departure'
-    departure_list = get_data_list(departure_fields,html_file, True)
+    departure_list = get_data_list(departure_fields,html_file, True, departure_attribute)
     #departure_list = get_data_list2(arrival_fields,html_file, True,STATUS)
     #for q in departure_list:
     #    print q
@@ -611,40 +625,45 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
     arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
     arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
     arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
+    arrival_attribute = conf_file["webpage"]["extraction_tags"]["arrival"]["attribute"]
     if arrival_fields != []:
         #print ('arrival')
-        arrival_list = get_data_list(arrival_fields,html_file, True)
+        arrival_list = get_data_list(arrival_fields,html_file, True, arrival_attribute)
         #for q in arrival_list:
         #    print q
     #price extraction_tags
     price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
     price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
     price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
-    price_list = get_data_list(price_fields,html_file, True)
+    price_attribute = conf_file["webpage"]["extraction_tags"]["price"]["attribute"]
+    price_list = get_data_list(price_fields,html_file, True, price_attribute)
 
     #duration extraction_tags
 
     duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
     duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
     duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
+    duration_attribute = conf_file["webpage"]["extraction_tags"]["duration"]["attribute"]
     if duration_fields != []:
-        duration_list = get_data_list(duration_fields,html_file, True)
+        duration_list = get_data_list(duration_fields,html_file, True, duration_attribute)
 
     #travel_agency extraction_tags
 
     travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
     travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
     travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
+    travel_agency_attribute = conf_file["webpage"]["extraction_tags"]["travel_agency"]["attribute"]
     if travel_agency_fields != []:
-        travel_agency_list = get_data_list(travel_agency_fields,html_file, True)
+        travel_agency_list = get_data_list(travel_agency_fields,html_file, True, travel_agency_attribute)
 
     #frequency extraction_tags
 
     frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
     frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
     frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
+    frequency_attribute = conf_file["webpage"]["extraction_tags"]["frequency"]["attribute"]
     if frequency_format != []:
-        frequency_list = get_data_list(frequency_fields,html_file, True)
+        frequency_list = get_data_list(frequency_fields,html_file, True, frequency_attribute)
 
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     #||Ver que pasa si las listas tienen distinta cantidad de elementos||

@@ -32,7 +32,8 @@
 					{"tag_type": "tr", "field_type": "", "name": ""},
 					{"tag_type": "td", "field_type": "class", "name": "", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"arrival":{
 				"fields":[
@@ -40,22 +41,26 @@
 					{"tag_type": "tr", "field_type": "", "name": ""},
 					{"tag_type": "td", "field_type": "class", "name": "", "position":-1 }],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"price":{
 				"fields":[],
 				"format":"city_distance",
-				"formula":"x=[round((city_distance * 2.015 + 13)/28,2)]"
+				"formula":"x=[round((city_distance * 2.015 + 13)/28,2)]",
+				"attribute":""
 			},
 			"duration": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"travel_agency": {
 				"fields":[],
 				"format":"Copay",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"frequency": {
 				"fields":[
@@ -63,7 +68,8 @@
 					{"tag_type": "tr", "field_type": "", "name": ""},
 					{"tag_type": "td", "field_type": "class", "name": ""}],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			}
 		}
 	}

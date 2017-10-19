@@ -31,35 +31,41 @@
 				"fields":[
 					{"tag_type": "td", "field_type":"class", "name": "time","position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"arrival":{
 				"fields":[
 					{"tag_type": "td", "field_type":"class", "name": "time","position": 1}],
 				"format":"(\\d\\d):(\\d\\d)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"price":{
 				"fields":[
 					{"tag_type": "input", "field_type":"name", "name": "booking[departing_ship_acc]","position": 0},
 					{"tag_type": "label", "field_type": "", "name": ""}],
 				"format":"(\\d*,?\\d+.\\d+)",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"duration": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"travel_agency": {
 				"fields":[],
 				"format":"Colonia Express",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			},
 			"frequency": {
 				"fields":[],
 				"format":"",
-				"formula":""
+				"formula":"",
+				"attribute":""
 			}
 		}
 	}
