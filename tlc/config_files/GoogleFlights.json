@@ -24,7 +24,7 @@
 	"inputs":{},
 	"iterators":{},
 	"extraction_tags":{
-			"travel_block":[],
+			"travel_block":[{"tag_type": "a", "field_type": "class", "name": "DQX2Q1B-d-X"}],
 			"departure":{
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"},
@@ -47,7 +47,7 @@
 			},
 			"duration": {
 				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-E"}],
-				"format":"(\\d\\d) h (\\d\\d) min",
+				"format":"(\\d?\\d) h (\\d?\\d) min",
 				"formula":"",
 				"attribute":""
 			},
