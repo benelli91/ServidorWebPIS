@@ -1,0 +1,89 @@
+{"webpage":{
+	"name": "Central de Pasajes",
+	"uri_start": "http://www.centraldepasajes.com.ar/CDP/home.aspx",
+	"uri_end": "",
+	"travel_type": 3,
+	"sleep_time": 6,
+	"date_span_start": 30,
+	"date_span_finish": 45,
+	"decimal_mark": ".",
+	"thousands_mark":",",
+	"frequency_format":[],
+	"date_format": "%d/%m/%Y",
+	"UTC":-3,
+	"currecny":"ARG",
+	"page_type":2,
+	"reload_time": 24,
+	"header_parameters":{},
+	"inputs": {
+		"wait":6,
+		"loading_time": 10,
+		"buttons":[
+			{"field_type":"input", "tag_type": "id", "id":"PadOrigen", "data":["origin_local_code"]},
+			{"field_type":"input", "tag_type": "id", "id":"PadDestino", "data":["destination_local_code"]},
+			{"field_type":"input", "tag_type": "id", "id":"datepicker-ida", "data":["departure"]},
+			{"field_type":"input", "tag_type": "xpath", "id":"//*[@title='Click para ver el calendario']", "data":["click"]},
+			{"field_type":"input", "tag_type": "id", "id":"btnCons", "data":["click"]}
+      ]},
+	"iterators":{},
+	"extraction_tags":{
+			"departure":{
+				"fields":[
+					{"tag_type": "tbody", "field_type": "", "name": ""},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":2}
+					{"tag_type": "strong", "field_type": "", "name": ""}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":"",
+				"atribute":""
+			},
+			"arrival":{
+				"fields":[
+					{"tag_type": "tbody", "field_type": "", "name": ""},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":3}
+					{"tag_type": "strong", "field_type": "", "name": ""}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":"",
+				"atribute":""
+			},
+			"price":{
+				"fields":[
+					{"tag_type": "tbody", "field_type": "", "name": ""},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":6}
+					{"tag_type": "span", "field_type": "", "name": ""}],
+				"format":"(\\d*\\.?d+)",
+				"formula":"",
+				"atribute":""
+			},
+			"duration": {
+				"fields":[
+					{"tag_type": "tbody", "field_type": "", "name": ""},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":4}
+					{"tag_type": "span", "field_type": "", "name": ""}],
+				"format":"",
+				"formula":"",
+				"atribute":""
+			},
+			"travel_agency": {
+				"fields":[
+					{"tag_type": "tbody", "field_type": "", "name": ""},
+					{"tag_type": "tr", "field_type": "", "name": ""},
+					{"tag_type": "td", "field_type": "", "name": "", "position":0}
+					{"tag_type": "img", "field_type": "", "name": ""}],
+				"format":"Viaja por (.+)",
+				"formula":"",
+				"atribute":"title"
+			},
+			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":"",
+				"atribute":""
+			},
+			"travel_block":[]
+		}
+	}
+}
