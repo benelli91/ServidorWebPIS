@@ -1,0 +1,77 @@
+{"webpage":{
+	"name": "UruBus",
+	"uri_start": "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&",
+	"uri_end": "",
+	"travel_type": 3,
+	"sleep_time": 3,
+	"date_span_start": 30,
+	"date_span_finish": 31,
+	"decimal_mark": ".",
+	"thousands_mark":",",
+	"frequency_format":[],
+	"date_format":"%d/%m/%Y",
+	"UTC":-3,
+	"currency":"UYU",
+	"page_type":1,
+	"reload_time": 24,
+	"header_parameters":{
+		"separator": "&",
+		"parameters":[
+			{"data": ["origin_local_code"], "parameter": "ter_from="},
+			{"data": ["destination_local_code"], "parameter": "ter_to="},
+			{"data": ["departure"], "parameter": "go_date="}]
+		},
+	"inputs":{},
+	"iterators":{},
+	"extraction_tags":{
+			"departure":{
+				"fields":[
+					{"tag_type": "ul", "field_type": "id", "name": "list"},
+					{"tag_type": "div", "field_type": "class", "name": "booking-item"},
+					{"tag_type": "div", "field_type": "class", "name": "booking-item-departure"},
+					{"tag_type": "h5", "field_type": "", "name": "","position": 0}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":"",
+				"attribute":""
+			},
+			"arrival":{
+				"fields":[
+					{"tag_type": "ul", "field_type": "id", "name": "list"},
+					{"tag_type": "div", "field_type": "class", "name": "booking-item"},
+					{"tag_type": "div", "field_type": "class", "name": "booking-item-arrival"},
+					{"tag_type": "h5", "field_type": "", "name": "","position": 0}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":"",
+				"attribute":""
+			},
+			"price":{
+				"fields":[],
+				"format":"city_distance",
+				"formula":"x=[round((city_distance * 2.015 + 13))]",
+				"attribute":""
+			},
+			"duration": {
+				"fields":[],
+				"format":"",
+				"formula":"",
+				"attribute":""
+			},
+			"travel_agency": {
+				"fields":[
+					{"tag_type": "ul", "field_type": "id", "name": "list"},
+					{"tag_type": "div", "field_type": "class", "name": "booking-item"},
+					{"tag_type": "div", "field_type": "class", "name": "booking-item-airline-logo"},
+					{"tag_type": "h5", "field_type": "", "name": "","position": 0}],
+				"format":"(.+)",
+				"formula":"",
+				"atribute":"title"
+			},
+			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":"",
+				"attribute":""
+			}
+		}
+	}
+}

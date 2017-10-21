@@ -1,0 +1,7 @@
+{ "name":"UruBus",
+  "codes":{
+    "Maldonado": "72",
+    "Montevideo": "83",
+    "Canelones": "256"
+  }
+}
