@@ -173,18 +173,34 @@ def javascriptParameterOptions(line, phantom):
     element = ""
     if(line["tag_type"] == "id"):
         element = phantom.find_element_by_id(line["id"])
+    elif(line["tag_type"] == "multiple_id"):
+        element = phantom.find_elements_by_id(line["id"])
     elif(line["tag_type"] == "class_name"):
         element = phantom.find_element_by_class_name(line["id"])
+    elif(line["tag_type"] == "multiple_class_name"):
+        element = phantom.find_elements_by_class_name(line["id"])
     elif(line["tag_type"] == "name"):
         element = phantom.find_element_by_name(line["id"])
+    elif(line["tag_type"] == "multiple_name"):
+        element = phantom.find_elements_by_name(line["id"])
     elif(line["tag_type"] == "xpath"):
         element = phantom.find_element_by_xpath(line["id"])
+    elif(line["tag_type"] == "multiple_xpath"):
+        element = phantom.find_elements_by_xpath(line["id"])
     elif(line["tag_type"] == "link_text"):
         element = phantom.find_element_by_link_text(line["id"])
+    elif(line["tag_type"] == "multiple_link_text"):
+        element = phantom.find_elements_by_link_text(line["id"])
     elif(line["tag_type"] == "partial_link_text"):
         element = phantom.find_element_by_partial_link_text(line["id"])
+    elif(line["tag_type"] == "multiple_partial_link_text"):
+        element = phantom.find_elements_by_partial_link_text(line["id"])
     elif(line["tag_type"] == "tag_name"):
         element = phantom.find_element_by_class(line["tag_name"])
+    elif(line["tag_type"] == "multiple_tag_name"):
+        element = phantom.find_elements_by_class(line["tag_name"])
     elif(line["tag_type"] == "css_selector"):
         element = phantom.find_element_by_css_selector(line["id"])
+    elif(line["tag_type"] == "multiple_css_selector"):
+        element = phantom.find_elements_by_css_selector(line["id"])
     return element

@@ -195,17 +195,20 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
     url = conf_file["webpage"]["uri_start"]
-    separator = conf_file["webpage"]["header_parameters"]["separator"]
-    total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
-    counter = 0
-    origin_country = Country.objects.filter(id = origin_city.country.id)[0]
-    destination_country = Country.objects.filter(id = destination_city.country.id)[0]
-    for line in conf_file["webpage"]["header_parameters"]["parameters"]:
-        url += line["parameter"]
-        url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-        if(counter < total_parameters - 1):
-            url += separator
-        counter += 1
+    separator = ''
+    if conf_file["webpage"]["header_parameters"].has_key("separator"):
+        separator = conf_file["webpage"]["header_parameters"]["separator"]
+    if conf_file["webpage"]["header_parameters"].has_key("parameters"):
+        total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
+        counter = 0
+        origin_country = Country.objects.filter(id = origin_city.country.id)[0]
+        destination_country = Country.objects.filter(id = destination_city.country.id)[0]
+        for line in conf_file["webpage"]["header_parameters"]["parameters"]:
+            url += line["parameter"]
+            url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+            if(counter < total_parameters - 1):
+                url += separator
+            counter += 1
 
     url += conf_file["webpage"]["uri_end"]
     #print url
@@ -218,7 +221,24 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
 def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
-    phantom.get(conf_file["webpage"]["uri_start"])
+    url = conf_file["webpage"]["uri_start"]
+    separator = ''
+    if conf_file["webpage"]["header_parameters"].has_key("separator"):
+        separator = conf_file["webpage"]["header_parameters"]["separator"]
+    if conf_file["webpage"]["header_parameters"].has_key("parameters"):
+        total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
+        counter = 0
+        origin_country = Country.objects.filter(id = origin_city.country.id)[0]
+        destination_country = Country.objects.filter(id = destination_city.country.id)[0]
+        for line in conf_file["webpage"]["header_parameters"]["parameters"]:
+            url += line["parameter"]
+            url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+            if(counter < total_parameters - 1):
+                url += separator
+            counter += 1
+
+    url += conf_file["webpage"]["uri_end"]
+    phantom.get(url)
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
         data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
@@ -235,18 +255,31 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                 return ""
         elif line["field_type"] == "input":
             element = javascriptParameterOptions(line, phantom)
-            if data == "click":
-                element.click()
+            phantom.implicitly_wait(5)
+            if isinstance(element,list):
+                range_inputs = 0
+                while range_inputs < len(element):
+                    elem = element[range_inputs]
+                    if data == "click":
+                        elem.click()
+                    else:
+                        elem.clear()
+                        elem.send_keys(data)
+                    element = javascriptParameterOptions(line, phantom)
+                    range_inputs += 1
             else:
-                element.clear()
-                element.send_keys(data)
+                if data == "click":
+                    element.click()
+                else:
+                    element.clear()
+                    element.send_keys(data)
         elif line["field_type"] == "script":
             fun = line["id"] + data
             phantom.execute_script(fun)
         elif line["field_type"] == "attribute":
             element = javascriptParameterOptions(line, phantom)
             attribute = line["attribute"]
-            if data == remove:
+            if data == 'remove':
                 fun = "arguments[0].removeAttribute('" + attribute + "');"
                 phantom.execute_script(fun, element)
             else:
