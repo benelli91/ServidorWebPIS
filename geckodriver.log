@@ -1998,3 +1998,206 @@ JavaScript error: https://web.agenciacentral.com.uy/ida.php, line 1: ReferenceEr
 1508368462285	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
 1508368472475	Marionette	INFO	New connections will no longer be accepted
 [Child 12771] WARNING: pipe error (3): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1508686409935	geckodriver	INFO	geckodriver 0.19.0
+1508686409999	geckodriver	INFO	Listening on 127.0.0.1:55101
+1508686411256	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.QoOndihwpQpC"
+1508686411781	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508686413044	Marionette	INFO	Enabled via --marionette
+1508686419320	Marionette	INFO	Listening on port 37368
+1508686419391	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508686419434	Marionette	DEBUG	Register listener.js for window 2147483649
+1508686420000	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1508686422866	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1508686422866	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1508686425049	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686433446	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686453409	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508686468918	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686470156	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686470156	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686470359	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483695"
+1508686470359	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483686"
+1508686470359	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483689"
+1508686470360	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483691"
+1508686470360	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483685"
+1508686470779	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686480940	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686499744	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483720"
+1508686499766	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508686515151	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686516205	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686516206	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686516395	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483735"
+1508686516396	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483727"
+1508686516396	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483729"
+1508686516397	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483731"
+1508686516397	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483725"
+1508686516853	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686520549	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686539278	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483759"
+1508686539299	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508686554635	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686555614	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686555615	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686555807	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483774"
+1508686555807	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483766"
+1508686555808	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483768"
+1508686555808	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483770"
+1508686555808	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483764"
+1508686556245	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686558281	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686576778	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/"
+1508686577759	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/"
+1508686577760	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/"
+1508686578166	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686578175	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483781"
+1508686578176	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483791"
+1508686578176	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483783"
+1508686578177	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483785"
+1508686578177	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483787"
+1508686578177	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483796"
+1508686578178	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483779"
+1508686578178	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483798"
+1508686579994	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686595336	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686596345	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686596345	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686596528	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483811"
+1508686596529	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483803"
+1508686596529	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483805"
+1508686596530	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483807"
+1508686596530	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483801"
+1508686596962	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686599081	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686617659	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/"
+1508686618548	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/"
+1508686618548	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/"
+1508686618951	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686618960	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483818"
+1508686618960	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483830"
+1508686618960	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483820"
+1508686618961	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483822"
+1508686618961	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483824"
+1508686618961	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483833"
+1508686618962	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483816"
+1508686618962	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483835"
+1508686624222	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686639624	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686640641	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686640641	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686640830	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483847"
+1508686640839	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483840"
+1508686640840	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483842"
+1508686640840	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483844"
+1508686640841	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483838"
+1508686641241	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686643222	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686661747	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/"
+1508686662687	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/"
+1508686662687	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/"
+1508686663064	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686663072	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483855"
+1508686663072	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483866"
+1508686663073	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483857"
+1508686663073	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483859"
+1508686663073	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483861"
+1508686663073	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483870"
+1508686663074	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483853"
+1508686663074	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483872"
+1508686664172	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686680307	Marionette	INFO	New connections will no longer be accepted
+[Child 4242] WARNING: pipe error (35): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 4242] WARNING: pipe error (20): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 4242] WARNING: pipe error (3): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1508686783762	geckodriver	INFO	geckodriver 0.19.0
+1508686783765	geckodriver	INFO	Listening on 127.0.0.1:34268
+1508686784854	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.VtwjUnVF7USv"
+1508686785031	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508686785702	Marionette	INFO	Enabled via --marionette
+1508686788019	Marionette	INFO	Listening on port 42105
+1508686788072	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508686788112	Marionette	DEBUG	Register listener.js for window 2147483649
+1508686788235	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1508686789827	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1508686789827	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1508686791298	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686799493	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686818748	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508686834087	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686835166	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686835166	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686835348	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483694"
+1508686835349	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483685"
+1508686835349	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483688"
+1508686835350	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483690"
+1508686835350	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483684"
+1508686835780	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686846900	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686865635	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483719"
+1508686865652	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508686880963	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686882258	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686882258	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686882437	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483734"
+1508686882437	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483726"
+1508686882438	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483728"
+1508686882448	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483730"
+1508686882448	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483724"
+1508686882874	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686886546	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508686905223	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483758"
+1508686905252	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508686920569	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686921603	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686921603	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508686921786	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483774"
+1508686921796	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483765"
+1508686921797	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483767"
+1508686921797	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483769"
+1508686921797	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483763"
+1508686922225	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508686924066	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508687563088	geckodriver	INFO	geckodriver 0.19.0
+1508687563099	geckodriver	INFO	Listening on 127.0.0.1:55002
+1508687564232	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.XLq5gDiiU2F2"
+1508687564406	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508687564972	Marionette	INFO	Enabled via --marionette
+1508687567532	Marionette	INFO	Listening on port 42695
+1508687567643	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508687567686	Marionette	DEBUG	Register listener.js for window 2147483649
+1508687621012	geckodriver	INFO	geckodriver 0.19.0
+1508687621015	geckodriver	INFO	Listening on 127.0.0.1:52184
+1508687622108	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.XbxpTJ4oQcbu"
+1508687622282	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508687622917	Marionette	INFO	Enabled via --marionette
+1508687625192	Marionette	INFO	Listening on port 45115
+1508687625226	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508687625266	Marionette	DEBUG	Register listener.js for window 2147483649
+1508687625350	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1508687628086	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1508687628087	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1508687629594	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508687637499	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508687656170	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508687672199	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508687673461	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508687673462	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508687673652	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483696"
+1508687673653	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483685"
+1508687673653	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483688"
+1508687673653	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483690"
+1508687673654	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483684"
+1508687674076	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508687683991	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"
+1508687702720	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483718"
+1508687702720	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1508687718086	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508687719095	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508687719095	Marionette	DEBUG	Received DOM event "unload" for "https://www.greyhound.com/en/ecommerce/schedule"
+1508687719283	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483732"
+1508687719283	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483725"
+1508687719284	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483727"
+1508687719284	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483729"
+1508687719285	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483723"
+1508687719722	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.greyhound.com/"
+1508687723502	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.greyhound.com/"

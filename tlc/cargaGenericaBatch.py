@@ -89,6 +89,12 @@ def GreyhoundLoader():
         data = json.load(data_file)
         loadWebpage(data)
 
+def CentralDePasajesLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "CentralDePasajes.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     phantom = webdriver.Firefox()
@@ -255,7 +261,6 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                 return ""
         elif line["field_type"] == "input":
             element = javascriptParameterOptions(line, phantom)
-            phantom.implicitly_wait(5)
             if isinstance(element,list):
                 range_inputs = 0
                 while range_inputs < len(element):
@@ -341,7 +346,7 @@ def get_data_list(fields_list,html_file, get_text, attribute):
     for tag in fields_list:
         sub_blocks = []
         for block in HTML_blocks:
-            if block != "\n":
+            if block != "\n" and not isinstance(block, basestring):
                 if((tag["field_type"] == "") and ("position" not in tag)):
                     sub_blocks += block.find_all(tag["tag_type"])
                 elif((tag["field_type"] == "") and ("position" in tag)):
@@ -579,7 +584,9 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract travel_agency
             try:
                 if travel_agency_list != []: #from HTML
-                    new_travel_agency = Travelagency.objects.get(name=travel_agency_list[x])
+                    str_travel_agency = unicodedata.normalize('NFKD', travel_agency_list[x]).encode('ascii','ignore')
+                    str_travel_agency = processRawText(conf_file, str_travel_agency,travel_agency_format,travel_agency_formula,origin_city,destination_city)
+                    new_travel_agency = Travelagency.objects.get(name=str_travel_agency[0])
                 else: #from json
                     new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
             except:
