@@ -4,7 +4,24 @@ from datetime import datetime,timedelta
 from .models import *
 from django.db.models import F
 import sys
+import requests
+from bs4 import BeautifulSoup
+import re
 #import ipdb
+
+def currency_change(result):
+    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
+    bs = BeautifulSoup(response.content,"xml")
+    for travel in result["list_travels"]:
+        for link in travel:
+            if link.currency != "USD":
+                divide = float(bs.find(text=re.compile(link.currency)).parent.parent.find("Rate").text)
+                link.price = round(link.price / divide , 2)
+                link.currency = "USD"
+    return result
+
+
+
 
 def ordenarVectores(list_travels,list_precios_travels,cant_travels):
     i = 0
@@ -152,8 +169,9 @@ def do_search(origin_city,destination_city,date):
     #date = '08/24/2017'
     #print (date)
     aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
-    return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
-
+    result = backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
+    print result
+    return currency_change(result)
 
 
 def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time):
