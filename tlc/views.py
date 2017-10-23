@@ -9,13 +9,55 @@ from django.shortcuts import redirect
 from algoritmo import do_search
 from cargaGoogleBatch import cargaGoogleB
 from cargaGenericaBatch import *
+from rest_framework import viewsets, status
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
+from .serializers import TravelSerializer, TravelTypeSerializer, \
+    TravelAgencySerializer, CountrySerializer, CitySerializer, \
+    CitySearchSerializer, CompleteTravelSerializer
 
-# Create your views here.
+from .models import Travel, Traveltype, Travelagency, City, Country
 
-#def index(request):
-#    return render(request,'index.html')
+class TravelViewSet(viewsets.ModelViewSet):
+    queryset = Travel.objects.all()
+    serializer_class = TravelSerializer
 
+    @list_route(methods=['get'])
+    def do_search(self, request, pk=None):
+        from_city = request.GET.get('from', None)
+        to_city = request.GET.get('to', None)
+        date = request.GET.get('date', None)
+        if from_city is not None and to_city is not None and date is not None:
+            resultado = do_search(str(from_city), str(to_city), str(date))
+            travels = {'list_travels':[]}
+            for group in resultado['list_travels']:
+                #print group
+                travels['list_travels'].append(CompleteTravelSerializer(group, many=True).data)
+            return Response(status=status.HTTP_200_OK, data=travels)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data="Invalid blank input data")
 
+class TravelAgencyViewSet(viewsets.ModelViewSet):
+    queryset = Travelagency.objects.all()
+    serializer_class = TravelAgencySerializer
+
+class TravelTypeViewSet(viewsets.ModelViewSet):
+    queryset = Traveltype.objects.all()
+    serializer_class = TravelTypeSerializer
+
+class CityViewSet(viewsets.ModelViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+
+    @list_route(methods=['get'])
+    def autocomplete_search(self, request, pk=None):
+        search = request.query_params.get('term', '')
+        cities = City.objects.filter(name__startswith=search)
+        return Response(status=status.HTTP_200_OK, data=CitySearchSerializer(cities, many=True).data)
+
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
 
 def index(request):
     # if this is a POST request we need to process the form data
@@ -28,7 +70,9 @@ def index(request):
             #redirect('tlc.views.index')
         data = request.POST
         resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
-    # if a GET (or any other method) we'll create a blank form
+        # resultado
+        #print resultado
+    	# if a GET (or any other method) we'll create a blank form
     else:
         form = NameForm()
 

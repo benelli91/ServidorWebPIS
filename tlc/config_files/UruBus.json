@@ -24,6 +24,7 @@
 	"inputs":{},
 	"iterators":{},
 	"extraction_tags":{
+			"travel_block":[],
 			"departure":{
 				"fields":[
 					{"tag_type": "ul", "field_type": "id", "name": "list"},

@@ -19,6 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('tlc.urls',namespace="tlc")),
-    url(r'^cargaGoogle', include('tlc.urls',namespace="tlc")),
-
+    # url(r'^cargaGoogle', include('tlc.urls',namespace="tlc")),
 ]
