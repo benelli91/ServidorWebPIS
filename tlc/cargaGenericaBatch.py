@@ -98,8 +98,8 @@ def CentralDePasajesLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    #display = Display(visible=0, size=(1024, 768))
-    #display.start()
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
     phantom = webdriver.Firefox()
 
     aux_cities = []
