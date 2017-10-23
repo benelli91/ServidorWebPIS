@@ -1,7 +1,24 @@
 { "name":"UruBus",
   "codes":{
+    "Artigas": "7",
+    "Canelones": "256",
+    "Colonia": "36",
+    "Durazno": "43",
+    "Florida": "48",
+    "Fray Bentos": "51",
     "Maldonado": "72",
+    "Melo": "76",
+    "Mercedes": "79",
+    "Minas": "81",
     "Montevideo": "83",
-    "Canelones": "256"
+    "Paysandu": "93",
+    "Rivera": "109",
+    "Rocha": "110",
+    "Salto": "113",
+    "San Jose": "119",
+    "Tacuarembo": "138",
+    "Treinta y Tres": "143",
+    "Trinidad": "144",
+    "Punta del Este": "101"
   }
 }

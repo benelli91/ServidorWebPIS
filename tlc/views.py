@@ -125,3 +125,8 @@ def cargaGreyhound(request):
     GreyhoundLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
+
+def cargaUruBus(request):
+    UruBusLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
