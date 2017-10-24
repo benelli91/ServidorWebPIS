@@ -72,3 +72,13 @@ class Traveltype(models.Model):
     class Meta:
         managed = False
         db_table = 'traveltype'
+
+
+
+class Currency(models.Model):
+    cod = models.CharField(primary_key=True, max_length=3)
+    name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'currency'
