@@ -2252,3 +2252,324 @@ JavaScript error: https://web.agenciacentral.com.uy/ida.php, line 1: ReferenceEr
 1508788424177	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.copay.coop/destinos.html"
 1508788427891	Marionette	INFO	New connections will no longer be accepted
 [Child 17484] WARNING: pipe error (3): Conexión reinicializada por la máquina remota: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1508799092488	geckodriver	INFO	Listening on 127.0.0.1:43247
+1508799093551	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1508799093808	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508799094599	Marionette	INFO	Enabled via --marionette
+1508799097157	Marionette	INFO	Listening on port 44619
+1508799097298	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508799097378	Marionette	DEBUG	Register listener.js for window 2147483649
+1508799097446	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1508799107819	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1508799107820	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799124073	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1508799124187	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+1508799130024	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+1508799324128	geckodriver	INFO	Listening on 127.0.0.1:39825
+1508799325190	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1508799325437	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508799326235	Marionette	INFO	Enabled via --marionette
+1508799328845	Marionette	INFO	Listening on port 40487
+1508799329003	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508799329090	Marionette	DEBUG	Register listener.js for window 2147483649
+1508799329161	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1508799338923	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1508799338925	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799352183	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1508799352274	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+1508799360245	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+JavaScript error: , line 0: uncaught exception: TagError: adsbygoogle.push() error: No slot size for availableWidth=0
+1508799363520	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+1508799366191	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+1508799366192	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=72&go_date=22/11/2017"
+1508799366470	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1508799366470	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483657"
+1508799366471	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483658"
+1508799366471	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+1508799366471	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483660"
+1508799366472	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483665"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799366898	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483669"
+1508799367025	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=83&go_date=22/11/2017"
+1508799367297	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=83&go_date=22/11/2017"
+1508799371445	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=83&go_date=22/11/2017"
+1508799374310	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=83&go_date=22/11/2017"
+1508799374311	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=256&ter_to=83&go_date=22/11/2017"
+1508799374411	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483671"
+1508799374412	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483673"
+1508799374412	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483674"
+1508799374413	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483675"
+1508799374413	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483676"
+1508799374413	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483681"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799374903	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483685"
+1508799374999	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=256&go_date=22/11/2017"
+1508799375228	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=256&go_date=22/11/2017"
+1508799378572	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=256&go_date=22/11/2017"
+1508799389016	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=256&go_date=22/11/2017"
+1508799389018	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=256&go_date=22/11/2017"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1508799389267	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483701"
+1508799389267	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483703"
+1508799389268	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483706"
+1508799389268	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483699"
+1508799389269	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483686"
+1508799389269	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483688"
+1508799389270	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483689"
+1508799389270	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483690"
+1508799389271	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483691"
+1508799389272	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483696"
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799389614	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483709"
+1508799389733	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=83&go_date=22/11/2017"
+1508799390805	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=83&go_date=22/11/2017"
+1508799395231	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=83&go_date=22/11/2017"
+1508799398726	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=83&go_date=22/11/2017"
+1508799398727	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=72&ter_to=83&go_date=22/11/2017"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1508799398968	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483711"
+1508799398969	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483713"
+1508799398969	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483714"
+1508799398970	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483715"
+1508799398970	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483716"
+1508799398970	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483721"
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799399301	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483724"
+1508799399412	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=256&go_date=22/11/2017"
+1508799399940	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=256&go_date=22/11/2017"
+1508799404290	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=256&go_date=22/11/2017"
+1508799410313	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=256&go_date=22/11/2017"
+1508799410314	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=256&go_date=22/11/2017"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1508799410552	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483741"
+1508799410552	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483751"
+1508799410553	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483748"
+1508799410554	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483743"
+1508799410554	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483744"
+1508799410555	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483739"
+1508799410555	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483726"
+1508799410556	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483728"
+1508799410556	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483729"
+1508799410556	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483730"
+1508799410557	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483731"
+1508799410557	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483736"
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799410973	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483754"
+1508799411097	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=72&go_date=22/11/2017"
+1508799411392	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=83&ter_to=72&go_date=22/11/2017"
+1508799419239	Marionette	INFO	New connections will no longer be accepted
+[Child 12462] WARNING: pipe error (19): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 12462] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1508799586773	geckodriver	INFO	Listening on 127.0.0.1:41493
+1508799587842	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1508799588122	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1508799588837	Marionette	INFO	Enabled via --marionette
+1508799591800	Marionette	INFO	Listening on port 40677
+1508799591871	Marionette	WARN	TLS certificate errors will be ignored for this session
+1508799591927	Marionette	DEBUG	Register listener.js for window 2147483649
+1508799591977	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1508799595627	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1508799595628	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799602542	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1508799602641	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=256&go_date=22/11/2017"
+1508799605300	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=256&go_date=22/11/2017"
+1508799608609	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=256&go_date=22/11/2017"
+1508799611020	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=256&go_date=22/11/2017"
+1508799611021	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=256&go_date=22/11/2017"
+1508799611073	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1508799611075	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483657"
+1508799611075	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483658"
+1508799611076	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+1508799611076	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483660"
+1508799611076	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483665"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799611610	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483669"
+1508799611709	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=36&go_date=22/11/2017"
+1508799612006	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=36&go_date=22/11/2017"
+1508799615295	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=36&go_date=22/11/2017"
+1508799622438	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=36&go_date=22/11/2017"
+1508799622444	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=36&go_date=22/11/2017"
+1508799622521	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483686"
+1508799622521	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483696"
+1508799622522	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483693"
+1508799622523	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483688"
+1508799622523	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483689"
+1508799622524	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483684"
+1508799622524	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483671"
+1508799622524	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483673"
+1508799622524	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483674"
+1508799622525	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483675"
+1508799622525	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483676"
+1508799622525	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483681"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799623058	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=43&go_date=22/11/2017"
+1508799623285	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=43&go_date=22/11/2017"
+1508799626699	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=43&go_date=22/11/2017"
+1508799629424	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=43&go_date=22/11/2017"
+1508799629424	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=43&go_date=22/11/2017"
+1508799629492	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483699"
+1508799629492	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483701"
+1508799629493	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483702"
+1508799629493	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483703"
+1508799629493	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483704"
+1508799629494	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483709"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799629967	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483713"
+1508799630060	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=48&go_date=22/11/2017"
+1508799630285	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=48&go_date=22/11/2017"
+1508799633584	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=48&go_date=22/11/2017"
+1508799636154	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=48&go_date=22/11/2017"
+1508799636155	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=48&go_date=22/11/2017"
+1508799636292	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483714"
+1508799636293	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483716"
+1508799636293	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483717"
+1508799636293	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483718"
+1508799636293	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483719"
+1508799636294	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483724"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799636665	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483728"
+1508799636761	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=51&go_date=22/11/2017"
+1508799636985	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=51&go_date=22/11/2017"
+1508799640352	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=51&go_date=22/11/2017"
+1508799643371	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=51&go_date=22/11/2017"
+1508799643371	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=51&go_date=22/11/2017"
+1508799643417	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483729"
+1508799643418	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483731"
+1508799643418	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483732"
+1508799643419	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483733"
+1508799643427	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483734"
+1508799643428	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483739"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799643900	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483742"
+1508799644000	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=72&go_date=22/11/2017"
+1508799644887	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=72&go_date=22/11/2017"
+1508799648197	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=72&go_date=22/11/2017"
+1508799650750	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=72&go_date=22/11/2017"
+1508799650752	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=72&go_date=22/11/2017"
+1508799650803	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483743"
+1508799650806	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483745"
+1508799650808	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483746"
+1508799650809	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483747"
+1508799650809	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483748"
+1508799650810	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483753"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799651387	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=76&go_date=22/11/2017"
+1508799651619	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=76&go_date=22/11/2017"
+1508799654910	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=76&go_date=22/11/2017"
+1508799657177	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=76&go_date=22/11/2017"
+1508799657178	Marionette	DEBUG	Received DOM event "unload" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=76&go_date=22/11/2017"
+1508799657241	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483757"
+1508799657241	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483759"
+1508799657241	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483760"
+1508799657242	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483761"
+1508799657242	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483762"
+1508799657242	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483767"
+JavaScript warning: https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript warning: https://www.urubus.com.uy/es/js/ajaxfrm.js, line 1061: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+JavaScript warning: https://www.urubus.com.uy/es/js/custom.min.js, line 2: unreachable code after return statement
+1508799657700	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483771"
+1508799657790	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=79&go_date=22/11/2017"
+1508799658012	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.urubus.com.uy/es/omnibus-horarios?btn_search=Buscar+Omnibus&ter_from=7&ter_to=79&go_date=22/11/2017"

@@ -65,7 +65,7 @@
 					{"tag_type": "h5", "field_type": "", "name": "","position": 0}],
 				"format":"(.+)",
 				"formula":"",
-				"atribute":"title"
+				"attribute":"title"
 			},
 			"frequency": {
 				"fields":[],

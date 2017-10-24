@@ -96,6 +96,12 @@ def CentralDePasajesLoader():
         data = json.load(data_file)
         loadWebpage(data)
 
+def UruBusLoader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "UruBus.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     display = Display(visible=0, size=(1024, 768))
@@ -199,6 +205,8 @@ def loadWebpage(conf_file):
             travel.save()
 
     phantom.quit()
+    #display.stop()
+
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
