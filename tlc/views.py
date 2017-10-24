@@ -6,7 +6,7 @@ from .forms import NameForm
 from .forms import NameForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
-from algoritmo import do_search
+from algoritmo import do_search, currencies_update
 from cargaGoogleBatch import cargaGoogleB
 from cargaGenericaBatch import *
 from rest_framework import viewsets, status
@@ -77,6 +77,11 @@ def index(request):
         form = NameForm()
 
     return render(request, 'index.html',  resultado)
+
+def currency(request):
+        debug = currencies_update()
+
+        return render(request, 'debugCurrency.html',  debug)
 
 def cargaGoogle(request):
     resultado = {}

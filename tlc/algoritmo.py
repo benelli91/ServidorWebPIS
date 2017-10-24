@@ -9,18 +9,36 @@ from bs4 import BeautifulSoup
 import re
 #import ipdb
 
-def currency_change(result):
+def currencies_update():
     response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
     bs = BeautifulSoup(response.content,"xml")
-    for travel in result["list_travels"]:
-        for link in travel:
-            if link.currency != "USD":
-                divide = float(bs.find(text=re.compile(link.currency)).parent.parent.find("Rate").text)
-                link.price = round(link.price / divide , 2)
-                link.currency = "USD"
-    return result
+    currencies = ["ARS","UYU","EUR"]
+    arr_before = []
+    arr_after = []
+    for currency in currencies:
+        travels = Travel.objects.filter(currency = currency)
+        for travel in travels:
+            arr_before.append([travel.currency,travel.price,travel.idtravel])
+            divide = float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text)
+            travel.price = round(travel.price / divide , 2)
+            travel.currency = "USD"
+            arr_after.append([travel.currency,travel.price])
+            travel.save()
+    debug = zip(arr_before,arr_after)
+    debug = {"debug":debug}
+    print debug
+    return debug
 
-
+def currency_update(currency):
+    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
+    bs = BeautifulSoup(response.content,"xml")
+    travels = Travel.objects.filter(currency = currency)
+    for travel in travels:
+        divide = float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text)
+        travel.price = round(travel.price / divide , 2)
+        travel.currency = "USD"
+        travel.save()
+    
 
 
 def ordenarVectores(list_travels,list_precios_travels,cant_travels):
@@ -170,8 +188,8 @@ def do_search(origin_city,destination_city,date):
     #print (date)
     aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
     result = backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
-    print result
-    return currency_change(result)
+    #print result
+    return result
 
 
 def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time):
