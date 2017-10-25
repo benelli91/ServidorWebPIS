@@ -142,8 +142,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
             #index += 1
 
 
-def do_search(origin_city,destination_city,date):
-
+def do_search(origin_city,destination_city, date, timezone):
     #CON LAS 3 lineas COMENTADAS ABAJO TE TIRA DATOS Y ES BUENA PARA HACER EL FRONT-END
     vOrigin_country = City.objects.filter(id = origin_city)[0].country.id
     #vOrigin_city = 11
@@ -151,12 +150,15 @@ def do_search(origin_city,destination_city,date):
     #vDestination_city = 20
     #date = '08/24/2017'
     #print (date)
-    aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
-    return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
+    # Date - timezone offset 
+    aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
+    print(aux_time)
+    print(datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p'))
+    return backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time, timezone)
 
 
 
-def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time):
+def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time, timezone):
     context = {}
     #msg_err = ""
     list_travels = []
@@ -237,5 +239,6 @@ def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_
     'paisOrigen' : aux_country_orig.name,
     'ciudadOrigen' : aux_city_orig.name,
     'paisDestino' : aux_country_dest.name,
-    'ciudadDestino' : aux_city_des.name}
+    'ciudadDestino' : aux_city_des.name,
+    'timezoneOffset': timezone}
     return context

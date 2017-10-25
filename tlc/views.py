@@ -63,16 +63,13 @@ def index(request):
     # if this is a POST request we need to process the form data
     resultado = {}
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = NameForm(request.POST)
-        # check whether it's valid:
-        #if form.is_valid(): //FALTA CHEQUEAR QUE SEA VALIDO EL FORM
-            #redirect('tlc.views.index')
         data = request.POST
-        resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
-        # resultado
-        #print resultado
-    	# if a GET (or any other method) we'll create a blank form
+        from_city = str(data.get("from", ""))
+        to_city = str(data.get("to"))
+        date = str(data.get("date"))
+        timezone = int(data.get("timezoneOffset"))
+        resultado = do_search(from_city, to_city, date, timezone)
     else:
         form = NameForm()
 
