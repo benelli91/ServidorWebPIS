@@ -205,7 +205,7 @@ def loadWebpage(conf_file):
             travel.save()
 
     phantom.quit()
-    #display.stop()
+    display.stop()
 
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom):
