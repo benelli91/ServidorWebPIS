@@ -1,0 +1,80 @@
+{"webpage":{
+	"name": "Buquebus 2",
+	"uri_start": "https://www.buquebus.com.uy/BQBWebV2/web/Compra/",
+	"uri_end": "_NNN_NNN_00-00-0000_I_1_0_0_SB",
+	"travel_type": 2,
+	"sleep_time": 2,
+	"date_span_start": 30,
+	"date_span_finish": 35,
+	"decimal_mark": ",",
+	"thousands_mark":".",
+	"frequency_format":[],
+	"date_format": "%d-%m-%Y",
+	"UTC":-3,
+	"currency":"UYU",
+	"page_type":1,
+	"reload_time": 24,
+	"header_parameters":{
+		"separator": "_",
+		"parameters":[
+			{"data": ["actual_date"], "parameter": ""},
+			{"data": ["origin_country_alias"], "parameter": ""},
+			{"data": ["origin_local_code"], "parameter": ""},
+			{"data": ["destination_local_code"], "parameter": ""},
+			{"data": ["departure"], "parameter": ""}]
+		},
+	"inputs":{},
+	"iterators":{},
+	"extraction_tags":{
+			"travel_block":[],
+			"departure":{
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2"},
+					{"tag_type": "span", "field_type": "", "name": "", "position":1}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":"",
+				"attribute":""
+			},
+			"arrival":{
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
+					{"tag_type": "div", "field_type": "id", "name": "aca"},
+					{"tag_type": "span", "field_type": "class", "name": "bold","position":0}],
+				"format":"(\\d\\d):(\\d\\d)",
+				"formula":"",
+				"attribute":""
+			},
+			"price":{
+				"fields":[
+					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
+			 		{"tag_type": "div", "field_type":"class", "name": "cont_opciones"},
+					{"tag_type": "div", "field_type": "col", "name": "2"},
+					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position":0}],
+				"format":"(\\d*\\.?\\d+)",
+				"formula":"",
+				"attribute":""
+			},
+			"duration": {
+				"fields":[],
+				"format":"",
+				"formula":"",
+				"attribute":""
+			},
+			"travel_agency": {
+				"fields":[],
+				"format":"Buquebus",
+				"formula":"",
+				"attribute":""
+			},
+			"frequency": {
+				"fields":[],
+				"format":"",
+				"formula":"",
+				"attribute":""
+			}
+		}
+	}
+}
