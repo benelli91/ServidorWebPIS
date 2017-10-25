@@ -215,8 +215,7 @@ def loadWebpage(conf_file):
 
     phantom.quit()
     display.stop()
-    end_time = datetime.now()
-    logger('end', [len(travels), end_time], conf_file, local_codes, log_file)
+    logger('end', [len(travels), start_time], conf_file, local_codes, log_file)
 
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom):

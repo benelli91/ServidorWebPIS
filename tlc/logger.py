@@ -20,7 +20,7 @@ def logger(message_type, args, conf_file, local_codes, output_file):
             message += 'ENDING LOADING PROCESS \n'
             message += 'Number of loaded travels: ' + str(args[0]) + '\n'
             message += 'Ended at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
-            message += 'Total duration: ' + duration.strftime('%d-%m-%Y %H:%M:%S') + '\n'
+            message += 'Total duration: ' + str(duration) + '\n'
             message += '----------------------------------------------------' + '\n'
             print message
             text_file.write(message)
