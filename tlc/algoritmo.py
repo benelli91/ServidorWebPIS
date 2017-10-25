@@ -9,17 +9,6 @@ from bs4 import BeautifulSoup
 import re
 #import ipdb
 
-def currency_change(result):
-    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
-    bs = BeautifulSoup(response.content,"xml")
-    for travel in result["list_travels"]:
-        for link in travel:
-            if link.currency != "USD":
-                divide = float(bs.find(text=re.compile(link.currency)).parent.parent.find("Rate").text)
-                link.price = round(link.price / divide , 2)
-                link.currency = "USD"
-    return result
-
 
 
 
@@ -84,7 +73,7 @@ def have_i_passed(t,recorrido):
 
 
 #recurcion
-def recursion(origin_country,origin_city,destination_country,destination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_Analizadas):
+def recursion(origin_country,origin_city,destination_country,destination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_Analizadas,cotizaciones):
     #if max_escalas <= 9 :
     #antes se accedia a origin_country directo, ahora es Travel.origin_city.country.id
     max_escalas +=1
@@ -100,7 +89,13 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     lista_precios = []
     aux_departure = None
     for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
-        #print t.destination_city.country.name
+        #modifico precio en base a cotizaciones para monedas distintas a USD
+        if t.currency != 'USD':
+            divisor = cotizaciones[t.currency]
+            t.price = round(t.price / divisor,2)
+            t.currency = 'USD'
+
+
         if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
             date_condition= t.departure.date() == fecha_actual.date()
         else:
@@ -152,7 +147,7 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
 
                     else:#Sino, hago el paso recursivo
                         vOrigin_country,vOrigin_city = aux_string.split('-')
-                        recursion(vOrigin_country,vOrigin_city,destination_country,destination_city,cost,fecha_comienzo,fecha_actual_aux,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_Analizadas)
+                        recursion(vOrigin_country,vOrigin_city,destination_country,destination_city,cost,fecha_comienzo,fecha_actual_aux,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_Analizadas,cotizaciones)
                 lista_recorridos.pop()
                 #cost -= lista_precios[index]
                 cost -= t.price
@@ -169,12 +164,20 @@ def do_search(origin_city,destination_city,date):
     #date = '08/24/2017'
     #print (date)
     aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p')
-    result = backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time)
-    print result
-    return currency_change(result)
+
+    #cargo cotizaciones
+    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
+    bs = BeautifulSoup(response.content,"xml")
+    currencies = [c.cod for c in Currency.objects.all() if c.cod != 'USD']
+    divisores = [float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text) for currency in currencies]
+    cotizaciones = dict(zip(currencies,divisores))
+    print cotizaciones
+    result = backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time,cotizaciones)
+    #print result
+    return result
 
 
-def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time):
+def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,aux_time,cotizaciones):
     context = {}
     #msg_err = ""
     list_travels = []
@@ -242,7 +245,7 @@ def backtracking(vOrigin_country,vOrigin_city,vDestination_country,vDestination_
     fecha_maxima=fecha_comienzo + timedelta(days=3)
     #print datetime_object_max
 
-    recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost,ciudades_Analizadas)
+    recursion(vOrigin_country,vOrigin_city,vDestination_country,vDestination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,0,max_cost,ciudades_Analizadas,cotizaciones)
     #print(list_precios_travels)
     list_travels,list_precios_travels = ordenarVectores(list_travels,list_precios_travels,cant_travels)
     #print(list_precios_travels)

@@ -134,7 +134,7 @@
       sum = sum + {{ link.price }};
     {% endfor %}
 
-    $("#totalPrice_" + i).text(sum);
+    $("#totalPrice_" + i).text(Math.round(sum * 100) / 100);
   {% endfor %}
 </script>
 <!---------------->

@@ -78,6 +78,8 @@ def index(request):
 
     return render(request, 'index.html',  resultado)
 
+
+
 def cargaGoogle(request):
     resultado = {}
     #if request.method == 'POST':
