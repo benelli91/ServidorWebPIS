@@ -3,7 +3,7 @@
 	"uri_start": "http://www.greyhound.com/",
 	"uri_end": "",
 	"travel_type": 3,
-	"sleep_time": 3,
+	"sleep_time": 5,
 	"date_span_start": 30,
 	"date_span_finish": 35,
 	"decimal_mark": ".",
@@ -16,8 +16,8 @@
 	"reload_time": 24,
 	"header_parameters":{},
 	"inputs": {
-		"wait":5,
-		"loading_time":10,
+		"wait":2,
+		"loading_time":5,
 		"buttons":[
 			{"field_type":"input", "tag_type": "id" , "id":"fromLocation", "data":["origin_local_code"]},
       {"field_type":"input", "tag_type": "id" , "id":"toLocation", "data":["destination_local_code"]},
