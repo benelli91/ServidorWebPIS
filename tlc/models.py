@@ -33,6 +33,8 @@ class City(models.Model):
         managed = False
         db_table = 'city'
 
+    def __str__(self):
+        return str(self.id) +'-' +self.name + '\n'
 
 
 class Travel(models.Model):
@@ -52,6 +54,9 @@ class Travel(models.Model):
     class Meta:
         managed = False
         db_table = 'travel'
+
+    def __str__(self):
+        return str(self.idtravel) +'-'+str(self.departure) + '\n' +str(self.origin_city) +  '-' +str(self.destination_city) +  '-' +str(self.price) +  '-' +str(self.currency) + '\n'
 
 
 class Travelagency(models.Model):
