@@ -129,3 +129,8 @@ def cargaUruBus(request):
     UruBusLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
+
+def cargaCentralDePasajes(request):
+    CentralDePasajesLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)

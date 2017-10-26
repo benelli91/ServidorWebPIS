@@ -69,6 +69,16 @@ class Travelagency(models.Model):
         managed = False
         db_table = 'travelagency'
 
+class Travelagencyalias(models.Model):
+    id = models.IntegerField(primary_key=True)
+    traveltype = models.IntegerField()
+    travelagency = models.IntegerField()
+    alias = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'travelagencyalias'
+
 
 class Traveltype(models.Model):
     traveltype = models.IntegerField(primary_key=True)

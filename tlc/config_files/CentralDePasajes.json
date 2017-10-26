@@ -1,6 +1,6 @@
 {"webpage":{
 	"name": "Central de Pasajes",
-	"uri_start": "http://www.centraldepasajes.com.ar/CDP/home.aspx",
+	"uri_start": "http://www.centraldepasajes.com.ar/",
 	"uri_end": "",
 	"travel_type": 3,
 	"sleep_time": 6,
