@@ -613,22 +613,29 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                 new_travel_price = str(result_format[0])
 
             #Extract travel_agency
-            print travel_agency_list
-            if travel_agency_list != []: #from HTML
-                str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
-                new_travel_agency = None
-                print str_travel_agency
-                for agency in travel_agencies:
-                    if(agency.name.lower() == str_travel_agency[0].lower()):
-                        new_travel_agency = agency
-                for alias in travel_agencies_alias:
-                    if(alias.alias.lower() == str_travel_agency[0].lower()):
-                        aux_agency = Travelagency.objects.get(id = alias.travelagency)
-                        new_travel_agency = aux_agency
-                if(new_travel_agency == None):
-                    new_travel_agency = Travelagency.objects.get(name='Generica')
-            else: #from json
-                new_travel_agency = Travelagency.objects.get(name=travel_agency_format)
+            try:
+                if travel_agency_list != []: #from HTML
+                    str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
+                    new_travel_agency = None
+                    for agency in travel_agencies:
+                        if(agency.name.lower() == str_travel_agency[0].lower()):
+                            new_travel_agency = agency
+                    for alias in travel_agencies_alias:
+                        if(alias.alias.lower() == str_travel_agency[0].lower()):
+                            aux_agency = Travelagency.objects.get(id = alias.travelagency)
+                            new_travel_agency = aux_agency
+                    if(new_travel_agency == None):
+                        new_travel_agency = Travelagency.objects.get(name='Generica')
+                else: #from json
+                    for agency in travel_agencies:
+                        if(agency.name.lower() == travel_agency_format.lower()):
+                            new_travel_agency = agency
+                    for alias in travel_agencies_alias:
+                        if(alias.alias.lower() == travel_agency_format.lower()):
+                            aux_agency = Travelagency.objects.get(id = alias.travelagency)
+                            new_travel_agency = aux_agency
+            except:
+                logger('agency', [travel_agency_list[x]], conf_file, local_codes, log_file)
 
             #if none of the data fields are empty, then create the travel object
             if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
@@ -667,6 +674,5 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
 
                             travels_to_add[len(travels_to_add):] = [new_travel]
         except:
-            print 'estamos en la C'
-
+            print 'estamos en la E'
     return travels_to_add
