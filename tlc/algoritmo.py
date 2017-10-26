@@ -7,12 +7,8 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 import re
-#import ipdb
 
-
-
-
-def ordenarVectores(list_travels,list_precios_travels,cant_travels):
+def ordenarVectores(list_travels, list_precios_travels, cant_travels):
     i = 0
     list_precio_int = [0]
     x = 0
@@ -55,7 +51,6 @@ def find_max(list_precios_travels):
     index_to_remove = 0
     index = 0
 
-
     for n in list_precios_travels:
         aux = float(n)
         if aux > to_remove:
@@ -72,12 +67,10 @@ def have_i_passed(t,recorrido):
             return True
 
 
-#recurcion
 def recursion(origin_country,origin_city,destination_country,destination_city,cost,fecha_comienzo,fecha_actual,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_Analizadas,cotizaciones):
-    #if max_escalas <= 9 :
-    #antes se accedia a origin_country directo, ahora es Travel.origin_city.country.id
     max_escalas +=1
     string_destino = destination_country +'-' + str(destination_city)
+    
     if ciudades_Analizadas.has_key(origin_city):
         list_aux = ciudades_Analizadas.get(origin_city)
     else:
@@ -88,27 +81,31 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
     lista_a_recorrer = []
     lista_precios = []
     aux_departure = None
-    for t in list_aux: #me fijo todas las parejas de destinos que tengo partiendo de la ciudad que estoy parado
-        #modifico precio en base a cotizaciones para monedas distintas a USD
+
+    # Para todas las parejas de destinos que tengo partiendo de la ciudad actual:
+    for t in list_aux:
+
+        # Se modifica el precio para los travels con monedas distintas a USD
         if t.currency != 'USD':
             divisor = cotizaciones[t.currency]
             t.price = round(t.price / divisor,2)
             t.currency = 'USD'
 
-
-        if fecha_actual == fecha_comienzo: #si es la primer iteracion verifica que el viaje comienza en esa fecha_comienzo
-            date_condition= t.departure.date() == fecha_actual.date()
+        # Si es la primer iteracion 
+        # => Se verifica que el viaje comience en la fecha de comienzo (en timezone 0)
+        if fecha_actual == fecha_comienzo: 
+            # Codigo Previo al Timezone_FIX (Respaldo)
+            # date_condition = t.departure.date() == fecha_actual.date()
+            date_condition = fecha_comienzo <= t.departure and t.departure <= (fecha_comienzo + timedelta(days=1))
         else:
             date_condition= t.departure >= fecha_actual
-        #print(date_condition)
-
+        
+        # Si se cumple la condicion para la fecha:
         if date_condition:
-            #print(t.departure , fecha_actual , fecha_maxima)
             aux_string = t.destination_city.country.id + '-' +  str(t.destination_city.id)
             aux_duration = t.duration
             minutos  = aux_duration % 60
             horas = (aux_duration - minutos) / 60
-            #print( horas,minutos , aux_duration)
             aux_departure = t.departure
 
             fecha_actual_aux= aux_departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
@@ -154,26 +151,22 @@ def recursion(origin_country,origin_city,destination_country,destination_city,co
             #index += 1
 
 
-def do_search(origin_city,destination_city, date, timezone):
-    #CON LAS 3 lineas COMENTADAS ABAJO TE TIRA DATOS Y ES BUENA PARA HACER EL FRONT-END
+def do_search(origin_city, destination_city, date, timezone):
     vOrigin_country = City.objects.filter(id = origin_city)[0].country.id
-    #vOrigin_city = 11
     vDestination_country = City.objects.filter(id = destination_city)[0].country.id
-    #vDestination_city = 20
-    #date = '08/24/2017'
-    #print (date)
+    
     # Date - timezone offset 
     aux_time = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
 
-    #cargo cotizaciones
+    ####### Carga de cotizaciones #######
     response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
     bs = BeautifulSoup(response.content,"xml")
     currencies = [c.cod for c in Currency.objects.all() if c.cod != 'USD']
     divisores = [float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text) for currency in currencies]
     cotizaciones = dict(zip(currencies,divisores))
-    # print cotizaciones
+    
     result = backtracking(vOrigin_country,origin_city,vDestination_country,destination_city,aux_time,cotizaciones, timezone)
-    #print result
+    
     return result
 
 
