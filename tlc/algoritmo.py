@@ -100,7 +100,7 @@ def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual,
     for t in from_origin_city_travels:
 
         # Se modifica el precio para los travels con monedas distintas a USD
-        if t.currency != 'USD' and 1==2:
+        if t.currency != 'USD':
             divisor = cotizaciones[t.currency]
             t.price = round(t.price / divisor,2)
             t.currency = 'USD'
@@ -193,14 +193,14 @@ def do_search(origin_city, destination_city, date, timezone):
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
 
     # Carga de cotizaciones
-    """response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
+    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
     bs = BeautifulSoup(response.content,"xml")
     currencies = [c.cod for c in Currency.objects.all() if c.cod != 'USD']
     divisores = [float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text) for currency in currencies]
     cotizaciones = dict(zip(currencies,divisores))
-"""
+
     # LLamado al algoritmo
-    result = backtracking(origin_city, destination_city, initial_date, None, timezone)
+    result = backtracking(origin_city, destination_city, initial_date, cotizaciones, timezone)
 
     return result
 
