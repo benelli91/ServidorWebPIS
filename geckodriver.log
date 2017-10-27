@@ -1,0 +1,704 @@
+1509063935196	geckodriver	INFO	Listening on 127.0.0.1:38507
+1509063936255	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1509063936581	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1509063937391	Marionette	INFO	Enabled via --marionette
+1509063940317	Marionette	INFO	Listening on port 41081
+1509063942766	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509063942829	Marionette	DEBUG	Register listener.js for window 2147483649
+1509063942904	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509063944287	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509063944287	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509063945528	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=BUE;d=2017-11-26"
+1509063948291	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=BUE;d=2017-11-26"
+1509063957543	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=BUE;d=2017-11-27"
+1509063966970	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=BUE;d=2017-11-28"
+1509063976421	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=BUE;d=2017-11-29"
+1509063985899	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=BUE;d=2017-11-30"
+1509063995243	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=NYC;d=2017-11-26"
+1509064004495	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=NYC;d=2017-11-27"
+1509064013733	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=NYC;d=2017-11-28"
+1509064022975	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=NYC;d=2017-11-29"
+1509064032226	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=NYC;d=2017-11-30"
+1509064041490	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=MIA;d=2017-11-26"
+1509064050728	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=MIA;d=2017-11-27"
+1509064059980	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=MIA;d=2017-11-28"
+1509064069281	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=MIA;d=2017-11-29"
+1509064078590	Marionette	DEBUG	Received DOM event "popstate" for "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;f=MVD;t=MIA;d=2017-11-30"
+1509064126023	geckodriver	INFO	Listening on 127.0.0.1:58131
+1509064127089	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1509064127367	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1509064128119	Marionette	INFO	Enabled via --marionette
+1509064130914	Marionette	INFO	Listening on port 44837
+1509064131053	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509064131132	Marionette	DEBUG	Register listener.js for window 2147483649
+1509064131186	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509064131677	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509064131677	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509064131687	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064134032	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064142981	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064144268	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064146601	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064149084	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064150157	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064151055	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064151061	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064151399	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064151415	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1509064151416	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483654"
+1509064151417	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483664"
+1509064151417	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+1509064151417	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483661"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064151996	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064155062	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064155077	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064155085	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064155098	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064155108	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483669"
+1509064155109	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483668"
+1509064155110	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483675"
+1509064155111	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483672"
+1509064155676	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064164604	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064165890	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064168232	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064170725	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064171782	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064172880	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064172882	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064173175	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064173193	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483681"
+1509064173193	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483680"
+1509064173193	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483687"
+1509064173194	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483684"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064173859	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064176958	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064176974	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064176980	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064176992	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064177010	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483692"
+1509064177014	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483691"
+1509064177015	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483698"
+1509064177015	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483696"
+1509064177243	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064186288	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064187574	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064189947	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064192417	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064193481	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064194471	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064194476	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064194777	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064194796	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483703"
+1509064194797	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483702"
+1509064194798	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483709"
+1509064194798	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483706"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064195537	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064198611	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064198626	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064198634	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064198649	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064198659	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483714"
+1509064198661	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483713"
+1509064198661	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483720"
+1509064198662	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483717"
+1509064198971	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064208278	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064209561	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064211912	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064214357	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064215417	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064216436	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064216438	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064216739	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064216756	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483725"
+1509064216757	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483724"
+1509064216758	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483731"
+1509064216758	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483728"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064217111	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064220169	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064220182	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064220187	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064220199	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064220207	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483736"
+1509064220209	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483735"
+1509064220210	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483742"
+1509064220210	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483739"
+1509064220501	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064229467	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064230769	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064233097	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064235528	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064236588	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064237573	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064237579	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064237894	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064237912	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483748"
+1509064237912	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483747"
+1509064237913	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483754"
+1509064237913	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483751"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064238298	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064241383	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064241395	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064241399	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064241412	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064241425	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483759"
+1509064241425	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483758"
+1509064241426	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483765"
+1509064241426	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483762"
+1509064241766	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064250723	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064251995	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064254311	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064256747	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064257797	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064259255	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064259257	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064259553	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064259568	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483771"
+1509064259569	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483770"
+1509064259570	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483780"
+1509064259571	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483774"
+1509064259571	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483777"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064259967	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064263029	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064263081	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064263084	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064263095	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064263154	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483785"
+1509064263154	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483784"
+1509064263154	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483791"
+1509064263155	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483788"
+1509064263522	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064272503	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064273790	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064276115	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064278549	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064279705	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064280749	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064280751	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064281061	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064281081	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483797"
+1509064281082	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483796"
+1509064281082	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483803"
+1509064281083	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483800"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064281417	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064284486	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064284500	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064284509	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064284521	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064284530	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483808"
+1509064284531	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483807"
+1509064284532	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483814"
+1509064284533	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483811"
+1509064284948	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064293954	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064295234	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064297582	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064300011	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064301074	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064302090	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064302094	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064302410	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064302428	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483820"
+1509064302428	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483819"
+1509064302429	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483826"
+1509064302430	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483823"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064303134	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064306206	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064306220	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064306220	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064306267	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483830"
+1509064306268	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483829"
+1509064306268	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483836"
+1509064306273	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483833"
+1509064306277	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064306604	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064315513	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064316823	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064319146	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064321597	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064322652	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064323632	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064323634	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064324043	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064324067	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483841"
+1509064324070	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483840"
+1509064324071	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483847"
+1509064324071	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483844"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064325310	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064328400	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064328456	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064328461	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064328472	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064328478	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483851"
+1509064328479	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483850"
+1509064328479	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483857"
+1509064328480	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483855"
+1509064329415	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064355699	geckodriver	INFO	Listening on 127.0.0.1:40595
+1509064356765	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1509064357046	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1509064357864	Marionette	INFO	Enabled via --marionette
+1509064360776	Marionette	INFO	Listening on port 43695
+1509064360803	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509064360875	Marionette	DEBUG	Register listener.js for window 2147483649
+1509064360951	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509064361458	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509064361459	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509064361472	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064363880	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064372793	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064374079	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064376416	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064378847	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064379923	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064382577	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064382582	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064383121	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1509064383122	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483654"
+1509064383122	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483661"
+1509064383123	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064383314	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064383586	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064386659	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064386670	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064386672	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064386685	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064386963	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064396022	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064397307	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064399620	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064402066	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064403125	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064405536	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064405537	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064405730	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483668"
+1509064405731	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483667"
+1509064405731	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483677"
+1509064405731	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483671"
+1509064405732	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483674"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064405887	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064406395	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064409477	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064409493	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064409495	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064409504	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064409508	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483681"
+1509064409926	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064418981	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064420246	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064422563	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064425018	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064426081	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064428897	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064428900	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064429079	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483687"
+1509064429080	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483686"
+1509064429080	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483693"
+1509064429081	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483690"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064429563	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064429582	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064432662	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064432678	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064432681	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064432692	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064433211	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064442301	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064443577	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064445918	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064448382	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064449445	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064452105	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064452108	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064452312	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483700"
+1509064452313	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483699"
+1509064452313	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483706"
+1509064452314	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483703"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064452471	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064452771	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064455848	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064455857	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064455860	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064455870	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064456309	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064465319	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064466584	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064468914	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064471363	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064472428	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064475002	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064475009	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064475183	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483713"
+1509064475184	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483712"
+1509064475184	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483719"
+1509064475184	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483716"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064475499	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064475600	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064478671	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064478684	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064478684	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064478697	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064479019	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064488115	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064489390	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064491712	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064494146	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064495214	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064497635	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064497639	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064497838	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483726"
+1509064497839	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483725"
+1509064497839	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483732"
+1509064497840	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483729"
+1509064497841	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483734"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064498012	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064498389	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064501458	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064501468	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064501469	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064501481	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064501917	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064511134	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064512428	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064514753	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064517214	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064518277	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064521383	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064521385	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064521574	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483741"
+1509064521575	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483740"
+1509064521575	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483747"
+1509064521576	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483744"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064521758	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064521986	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064525044	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064525062	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064525064	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064525075	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064525606	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064534695	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064535967	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064538330	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064540781	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064541841	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064544051	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064544054	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064544252	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483754"
+1509064544252	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483753"
+1509064544253	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483760"
+1509064544255	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483757"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064544575	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064544719	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064547792	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064547799	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064547800	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064547812	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064548061	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064557246	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064558525	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064560863	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064563301	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064564364	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064567619	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064567621	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064567821	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483766"
+1509064567822	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483765"
+1509064567822	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483772"
+1509064567823	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483769"
+1509064567824	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483774"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064568119	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064568457	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064571529	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064571540	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064571540	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064571550	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064572062	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064581295	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064582566	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064584984	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064587432	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064588487	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064590794	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064590798	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064591062	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483781"
+1509064591063	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483780"
+1509064591064	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483787"
+1509064591065	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483784"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064591351	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064591838	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064594965	Marionette	INFO	New connections will no longer be accepted
+[Child 12101] WARNING: pipe error (19): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 12101] WARNING: pipe error (35): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 12101] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1509064789588	geckodriver	INFO	Listening on 127.0.0.1:36967
+1509064790655	geckodriver::marionette	INFO	Starting browser /usr/lib/firefox/firefox.sh with args ["-marionette"]
+1509064790947	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1509064791694	Marionette	INFO	Enabled via --marionette
+1509064794560	Marionette	INFO	Listening on port 45349
+1509064794607	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509064794693	Marionette	DEBUG	Register listener.js for window 2147483649
+1509064794760	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509064795177	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509064795177	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509064795189	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064797336	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064808231	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064810510	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064814865	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064819310	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064821385	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064821729	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064821734	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064822037	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064822059	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483655"
+1509064822059	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483654"
+1509064822060	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483661"
+1509064822060	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483659"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064822724	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064828782	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064828803	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064828812	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064828830	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064828842	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483666"
+1509064828842	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483665"
+1509064828843	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483672"
+1509064828843	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483669"
+1509064828843	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483674"
+1509064829406	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064840255	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064842539	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064846891	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064851310	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064853404	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064856088	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064856091	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064856400	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483680"
+1509064856401	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483679"
+1509064856402	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483686"
+1509064856403	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483683"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064856847	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064857049	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064863124	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064863142	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064863144	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064863154	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064863569	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064874619	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064876897	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064881213	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064885631	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064887691	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064891030	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064891034	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064891234	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483693"
+1509064891234	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483692"
+1509064891235	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483699"
+1509064891235	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483696"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064891400	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064891934	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064898048	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064898058	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064898058	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064898073	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064898852	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064909747	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064912035	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064916359	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064920781	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064922838	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064925122	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064925124	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064925326	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483705"
+1509064925326	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483704"
+1509064925326	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483711"
+1509064925327	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483708"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064925489	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064925794	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064931876	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064931891	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064931891	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064931902	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064932159	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064943278	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064945608	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064949940	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064954382	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064956443	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064959968	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064959971	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064960163	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483717"
+1509064960164	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483716"
+1509064960164	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483723"
+1509064960164	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483720"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064960348	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064960603	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064966670	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064966689	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064966692	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064966704	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509064967364	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509064978551	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064980832	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064985147	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064989580	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509064991637	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064994631	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509064994633	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509064994818	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483729"
+1509064994819	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483728"
+1509064994819	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483735"
+1509064994820	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483732"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509064994985	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509064995415	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065001479	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065001488	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065001490	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065001503	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509065001817	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509065012902	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065015179	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065019507	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065023944	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065026005	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065028648	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065028652	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509065028849	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483742"
+1509065028850	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483741"
+1509065028850	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483748"
+1509065028851	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483745"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509065029024	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065029504	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065035570	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065035583	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065035584	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065035598	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509065036201	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509065047202	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065049472	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065053798	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065058240	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065060311	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065063250	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065063252	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509065063445	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483755"
+1509065063445	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483754"
+1509065063446	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483761"
+1509065063446	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483758"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509065063622	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065064092	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065070160	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065070170	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065070170	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065070189	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509065081635	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509065092631	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065094915	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065099230	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065103656	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065105731	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065109909	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065109911	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 16: TypeError: r.getOlark(...) is undefined
+1509065110140	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483767"
+1509065110140	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483766"
+1509065110141	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483773"
+1509065110141	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483770"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509065110317	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065110563	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065116644	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065116661	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065116662	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065116671	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://www.centraldepasajes.com.ar/"
+1509065116998	Marionette	DEBUG	Received DOM event "pageshow" for "http://www.centraldepasajes.com.ar/"
+1509065128040	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065130313	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065134665	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065139238	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1509065141321	Marionette	DEBUG	Received DOM event "beforeunload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065144312	Marionette	DEBUG	Received DOM event "pagehide" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+1509065144320	Marionette	DEBUG	Received DOM event "unload" for "https://www.centraldepasajes.com.ar/cdp/home.aspx"
+JavaScript warning: https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.1.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1509065144595	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483779"
+1509065144596	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483778"
+1509065144596	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483785"
+1509065144597	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483782"
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://static.olark.com/jsclient-bucket5/application2.js?v=1508767764095, line 27: NS_ERROR_NOT_INITIALIZED: 
+1509065144776	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065145086	Marionette	DEBUG	Received DOM event "pageshow" for "https://www.centraldepasajes.com.ar/cdp/servicios.aspx"
+1509065151153	Marionette	INFO	New connections will no longer be accepted
+[Child 12601] WARNING: pipe error (19): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+[Child 12601] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-l1g98U/firefox-56.0+build6/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
