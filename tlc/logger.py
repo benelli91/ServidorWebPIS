@@ -21,7 +21,10 @@ def logger(message_type, args, conf_file, local_codes, output_file):
         message += '----------------------------------------------------' + '\n'
 
     elif(message_type == 'agency'):
-        message += 'WARNING: Unknown travel agency ' + args[0] + 'found, using Generic travel agency instead. If you want ' + args[0] + 'to be shown in the webpage add it to the database first as a new travel agency or as an alias of an exisiting one.\n'
+        if(args[0] == []):
+            message += 'WARNING: No travel agencies were found for a travel coming from' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Using Generic travel agency instead.\n'
+        else:
+            message += 'WARNING: Unknown travel agency ' + args[0] + ' found, using Generic travel agency instead. If you want ' + args[0] + ' to be shown in the webpage add it to the database first as a new travel agency or as an alias of an exisiting one.\n'
     elif(message_type == 'error'):
         if(args[0] == 0):
             message += 'ERROR: While loading config file. Check the file for errors.\n'
@@ -45,6 +48,8 @@ def logger(message_type, args, conf_file, local_codes, output_file):
             message += 'ERROR: While creating the URL for travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
     elif(message_type == 'no_travels'):
         message += 'WARNING: No travels where loaded to the database. Previous travels from this webpage will remain in the system but they will be marked as out of date.'
+    elif(message_type == 'config_file'):
+        message += 'ERROR: While loading config file ' + args[0] + '. Check the file for errors.\n'
 
     print message
     text_file.write(message)
