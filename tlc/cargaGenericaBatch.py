@@ -649,9 +649,9 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract travel_agency
             error_number = 4
             try:
+                new_travel_agency = None
                 if travel_agency_list != []: #from HTML
                     str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
-                    new_travel_agency = None
                     for agency in travel_agencies:
                         if(agency.name.lower() == str_travel_agency[0].lower()):
                             new_travel_agency = agency
@@ -669,7 +669,10 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                         if(alias.alias.lower() == travel_agency_format.lower()):
                             aux_agency = Travelagency.objects.get(id = alias.travelagency)
                             new_travel_agency = aux_agency
+                    if(new_travel_agency == None):
+                        new_travel_agency = Travelagency.objects.get(name='Generica')
             except:
+                new_travel_agency = Travelagency.objects.get(name='Generica')
                 logger('agency', [travel_agency_list[x]], conf_file, None, log_file)
 
             #if none of the data fields are empty, then create the travel object
@@ -684,7 +687,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                                             duration = new_travel_duration, \
                                             traveltype = page_traveltype, \
                                             webpage = conf_file["webpage"]["name"], \
-                                            travel_agency = new_travel_agency.id, \
+                                            travel_agency = new_travel_agency, \
                                             currency = conf_file["webpage"]["currency"], \
                                             updated = True, \
                                             description = '')
@@ -703,7 +706,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                                                     duration = new_travel_duration, \
                                                     traveltype = page_traveltype, \
                                                     webpage = conf_file["webpage"]["name"], \
-                                                    travel_agency = new_travel_agency.id, \
+                                                    travel_agency = new_travel_agency, \
                                                     currency = conf_file["webpage"]["currency"], \
                                                     updated = True, \
                                                     description = '')
