@@ -2216,7 +2216,6 @@ img .boat{
 	font-weight: 900;
 }
 
-
 .showMe{
 	display: grid;
 }
@@ -2449,4 +2448,9 @@ text-shadow: 0 6px 5px black;
   -o-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
+}
+
+.totalDuration {
+	font-size: large;
+	font-weight: 600;
 }
