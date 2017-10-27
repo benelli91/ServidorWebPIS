@@ -1,6 +1,6 @@
 {"webpage":{
 	"name": "Central de Pasajes",
-	"uri_start": "http://www.centraldepasajes.com.ar/CDP/home.aspx",
+	"uri_start": "http://www.centraldepasajes.com.ar/",
 	"uri_end": "",
 	"travel_type": 3,
 	"sleep_time": 6,
@@ -16,8 +16,8 @@
 	"reload_time": 24,
 	"header_parameters":{},
 	"inputs": {
-		"wait":1,
-		"loading_time": 2,
+		"wait":2,
+		"loading_time": 4,
 		"buttons":[
 			{"field_type":"input", "tag_type": "id", "id":"PadOrigen", "data":["origin_local_code"]},
 			{"field_type":"input", "tag_type": "id", "id":"PadDestino", "data":["destination_local_code"]},

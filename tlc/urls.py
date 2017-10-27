@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^rest/tlc/', include(router.urls)),
     url(r'^loader$', views.cargaGenerica, name='cargaGenerica'),
     url(r'^Buquebus$', views.cargaBuquebus, name='cargaBuquebus'),
+    url(r'^Buquebus2$', views.cargaBuquebus2, name='cargaBuquebus2'),
     url(r'^GoogleFlights$', views.cargaGoogleFlights, name='cargaGoogleFlights'),
     url(r'^Copay$', views.cargaCopay, name='cargaCopay'),
     url(r'^AgenciaCentral$', views.cargaAgenciaCentral, name='cargaAgenciaCentral'),
@@ -22,4 +23,5 @@ urlpatterns = [
     url(r'^TresCruces$', views.cargaTresCruces, name='cargaTresCruces'),
     url(r'^Greyhound$', views.cargaGreyhound, name='cargaGreyhound'),
     url(r'^UruBus$', views.cargaUruBus, name='UruBus'),
+    url(r'^CentralDePasajes$', views.cargaCentralDePasajes, name='CentralDePasajes'),
 ]

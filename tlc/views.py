@@ -95,6 +95,11 @@ def cargaBuquebus(request):
     resultado = {}
     return render(request, 'scraping.html', resultado)
 
+def cargaBuquebus2(request):
+    Buquebus2Loader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
 def cargaGoogleFlights(request):
     GoogleFlightsLoader()
     resultado = {}
@@ -127,5 +132,10 @@ def cargaGreyhound(request):
 
 def cargaUruBus(request):
     UruBusLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
+
+def cargaCentralDePasajes(request):
+    CentralDePasajesLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
