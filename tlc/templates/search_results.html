@@ -16,8 +16,14 @@
                   <span>OPTION #{{forloop.counter}}</span>
                 </div>
                 <div>
-                  <span>Total U$S</span>
-                  <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}"></span>
+                  <div>
+                    <span>Total U$S</span>
+                    <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}"></span>
+                  </div>
+                  <div>
+                    <span>Total duration: </span>
+                    <span class="totalDuration" id="totalDuration_{{forloop.counter}}"></span>
+                  </div>
                 </div>
               </div>
               <div>
@@ -79,8 +85,7 @@
                       </div>
                       <div class="containerRight-info">
                         <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
-                        <span>U$S {{link.price}} - {{link.duration}} minutes</span>
-
+                        <span>U$S {{link.price}} - {{link.duration|parse_minutes}}</span>
                       </div>
                       <div>
                         {% if forloop.counter == travel|length %}

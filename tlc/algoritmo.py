@@ -7,6 +7,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 import re
+import time
 import ipdb
 
 def ordenarVectores(list_travels, list_precios_travels, cant_travels):
@@ -70,7 +71,7 @@ def have_i_passed(t,recorrido):
 #######################################
 # Recursion de Backtracking
 #######################################
-def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual, fecha_maxima, list_travels, list_precios_travels, lista_recorridos, cant_travels, max_escalas, max_cost, ciudades_analizadas, cotizaciones):
+def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual, fecha_maxima, list_travels, list_precios_travels, lista_recorridos, cant_travels, max_escalas, max_cost, cotizaciones):
     max_escalas += 1
 
     # [ Identificador de la ciudad destino es unico ]
@@ -79,21 +80,22 @@ def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual,
     # Se chequea si la ciudad de origen fue procesada en otra iteracion:
     if ciudades_analizadas.has_key(origin_city):
         from_origin_city_travels = ciudades_analizadas.get(origin_city)
-        print 'ENTRO EN IF DE CIUDADES ANALIZADAS'
+        #print 'ENTRO EN IF DE CIUDADES ANALIZADAS'
     else:
         # De lo contrario se realiza la consulta a la base:
         from_origin_city_travels = Travel.objects.filter(
             origin_city = origin_city,
-            departure__gte = fecha_actual,
+            departure__gte = fecha_comienzo,
             departure__lte = fecha_maxima - timedelta(minutes=1)*F("duration")
-        ).order_by('price','-departure')
+        ).order_by('departure')
 
         # Se agrega la ciudad de origen actual al conjunto de ciudades procesadas
-        ciudades_analizadas[origin_city] = from_origin_city_travels
+        ciudades_analizadas[origin_city] = list(from_origin_city_travels)
     #import ipdb; ipdb.set_trace()
     lista_a_recorrer = []
     lista_precios = []
-
+    encontro_viaje = False
+    encontro_en_recursion = False
     # Para todas las parejas de destinos que tengo partiendo de la ciudad actual:
     for t in from_origin_city_travels:
 
@@ -102,7 +104,7 @@ def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual,
             divisor = cotizaciones[t.currency]
             t.price = round(t.price / divisor,2)
             t.currency = 'USD'
-        print t
+        #print t
         # Si es la primer iteracion
         # => Se verifica que el viaje comience en la fecha de comienzo (en timezone 0)
         if fecha_actual == fecha_comienzo:
@@ -122,7 +124,8 @@ def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual,
             # Se actualiza la fecha actual
             fecha_actual_aux = t.departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
 
-            if t not in lista_recorridos and not have_i_passed(t,lista_recorridos):
+
+            if t not in lista_recorridos and not have_i_passed(t,lista_recorridos): # and fecha_actual_aux < max_departure:
 
                 # Para cada ciudadDestino que tengo a partir del nodo que estoy parado,
                 # me fijo si tengo algun camino para llegar al destino final
@@ -134,6 +137,7 @@ def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual,
                     # Si el destino del Travel es el final,
                     # agrego el camino recorrido a la lista de viajes
                     if key_travel_destination == key_destino:
+
                         # Se realiza la siguiente copia de lista_recorridos,
                         # para evitar compartir memoria entre listas.
                         lista2 = []
@@ -156,15 +160,30 @@ def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual,
                         if cost > max_cost[0]:
                             max_cost[0] = cost
 
+                        encontro_viaje = True
                     # Si no se llega a destino, continua la recursion
                     else:
                         # El destino del travel procesado,
                         # pasa a ser el origen de la siguiente iteracion
                         origin_city = key_travel_destination
-                        recursion(origin_city, destination_city, cost,fecha_comienzo,fecha_actual_aux,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,ciudades_analizadas,cotizaciones)
+                        aux_encontro_recursion = recursion(origin_city, destination_city, cost,fecha_comienzo,fecha_actual_aux,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,cotizaciones)
+                        encontro_en_recursion = encontro_en_recursion or aux_encontro_recursion
+
+                        if not aux_encontro_recursion:
+                            list_to_delete = []
+                            if ciudades_analizadas.has_key(origin_city):
+                                for aux_t in ciudades_analizadas.get(origin_city):
+                                    if aux_t.departure >= fecha_actual_aux:
+                                        list_to_delete[len(list_to_delete):] = [aux_t]
+
+                                for t_to_remove in list_to_delete:
+                                    ciudades_analizadas.get(origin_city).remove(t_to_remove)
+
+
                 lista_recorridos.pop()
                 cost -= t.price
 
+    return encontro_viaje or encontro_en_recursion
 ################################################
 # Inicializacion para backtracking
 ################################################
@@ -197,6 +216,7 @@ def backtracking(vOrigin_city, vDestination_city, initial_date, cotizaciones, ti
     cost = 0
     max_cost = [0]
 
+    global ciudades_analizadas
     ciudades_analizadas = {}
 
     # Se determina la duracion minima y maxima de un viaje
@@ -216,7 +236,6 @@ def backtracking(vOrigin_city, vDestination_city, initial_date, cotizaciones, ti
         cant_travels,
         0, # max_escalas :O
         max_cost,
-        ciudades_analizadas,
         cotizaciones
     )
 

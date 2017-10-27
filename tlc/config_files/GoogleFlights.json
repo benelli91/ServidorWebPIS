@@ -1,6 +1,6 @@
 {"webpage":{
 	"name": "Google Flights",
-	"uri_start": "https://www.google.es/flights/?curr=USD#search;tt=o;eo=e;",
+	"uri_start": "https://www.google.es/flights/?curr=USD#search;tt=o;eo=o;",
 	"uri_end": "",
 	"travel_type": 1,
 	"sleep_time": 2,

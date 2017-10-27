@@ -26,3 +26,12 @@ register.filter('add_duration', add_duration)
 def add_timezone_offset(date, offset):
     return date + timedelta(minutes=offset)
 register.filter('add_timezone_offset', add_timezone_offset)
+
+def parse_minutes(minutes_duration):
+    hours, minutes = divmod(minutes_duration, 60)
+    days, hours = divmod(hours, 24)
+    str_days = str(days) + ' days, ' if days > 0 else ''
+    str_hs = str(hours) + ' hours ' if hours > 0 else ''
+    str_min = str(minutes) + ' minutes' if minutes > 0 or days > 0 else ''
+    return str_days + str_hs + str_min
+register.filter('parse_minutes', parse_minutes)
