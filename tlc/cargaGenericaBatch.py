@@ -109,8 +109,8 @@ def UruBusLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    display = Display(visible=0, size=(1024, 768))
-    display.start()
+    #display = Display(visible=0, size=(1024, 768))
+    #display.start()
     phantom = webdriver.Firefox()
 
     aux_cities = []
@@ -207,68 +207,77 @@ def loadWebpage(conf_file):
         for travel in travels:
             travel.save()
     else:
-        #print 'no hay nadie pariente'
+        logger('no_travels', [], conf_file, local_codes, log_file)
         to_update = Travel.objects.filter(webpage = conf_file["webpage"]["name"])
         for travel in to_update:
             travel.updated = False
             travel.save()
 
     phantom.quit()
-    display.stop()
+    #display.stop()
     logger('end', [len(travels), start_time], conf_file, local_codes, log_file)
 
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
-    url = conf_file["webpage"]["uri_start"]
-    separator = ''
-    if conf_file["webpage"]["header_parameters"].has_key("separator"):
-        separator = conf_file["webpage"]["header_parameters"]["separator"]
-    if conf_file["webpage"]["header_parameters"].has_key("parameters"):
-        total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
-        counter = 0
-        origin_country = Country.objects.filter(id = origin_city.country.id)[0]
-        destination_country = Country.objects.filter(id = destination_city.country.id)[0]
-        for line in conf_file["webpage"]["header_parameters"]["parameters"]:
-            url += line["parameter"]
-            url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-            if(counter < total_parameters - 1):
-                url += separator
-            counter += 1
+    error_number = 9
+    soup = ''
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
+    try:
+        url = conf_file["webpage"]["uri_start"]
+        separator = ''
+        if conf_file["webpage"]["header_parameters"].has_key("separator"):
+            separator = conf_file["webpage"]["header_parameters"]["separator"]
+        if conf_file["webpage"]["header_parameters"].has_key("parameters"):
+            total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
+            counter = 0
+            origin_country = Country.objects.filter(id = origin_city.country.id)[0]
+            destination_country = Country.objects.filter(id = destination_city.country.id)[0]
+            for line in conf_file["webpage"]["header_parameters"]["parameters"]:
+                url += line["parameter"]
+                url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+                if(counter < total_parameters - 1):
+                    url += separator
+                counter += 1
 
-    url += conf_file["webpage"]["uri_end"]
-    #print url
-    phantom.get(url)
-    aux_sleep =conf_file["webpage"]["sleep_time"]
-    time.sleep(aux_sleep)
-    soup = BeautifulSoup(phantom.page_source, "lxml")
+        url += conf_file["webpage"]["uri_end"]
+        #print url
+        phantom.get(url)
+        aux_sleep =conf_file["webpage"]["sleep_time"]
+        time.sleep(aux_sleep)
+        soup = BeautifulSoup(phantom.page_source, "lxml")
+    except:
+        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
     return soup
 
 def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom):
     #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
-    url = conf_file["webpage"]["uri_start"]
-    separator = ''
-    if conf_file["webpage"]["header_parameters"].has_key("separator"):
-        separator = conf_file["webpage"]["header_parameters"]["separator"]
-    if conf_file["webpage"]["header_parameters"].has_key("parameters"):
-        total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
-        counter = 0
-        origin_country = Country.objects.filter(id = origin_city.country.id)[0]
-        destination_country = Country.objects.filter(id = destination_city.country.id)[0]
-        for line in conf_file["webpage"]["header_parameters"]["parameters"]:
-            url += line["parameter"]
-            url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-            if(counter < total_parameters - 1):
-                url += separator
-            counter += 1
+    output_HTML = ''
+    error_number = 8
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
+    try:
+        url = conf_file["webpage"]["uri_start"]
+        separator = ''
+        if conf_file["webpage"]["header_parameters"].has_key("separator"):
+            separator = conf_file["webpage"]["header_parameters"]["separator"]
+        if conf_file["webpage"]["header_parameters"].has_key("parameters"):
+            total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
+            counter = 0
+            origin_country = Country.objects.filter(id = origin_city.country.id)[0]
+            destination_country = Country.objects.filter(id = destination_city.country.id)[0]
+            for line in conf_file["webpage"]["header_parameters"]["parameters"]:
+                url += line["parameter"]
+                url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+                if(counter < total_parameters - 1):
+                    url += separator
+                counter += 1
 
-    url += conf_file["webpage"]["uri_end"]
-    phantom.get(url)
-    time.sleep(conf_file["webpage"]["sleep_time"])
-    for line in conf_file["webpage"]["inputs"]["buttons"]:
-        try:
+        url += conf_file["webpage"]["uri_end"]
+        phantom.get(url)
+        time.sleep(conf_file["webpage"]["sleep_time"])
+        for line in conf_file["webpage"]["inputs"]["buttons"]:
             data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
             if(data == "invalid"):
                 return ""
@@ -314,40 +323,46 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                     phantom.execute_script(fun, element, data)
 
             time.sleep(conf_file["webpage"]["inputs"]["wait"])
-        except:
-            print "estamos en la B"
-    time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
-    output_HTML = BeautifulSoup(phantom.page_source, "lxml")
+        time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
+        output_HTML = BeautifulSoup(phantom.page_source, "lxml")
+    except:
+        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
     return output_HTML
 
 def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
-    phantom.get(conf_file["webpage"]["uri_start"])
-    time.sleep(conf_file["webpage"]["sleep_time"])
-    HTML_blocks = BeautifulSoup(phantom.page_source, "lxml")
+    result = []
+    error_number = 7
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
+    try:
+        phantom.get(conf_file["webpage"]["uri_start"])
+        time.sleep(conf_file["webpage"]["sleep_time"])
+        HTML_blocks = BeautifulSoup(phantom.page_source, "lxml")
 
     #We extract the travel blocks
-    raw_blocks = get_data_list(conf_file["webpage"]["iterators"]["travel_block"], HTML_blocks, False, "")
-    aux_blocks = []
-    for block in raw_blocks:
-        aux_blocks += [[block, "", ""]]
+        raw_blocks = get_data_list(conf_file["webpage"]["iterators"]["travel_block"], HTML_blocks, False, "")
+        aux_blocks = []
+        for block in raw_blocks:
+            aux_blocks += [[block, "", ""]]
 
-    for aux_sub_block in aux_blocks:
-        #We extract the origin city of each travel block
-        aux_origin_cities = get_data_list(conf_file["webpage"]["iterators"]["origin_city"], aux_sub_block[0], True, "")
-        for aux_origin_city in aux_origin_cities:
-            aux_sub_block[1] = [aux_origin_city]
+        for aux_sub_block in aux_blocks:
+            #We extract the origin city of each travel block
+            aux_origin_cities = get_data_list(conf_file["webpage"]["iterators"]["origin_city"], aux_sub_block[0], True, "")
+            for aux_origin_city in aux_origin_cities:
+                aux_sub_block[1] = [aux_origin_city]
 
-        #We extract the destination city of each travel block
-        aux_destination_cities = get_data_list(conf_file["webpage"]["iterators"]["destination_city"], aux_sub_block[0], True, "")
-        for aux_destination_city in aux_destination_cities:
-            aux_sub_block[2] = [aux_destination_city]
+            #We extract the destination city of each travel block
+            aux_destination_cities = get_data_list(conf_file["webpage"]["iterators"]["destination_city"], aux_sub_block[0], True, "")
+            for aux_destination_city in aux_destination_cities:
+                aux_sub_block[2] = [aux_destination_city]
 
-    result = []
-    for block in aux_blocks:
-        if(block[1] != "" and block[2] != ""):
-            result += [block[0]]
-            origin_cities += block[1]
-            destination_cities += block[2]
+        for block in aux_blocks:
+            if(block[1] != "" and block[2] != ""):
+                result += [block[0]]
+                origin_cities += block[1]
+                destination_cities += block[2]
+    except:
+        logger('error', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file)
+
     return result
 
 def extractData(conf_file, html_file, origin_city, destination_city,departure,dates):
@@ -481,83 +496,93 @@ def verifyFrequency(conf_file,date,frequency_data):
     return False
 
 def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,departure,dates):
+    error_number = 6
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     travels_to_add = []
-    UTC = conf_file["webpage"]["UTC"]
-    STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
-    departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
-    number_traveltype = int(conf_file["webpage"]["travel_type"])
-    page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
+    try:
+        UTC = conf_file["webpage"]["UTC"]
+        STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
+        departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
+        number_traveltype = int(conf_file["webpage"]["travel_type"])
+        page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
 
-    #travel_block extraction_tags
-    block_fields = conf_file["webpage"]["extraction_tags"]["travel_block"]
-    block_list = get_data_list(block_fields,html_file, False, "")
-    for block in block_list:
-        travels_to_add = travels_to_add + extractDataWithoutBlocks(conf_file, block, origin_city, destination_city,departure,dates)
-
+        #travel_block extraction_tags
+        block_fields = conf_file["webpage"]["extraction_tags"]["travel_block"]
+        block_list = get_data_list(block_fields,html_file, False, "")
+        for block in block_list:
+            travels_to_add = travels_to_add + extractDataWithoutBlocks(conf_file, block, origin_city, destination_city,departure,dates)
+    except:
+        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
     return travels_to_add
 
+
 def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city,departure,dates):
+    error_number = 0
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     travels_to_add = []
-    departure_list = []
-    duration_list = []
-    arrival_list = []
-    price_list = []
-    travel_agency_list = []
-    frequency_list = []
-    UTC = conf_file["webpage"]["UTC"]
-    travel_agencies = Travelagency.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
-    travel_agencies_alias = Travelagencyalias.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
-    STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
-    departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
-    number_traveltype = int(conf_file["webpage"]["travel_type"])
-    page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
-    #departure extraction_tags
-    departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
-    departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
-    departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
-    departure_attribute = conf_file["webpage"]["extraction_tags"]["departure"]["attribute"]
-    departure_list = get_data_list(departure_fields,html_file, True, departure_attribute)
+    try:
+        departure_list = []
+        duration_list = []
+        arrival_list = []
+        price_list = []
+        travel_agency_list = []
+        frequency_list = []
+        UTC = conf_file["webpage"]["UTC"]
+        travel_agencies = Travelagency.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
+        travel_agencies_alias = Travelagencyalias.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
+        STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
+        departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
+        number_traveltype = int(conf_file["webpage"]["travel_type"])
+        page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
+        #departure extraction_tags
+        departure_fields = conf_file["webpage"]["extraction_tags"]["departure"]["fields"]
+        departure_format = conf_file["webpage"]["extraction_tags"]["departure"]["format"]
+        departure_formula = conf_file["webpage"]["extraction_tags"]["departure"]["formula"]
+        departure_attribute = conf_file["webpage"]["extraction_tags"]["departure"]["attribute"]
+        departure_list = get_data_list(departure_fields,html_file, True, departure_attribute)
 
-    #arrival extraction_tags
-    arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
-    arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
-    arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
-    arrival_attribute = conf_file["webpage"]["extraction_tags"]["arrival"]["attribute"]
-    arrival_list = get_data_list(arrival_fields,html_file, True, arrival_attribute)
+        #arrival extraction_tags
+        arrival_fields = conf_file["webpage"]["extraction_tags"]["arrival"]["fields"]
+        arrival_format = conf_file["webpage"]["extraction_tags"]["arrival"]["format"]
+        arrival_formula = conf_file["webpage"]["extraction_tags"]["arrival"]["formula"]
+        arrival_attribute = conf_file["webpage"]["extraction_tags"]["arrival"]["attribute"]
+        arrival_list = get_data_list(arrival_fields,html_file, True, arrival_attribute)
 
-    #price extraction_tags
-    price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
-    price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
-    price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
-    price_attribute = conf_file["webpage"]["extraction_tags"]["price"]["attribute"]
-    price_list = get_data_list(price_fields,html_file, True, price_attribute)
+        #price extraction_tags
+        price_fields = conf_file["webpage"]["extraction_tags"]["price"]["fields"]
+        price_format = conf_file["webpage"]["extraction_tags"]["price"]["format"]
+        price_formula = conf_file["webpage"]["extraction_tags"]["price"]["formula"]
+        price_attribute = conf_file["webpage"]["extraction_tags"]["price"]["attribute"]
+        price_list = get_data_list(price_fields,html_file, True, price_attribute)
 
-    #duration extraction_tags
+        #duration extraction_tags
 
-    duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
-    duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
-    duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
-    duration_attribute = conf_file["webpage"]["extraction_tags"]["duration"]["attribute"]
-    if duration_fields != []:
-        duration_list = get_data_list(duration_fields,html_file, True, duration_attribute)
+        duration_fields = conf_file["webpage"]["extraction_tags"]["duration"]["fields"]
+        duration_format = conf_file["webpage"]["extraction_tags"]["duration"]["format"]
+        duration_formula = conf_file["webpage"]["extraction_tags"]["duration"]["formula"]
+        duration_attribute = conf_file["webpage"]["extraction_tags"]["duration"]["attribute"]
+        if duration_fields != []:
+            duration_list = get_data_list(duration_fields,html_file, True, duration_attribute)
 
-    #travel_agency extraction_tags
+        #travel_agency extraction_tags
 
-    travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
-    travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
-    travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
-    travel_agency_attribute = conf_file["webpage"]["extraction_tags"]["travel_agency"]["attribute"]
-    if travel_agency_fields != []:
-        travel_agency_list = get_data_list(travel_agency_fields,html_file, True, travel_agency_attribute)
+        travel_agency_fields = conf_file["webpage"]["extraction_tags"]["travel_agency"]["fields"]
+        travel_agency_format = conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"]
+        travel_agency_formula = conf_file["webpage"]["extraction_tags"]["travel_agency"]["formula"]
+        travel_agency_attribute = conf_file["webpage"]["extraction_tags"]["travel_agency"]["attribute"]
+        if travel_agency_fields != []:
+            travel_agency_list = get_data_list(travel_agency_fields,html_file, True, travel_agency_attribute)
 
-    #frequency extraction_tags
+        #frequency extraction_tags
 
-    frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
-    frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
-    frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
-    frequency_attribute = conf_file["webpage"]["extraction_tags"]["frequency"]["attribute"]
-    if frequency_format != []:
-        frequency_list = get_data_list(frequency_fields,html_file, True, frequency_attribute)
+        frequency_fields = conf_file["webpage"]["extraction_tags"]["frequency"]["fields"]
+        frequency_format = conf_file["webpage"]["extraction_tags"]["frequency"]["format"]
+        frequency_formula = conf_file["webpage"]["extraction_tags"]["frequency"]["formula"]
+        frequency_attribute = conf_file["webpage"]["extraction_tags"]["frequency"]["attribute"]
+        if frequency_format != []:
+            frequency_list = get_data_list(frequency_fields,html_file, True, frequency_attribute)
+    except:
+        logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file)
 
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     #||Ver que pasa si las listas tienen distinta cantidad de elementos||
@@ -572,6 +597,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             aux_new_travel_duration = departure_with_time
 
             #Extract departure
+            error_number = 1
             str_departure = departure_list[x]
             result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
             if len(result_format) == 0 :
@@ -580,6 +606,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                 new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]) - UTC, minutes = int(result_format[1]), seconds = 0)
 
             #Extract or calculate duration
+            error_number = 2
             if duration_list != [] : #if I have duration data then I extract it
                 str_duration = duration_list[x]
                 result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
@@ -602,6 +629,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                     new_travel_duration = aux_new_travel_duration.seconds // 60
             #Extract price
             #the format must be (non digit or empty) (all digits price's) (non digit or empty)
+            error_number = 3
             if price_formula != "":
                 str_price = '0'
             else:
@@ -613,6 +641,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                 new_travel_price = str(result_format[0])
 
             #Extract travel_agency
+            error_number = 4
             try:
                 if travel_agency_list != []: #from HTML
                     str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
@@ -635,9 +664,10 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                             aux_agency = Travelagency.objects.get(id = alias.travelagency)
                             new_travel_agency = aux_agency
             except:
-                logger('agency', [travel_agency_list[x]], conf_file, local_codes, log_file)
+                logger('agency', [travel_agency_list[x]], conf_file, None, log_file)
 
             #if none of the data fields are empty, then create the travel object
+            error_number = 5
             if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
             #if str(new_travel_departure) != '' and str(new_travel_duration) != '' and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
                 if conf_file["webpage"]["frequency_format"] == []: #if the departure does not depend on the days of the week
@@ -674,5 +704,6 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
 
                             travels_to_add[len(travels_to_add):] = [new_travel]
         except:
-            print 'estamos en la E'
+            logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+
     return travels_to_add

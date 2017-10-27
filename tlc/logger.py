@@ -2,25 +2,49 @@ from datetime import datetime,timedelta,tzinfo
 
 def logger(message_type, args, conf_file, local_codes, output_file):
     message = ''
+    text_file = open(output_file, "a")
     if(message_type == 'start'):
-        with open(output_file, "a") as text_file:
-            message += 'STARTING LOADING PROCESS \n'
-            message += 'Page name: ' + conf_file["webpage"]["name"] + '\n'
-            message += 'Main URL: ' + conf_file["webpage"]["uri_start"] + '\n'
-            message += 'Page Type: ' + str(conf_file["webpage"]["page_type"]) + '\n'
-            message += 'Number of cities to load: ' + str(len(local_codes["codes"])) + '\n'
-            message += 'Number of days to load: ' + str(conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]) + '\n'
-            message += 'Started at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
-            print message
-            text_file.write(message)
+        message += ' \n STARTING LOADING PROCESS \n'
+        message += 'Page name: ' + conf_file["webpage"]["name"] + '\n'
+        message += 'Main URL: ' + conf_file["webpage"]["uri_start"] + '\n'
+        message += 'Page Type: ' + str(conf_file["webpage"]["page_type"]) + '\n'
+        message += 'Number of cities to load: ' + str(len(local_codes["codes"])) + '\n'
+        message += 'Number of days to load: ' + str(conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"]) + '\n'
+        message += 'Started at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
     elif(message_type == 'end'):
         end_time = datetime.now()
         duration = end_time - args[1]
-        with open(output_file, "a") as text_file:
-            message += 'ENDING LOADING PROCESS \n'
-            message += 'Number of loaded travels: ' + str(args[0]) + '\n'
-            message += 'Ended at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
-            message += 'Total duration: ' + str(duration) + '\n'
-            message += '----------------------------------------------------' + '\n'
-            print message
-            text_file.write(message)
+        message += 'ENDING LOADING PROCESS \n'
+        message += 'Number of loaded travels: ' + str(args[0]) + '\n'
+        message += 'Ended at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
+        message += 'Total duration: ' + str(duration) + '\n'
+        message += '----------------------------------------------------' + '\n'
+
+    elif(message_type == 'agency'):
+        message += 'WARNING: Unknown travel agency ' + args[0] + 'found, using Generic travel agency instead. If you want ' + args[0] + 'to be shown in the webpage add it to the database first as a new travel agency or as an alias of an exisiting one.\n'
+    elif(message_type == 'error'):
+        if(args[0] == 0):
+            message += 'ERROR: While loading config file. Check the file for errors.\n'
+        elif(args[0] == 1):
+            message += 'ERROR: While loading travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + ' at the departure tags. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 2):
+            message += 'ERROR: While loading travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + ' at the duration or arrival tags. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 3):
+            message += 'ERROR: While loading travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + ' at the price tags. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 4):
+            message += 'ERROR: While loading travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + ' at the travel agency tags. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 5):
+            message += 'ERROR: While creating travel instances coming from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 6):
+            message += 'ERROR: While loading travel blocks coming from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 7):
+            message += 'ERROR: While spliting the HTML into travel blocks. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 8):
+            message += 'ERROR: While executing javascript of travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 9):
+            message += 'ERROR: While creating the URL for travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
+    elif(message_type == 'no_travels'):
+        message += 'WARNING: No travels where loaded to the database. Previous travels from this webpage will remain in the system but they will be marked as out of date.'
+
+    print message
+    text_file.write(message)
