@@ -54,6 +54,12 @@ def BuquebusLoader():
         data = json.load(data_file)
         loadWebpage(data)
 
+def Buquebus2Loader():
+    config_directory = 'tlc/config_files/'
+    with open(config_directory + "Buquebus2.json") as data_file:
+        data = json.load(data_file)
+        loadWebpage(data)
+
 def GoogleFlightsLoader():
     config_directory = 'tlc/config_files/'
     with open(config_directory + "GoogleFlights.json") as data_file:

@@ -16,8 +16,8 @@
 	"reload_time": 24,
 	"header_parameters":{},
 	"inputs": {
-		"wait":5,
-		"loading_time":10,
+		"wait":4,
+		"loading_time":8,
 		"buttons":[
 			{"field_type":"input", "tag_type": "id" , "id":"fromLocation", "data":["origin_local_code"]},
       {"field_type":"input", "tag_type": "id" , "id":"toLocation", "data":["destination_local_code"]},
