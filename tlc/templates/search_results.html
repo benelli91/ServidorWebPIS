@@ -30,11 +30,11 @@
                 <li>
                   <div class="grey">
                     <div>
-                      <span>Departure: {{travel.0.departure}}</span>
+                      <span>Departure: {{travel.0.departure|add_timezone_offset:timezoneOffset}}</span>
                     </div>
                     <div>
                       {% with travel|last as last %}
-                        <span>Arrival: {{last.departure|add_duration:last.duration }} </span>
+                        <span>Arrival: {{last.departure|add_duration:last.duration|add_timezone_offset:timezoneOffset}} </span>
                       {% endwith %}
                     </div>
                   </div>
@@ -49,7 +49,7 @@
                   <div class="detail-container" >
                     <div class="containerLeft">
                       <div>
-                        <span>{{link.departure}}</span>
+                        <span>{{link.departure|add_timezone_offset:timezoneOffset}}</span>
                       </div>
                       <div>
                         {% if link.traveltype.travelname == 'Boat' %}
@@ -62,7 +62,7 @@
                       </div>
                       <div data-test="SegmentArrivalTime">
                         <div class="false">
-                          <span>{{link.departure|add_duration:link.duration}}</span>
+                          <span>{{link.departure|add_duration:link.duration|add_timezone_offset:timezoneOffset}}</span>
                         </div>
                       </div>
                     </div>

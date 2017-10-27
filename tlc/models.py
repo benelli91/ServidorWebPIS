@@ -33,6 +33,8 @@ class City(models.Model):
         managed = False
         db_table = 'city'
 
+    def __str__(self):
+        return str(self.id) +'-' +self.name + '\n'
 
 
 class Travel(models.Model):
@@ -53,6 +55,9 @@ class Travel(models.Model):
         managed = False
         db_table = 'travel'
 
+    def __str__(self):
+        return str(self.idtravel) +'-'+str(self.departure) + '\n' +str(self.origin_city) +  '-' +str(self.destination_city) +  '-' +str(self.price) +  '-' +str(self.currency) + '\n'
+
 
 class Travelagency(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -64,6 +69,16 @@ class Travelagency(models.Model):
         managed = False
         db_table = 'travelagency'
 
+class Travelagencyalias(models.Model):
+    id = models.IntegerField(primary_key=True)
+    traveltype = models.IntegerField()
+    travelagency = models.IntegerField()
+    alias = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'travelagencyalias'
+
 
 class Traveltype(models.Model):
     traveltype = models.IntegerField(primary_key=True)
@@ -72,3 +87,13 @@ class Traveltype(models.Model):
     class Meta:
         managed = False
         db_table = 'traveltype'
+
+
+
+class Currency(models.Model):
+    cod = models.CharField(primary_key=True, max_length=3)
+    name = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'currency'

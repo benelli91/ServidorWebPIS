@@ -1,5 +1,5 @@
 {"webpage":{
-	"name": "Buquebus",
+	"name": "Buquebus 2",
 	"uri_start": "https://www.buquebus.com.uy/BQBWebV2/web/Compra/",
 	"uri_end": "_NNN_NNN_00-00-0000_I_1_0_0_SB",
 	"travel_type": 2,
@@ -31,7 +31,7 @@
 				"fields":[
 					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
-					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3"},
+					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3 por_2"},
 					{"tag_type": "span", "field_type": "", "name": "", "position":1}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":"",

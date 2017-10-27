@@ -1,8 +1,6 @@
-{ "name":"Buquebus",
+{ "name":"Buquebus 2",
   "codes":{
     "Buenos Aires": "BUE",
-    "Colonia":"COL",
-    "Montevideo":"MVD",
-    "Punta del Este":"PDP"
+    "Colonia":"COL"
   }
 }

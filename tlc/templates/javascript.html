@@ -134,10 +134,29 @@
       sum = sum + {{ link.price }};
     {% endfor %}
 
-    $("#totalPrice_" + i).text(sum);
+    $("#totalPrice_" + i).text(Math.round(sum * 100) / 100);
   {% endfor %}
 </script>
 <!---------------->
+
+<!--TIME ZONE FUNCTION DEFINED PREVIOUSLY -->
+<script src="{% static "js/jstz-1.0.4.min.js" %}"></script>
+<script language="javascript">
+    function getTimezoneOffset() {
+      return (new Date()).getTimezoneOffset();
+    }
+</script>
+<!--TIME ZONE FUNCTION DEFINED PREVIOUSLY -->
+
+<script>
+$('#searchForm').submit(function(){ //listen for submit event
+  $('<input />').attr('type', 'hidden')
+      .attr('name', 'timezoneOffset')
+      .attr('value', getTimezoneOffset())
+      .appendTo('#searchForm');
+  return true;
+}); 
+</script>
 
 <script>
   $('.panel-heading').click(function(){

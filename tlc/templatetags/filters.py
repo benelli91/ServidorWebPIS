@@ -22,3 +22,7 @@ def add_duration(date, duration):
     #print(duration)
     return date + timedelta(hours=hours, minutes = minutes, seconds = 0)
 register.filter('add_duration', add_duration)
+
+def add_timezone_offset(date, offset):
+    return date + timedelta(minutes=offset)
+register.filter('add_timezone_offset', add_timezone_offset)

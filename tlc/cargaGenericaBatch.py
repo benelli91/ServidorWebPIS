@@ -17,12 +17,17 @@ from parameterOptions import *
 import re
 import calendar
 from pyvirtualdisplay import Display
+import requests
+from logger import *
 
+CONFIG_DIRECTORY_PATH = 'tlc/config_files/'
+LOCAL_CODES_DIRECTORY_PATH = 'tlc/local_city_codes/'
+LOG_DIRECTORY_PATH = 'log_files/'
 DISTANCE_MATRIX = 'tlc/citiesDistanceMatrix.json'
 DEFAULT_SPAN = 30
 
 def timedGenericLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
     files = []
     for conf_file in raw_files:
@@ -41,7 +46,7 @@ def timedGenericLoader():
                 t.start()
 
 def genericLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
     for conf_file in raw_files:
         with open(config_directory + conf_file) as data_file:
@@ -49,7 +54,7 @@ def genericLoader():
         loadWebpage(data)
 
 def BuquebusLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "Buquebus.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
@@ -61,69 +66,73 @@ def Buquebus2Loader():
         loadWebpage(data)
 
 def GoogleFlightsLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "GoogleFlights.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def CopayLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "Copay.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def TresCrucesLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "TresCruces.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def AgenciaCentralLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "AgenciaCentral.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def ColoniaExpressLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "ColoniaExpress.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def GreyhoundLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "Greyhound.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def CentralDePasajesLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "CentralDePasajes.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def UruBusLoader():
-    config_directory = 'tlc/config_files/'
+    config_directory = CONFIG_DIRECTORY_PATH
     with open(config_directory + "UruBus.json") as data_file:
         data = json.load(data_file)
         loadWebpage(data)
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    #display = Display(visible=0, size=(1024, 768))
-    #display.start()
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
     phantom = webdriver.Firefox()
 
     aux_cities = []
     cities = []
 
-    config_directory = 'tlc/local_city_codes/'
+    config_directory = LOCAL_CODES_DIRECTORY_PATH
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
     for files in raw_files:
         with open(config_directory + files) as data_file:
             data = json.load(data_file)
             if(data["name"] == webpage_name):
                 local_codes = data
+
+    start_time = datetime.now()
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
+    logger('start', [], conf_file, local_codes, log_file)
 
     if(conf_file["webpage"]["travel_type"] == 1):
         aux_cities = City.objects.filter(airport = True)
@@ -211,7 +220,8 @@ def loadWebpage(conf_file):
             travel.save()
 
     phantom.quit()
-    #display.stop()
+    display.stop()
+    logger('end', [len(travels), start_time], conf_file, local_codes, log_file)
 
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom):
@@ -238,7 +248,7 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
     phantom.get(url)
     aux_sleep =conf_file["webpage"]["sleep_time"]
     time.sleep(aux_sleep)
-    soup = BeautifulSoup(phantom.page_source, "html.parser")
+    soup = BeautifulSoup(phantom.page_source, "lxml")
     return soup
 
 def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom):
@@ -264,59 +274,62 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
     phantom.get(url)
     time.sleep(conf_file["webpage"]["sleep_time"])
     for line in conf_file["webpage"]["inputs"]["buttons"]:
-        data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
-        if(data == "invalid"):
-            return ""
-        if line["field_type"] == "select":
-            element = Select(javascriptParameterOptions(line, phantom))
-            options = []
-            for option in element.options:
-                options += [option.text]
-            if data in options:
-                element.select_by_visible_text(data)
-            else:
+        try:
+            data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
+            if(data == "invalid"):
                 return ""
-        elif line["field_type"] == "input":
-            element = javascriptParameterOptions(line, phantom)
-            if isinstance(element,list):
-                range_inputs = 0
-                while range_inputs < len(element):
-                    elem = element[range_inputs]
-                    if data == "click":
-                        elem.click()
-                    else:
-                        elem.clear()
-                        elem.send_keys(data)
-                    element = javascriptParameterOptions(line, phantom)
-                    range_inputs += 1
-            else:
-                if data == "click":
-                    element.click()
+            if line["field_type"] == "select":
+                element = Select(javascriptParameterOptions(line, phantom))
+                options = []
+                for option in element.options:
+                    options += [option.text]
+                if data in options:
+                    element.select_by_visible_text(data)
                 else:
-                    element.clear()
-                    element.send_keys(data)
-        elif line["field_type"] == "script":
-            fun = line["id"] + data
-            phantom.execute_script(fun)
-        elif line["field_type"] == "attribute":
-            element = javascriptParameterOptions(line, phantom)
-            attribute = line["attribute"]
-            if data == 'remove':
-                fun = "arguments[0].removeAttribute('" + attribute + "');"
-                phantom.execute_script(fun, element)
-            else:
-                fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
-                phantom.execute_script(fun, element, data)
+                    return ""
+            elif line["field_type"] == "input":
+                element = javascriptParameterOptions(line, phantom)
+                if isinstance(element,list):
+                    range_inputs = 0
+                    while range_inputs < len(element):
+                        elem = element[range_inputs]
+                        if data == "click":
+                            elem.click()
+                        else:
+                            elem.clear()
+                            elem.send_keys(data)
+                        element = javascriptParameterOptions(line, phantom)
+                        range_inputs += 1
+                else:
+                    if data == "click":
+                        element.click()
+                    else:
+                        element.clear()
+                        element.send_keys(data)
+            elif line["field_type"] == "script":
+                fun = line["id"] + data
+                phantom.execute_script(fun)
+            elif line["field_type"] == "attribute":
+                element = javascriptParameterOptions(line, phantom)
+                attribute = line["attribute"]
+                if data == 'remove':
+                    fun = "arguments[0].removeAttribute('" + attribute + "');"
+                    phantom.execute_script(fun, element)
+                else:
+                    fun = "arguments[0].setAttribute('" + attribute + "', arguments[1]);"
+                    phantom.execute_script(fun, element, data)
 
-        time.sleep(conf_file["webpage"]["inputs"]["wait"])
+            time.sleep(conf_file["webpage"]["inputs"]["wait"])
+        except:
+            print "estamos en la B"
     time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
-    output_HTML = BeautifulSoup(phantom.page_source, "html.parser")
+    output_HTML = BeautifulSoup(phantom.page_source, "lxml")
     return output_HTML
 
 def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
     phantom.get(conf_file["webpage"]["uri_start"])
     time.sleep(conf_file["webpage"]["sleep_time"])
-    HTML_blocks = BeautifulSoup(phantom.page_source, "html.parser")
+    HTML_blocks = BeautifulSoup(phantom.page_source, "lxml")
 
     #We extract the travel blocks
     raw_blocks = get_data_list(conf_file["webpage"]["iterators"]["travel_block"], HTML_blocks, False, "")
@@ -395,7 +408,10 @@ def get_data_list(fields_list,html_file, get_text, attribute):
                     raw_text = block.getText()
                     result += [str(unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore'))]
                 else:
-                    raw_text = block.get_attribute(attribute)
+                    parsed_attribute = attribute
+                    if(isinstance(attribute, unicode)):
+                        parsed_attribute = str(unicodedata.normalize('NFKD', attribute).encode('ascii','ignore'))
+                    raw_text = block[attribute]
                     result += [raw_text]
             else:
                 result += [block]
@@ -408,6 +424,8 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
     decimal = unicodedata.normalize('NFKD', conf_file["webpage"]["decimal_mark"]).encode('ascii','ignore')
     thousands = unicodedata.normalize('NFKD', conf_file["webpage"]["thousands_mark"]).encode('ascii','ignore')
     raw_text_aux = raw_text
+    if(isinstance(raw_text, unicode)):
+        raw_text_aux = unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')
     raw_text_aux = str.replace(raw_text_aux, str(thousands), "")
     raw_text_aux = str.replace(raw_text_aux, decimal, ".")
     with open(DISTANCE_MATRIX) as data_file:
@@ -493,6 +511,8 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
     travel_agency_list = []
     frequency_list = []
     UTC = conf_file["webpage"]["UTC"]
+    travel_agencies = Travelagency.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
+    travel_agencies_alias = Travelagencyalias.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
     STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
     departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
@@ -601,13 +621,27 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract travel_agency
             try:
                 if travel_agency_list != []: #from HTML
-                    str_travel_agency = unicodedata.normalize('NFKD', travel_agency_list[x]).encode('ascii','ignore')
-                    str_travel_agency = processRawText(conf_file, str_travel_agency,travel_agency_format,travel_agency_formula,origin_city,destination_city)
-                    new_travel_agency = Travelagency.objects.get(name=str_travel_agency[0])
+                    str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
+                    new_travel_agency = None
+                    for agency in travel_agencies:
+                        if(agency.name.lower() == str_travel_agency[0].lower()):
+                            new_travel_agency = agency
+                    for alias in travel_agencies_alias:
+                        if(alias.alias.lower() == str_travel_agency[0].lower()):
+                            aux_agency = Travelagency.objects.get(id = alias.travelagency)
+                            new_travel_agency = aux_agency
+                    if(new_travel_agency == None):
+                        new_travel_agency = Travelagency.objects.get(name='Generica')
                 else: #from json
-                    new_travel_agency  = Travelagency.objects.get(name=travel_agency_format)
+                    for agency in travel_agencies:
+                        if(agency.name.lower() == travel_agency_format.lower()):
+                            new_travel_agency = agency
+                    for alias in travel_agencies_alias:
+                        if(alias.alias.lower() == travel_agency_format.lower()):
+                            aux_agency = Travelagency.objects.get(id = alias.travelagency)
+                            new_travel_agency = aux_agency
             except:
-                new_travel_agency  = Travelagency.objects.get(name='Generica')
+                logger('agency', [travel_agency_list[x]], conf_file, local_codes, log_file)
 
             #if none of the data fields are empty, then create the travel object
             if new_travel_departure != None and new_travel_duration != None and new_travel_price != None and str(new_travel_price) != '0' and str(new_travel_price) != '' and str(new_travel_agency) != '' :
@@ -645,11 +679,6 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                                                     description = '')
 
                             travels_to_add[len(travels_to_add):] = [new_travel]
-
         except:
-            #HTMLfile.write('<div>''error</div>')
-            #HTMLfile.write(str(html_file))
-            #aca se deberia grabar el LOG
-            False
-
+            print 'estamos en la E'
     return travels_to_add
