@@ -370,6 +370,8 @@ def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
                 result += [block[0]]
                 origin_cities += block[1]
                 destination_cities += block[2]
+        if(len(result) == 0):
+            logger('warning', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file)
     except:
         logger('error', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file)
 
@@ -509,20 +511,20 @@ def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,de
     error_number = 6
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     travels_to_add = []
-    try:
-        UTC = conf_file["webpage"]["UTC"]
-        STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
-        departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
-        number_traveltype = int(conf_file["webpage"]["travel_type"])
-        page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
+    UTC = conf_file["webpage"]["UTC"]
+    STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
+    departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
+    number_traveltype = int(conf_file["webpage"]["travel_type"])
+    page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
 
-        #travel_block extraction_tags
+    #travel_block extraction_tags
+    try:
         block_fields = conf_file["webpage"]["extraction_tags"]["travel_block"]
         block_list = get_data_list(block_fields,html_file, False, "")
-        for block in block_list:
-            travels_to_add = travels_to_add + extractDataWithoutBlocks(conf_file, block, origin_city, destination_city,departure,dates)
     except:
-        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+        logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file)
+    for block in block_list:
+        travels_to_add = travels_to_add + extractDataWithoutBlocks(conf_file, block, origin_city, destination_city,departure,dates)
     return travels_to_add
 
 
@@ -708,6 +710,9 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
 
                             travels_to_add[len(travels_to_add):] = [new_travel]
         except:
-            logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+            if(["webpage"]["extraction_tags"]["travel_block"] == []):
+                logger('warning', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+            else:
+                logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
 
     return travels_to_add

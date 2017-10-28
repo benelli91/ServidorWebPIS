@@ -43,7 +43,7 @@
 			},
 			"price":{
 				"fields":[
-					{"tag_type": "input", "field_type":"name", "name": "booking[departing_ship_acc]","position": 0},
+					{"tag_type": "td", "field_type":"", "name": "","position": 2},
 					{"tag_type": "label", "field_type": "", "name": ""}],
 				"format":"(\\d*,?\\d+.\\d+)",
 				"formula":"",
