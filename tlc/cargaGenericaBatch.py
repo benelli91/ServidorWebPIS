@@ -599,6 +599,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     #||Ver que pasa si las listas tienen distinta cantidad de elementos||
     #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    #try:
     for x in range(len(departure_list)):
         try:
             new_travel_departure = ''
@@ -642,7 +643,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract price
             #the format must be (non digit or empty) (all digits price's) (non digit or empty)
             error_number = 3
-            if price_formula != "":
+            if price_fields == []:
                 str_price = '0'
             else:
                 str_price = price_list[x]
@@ -655,9 +656,12 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract travel_agency
             error_number = 4
             if(travel_agency_list != []):
+                print travel_agency_list
                 str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)[0]
-            else:
+            elif travel_agency_fields == []:
                 str_travel_agency = travel_agency_format
+            else:
+                str_travel_agency = ''
             for agency in travel_agencies:
                 if(agency.name.lower() == str_travel_agency.lower()):
                     new_travel_agency = agency
@@ -667,10 +671,10 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                     new_travel_agency = aux_agency
             if(new_travel_agency == None):
                 new_travel_agency = Travelagency.objects.get(name='Generica')
-                if(travel_agency_list != []):
-                    logger('agency', [travel_agency_list[x]], conf_file, None, log_file)
+                if(str_travel_agency != ''):
+                    logger('agency', [str_travel_agency], conf_file, None, log_file)
                 else:
-                    logger('agency', [travel_agency_list, origin_city, destination_city, departure], conf_file, None, log_file)
+                    logger('agency', [str_travel_agency, origin_city, destination_city, departure], conf_file, None, log_file)
 
             #if none of the data fields are empty, then create the travel object
             error_number = 5
@@ -710,7 +714,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
 
                             travels_to_add[len(travels_to_add):] = [new_travel]
         except:
-            if(["webpage"]["extraction_tags"]["travel_block"] == []):
+            if(conf_file["webpage"]["extraction_tags"]["travel_block"] != []):
                 logger('warning', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
             else:
                 logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)

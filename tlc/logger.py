@@ -4,7 +4,7 @@ def logger(message_type, args, conf_file, local_codes, output_file):
     message = ''
     text_file = open(output_file, "a")
     if(message_type == 'start'):
-        message += ' \n LOADING PROCESS STARTED\n'
+        message += '\nLOADING PROCESS STARTED\n'
         message += 'Page name: ' + conf_file["webpage"]["name"] + '\n'
         message += 'Main URL: ' + conf_file["webpage"]["uri_start"] + '\n'
         message += 'Page Type: ' + str(conf_file["webpage"]["page_type"]) + '\n'
@@ -21,8 +21,8 @@ def logger(message_type, args, conf_file, local_codes, output_file):
         message += '----------------------------------------------------' + '\n'
 
     elif(message_type == 'agency'):
-        if(args[0] == []):
-            message += 'WARNING: No travel agencies were found for a travel coming from' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Using Generic travel agency instead.\n'
+        if(args[0] == ''):
+            message += 'WARNING: No travel agencies were found for a travel coming from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Using Generic travel agency instead.\n'
         else:
             message += 'WARNING: Unknown travel agency ' + args[0] + ' found, using Generic travel agency instead. If you want ' + args[0] + ' to be shown in the webpage add it to the database first as a new travel agency or as an alias of an exisiting one.\n'
     elif(message_type == 'error'):
