@@ -123,9 +123,6 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
             # The current origin_city is added to the set of processed cities
             processed_cities[origin_city] = list(from_origin_city_travels)
 
-        lista_a_recorrer = []
-        lista_precios = []
-
         # For all trips that exist starting from the current city:
         for t in from_origin_city_travels:
 
