@@ -1,4 +1,5 @@
 from datetime import datetime,timedelta,tzinfo
+import unicodedata
 
 def logger(message_type, args, conf_file, local_codes, output_file):
     message = ''
@@ -46,6 +47,13 @@ def logger(message_type, args, conf_file, local_codes, output_file):
             message += 'ERROR: While executing javascript to access travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
         elif(args[0] == 9):
             message += 'ERROR: While creating the URL to access travels from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. Check the config file for errors or check if the webpage has changed.\n'
+        elif(args[0] == 10):
+            message += 'ERROR: While parsing the string ' + args[1]
+            if(args[2] != ''):
+                message += ' with the regular expression ' + args[2]
+            if(args[3] != ''):
+                message += ' and with the formula ' + args[3]
+            message += '\n'
     elif(message_type == 'warning'):
         if(args[0] == 1):
             message += 'WARNING: No departure tag was found for a travel from ' + args[1].name + ' to ' + args[2].name + ' the ' + str(args[3]) + '. The travel will be skipped.\n'
@@ -65,4 +73,6 @@ def logger(message_type, args, conf_file, local_codes, output_file):
         message += 'ERROR: While loading config file ' + args[0] + '. Check the file for errors.\n'
 
     print message
+    if(isinstance(message, unicode)):
+        message = unicodedata.normalize('NFKD', message).encode('ascii','ignore')
     text_file.write(message)

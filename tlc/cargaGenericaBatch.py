@@ -440,41 +440,47 @@ def get_data_list(fields_list,html_file, get_text, attribute):
 
 def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, destination_city):
     output_text = []
+    log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
+    error_number = 10
     raw_format_aux = str.replace(unicodedata.normalize('NFKD', raw_format).encode('ascii','ignore'), "\\\\", "\\")
     raw_formula_aux = unicodedata.normalize('NFKD', raw_formula).encode('ascii','ignore')
     decimal = unicodedata.normalize('NFKD', conf_file["webpage"]["decimal_mark"]).encode('ascii','ignore')
     thousands = unicodedata.normalize('NFKD', conf_file["webpage"]["thousands_mark"]).encode('ascii','ignore')
     raw_text_aux = raw_text
-    if(isinstance(raw_text, unicode)):
-        raw_text_aux = unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')
-    raw_text_aux = str.replace(raw_text_aux, str(thousands), "")
-    raw_text_aux = str.replace(raw_text_aux, decimal, ".")
-    with open(DISTANCE_MATRIX) as data_file:
-        distance_matrix = json.load(data_file)
-    if(raw_format_aux == ""):   #if there's no format specified we return the given text without modifications
-        output_text = [raw_text_aux]
-    elif(raw_formula_aux == ""):
-        #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
-        matches = re.search(raw_format_aux, raw_text_aux)
-        if matches != None:
-            for i in range(1, len(matches.groups()) + 1):
-                output_text += [matches.group(i)]
-        #else:   #if there's a constant as format we return the constant
-        #    output_text = [raw_format_aux]
-    else:
-        if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
-            final_formula = str.replace(raw_formula_aux, "city_distance", str(distance_matrix[origin_city.name][destination_city.name]))
-            exec(final_formula)
-            output_text = [str(x[0])]
-        else:   #if there's a format and a formula we retrieve the data and execute the formula
+    try:
+        if(isinstance(raw_text, unicode)):
+            raw_text_aux = unicodedata.normalize('NFKD', raw_text).encode('ascii','ignore')
+        raw_text_aux = str.replace(raw_text_aux, str(thousands), "")
+        raw_text_aux = str.replace(raw_text_aux, decimal, ".")
+        with open(DISTANCE_MATRIX) as data_file:
+            distance_matrix = json.load(data_file)
+        if(raw_format_aux == ""):   #if there's no format specified we return the given text without modifications
+            output_text = [raw_text_aux]
+        elif(raw_formula_aux == ""):
+            #if(re.search("\(", raw_format)):    #if there's a regular expression as format and no formula we parse it and return the result
             matches = re.search(raw_format_aux, raw_text_aux)
-            final_formula = raw_formula_aux
-            for i in range(1, len(matches.groups()) + 1):
-                final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
-            exec(final_formula)
-            output_text = []
-            for i in x:
-                output_text += [str(i)]
+            if matches != None:
+                for i in range(1, len(matches.groups()) + 1):
+                    output_text += [matches.group(i)]
+            #else:   #if there's a constant as format we return the constant
+            #    output_text = [raw_format_aux]
+        else:
+            if(raw_format_aux == "city_distance"):  #if we find the special format city_distance we calculate it and return it
+                final_formula = str.replace(raw_formula_aux, "city_distance", str(distance_matrix[origin_city.name][destination_city.name]))
+                exec(final_formula)
+                output_text = [str(x[0])]
+            else:   #if there's a format and a formula we retrieve the data and execute the formula
+                matches = re.search(raw_format_aux, raw_text_aux)
+                final_formula = raw_formula_aux
+                for i in range(1, len(matches.groups()) + 1):
+                    final_formula = str.replace(final_formula, "$" + str(i), matches.group(i))
+                exec(final_formula)
+                output_text = []
+                for i in x:
+                    output_text += [str(i)]
+    except:
+        output_text = []
+        logger('error', [error_number, raw_text, raw_format, raw_formula], conf_file, None, log_file)
 
     return output_text
 
@@ -656,8 +662,11 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract travel_agency
             error_number = 4
             if(travel_agency_list != []):
-                print travel_agency_list
-                str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)[0]
+                aux_str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
+                if(aux_str_travel_agency == []):
+                    str_travel_agency = ''
+                else:
+                    str_travel_agency = aux_str_travel_agency[0]
             elif travel_agency_fields == []:
                 str_travel_agency = travel_agency_format
             else:

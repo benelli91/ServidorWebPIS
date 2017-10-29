@@ -57,8 +57,8 @@
 				"attribute":""
 			},
 			"travel_agency": {
-				"fields":[],
-				"format":"Google Flights",
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-j"}],
+				"format":"([\\D\\s]+)\\b(?:operado por)?",
 				"formula":"",
 				"attribute":""
 			},
