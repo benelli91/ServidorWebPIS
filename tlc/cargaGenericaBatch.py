@@ -119,8 +119,8 @@ def UruBusLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    display = Display(visible=0, size=(1024, 768))
-    display.start()
+    #display = Display(visible=0, size=(1024, 768))
+    #display.start()
     phantom = webdriver.Firefox()
 
     aux_cities = []
@@ -224,7 +224,7 @@ def loadWebpage(conf_file):
             travel.save()
 
     phantom.quit()
-    display.stop()
+    #display.stop()
     logger('end', [len(travels), start_time], conf_file, local_codes, log_file)
 
 
