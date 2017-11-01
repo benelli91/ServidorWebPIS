@@ -123,7 +123,7 @@
 
 <!-- TotalPrice and TotalDuration Sum -->
 <script>
-  
+
   function parse_minutes(minutes_duration) {
     var hours = Math.floor(minutes_duration/60);
     var minutes = minutes_duration % 60;
@@ -135,10 +135,11 @@
 
     return str_days + str_hs + str_min
   }
-  
+
   var i = 0;
   var sum_price = 0;
   var sum_duration = 0;
+  {% load filters %}
 
   {% for travel in list_travels %}
     i++;
@@ -147,8 +148,18 @@
 
     {% for link in travel %}
       sum_price = sum_price + {{ link.price }};
-      sum_duration = sum_duration + {{ link.duration }}
+      //sum_duration = sum_duration + {{ link.duration }}
+
     {% endfor %}
+
+    {% with travel|last as last %}
+      arrival = new Date("{{last.departure|add_duration:last.duration|add_timezone_offset:timezoneOffset}}");
+      last_duration =   {{last.duration}};
+    {% endwith %}
+
+    departure =  new Date("{{travel.0.departure|add_timezone_offset:timezoneOffset}}");
+
+
 
     $("#totalPrice_" + i).text(Math.round(sum_price * 100) / 100);
     $("#totalDuration_" + i).text( parse_minutes(sum_duration) );
@@ -172,7 +183,7 @@ $('#searchForm').submit(function(){ //listen for submit event
       .attr('value', getTimezoneOffset())
       .appendTo('#searchForm');
   return true;
-}); 
+});
 </script>
 
 <script>

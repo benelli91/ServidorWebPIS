@@ -72,7 +72,7 @@
                         </div>
                       </div>
                     </div>
-                    
+
                     {% if forloop.counter == travel|length %}
                       <div class="timeLineDouble"></div>
                     {% else %}
@@ -84,7 +84,7 @@
                         <span><b>{{link.origin_city.name}} ({{link.origin_city.country.id}})</b></span>
                       </div>
                       <div class="containerRight-info">
-                        <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
+                        <span style="font-style: italic;"> {{link.travel_agency.name}} {{link.idtravel}}</span>
                         <span>U$S {{link.price}} - {{link.duration|parse_minutes}}</span>
                       </div>
                       <div>

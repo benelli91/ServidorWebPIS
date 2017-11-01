@@ -73,117 +73,119 @@ def have_i_passed(t,recorrido):
 #######################################
 def recursion(origin_city, destination_city, cost, fecha_comienzo, fecha_actual, fecha_maxima, list_travels, list_precios_travels, lista_recorridos, cant_travels, max_escalas, max_cost, cotizaciones):
     max_escalas += 1
+    if max_escalas < 4:
+        # [ Identificador de la ciudad destino es unico ]
+        key_destino = str(destination_city)
+        #debug, borrar
+        file = open("logbasura.txt","a")
+        for i in range(0,max_escalas): file.write('-')
+        file.write(origin_city+';'+str(max_cost)+';'+str(list_precios_travels)+';'+str(list_travels)+'\n')
+        file.close()
 
-    # [ Identificador de la ciudad destino es unico ]
-    key_destino = str(destination_city)
-
-    # Se chequea si la ciudad de origen fue procesada en otra iteracion:
-    if ciudades_analizadas.has_key(origin_city):
-        from_origin_city_travels = ciudades_analizadas.get(origin_city)
-        #print 'ENTRO EN IF DE CIUDADES ANALIZADAS'
-    else:
-        # De lo contrario se realiza la consulta a la base:
-        from_origin_city_travels = Travel.objects.filter(
-            origin_city = origin_city,
-            departure__gte = fecha_comienzo,
-            departure__lte = fecha_maxima - timedelta(minutes=1)*F("duration")
-        ).order_by('departure')
-
-        # Se agrega la ciudad de origen actual al conjunto de ciudades procesadas
-        ciudades_analizadas[origin_city] = list(from_origin_city_travels)
-    #import ipdb; ipdb.set_trace()
-    lista_a_recorrer = []
-    lista_precios = []
-    encontro_viaje = False
-    encontro_en_recursion = False
-    # Para todas las parejas de destinos que tengo partiendo de la ciudad actual:
-    for t in from_origin_city_travels:
-
-        # Se modifica el precio para los travels con monedas distintas a USD
-        if t.currency != 'USD':
-            divisor = cotizaciones[t.currency]
-            t.price = round(t.price / divisor,2)
-            t.currency = 'USD'
-        #print t
-        # Si es la primer iteracion
-        # => Se verifica que el viaje comience en la fecha de comienzo (en timezone 0)
-        if fecha_actual == fecha_comienzo:
-            date_condition = fecha_comienzo <= t.departure and t.departure <= (fecha_comienzo + timedelta(days=1))
+        # Se chequea si la ciudad de origen fue procesada en otra iteracion:
+        if ciudades_analizadas.has_key(origin_city):
+            from_origin_city_travels = ciudades_analizadas.get(origin_city)
+            #print 'ENTRO EN IF DE CIUDADES ANALIZADAS'
         else:
-            date_condition= t.departure >= fecha_actual
+            # De lo contrario se realiza la consulta a la base:
+            from_origin_city_travels = Travel.objects.filter(
+                origin_city = origin_city,
+                departure__gte = fecha_comienzo,
+                departure__lte = fecha_maxima - timedelta(minutes=1)*F("duration")
+            ).order_by('departure')
 
-        # Si se cumple condicion para la fecha:
-        if date_condition:
+            # Se agrega la ciudad de origen actual al conjunto de ciudades procesadas
+            ciudades_analizadas[origin_city] = list(from_origin_city_travels)
+        #import ipdb; ipdb.set_trace()
+        lista_a_recorrer = []
+        lista_precios = []
+        encontro_viaje = False
+        encontro_en_recursion = False
+        # Para todas las parejas de destinos que tengo partiendo de la ciudad actual:
+        for t in from_origin_city_travels:
+            # Se modifica el precio para los travels con monedas distintas a USD
+            if t.currency != 'USD':
+                divisor = cotizaciones[t.currency]
+                t.price = round(t.price / divisor,2)
+                t.currency = 'USD'
+            #print t
+            # Si es la primer iteracion
+            # => Se verifica que el viaje comience en la fecha de comienzo (en timezone 0)
+            if fecha_actual == fecha_comienzo:
+                date_condition = fecha_comienzo <= t.departure and t.departure <= (fecha_comienzo + timedelta(days=1))
+            else:
+                date_condition= t.departure >= fecha_actual
 
-            key_travel_destination = str(t.destination_city.id)
+            # Si se cumple condicion para la fecha:
+            if date_condition:
 
-            # Conversion a horas Y minutos de la duracion del travel
-            minutos  = t.duration % 60
-            horas = (t.duration - minutos) / 60
+                key_travel_destination = str(t.destination_city.id)
 
-            # Se actualiza la fecha actual
-            fecha_actual_aux = t.departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
+                # Conversion a horas Y minutos de la duracion del travel
+                minutos  = t.duration % 60
+                horas = (t.duration - minutos) / 60
 
+                # Se actualiza la fecha actual
+                fecha_actual_aux = t.departure + timedelta(hours=horas, minutes = minutos, seconds = 0)
 
-            if t not in lista_recorridos and not have_i_passed(t,lista_recorridos): # and fecha_actual_aux < max_departure:
+                if t not in lista_recorridos and not have_i_passed(t,lista_recorridos): # and fecha_actual_aux < max_departure:
+                    # Para cada ciudadDestino que tengo a partir del nodo que estoy parado,
+                    # me fijo si tengo algun camino para llegar al destino final
+                    index = 0
+                    cost += t.price
+                    lista_recorridos[len(lista_recorridos):] = [t]
 
-                # Para cada ciudadDestino que tengo a partir del nodo que estoy parado,
-                # me fijo si tengo algun camino para llegar al destino final
-                index = 0
-                cost += t.price
-                lista_recorridos[len(lista_recorridos):] = [t]
+                    if cost < max_cost[0] or cant_travels[0] < 10:
+                        # Si el destino del Travel es el final,
+                        # agrego el camino recorrido a la lista de viajes
+                        if key_travel_destination == key_destino:
 
-                if cost < max_cost[0] or cant_travels[0] < 10:
-                    # Si el destino del Travel es el final,
-                    # agrego el camino recorrido a la lista de viajes
-                    if key_travel_destination == key_destino:
+                            lista2 = []
+                            x = 0
 
-                        # Se realiza la siguiente copia de lista_recorridos,
-                        # para evitar compartir memoria entre listas.
-                        lista2 = []
-                        x = 0
+                            for x in xrange(len(lista_recorridos)):
+                                lista2.append(lista_recorridos[x])
 
-                        for x in xrange(len(lista_recorridos)):
-                            lista2.append(lista_recorridos[x])
+                            list_travels[len(list_travels):]= [lista2]
+                            list_precios_travels[len(list_precios_travels):]= [str(cost)]
 
-                        list_travels[len(list_travels):]= [lista2]
-                        list_precios_travels[len(list_precios_travels):]= [str(cost)]
+                            if cant_travels[0] >= 10:
+                                numbers_list = [float(i) for i in list_precios_travels]
+                                index = numbers_list.index(max(numbers_list))
+                                list_precios_travels.remove(list_precios_travels[index])
+                                list_travels.remove(list_travels[index])
+                                max_cost[0] = max([numbers_list])
+                            else:
+                                cant_travels[0] += 1
 
-                        if cant_travels[0] >= 10:
-                            max_cost[0],to_delete,index_to_remove = find_max(list_precios_travels)
-                            list_precios_travels.remove(str(to_delete))
-                            string_to_remove = list_travels[index_to_remove]
-                            list_travels.remove(string_to_remove)
+                            if cost > max_cost[0]:
+                                max_cost[0] = cost
+
+                            encontro_viaje = True
+                        # Si no se llega a destino, continua la recursion
                         else:
-                            cant_travels[0] += 1
+                            # El destino del travel procesado,
+                            # pasa a ser el origen de la siguiente iteracion
+                            origin_city = key_travel_destination
+                            aux_encontro_recursion = recursion(origin_city, destination_city, cost,fecha_comienzo,fecha_actual_aux,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,cotizaciones)
+                            encontro_en_recursion = encontro_en_recursion or aux_encontro_recursion
 
-                        if cost > max_cost[0]:
-                            max_cost[0] = cost
+                            if not aux_encontro_recursion:
+                                list_to_delete = []
+                                if ciudades_analizadas.has_key(origin_city):
+                                    for aux_t in ciudades_analizadas.get(origin_city):
+                                        if aux_t.departure >= fecha_actual_aux:
+                                            list_to_delete[len(list_to_delete):] = [aux_t]
 
-                        encontro_viaje = True
-                    # Si no se llega a destino, continua la recursion
-                    else:
-                        # El destino del travel procesado,
-                        # pasa a ser el origen de la siguiente iteracion
-                        origin_city = key_travel_destination
-                        aux_encontro_recursion = recursion(origin_city, destination_city, cost,fecha_comienzo,fecha_actual_aux,fecha_maxima,list_travels,list_precios_travels,lista_recorridos,cant_travels,max_escalas,max_cost,cotizaciones)
-                        encontro_en_recursion = encontro_en_recursion or aux_encontro_recursion
+                                    for t_to_remove in list_to_delete:
+                                        ciudades_analizadas.get(origin_city).remove(t_to_remove)
 
-                        if not aux_encontro_recursion:
-                            list_to_delete = []
-                            if ciudades_analizadas.has_key(origin_city):
-                                for aux_t in ciudades_analizadas.get(origin_city):
-                                    if aux_t.departure >= fecha_actual_aux:
-                                        list_to_delete[len(list_to_delete):] = [aux_t]
+                    lista_recorridos.pop()
+                    cost -= t.price
 
-                                for t_to_remove in list_to_delete:
-                                    ciudades_analizadas.get(origin_city).remove(t_to_remove)
-
-
-                lista_recorridos.pop()
-                cost -= t.price
-
-    return encontro_viaje or encontro_en_recursion
+        return encontro_viaje or encontro_en_recursion
+    else:
+        return False
 ################################################
 # Inicializacion para backtracking
 ################################################
@@ -193,12 +195,13 @@ def do_search(origin_city, destination_city, date, timezone):
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
 
     # Carga de cotizaciones
-    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
-    bs = BeautifulSoup(response.content,"xml")
+    #response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
+    #bs = BeautifulSoup(response.content,"xml")
     currencies = [c.cod for c in Currency.objects.all() if c.cod != 'USD']
-    divisores = [float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text) for currency in currencies]
+    divisores = [2,30,20]
     cotizaciones = dict(zip(currencies,divisores))
-
+    #debug borrar
+    file = open("logbasura.txt","w")
     # LLamado al algoritmo
     result = backtracking(origin_city, destination_city, initial_date, cotizaciones, timezone)
 
