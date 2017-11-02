@@ -35,3 +35,8 @@ def parse_minutes(minutes_duration):
     str_min = str(minutes) + ' minutes' if minutes > 0 or days > 0 else ''
     return str_days + str_hs + str_min
 register.filter('parse_minutes', parse_minutes)
+
+def subtract(arrival, departure):
+    duration = (arrival - departure) # Duration in timdelta
+    return (duration.days * 24 * 60) + (duration.seconds / 60) # Result in minutes
+register.filter('subtract', subtract)
