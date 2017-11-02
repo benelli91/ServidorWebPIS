@@ -71,6 +71,8 @@ def logger(message_type, args, conf_file, local_codes, output_file):
         message += 'WARNING: No travels where loaded to the database. Previous travels from this webpage will remain in the system but they will be marked as out of date.'
     elif(message_type == 'config_file'):
         message += 'ERROR: While loading config file ' + args[0] + '. Check the file for errors.\n'
+    elif(message_type == 'connection'):
+        message += 'ERROR: Connection error while loading the webpage for travels from ' + args[0] + ' to ' + args[1] + ' the ' + args[2] + '. Check the file for errors.\n'
 
     print message
     if(isinstance(message, unicode)):

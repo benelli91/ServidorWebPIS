@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^Greyhound$', views.cargaGreyhound, name='cargaGreyhound'),
     url(r'^UruBus$', views.cargaUruBus, name='UruBus'),
     url(r'^CentralDePasajes$', views.cargaCentralDePasajes, name='CentralDePasajes'),
+    url(r'^CargaTimed$', views.cargaTimed, name='CargaTimed'),
 ]

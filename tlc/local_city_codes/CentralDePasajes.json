@@ -1,11 +1,6 @@
 {"name": "Central de Pasajes",
 	"codes": {
 		"Montevideo": "(MVD) Montevideo (Uruguay) (Uruguay)",
-		"Buenos Aires": "(BUE) Buenos Aires. Terminal Retiro (Capital Federal) (Argentina)",
-		"Rivera": "(RIVE) Rivera (Uruguay) (Uruguay)",
-		"Colonia": "(CDS) Colonia del Sacramento (Uruguay) (Uruguay)",
-		"Salto": "(SALT) Salto (Uruguay) (Uruguay)",
-		"Fray Bentos": "(FBE) Fray Bentos (Uruguay) (Uruguay)",
-		"Mercedes": "(MER) Mercedes (Uruguay) (Uruguay)"
+		"Buenos Aires": "(BUE) Buenos Aires. Terminal Retiro (Capital Federal) (Argentina)"
 	}
 }

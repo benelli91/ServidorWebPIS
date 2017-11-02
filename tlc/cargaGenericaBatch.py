@@ -12,6 +12,7 @@ import os
 import json
 from django.db import transaction
 import unicodedata
+import threading
 #from extractDataSubroutines import *
 from parameterOptions import *
 import re
@@ -36,26 +37,35 @@ def timedGenericLoader():
 
     timers = []
     for f in files:
-        t = Timer(f["webpage"]["reload_time"]*3600, loadWebpage(f))
-        t.start()
-        timers += [t]
+        timers.append(threading.Thread(target = cron, args = [f]))
+        timers[-1].start()
 
+def cron(conf_file):
+    reload_time = timedelta(hours = conf_file["webpage"]["reload_time"])
     while True:
-        for t in timers:
-            if not t.is_alive():
-                t.start()
+        start_time = datetime.now()
+        loadWebpage(conf_file)
+        end_time = datetime.now()
+        total_time = end_time - start_time
+        if(total_time < reload_time):
+            interval = reload_time - total_time
+            time.sleep(interval.seconds)
 
 def genericLoader():
     config_directory = CONFIG_DIRECTORY_PATH
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
+    files = []
     for conf_file in raw_files:
-        log_file = LOG_DIRECTORY_PATH + conf_file.replace(" ", "") + '.log'
         with open(config_directory + conf_file) as data_file:
             try:
-                data = json.load(data_file)
+                files += [json.load(data_file)]
             except:
                 logger('config_file', [config_file], None, None, log_file)
-        loadWebpage(data)
+
+    timers = []
+    for f in files:
+        timers.append(threading.Thread(target = cron, args = [f]))
+        timers[-1].start()
 
 def BuquebusLoader():
     config_directory = CONFIG_DIRECTORY_PATH
@@ -119,8 +129,8 @@ def UruBusLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    #display = Display(visible=0, size=(1024, 768))
-    #display.start()
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
     phantom = webdriver.Firefox()
 
     aux_cities = []
@@ -224,7 +234,7 @@ def loadWebpage(conf_file):
             travel.save()
 
     phantom.quit()
-    #display.stop()
+    display.stop()
     logger('end', [len(travels), start_time], conf_file, local_codes, log_file)
 
 
@@ -253,7 +263,10 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
 
         url += conf_file["webpage"]["uri_end"]
         #print url
-        phantom.get(url)
+        try:
+            phantom.get(url)
+        except:
+            logger('connection', [origin_city, destination_city, departure], conf_file, None, log_file)
         aux_sleep =conf_file["webpage"]["sleep_time"]
         time.sleep(aux_sleep)
         soup = BeautifulSoup(phantom.page_source, "lxml")
@@ -285,7 +298,10 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                 counter += 1
 
         url += conf_file["webpage"]["uri_end"]
-        phantom.get(url)
+        try:
+            phantom.get(url)
+        except:
+            logger('connection', [origin_city, destination_city, departure], conf_file, None, log_file)
         time.sleep(conf_file["webpage"]["sleep_time"])
         for line in conf_file["webpage"]["inputs"]["buttons"]:
             data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
@@ -344,7 +360,10 @@ def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
     error_number = 7
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     try:
-        phantom.get(conf_file["webpage"]["uri_start"])
+        try:
+            phantom.get(conf_file["webpage"]["uri_start"])
+        except:
+            logger('connection', [origin_cities[0], destination_cities[0]], conf_file, None, log_file)    
         time.sleep(conf_file["webpage"]["sleep_time"])
         HTML_blocks = BeautifulSoup(phantom.page_source, "lxml")
 
@@ -602,10 +621,6 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
     except:
         logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file)
 
-    #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    #||Ver que pasa si las listas tienen distinta cantidad de elementos||
-    #||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    #try:
     for x in range(len(departure_list)):
         try:
             new_travel_departure = ''
@@ -679,7 +694,10 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                     aux_agency = Travelagency.objects.get(id = alias.travelagency)
                     new_travel_agency = aux_agency
             if(new_travel_agency == None):
-                new_travel_agency = Travelagency.objects.get(name='Generica')
+                try:
+                    new_travel_agency = Travelagency.objects.get(name=conf_file["webpage"]["name"])
+                except:
+                    new_travel_agency = Travelagency.objects.get(name='Generica')
                 if(str_travel_agency != ''):
                     logger('agency', [str_travel_agency], conf_file, None, log_file)
                 else:

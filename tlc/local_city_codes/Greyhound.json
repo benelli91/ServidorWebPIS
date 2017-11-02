@@ -1,6 +1,7 @@
 { "name":"Greyhound",
   "codes":{
     "New York":"New York, NY",
-    "Miami":"Miami, FL"
+    "Miami":"Miami, FL",
+    "Seattle":"Seattle, WA"
   }
 }

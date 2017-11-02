@@ -139,3 +139,8 @@ def cargaCentralDePasajes(request):
     CentralDePasajesLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
+
+def cargaTimed(request):
+    timedGenericLoader()
+    resultado = {}
+    return render(request, 'scraping.html', resultado)
