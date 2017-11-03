@@ -16,7 +16,7 @@
 	"reload_time": 24,
 	"header_parameters":{},
 	"inputs": {
-		"wait":2,
+		"wait":1,
 		"loading_time": 4,
 		"buttons":[
 			{"field_type":"input", "tag_type": "id", "id":"PadOrigen", "data":["origin_local_code"]},
