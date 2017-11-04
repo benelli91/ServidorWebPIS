@@ -221,26 +221,16 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
                     cost -= t.price
 
     return found_trip or found_trip_in_recurrence
+
 ################################################
-# Initialization to backtracking
+# Do_Search [Backtracking First call]
 ################################################
 def do_search(origin_city, destination_city, date, timezone):
-
+    # Initialization of variables for backtracking
     # The requested date is returned to TimeZone 0 (Date - timezone offset)
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
-
-    # Carga de cotizaciones
     cotizaciones = load_exchanges()
-    # Call to the algorithm
-    result = backtracking(origin_city, destination_city, initial_date, cotizaciones, timezone)
-
-    return result
-
-################################################
-# Backtracking - First iteration
-################################################
-def backtracking(vOrigin_city, vDestination_city, initial_date, cotizaciones, timezone):
-    # Initialization of variables for backtracking
+    
     travel_list = []
     travels_price_list = []
     list_trips_traveled = []
@@ -256,8 +246,8 @@ def backtracking(vOrigin_city, vDestination_city, initial_date, cotizaciones, ti
     maximum_date= initial_date + timedelta(days=3)
 
     # Recursive calls of Backtracking
-    recursion(vOrigin_city,
-        vDestination_city,
+    recursion(origin_city,
+        destination_city,
         cost,
         initial_date,
         current_date,
@@ -279,8 +269,8 @@ def backtracking(vOrigin_city, vDestination_city, initial_date, cotizaciones, ti
         'list_travels': travel_list,
         'no_results': len(travel_list) == 0,
         'list_paises' : Country.objects.all(),
-        'ciudadOrigen' : City.objects.get(id=vOrigin_city),
-        'ciudadDestino' : City.objects.get(id=vDestination_city),
+        'ciudadOrigen' : City.objects.get(id=origin_city),
+        'ciudadDestino' : City.objects.get(id=destination_city),
         'timezoneOffset': timezone
     }
 
