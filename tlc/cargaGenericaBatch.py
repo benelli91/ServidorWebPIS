@@ -51,16 +51,49 @@ def cron(conf_file):
             interval = reload_time - total_time
             time.sleep(interval.seconds)
 
+def cronURL(conf_file, origin_city, destination_city, phantom, dates, travels_array_lock, travels_array, used_threads_array_lock, used_threads_array, my_number, logger_lock):
+    travels = []
+    if(conf_file["webpage"]["frequency_format"] == []):
+        for departure in dates:
+            output_HTML = createURL(conf_file, origin_city, destination_city, departure, phantom, logger_lock)
+            travels += extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates, logger_lock)
+    else:
+        output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date(), phantom, logger_lock)
+        travels += extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates, logger_lock)
+    travels_array_lock.acquire()
+    travels_array += travels
+    travels_array_lock.release()
+    used_threads_array_lock[my_number].acquire()
+    used_threads_array[my_number] = False
+    used_threads_array_lock[my_number].release()
+
+def cronJavascript(conf_file, origin_city, destination_city, phantom, dates, travels_array_lock, travels_array, used_threads_array_lock, used_threads_array, my_number, logger_lock):
+    travels = []
+    if(conf_file["webpage"]["frequency_format"] == []):
+        for departure in dates:
+            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure, phantom, logger_lock)
+            travels += extractData(conf_file, output_HTML, origin_city, destination_city, departure, dates, logger_lock)
+    else:
+        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date(), phantom, logger_lock)
+        travels += extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates, logger_lock)
+    travels_array_lock.acquire()
+    travels_array += travels
+    travels_array_lock.release()
+    used_threads_array_lock[my_number].acquire()
+    used_threads_array[my_number] = False
+    used_threads_array_lock[my_number].release()
+
 def genericLoader():
     config_directory = CONFIG_DIRECTORY_PATH
     raw_files = [pos_json for pos_json in os.listdir(config_directory) if pos_json.endswith('.json')]
     files = []
+    logger_lock = threading.Lock()
     for conf_file in raw_files:
         with open(config_directory + conf_file) as data_file:
             try:
                 files += [json.load(data_file)]
             except:
-                logger('config_file', [config_file], None, None, log_file)
+                logger('config_file', [config_file], None, None, log_file, logger_lock)
 
     timers = []
     for f in files:
@@ -129,9 +162,17 @@ def UruBusLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    display = Display(visible=0, size=(1024, 768))
-    display.start()
-    phantom = webdriver.Firefox()
+    #display = Display(visible=0, size=(1024, 768))
+    #display.start()
+    phantoms = []
+    used_threads = []
+    thread_locks = []
+    logger_lock = threading.Lock()
+    array_lock = threading.Lock()
+    for i in range(0, conf_file["webpage"]["threads"]):
+        phantoms.append(webdriver.Firefox())
+        used_threads.append(False)
+        thread_locks.append(threading.Lock())
 
     aux_cities = []
     cities = []
@@ -146,7 +187,7 @@ def loadWebpage(conf_file):
 
     start_time = datetime.now()
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
-    logger('start', [], conf_file, local_codes, log_file)
+    logger('start', [], conf_file, local_codes, log_file, logger_lock)
 
     if(conf_file["webpage"]["travel_type"] == 1):
         aux_cities = City.objects.filter(airport = True)
@@ -173,33 +214,40 @@ def loadWebpage(conf_file):
     page_type = conf_file["webpage"]["page_type"]
 
     if(page_type == 1): #URL type pages
+        current_thread = 0
         for origin_city in cities:
             for destination_city in cities:
                 if(origin_city.id != destination_city.id):
-                    if(conf_file["webpage"]["frequency_format"] == []):
-                        for departure in dates:
-                            output_HTML = createURL(conf_file, origin_city, destination_city, departure, phantom)
-                            travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city,departure,dates)
-                    else:
-                        output_HTML = createURL(conf_file, origin_city, destination_city, datetime.today().date(), phantom)
-                        travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
-
+                    thread_assigned = False
+                    while not thread_assigned:
+                        thread_locks[current_thread].acquire()
+                        if(used_threads[current_thread] == False):
+                            used_threads[current_thread] = True
+                            new_thread = threading.Thread(target = cronURL, args = [conf_file, origin_city, destination_city, phantoms[current_thread], dates, array_lock, travels, thread_locks, used_threads, current_thread, logger_lock])
+                            new_thread.start()
+                            thread_assigned = True
+                        thread_locks[current_thread].release()
+                        current_thread = (current_thread + 1) % conf_file["webpage"]["threads"]
     elif(page_type == 2): #Javascript type pages
+        current_thread = 0
         for origin_city in cities:
             for destination_city in cities:
                 if(origin_city.id != destination_city.id):
-                    if(conf_file["webpage"]["frequency_format"] == []):
-                        for departure in dates:
-                            output_HTML = executeJavaScript(conf_file, origin_city, destination_city, departure, phantom)
-                            travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, departure, dates)
-                    else:
-                        output_HTML = executeJavaScript(conf_file, origin_city, destination_city, datetime.today().date(), phantom)
-                        travels = travels + extractData(conf_file, output_HTML, origin_city, destination_city, datetime.today().date(), dates)
+                    thread_assigned = False
+                    while not thread_assigned:
+                        thread_locks[current_thread].acquire()
+                        if(used_threads[current_thread] == False):
+                            used_threads[current_thread] = True
+                            new_thread = threading.Thread(target = cronJavascript, args = [conf_file, origin_city, destination_city, phantoms[current_thread], dates, array_lock, travels, thread_locks, used_threads, current_thread, logger_lock])
+                            new_thread.start()
+                            thread_assigned = True
+                        thread_locks[current_thread].release()
+                        current_thread = (current_thread + 1) % conf_file["webpage"]["threads"]
 
     elif(page_type == 3): #Simple type pages
         origin_cities = []
         destination_cities = []
-        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities, phantom)
+        HTML_blocks = extractBlocks(conf_file, origin_cities, destination_cities, phantoms[0], logger_lock)
         block_number = 0
         for block in HTML_blocks:
             counter = 0
@@ -212,13 +260,14 @@ def loadWebpage(conf_file):
                     counter_d = counter
                 counter += 1
             if(counter_o != -1 and counter_d != -1):
-                travels += extractData(conf_file, block, cities[counter_o], cities[counter_d], datetime.today().date(), dates)
+                travels += extractData(conf_file, block, cities[counter_o], cities[counter_d], datetime.today().date(), dates, logger_lock)
             block_number += 1
 
-    """with transaction.atomic():
-        Travel.objects.filter(webpage = webpage_name).delete()
-        for travel in travels:
-            travel.save()"""
+    finished = False
+    while not finished:
+        finished = True
+        for flag in used_threads:
+            finished = finished and (not flag)
 
     if len(travels) > 0 :
         if conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"] != "":
@@ -227,18 +276,19 @@ def loadWebpage(conf_file):
         for travel in travels:
             travel.save()
     else:
-        logger('no_travels', [], conf_file, local_codes, log_file)
+        logger('no_travels', [], conf_file, local_codes, log_file, logger_lock)
         to_update = Travel.objects.filter(webpage = conf_file["webpage"]["name"])
         for travel in to_update:
             travel.updated = False
             travel.save()
 
-    phantom.quit()
-    display.stop()
-    logger('end', [len(travels), start_time], conf_file, local_codes, log_file)
+    for phantom in phantoms:
+        phantom.quit()
+    #display.stop()
+    logger('end', [len(travels), start_time], conf_file, local_codes, log_file, logger_lock)
 
 
-def createURL(conf_file, origin_city, destination_city, departure, phantom):
+def createURL(conf_file, origin_city, destination_city, departure, phantom, logger_lock):
     #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
     error_number = 9
@@ -266,15 +316,15 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom):
         try:
             phantom.get(url)
         except:
-            logger('connection', [origin_city, destination_city, departure], conf_file, None, log_file)
+            logger('connection', [origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
         aux_sleep =conf_file["webpage"]["sleep_time"]
         time.sleep(aux_sleep)
         soup = BeautifulSoup(phantom.page_source, "lxml")
     except:
-        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
     return soup
 
-def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom):
+def executeJavaScript(conf_file, origin_city, destination_city, departure, phantom, logger_lock):
     #TODO: ejecutar el javascript de la pagina usando del archivo de configuracion, ciudad de origen,
     #ciudad de destino y fecha de partida
     output_HTML = ''
@@ -301,7 +351,7 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
         try:
             phantom.get(url)
         except:
-            logger('connection', [origin_city, destination_city, departure], conf_file, None, log_file)
+            logger('connection', [origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
         time.sleep(conf_file["webpage"]["sleep_time"])
         for line in conf_file["webpage"]["inputs"]["buttons"]:
             data = dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
@@ -352,10 +402,10 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
         time.sleep(conf_file["webpage"]["inputs"]["loading_time"])
         output_HTML = BeautifulSoup(phantom.page_source, "lxml")
     except:
-        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+        logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
     return output_HTML
 
-def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
+def extractBlocks(conf_file, origin_cities, destination_cities, phantom, logger_lock):
     result = []
     error_number = 7
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
@@ -363,7 +413,7 @@ def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
         try:
             phantom.get(conf_file["webpage"]["uri_start"])
         except:
-            logger('connection', [origin_cities[0], destination_cities[0]], conf_file, None, log_file)
+            logger('connection', [origin_cities[0], destination_cities[0]], conf_file, None, log_file, logger_lock)
         time.sleep(conf_file["webpage"]["sleep_time"])
         HTML_blocks = BeautifulSoup(phantom.page_source, "lxml")
 
@@ -390,13 +440,13 @@ def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
                 origin_cities += block[1]
                 destination_cities += block[2]
         if(len(result) == 0):
-            logger('warning', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file)
+            logger('warning', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file, logger_lock)
     except:
-        logger('error', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file)
+        logger('error', [error_number, origin_cities[0], destination_cities[0]], conf_file, None, log_file, logger_lock)
 
     return result
 
-def extractData(conf_file, html_file, origin_city, destination_city,departure,dates):
+def extractData(conf_file, html_file, origin_city, destination_city,departure,dates, logger_lock):
     #TODO: extraer los datos del HTML con el archivo de configuracion, transformarlos en instancias de
     #Travel y devolverlos
     travels_to_add = []
@@ -405,9 +455,9 @@ def extractData(conf_file, html_file, origin_city, destination_city,departure,da
     #HTMLfile = open('tlc/templates/scraping.html', 'w')
 
     if(conf_file["webpage"]["extraction_tags"]["travel_block"] != []):
-        travels_to_add = extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,departure,dates)
+        travels_to_add = extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,departure,dates, logger_lock)
     else:
-        travels_to_add = extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city,departure,dates)
+        travels_to_add = extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city,departure,dates, logger_lock)
     #HTMLfile.close()
     return travels_to_add
 
@@ -457,7 +507,7 @@ def get_data_list(fields_list,html_file, get_text, attribute):
                 result += [block]
     return result
 
-def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, destination_city):
+def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, destination_city, logger_lock):
     output_text = []
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     error_number = 10
@@ -499,7 +549,7 @@ def processRawText(conf_file, raw_text, raw_format, raw_formula, origin_city, de
                     output_text += [str(i)]
     except:
         output_text = []
-        logger('error', [error_number, raw_text, raw_format, raw_formula], conf_file, None, log_file)
+        logger('error', [error_number, raw_text, raw_format, raw_formula], conf_file, None, log_file, logger_lock)
 
     return output_text
 
@@ -532,7 +582,7 @@ def verifyFrequency(conf_file,date,frequency_data):
                     return True
     return False
 
-def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,departure,dates):
+def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,departure,dates, logger_lock):
     error_number = 6
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     travels_to_add = []
@@ -547,13 +597,13 @@ def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,de
         block_fields = conf_file["webpage"]["extraction_tags"]["travel_block"]
         block_list = get_data_list(block_fields,html_file, False, "")
     except:
-        logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file)
+        logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file, logger_lock)
     for block in block_list:
-        travels_to_add = travels_to_add + extractDataWithoutBlocks(conf_file, block, origin_city, destination_city,departure,dates)
+        travels_to_add = travels_to_add + extractDataWithoutBlocks(conf_file, block, origin_city, destination_city,departure,dates, logger_lock)
     return travels_to_add
 
 
-def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city,departure,dates):
+def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city,departure,dates, logger_lock):
     error_number = 0
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     travels_to_add = []
@@ -619,7 +669,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
         if frequency_format != []:
             frequency_list = get_data_list(frequency_fields,html_file, True, frequency_attribute)
     except:
-        logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file)
+        logger('error', [error_number, origin_city, destination_city, departure, conf_file], conf_file, None, log_file, logger_lock)
 
     for x in range(len(departure_list)):
         try:
@@ -633,7 +683,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract departure
             error_number = 1
             str_departure = departure_list[x]
-            result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
+            result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city, logger_lock)
             if len(result_format) == 0 :
                 new_travel_departure = None
             else:
@@ -643,14 +693,14 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             error_number = 2
             if duration_list != [] : #if I have duration data then I extract it
                 str_duration = duration_list[x]
-                result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city)
+                result_format = processRawText(conf_file,str_duration,duration_format,duration_formula,origin_city,destination_city, logger_lock)
                 if len(result_format) == 0 :
                     new_travel_duration = None
                 else:
                     new_travel_duration =  int(result_format[0]) * 60 + int(result_format[1])
             else: #otherwise calculate
                 str_arrival = arrival_list[x]
-                result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city)
+                result_format = processRawText(conf_file,str_arrival,arrival_format,arrival_formula,origin_city,destination_city, logger_lock)
                 if len(result_format) == 0 :
                     aux_new_travel_duration = None
                 else:
@@ -668,7 +718,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                 str_price = '0'
             else:
                 str_price = price_list[x]
-            result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city)
+            result_format = processRawText(conf_file,str_price,price_format,price_formula,origin_city,destination_city, logger_lock)
             if len(result_format) == 0 :
                 new_travel_price = None
             else:
@@ -677,7 +727,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
             #Extract travel_agency
             error_number = 4
             if(travel_agency_list != []):
-                aux_str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city)
+                aux_str_travel_agency = processRawText(conf_file, travel_agency_list[x],travel_agency_format,travel_agency_formula,origin_city,destination_city, logger_lock)
                 if(aux_str_travel_agency == []):
                     str_travel_agency = ''
                 else:
@@ -699,9 +749,9 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                 except:
                     new_travel_agency = Travelagency.objects.get(name='Generica')
                 if(str_travel_agency != ''):
-                    logger('agency', [str_travel_agency], conf_file, None, log_file)
+                    logger('agency', [str_travel_agency], conf_file, None, log_file, logger_lock)
                 else:
-                    logger('agency', [str_travel_agency, origin_city, destination_city, departure], conf_file, None, log_file)
+                    logger('agency', [str_travel_agency, origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
 
             #if none of the data fields are empty, then create the travel object
             error_number = 5
@@ -725,7 +775,7 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                     for date in dates:#para cada fecha en el rengo de consulta, si la fecha pertenece a la frecuencia, creo el travel
                         if verifyFrequency(conf_file,date,frequency_list[x]):
                             departure_with_time = datetime(year=date.year,month=date.month,day=date.day)
-                            result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city)
+                            result_format = processRawText(conf_file,str_departure,departure_format,departure_formula,origin_city,destination_city, logger_lock)
                             new_travel_departure = departure_with_time + timedelta(hours=int(result_format[0]), minutes = int(result_format[1]), seconds = 0)
                             new_travel = Travel(departure = new_travel_departure, \
                                                     origin_city = origin_city, \
@@ -742,8 +792,8 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                             travels_to_add[len(travels_to_add):] = [new_travel]
         except:
             if(conf_file["webpage"]["extraction_tags"]["travel_block"] != []):
-                logger('warning', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+                logger('warning', [error_number, origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
             else:
-                logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file)
+                logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
 
     return travels_to_add

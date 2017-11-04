@@ -14,6 +14,7 @@
 	"currency":"UYU",
 	"page_type":1,
 	"reload_time": 24,
+	"threads":10,
 	"header_parameters":{
 		"separator": "&",
 		"parameters":[

@@ -1,8 +1,9 @@
 from datetime import datetime,timedelta,tzinfo
 import unicodedata
 
-def logger(message_type, args, conf_file, local_codes, output_file):
+def logger(message_type, args, conf_file, local_codes, output_file, my_lock):
     message = ''
+    my_lock.acquire()
     text_file = open(output_file, "a")
     if(message_type == 'start'):
         message += '\nLOADING PROCESS STARTED\n'
@@ -78,3 +79,4 @@ def logger(message_type, args, conf_file, local_codes, output_file):
     if(isinstance(message, unicode)):
         message = unicodedata.normalize('NFKD', message).encode('ascii','ignore')
     text_file.write(message)
+    my_lock.release()

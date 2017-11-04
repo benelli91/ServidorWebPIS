@@ -14,6 +14,7 @@
 	"currency":"UYU",
 	"page_type":1,
 	"reload_time": 24,
+	"threads":1,
 	"header_parameters":{
 		"separator": "_",
 		"parameters":[
@@ -26,10 +27,9 @@
 	"inputs":{},
 	"iterators":{},
 	"extraction_tags":{
-			"travel_block":[],
+			"travel_block":[{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"}],
 			"departure":{
 				"fields":[
-					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
 					{"tag_type": "div", "field_type": "class", "name": "td_n dat_viaje por_3"},
 					{"tag_type": "span", "field_type": "", "name": "", "position":1}],
@@ -39,7 +39,6 @@
 			},
 			"arrival":{
 				"fields":[
-					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 					{"tag_type": "div", "field_type":"class", "name": "cont_datos"},
 					{"tag_type": "div", "field_type": "id", "name": "aca"},
 					{"tag_type": "span", "field_type": "class", "name": "bold","position":0}],
@@ -49,7 +48,6 @@
 			},
 			"price":{
 				"fields":[
-					{"tag_type": "div", "field_type": "class", "name": "row titulos_servicios"},
 			 		{"tag_type": "div", "field_type":"class", "name": "cont_opciones"},
 					{"tag_type": "div", "field_type": "col", "name": "2"},
 					{"tag_type": "span", "field_type": "class", "name": "impor_tabla", "position":0}],

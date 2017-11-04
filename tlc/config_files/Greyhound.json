@@ -14,10 +14,11 @@
 	"currency": "USD",
 	"page_type":2,
 	"reload_time": 24,
+	"threads":3,
 	"header_parameters":{},
 	"inputs": {
 		"wait":4,
-		"loading_time":8,
+		"loading_time":10,
 		"buttons":[
 			{"field_type":"input", "tag_type": "id" , "id":"fromLocation", "data":["origin_local_code"]},
       {"field_type":"input", "tag_type": "id" , "id":"toLocation", "data":["destination_local_code"]},
@@ -26,10 +27,9 @@
       ]},
 	"iterators":{},
 	"extraction_tags":{
-			"travel_block":[],
+			"travel_block":[{"tag_type": "li", "field_type": "class", "name": "fare"}],
 			"departure":{
 				"fields":[
-					{"tag_type": "li", "field_type": "class", "name": "fare"},
 					{"tag_type": "p", "field_type": "class", "name": "trip-time trip-time-lg","position": 0}
 				],
 				"format":"(\\d?\\d):(\\d\\d)\\s(\\w\\w)",
@@ -44,7 +44,6 @@
 			},
 			"price":{
 				"fields":[
-					{"tag_type": "li", "field_type": "class", "name": "fare"},
 					{"tag_type": "div", "field_type": "class", "name": "row fare-prices"},
 					{"tag_type": "span", "field_type": "class", "name": "price","position": 0}],
 				"format":"(\\d+)",
@@ -53,7 +52,6 @@
 			},
 			"duration": {
 				"fields":[
-					{"tag_type": "li", "field_type": "class", "name": "fare"},
 					{"tag_type": "p", "field_type": "class", "name": "trip-duration","position": 0}],
 			"format":"(\\d?\\d)h\\s?(\\d?\\d)m",
 				"formula":"",
