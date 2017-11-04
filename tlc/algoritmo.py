@@ -111,10 +111,11 @@ def verifyBestOption(list_trips_traveled,cost,travel_list,travels_price_list):
 # Recursion de Backtracking
 #######################################
 def recursion(origin_city, destination_city, cost, start_date, current_date, maximum_date, travel_list, travels_price_list, list_trips_traveled, quantity_travels, max_scales, max_cost, cotizaciones):
+    count_time['recursion_time'] += time.clock() - count_time['aux_recursion_time']
     max_scales += 1
     found_trip = False
     found_trip_in_recurrence = False
-    if max_scales <=5:
+    if max_scales <=4:
         # [ Identification of the destination city is unique ]
         key_destination = str(destination_city)
 
@@ -122,13 +123,15 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
         if processed_cities.has_key(origin_city):
             from_origin_city_travels = processed_cities.get(origin_city)
         else:
+            start_time = time.clock()
             # Otherwise, the query is made in the database:
             from_origin_city_travels = Travel.objects.filter(
                 origin_city = origin_city,
                 departure__gte = start_date,
                 departure__lte = maximum_date - timedelta(minutes=1)*F("duration")
-            ).order_by('departure')
+            ).order_by('departure').distinct('departure','destination_city','price','duration','traveltype')
 
+            count_time['sql_time'] += time.clock() - start_time
             # The current origin_city is added to the set of processed cities
             processed_cities[origin_city] = list(from_origin_city_travels)
 
@@ -203,10 +206,12 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
                         else:
                             # The destination of the processed trip becomes the origin of the next iteration
                             origin_city = key_travel_destination
+                            count_time['aux_recursion_time'] = time.clock()
                             aux_encontro_recursion = recursion(origin_city, destination_city, cost,start_date,aux_current_date,maximum_date,travel_list,travels_price_list,list_trips_traveled,quantity_travels,max_scales,max_cost,cotizaciones)
+                            count_time['recursion_time'] += time.clock() - count_time['aux_recursion_time']
                             found_trip_in_recurrence = found_trip_in_recurrence or aux_encontro_recursion
 
-                            if not aux_encontro_recursion:
+                            if not aux_encontro_recursion and 1 == 2:
                                 list_to_delete = []
                                 if processed_cities.has_key(origin_city):
                                     for aux_travel in processed_cities.get(origin_city):
@@ -219,7 +224,7 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 
                     list_trips_traveled.pop()
                     cost -= t.price
-
+    count_time['aux_recursion_time'] = time.clock()
     return found_trip or found_trip_in_recurrence
 
 ################################################
@@ -228,9 +233,14 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 def do_search(origin_city, destination_city, date, timezone):
     # Initialization of variables for backtracking
     # The requested date is returned to TimeZone 0 (Date - timezone offset)
+
+    global count_time
+    count_time = {'sql_time':0,'total_time':time.clock(),'recursion_time':0}
+
+
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
     cotizaciones = load_exchanges()
-    
+
     travel_list = []
     travels_price_list = []
     list_trips_traveled = []
@@ -245,6 +255,7 @@ def do_search(origin_city, destination_city, date, timezone):
     current_date = initial_date
     maximum_date= initial_date + timedelta(days=3)
 
+    count_time['aux_recursion_time'] = time.clock()
     # Recursive calls of Backtracking
     recursion(origin_city,
         destination_city,
@@ -260,9 +271,17 @@ def do_search(origin_city, destination_city, date, timezone):
         max_cost,
         cotizaciones
     )
-
+    count_time['recursion_time'] += time.clock() - count_time['aux_recursion_time']
     # The results of the recursion are sorted
     travel_list,travels_price_list = sortVectores(travel_list, travels_price_list, quantity_travels)
+
+
+    count_time['total_time'] = time.clock() - count_time['total_time']
+
+    print 'SQL' , count_time['sql_time']
+    print 'llamado recursivo', count_time['recursion_time']
+    print 'total', count_time['total_time']
+
 
     # Results to return
     context = {
