@@ -93,6 +93,10 @@ class Traveltype(models.Model):
 class Currency(models.Model):
     cod = models.CharField(primary_key=True, max_length=3)
     name = models.TextField()
+    base = models.BooleanField()
+    local = models.BooleanField()
+    divisor = models.FloatField()
+    tableposition = models.IntegerField()
 
     class Meta:
         managed = False

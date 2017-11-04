@@ -30,3 +30,5 @@ sudo chmod +x /usr/local/bin/geckodriver
 ##display para que ande firefox en servidor
 sudo apt-get install xvfb
 sudo pip install pyvirtualdisplay
+##
+sudo pip install requests

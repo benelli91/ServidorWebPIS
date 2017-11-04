@@ -9,6 +9,15 @@ from bs4 import BeautifulSoup
 import re
 import time
 import ipdb
+from lxml import html
+
+
+def load_exchanges():
+    #loads exchanges from database
+    base = Currency.objects.filter(base = True).first()
+    cotizaciones = [(c.cod,c.divisor) for c in Currency.objects.all() if c.cod != base.cod ]
+    cotizaciones = dict(cotizaciones)
+    return cotizaciones
 
 def sortVectores(travel_list, travels_price_list, quantity_travels):
     i = 0
@@ -221,12 +230,7 @@ def do_search(origin_city, destination_city, date, timezone):
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
 
     # Carga de cotizaciones
-    response = requests.get("http://query.yahooapis.com/v1/public/yql?q=select%20Name,Rate%20from%20yahoo.finance.xchange%20where%20pair%20in%20%28%22USDEUR%22,%20%22USDUYU%22,%20%22USDARS%22,%20%22USDBRL%22%29&env=store://datatables.org/alltableswithkeys")
-    bs = BeautifulSoup(response.content,"xml")
-    currencies = [c.cod for c in Currency.objects.all() if c.cod != 'USD']
-    dividers = [float(bs.find(text=re.compile(currency)).parent.parent.find("Rate").text) for currency in currencies]
-    cotizaciones = dict(zip(currencies,dividers))
-
+    cotizaciones = load_exchanges()
     # Call to the algorithm
     result = backtracking(origin_city, destination_city, initial_date, cotizaciones, timezone)
 

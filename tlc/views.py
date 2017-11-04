@@ -75,7 +75,11 @@ def index(request):
 
     return render(request, 'index.html',  resultado)
 
-
+def loadExchange(request):
+    from exchange import loadExchange
+    resultado = {}
+    loadExchange()
+    return redirect('/')
 
 def cargaGoogle(request):
     resultado = {}

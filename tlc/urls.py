@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^UruBus$', views.cargaUruBus, name='UruBus'),
     url(r'^CentralDePasajes$', views.cargaCentralDePasajes, name='CentralDePasajes'),
     url(r'^CargaTimed$', views.cargaTimed, name='CargaTimed'),
+    url(r'^loadExchange$', views.loadExchange, name='LoadExchange'),
 ]
