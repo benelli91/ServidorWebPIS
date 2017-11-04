@@ -363,7 +363,7 @@ def extractBlocks(conf_file, origin_cities, destination_cities, phantom):
         try:
             phantom.get(conf_file["webpage"]["uri_start"])
         except:
-            logger('connection', [origin_cities[0], destination_cities[0]], conf_file, None, log_file)    
+            logger('connection', [origin_cities[0], destination_cities[0]], conf_file, None, log_file)
         time.sleep(conf_file["webpage"]["sleep_time"])
         HTML_blocks = BeautifulSoup(phantom.page_source, "lxml")
 
