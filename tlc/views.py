@@ -27,8 +27,9 @@ class TravelViewSet(viewsets.ModelViewSet):
         from_city = request.GET.get('from', None)
         to_city = request.GET.get('to', None)
         date = request.GET.get('date', None)
+        timezone = request.GET.get('timezone',None)
         if from_city is not None and to_city is not None and date is not None:
-            resultado = do_search(str(from_city), str(to_city), str(date))
+            resultado = do_search(str(from_city), str(to_city), str(date), int(timezone))
             travels = {'list_travels':[]}
             for group in resultado['list_travels']:
                 #print group

@@ -91,22 +91,6 @@
         });
       });
 
-    $(function(){
-      $('#btn').click(function() {
-        var request = $.ajax({
-          type: "GET",
-          url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
-          dataType: "json"
-        });
-
-        request.done(function(JSON_array) {
-          alert(JSON_array["list_travels"][0][0]["departure"]);
-          $("#toName").val(1);
-          $("#to").val(2)
-          //from here you have your array to play with
-        });
-      });
-    });
 
     {% if list_travels %}
       $(document).ready(function () {
@@ -116,6 +100,112 @@
       }, 'slow');
       });
     {% endif %}
+
+
+
+
+    //calling the api with do_search and modifying the DOM on the fly
+    {% load filters %}
+    const Item = ({ departure, arrival, price }) => `
+      <div class="panel-body">
+        <ul>
+          <li>
+            <div class="grey">
+              <div>
+                <span>Departure: {{departure}}</span>
+              </div>
+              <div>
+                <span>Arrival: {{arrival}} </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <hr/>
+
+        <ul class="collapse" id="hide{{forloop.counter}}"> <!--Menu desplegable-->
+
+          {% for link in travel %}
+            <div class="detail-container" >
+              <div class="containerLeft">
+                <div>
+                  <span>{{link.departure|add_timezone_offset:timezoneOffset}}</span>
+                </div>
+                <div>
+                  {% if link.traveltype.travelname == 'Boat' %}
+                    <i class="fa fa-ship fa-3x" aria-hidden="true"></i>
+                  {% elif link.traveltype.travelname == 'Plane' %}
+                    <i class="fa fa-plane fa-3x" aria-hidden="true"></i>
+                  {% else %}
+                     <i class="fa fa-bus fa-3x" aria-hidden="true"></i>
+                  {% endif %}
+                </div>
+                <div data-test="SegmentArrivalTime">
+                  <div class="false">
+                    <span>{{link.departure|add_duration:link.duration|add_timezone_offset:timezoneOffset}}</span>
+                  </div>
+                </div>
+              </div>
+
+              {% if forloop.counter == travel|length %}
+                <div class="timeLineDouble"></div>
+              {% else %}
+                <div class="timeLine"></div>
+              {% endif %}
+
+              <div class="containerRight">
+                <div class="w-600">
+                  <span><b>{{link.origin_city.name}} ({{link.origin_city.country.id}})</b></span>
+                </div>
+                <div class="containerRight-info">
+                  <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
+                  <span>U$S {{link.price}} - {{link.duration|parse_minutes}}</span>
+                </div>
+                <div>
+                  {% if forloop.counter == travel|length %}
+                    <div class="w-600"><b>{{link.destination_city.name}} ({{link.destination_city.country.id}})</b></div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </ul>
+      </div>
+    `;
+
+    $(function(){
+      $('#btn').click(function() {
+        var request = $.ajax({
+          type: "GET",
+          url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value+"&timezone=3",
+          dataType: "json"
+        });
+
+        request.done(function(JSON_array) {
+          alert(JSON_array["list_travels"][0][0]["departure"]);
+          jsonObj = JSON_array["list_travels"][0][0];
+
+          containerAll = document.getElementById('containerAll');
+          contact = document.createElement('div');
+          contact.id='contact';
+          contact.setAttribute('class','contact');
+          containerAll.appendChild(contact)
+
+          container = document.createElement('div');
+          container.setAttribute('class','container');
+          container.id = 'container';
+          containerAll.appendChild(container)
+
+
+          $('#container').append([
+            { departure: jsonObj["departure"], arrival: jsonObj["duration"], price: jsonObj["price"] },
+            { departure: '/foo', arrival: 'foo.png', price: 'Foo item' },
+
+          ].map(Item).join(''));
+
+        });
+      });
+    });
 
 
   });
