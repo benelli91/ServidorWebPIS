@@ -110,7 +110,7 @@
           dataType: "html",
           onLoading: showLoad
         });
-        request.done(function(JSON_array) {
+        request.done(function(inner) {
           containerAll = document.getElementById('containerAll');
           //remove div of results if already exists
           c = document.getElementById('contact')
@@ -118,7 +118,7 @@
             containerAll.removeChild(c);
           }
           //append html response to the div containerAll and scroll Down
-          $('#containerAll').append(JSON_array);
+          $('#containerAll').append(inner);
           $('html, body').animate({
               scrollTop: $('#contact').offset().top
           }, 'slow');

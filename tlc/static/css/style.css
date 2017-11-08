@@ -149,7 +149,7 @@ header {
 
 /*-- //header --*/
 .banner {
-  background: url(../images/travelpasenger.jpg)no-repeat 0px 0px;
+  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0)), url(../images/travelpasenger.jpg);
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -158,6 +158,7 @@ header {
 	position:relative;
 	box-shadow: 0 0px 15px black;
 	height: 100vh;
+	background-attachment: fixed;
 }
 .agileinfo-dot {
     background: url(../images/dott.png)repeat 0px 0px;

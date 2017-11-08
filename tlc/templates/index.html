@@ -9,7 +9,7 @@
       <!-- banner -->
     <div id="containerAll">
       <div class="banner" id="home">
-         <div class="agileinfo-dot" >
+         <div class="agileinfo-dot" id="searching">
             <div class="container">
                <!-- header -->
                {% include 'header.html' %}
@@ -43,21 +43,22 @@
                      </div>
                      <div class="clearfix"></div>
                   </div>
-                  <div class="banner-btm-agileits"></div>
+                  <!--loading bar before search results-->
+                  <div id="gif" class="gif" type="hidden" display="hidden" style="display:none">
+                    <img src="{% static "images/2.gif" %}" >
+                  </div>
                </div>
             </div>
          </div>
       </div>
     </div>
 
-  <div id="gif" class="gif" type="hidden" display="hidden" style="display:none">
-    <img src="{% static "images/1.GIF" %}" >
-  </div>
 
 
-      <div class="map-w3-agile">
-         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9253.435046029665!2d-56.1693701401609!3d-34.91690447923392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf302eed9b9f6410a!2sFacultad+de+Ingenier%C3%ADa-UdelaR!5e0!3m2!1ses!2ses!4v1504366253820" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-      </div>
+    <!--here is going to be the search_results when the search button is pressed -->
+
+
+
 
 
 
