@@ -1,6 +1,9 @@
 {"name":"Google Flights",
   "codes":{
     "New York":"",
-    "Seattle":""
+    "Seattle":"",
+    "Miami":"",
+    "Montevideo":"",
+    "Buenos Aires":""
   }
 }
