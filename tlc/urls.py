@@ -11,6 +11,7 @@ router.register(r'traveltypes', views.TravelTypeViewSet, base_name='traveltype')
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^doSearch/$', views.doSearch, name='doSearch'),
     url(r'^cargaGoogle$', views.cargaGoogle, name='cargaGoogle'),
     url(r'^rest/tlc/', include(router.urls)),
     url(r'^loader$', views.cargaGenerica, name='cargaGenerica'),

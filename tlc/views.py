@@ -61,19 +61,33 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 def index(request):
     # if this is a POST request we need to process the form data
+
     resultado = {}
     if request.method == 'POST':
-        form = NameForm(request.POST)
+        #form = NameForm(request.POST)
+
         data = request.POST
         from_city = str(data.get("from", ""))
         to_city = str(data.get("to"))
         date = str(data.get("date"))
         timezone = int(data.get("timezoneOffset"))
         resultado = do_search(from_city, to_city, date, timezone)
+        #return render(request, 'search_results.html',  resultado)
     else:
         form = NameForm()
 
     return render(request, 'index.html',  resultado)
+
+def doSearch(request):
+    # view used to call from javascript, for not reloading the page
+    resultado = {}
+    data = request.GET
+    from_city = str(data.get("from", ""))
+    to_city = str(data.get("to"))
+    date = str(data.get("date"))
+    timezone = int(data.get("timezoneOffset"))
+    resultado = do_search(from_city, to_city, date, timezone)
+    return render(request, 'search_results.html',  resultado)
 
 def loadExchange(request):
     from exchange import loadExchange

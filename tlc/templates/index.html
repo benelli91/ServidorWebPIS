@@ -7,6 +7,7 @@
    </head>
    <body>
       <!-- banner -->
+    <div id="containerAll">
       <div class="banner" id="home">
          <div class="agileinfo-dot" >
             <div class="container">
@@ -17,7 +18,7 @@
                   <h2>WE ARE YOUR BEST CHOICE</h2>
                   <div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
                      <p style="font-weight:bold">Select your destination</p>
-                     <form id="searchForm" action="#" method="post">
+                     <div type="submit" id="searchForm" >
                         {% csrf_token %}
                         <div class="col-md-3 form-time-w3layouts">
                           <div class="ui-widget">
@@ -34,11 +35,12 @@
                         <div class="col-md-3 form-date-w3-agileits">
                            <label>Departure Date</label>
                            <input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+
                         </div>
                         <div class="col-md-3 form-left-agileits-submit">
-                           <input type="submit" value="search">
+                           <input id="btn" type="submit" value="search">
                         </div>
-                     </form>
+                     </div>
                      <div class="clearfix"></div>
                   </div>
                   <div class="banner-btm-agileits"></div>
@@ -46,20 +48,20 @@
             </div>
          </div>
       </div>
-      
-      {% if list_travels %}
-        {% include 'search_results.html' %}
-      {% elif no_results %}
-        {% include 'no_results_message.html'%}
-      {% endif %}
-      
+    </div>
+
+  <div id="gif" class="gif" type="hidden" display="hidden" style="display:none">
+    <img src="{% static "images/1.GIF" %}" >
+  </div>
+
+
       <div class="map-w3-agile">
          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9253.435046029665!2d-56.1693701401609!3d-34.91690447923392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf302eed9b9f6410a!2sFacultad+de+Ingenier%C3%ADa-UdelaR!5e0!3m2!1ses!2ses!4v1504366253820" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
       </div>
-      
-      {% include 'contact.html' %}
-      
+
+
+
       {% include 'javascript.html'%}
-   
+
    </body>
 </html>

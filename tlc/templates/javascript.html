@@ -91,31 +91,41 @@
         });
       });
 
+
+    //call to results in doSearch without reloading the page
     $(function(){
+
       $('#btn').click(function() {
+        //load spinner
+        $('#gif').show()
+        //load variables from the form
+        var from = document.getElementById("from").value;
+        var to = document.getElementById("to").value;
+        var date = document.getElementById("datepicker1").value;
+        var timezoneOffset = getTimezoneOffset();
+
         var request = $.ajax({
           type: "GET",
-          url: "/rest/tlc/travels/do_search/?from="+document.getElementById("from").value+"&to="+document.getElementById("to").value+"&date="+document.getElementById("datepicker1").value,
-          dataType: "json"
+          url: "/doSearch/?from="+from+"&to="+to+"&date="+date+"&timezoneOffset="+timezoneOffset,
+          dataType: "html",
+          onLoading: showLoad
         });
-
         request.done(function(JSON_array) {
-          alert(JSON_array["list_travels"][0][0]["departure"]);
-          $("#toName").val(1);
-          $("#to").val(2)
-          //from here you have your array to play with
+          containerAll = document.getElementById('containerAll');
+          //remove div of results if already exists
+          c = document.getElementById('contact')
+          if (c != null){
+            containerAll.removeChild(c);
+          }
+          //append html response to the div containerAll and scroll Down
+          $('#containerAll').append(JSON_array);
+          $('html, body').animate({
+              scrollTop: $('#contact').offset().top
+          }, 'slow');
+          $('#gif').hide()
         });
       });
-    });
-
-    {% if list_travels %}
-      $(document).ready(function () {
-      // Handler for .ready() called.
-      $('html, body').animate({
-          scrollTop: $('#contact').offset().top
-      }, 'slow');
-      });
-    {% endif %}
+     });
 
 
   });
@@ -138,30 +148,27 @@
 </script>
 <!---------------->
 
-<!--TIME ZONE FUNCTION DEFINED PREVIOUSLY -->
+<!--TIME ZONE FUNCTION DEFINED  -->
 <script src="{% static "js/jstz-1.0.4.min.js" %}"></script>
 <script language="javascript">
     function getTimezoneOffset() {
       return (new Date()).getTimezoneOffset();
     }
 </script>
-<!--TIME ZONE FUNCTION DEFINED PREVIOUSLY -->
-
-<script>
-$('#searchForm').submit(function(){ //listen for submit event
-  $('<input />').attr('type', 'hidden')
-      .attr('name', 'timezoneOffset')
-      .attr('value', getTimezoneOffset())
-      .appendTo('#searchForm');
-  return true;
-});
-</script>
+<!--TIME ZONE FUNCTION DEFINED -->
 
 <script>
   $('.panel-heading').click(function(){
       $(this).find('.fa-chevron-down').toggleClass('rotated');
   });
 </script>
+<script language="javascript">
+    function showLoad() {
+        alert('loading');
+    }
+</script>
+
+
 
 <!--js for bootstrap working-->
 <script src="{% static "js/bootstrap.js" %}"></script>

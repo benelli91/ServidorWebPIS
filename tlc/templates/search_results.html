@@ -1,5 +1,6 @@
 <!-- This HTML contains Travels search results -->
-  {% load filters %}
+{% load filters %}
+{% if list_travels %}
   <div class="contact" id="contact">
     <div class="container">
       <h3 class="title-agileits-w3layouts"> • Your best options • </h3>
@@ -106,3 +107,6 @@
       </ul>
     </div>
   </div>
+{% elif no_results %}
+  {% include 'no_results_message.html'%}
+{% endif %}
