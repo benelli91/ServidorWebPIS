@@ -91,6 +91,11 @@
                       <div class="containerRight-info">
                         <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
                         <span>U$S {{link.price}} - {{link.duration|parse_minutes}}</span>
+                        {% if link.updated %}
+                          <span>Dato actuallizado</span>
+                        {% else %}
+                          <span>Dato no actualizado</span>
+                        {% endif %}
                       </div>
                       <div>
                         {% if forloop.counter == travel|length %}
