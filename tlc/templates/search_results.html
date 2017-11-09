@@ -23,7 +23,22 @@
                 <div>
                   <div>
                     <span>Total U$S</span>
-                    <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}"></span>
+                    <span class="totalPrice" data-test="JourneyDetailsPriceMain" id="totalPrice_{{forloop.counter}}" ></span>
+                    <script type="text/javascript">
+                        var i = 0;
+                        var sum_price = 0;
+                        {% load filters %}
+                        {% for travel in list_travels %}
+                          i++;
+                          var sum_price = 0;
+                          {% for link in travel %}
+                            sum_price = sum_price + {{ link.price }};
+                          {% endfor %}
+
+                          $("#totalPrice_" + i).text(Math.round(sum_price * 100) / 100);
+                        {% endfor %}
+
+                    </script>
                   </div>
                   <div>
                     <span>Total duration: </span>
