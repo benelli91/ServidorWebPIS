@@ -89,6 +89,11 @@
                         <span><b>{{link.origin_city.name}} ({{link.origin_city.country.id}})</b></span>
                       </div>
                       <div class="containerRight-info">
+                        {% if link.travel_agency.reference != 'NULL' %}
+                          <a style="font-style: italic;" href={{link.travel_agency.reference}}>{{link.travel_agency.name}}</a>
+                        {% else %}
+                          <span style="font-style: italic;">{{link.travel_agency.name}}</span>
+                        {% endif %}
                         <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
                         <span>U$S {{link.price}} - {{link.duration|parse_minutes}}</span>
                         {% if link.updated %}
