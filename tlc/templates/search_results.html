@@ -110,10 +110,8 @@
                           <span style="font-style: italic;"> {{link.travel_agency.name}}</span>
                         {% endif %}
                         <span>U$S {{link.price}} - {{link.duration|parse_minutes}}</span>
-                        {% if link.updated %}
-                          <span>Dato actuallizado</span>
-                        {% else %}
-                          <span>Dato no actualizado</span>
+                        {% if !link.updated %}
+                          <span>Not updated information</span>
                         {% endif %}
                       </div>
                       <div>
