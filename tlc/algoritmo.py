@@ -19,7 +19,7 @@ def load_exchanges():
     cotizaciones = dict(cotizaciones)
     return cotizaciones
 
-def load_travels(origin_city, start_date):
+def load_travels(origin_city, start_date, maximum_date):
 
     processed_cities[origin_city] = {}
 
@@ -52,13 +52,13 @@ def load_travels(origin_city, start_date):
         Q(origin_city = origin_city) &
         Q(departure__gte = start_date + timedelta(hours=48)) &
         Q(departure__lte = start_date + timedelta(hours=60)) &
-        Q(departure__lte = start_date + (timedelta(minutes=1) * F("duration")))
+        Q(departure__lte = maximum_date - (timedelta(minutes=1) * F("duration")))
     ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
     last_travels_day_3 = Travel.objects.filter(
         Q(origin_city = origin_city) &
         Q(departure__gte = start_date + timedelta(hours=48)) &
-        Q(departure__lte = start_date + (timedelta(minutes=1) * F("duration")))
+        Q(departure__lte = maximum_date - (timedelta(minutes=1) * F("duration")))
     ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
 
@@ -205,7 +205,7 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
         # Check if the city of origin was processed in another iteration:
         if not processed_cities.has_key(origin_city):
             # Otherwise, the query is made in the database:
-            load_travels(origin_city, start_date)
+            load_travels(origin_city, start_date, maximum_date)
 
         from_origin_city_travels = get_travels_for_origin_city(origin_city,current_date, start_date)
 
