@@ -1,15 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from selenium import webdriver
-from bs4 import BeautifulSoup
-from datetime import datetime,timedelta,tzinfo
+from datetime import datetime
 from .models import *
-import time
-import sys
 import os
 import json
-from django.db import transaction
-import unicodedata
 
 def dataParameterOptions(line, conf_file, origin_city, destination_city, departure):
     local_codes_directory = 'tlc/local_city_codes/'
