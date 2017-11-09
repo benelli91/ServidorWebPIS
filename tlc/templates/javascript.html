@@ -51,6 +51,7 @@
   $(function() {
     $( "#datepicker,#datepicker1,#datepicker2,#datepicker3" )
       .datepicker({minDate: '+30D',maxDate: '+45D'});
+      $("#spinner").hide();
   });
 </script>
 <!-- Calendar -->
@@ -71,6 +72,7 @@
     $.get( "/rest/tlc/citys/autocomplete_search/?term=")
       .done(function( data ) {
         cities= data;
+
         $("#fromName").autocomplete({
           source: data,
           focus: function (event, ui) {
@@ -130,8 +132,9 @@
 
 
         if (foundTo && foundFrom && validDate){
-          //load spinner
-          $('#gif').show()
+          $("#spinner").show()
+          // $('#gif').show()
+          //$('#gif').fadeIn(200)
           var request = $.ajax({
             type: "GET",
             url: "/doSearch/?from="+from+"&to="+to+"&date="+date+"&timezoneOffset="+timezoneOffset,
@@ -150,7 +153,9 @@
             $('html, body').animate({
                 scrollTop: $('#contact').offset().top
             }, 'slow');
-            $('#gif').hide()
+            $("#spinner").hide()
+            // $('#gif').hide()
+            //$('#gif').fadeOut(200)
           });
         } else if (!foundFrom) {
           alert('Ingrese un origen correcto.')
