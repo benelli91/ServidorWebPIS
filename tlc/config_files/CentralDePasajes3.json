@@ -14,7 +14,7 @@
 	"currency":"ARS",
 	"page_type":2,
 	"reload_time": 24,
-	"threads":1,
+	"threads":3,
 	"header_parameters":{},
 	"inputs": {
 		"wait":2,

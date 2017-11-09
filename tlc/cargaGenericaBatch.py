@@ -162,8 +162,8 @@ def UruBusLoader():
 
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
-    #display = Display(visible=0, size=(1024, 768))
-    #display.start()
+    display = Display(visible=0, size=(1024, 768))
+    display.start()
     phantoms = []
     used_threads = []
     thread_locks = []
@@ -281,12 +281,13 @@ def loadWebpage(conf_file):
         for travel in to_update:
             travel.updated = False
             travel.save()
-
-    for phantom in phantoms:
-        phantom.quit()
-    #display.stop()
     logger('end', [len(travels), start_time], conf_file, local_codes, log_file, logger_lock)
-
+    for phantom in phantoms:
+        try:
+            phantom.quit()
+        except:
+            a = 0
+    display.stop()
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom, logger_lock):
     #TODO: generar la URL de la que extraer los datos dados el archivo de configuracion, ciudad de origen,

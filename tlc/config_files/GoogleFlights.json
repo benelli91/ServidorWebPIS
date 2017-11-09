@@ -14,7 +14,7 @@
 	"currency":"USD",
 	"page_type":2,
 	"reload_time": 2,
-	"threads":1,
+	"threads":3,
 	"header_parameters":{
 		"separator": ";",
 		"parameters":[
@@ -26,14 +26,14 @@
 		"wait":2,
 		"loading_time":5,
 		"buttons":[
-      {"field_type":"input", "tag_type": "multiple_class_name" , "id":"DQX2Q1B-cc-h", "data":["click"]}
+      {"field_type":"input", "tag_type": "multiple_class_name" , "id":"LJV2HGB-cc-h", "data":["click"]}
       ]},
 	"iterators":{},
 	"extraction_tags":{
-			"travel_block":[{"tag_type": "a", "field_type": "class", "name": "DQX2Q1B-d-X"}],
+			"travel_block":[{"tag_type": "a", "field_type": "class", "name": "LJV2HGB-d-X"}],
 			"departure":{
 				"fields":[
-					{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Zb"},
+					{"tag_type": "div", "field_type": "class", "name": "LJV2HGB-d-Zb"},
 					{"tag_type": "span", "field_type":"", "position": 0}],
 				"format":"(\\d\\d):(\\d\\d)",
 				"formula":"",
@@ -46,19 +46,19 @@
 				"attribute":""
 			},
 			"price":{
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-Ab"}],
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "LJV2HGB-d-Ab"}],
 				"format":"(\\d+)",
 				"formula":"",
 				"attribute":""
 			},
 			"duration": {
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-E"}],
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "LJV2HGB-d-E"}],
 				"format":"(\\d?\\d) h (\\d?\\d) min",
 				"formula":"",
 				"attribute":""
 			},
 			"travel_agency": {
-				"fields":[{"tag_type": "div", "field_type": "class", "name": "DQX2Q1B-d-j"}],
+				"fields":[{"tag_type": "div", "field_type": "class", "name": "LJV2HGB-d-j"}],
 				"format":"([\\D\\s]+)\\b(?:operado por)?",
 				"formula":"",
 				"attribute":""
