@@ -7,7 +7,7 @@ DROP TABLE  IF EXISTS TravelAgencyAlias;
 DROP TABLE  IF EXISTS TravelAgency;
 DROP TABLE  IF EXISTS TravelType;
 
-SET client_encoding = 'LATIN1';
+SET client_encoding = 'UTF8';
 
 CREATE TABLE Country (
     id character(3) NOT NULL,
@@ -63,14 +63,18 @@ CREATE TABLE TravelAgencyAlias(
 
 CREATE TABLE Currency(
     cod character(3) NOT NULL,
-    name text NOT NULL
+    name text NOT NULL,
+    base boolean NOT NULL,
+    local boolean NOT NULL,
+    divisor real NOT NULL,
+    tablePosition integer NOT NULL
 );
 
-COPY Currency (cod,name) FROM stdin;
-USD	Dolar
-ARS	Pesos Argentinos
-EUR	Euros
-UYU	Pesos Uruguayos
+COPY Currency(cod, name, base, local, divisor, tablePosition) FROM stdin;
+USD	Dólar	True	False	1	5
+ARS	Peso Argentino	False	False	1	9
+EUR	Euro	False	False	1	9
+UYU	Peso Uruguayo	False	True	1	9
 \.
 
 COPY Country (id, name) FROM stdin;
@@ -135,55 +139,55 @@ COPY TravelType(traveltype, travelname) FROM stdin;
 
 COPY TravelAgency(id, name, reference, traveltype) FROM stdin;
 0	Generica	NULL	0
-1	Aerolineas Argentinas	www.aerolineas.com.ar	1
-2	Aeromás	www.aeromas.com	1
-3	Air Class	www.airclass.com.uy	1
-4	Air Europa	www.aireuropa.com	1
-17	Air France	www.airfrance.com.uy	1
-21	Amaszonas Uruguay	www.amaszonas.com	1
-7	Amaszonas Paraguay	www.amaszonas.com	1
-8	American Airlines	www.aa.com	1
-9	Austral	www.austral.com.ar	1
-10	Avianca	www.avianca.com	1
-11	Azul	www.voeazul.com.br	1
-12	Copa Airlines	www.copaair.com	1
-13	Gol Linhas Aéreas	www.voegol.com	1
-14	Iberia	www.iberia.com.uy	1
-15	Latam Airlines	www.latam.com	1
-16	Sky	www.skyairline.cl	1
-5	Buquebus	www.buquebus.com.uy	2
-18	Seacat	www.seacatcolonia.com	2
-19	La Cacciola	www.cacciolaviajes.com	2
-20	Colonia Express	coloniaexpress.com/uy/	2
-6	Tres Cruces	www.trescruces.com.uy	3
-22	COPAY	www.copay.coop	3
-23	AGENCIA CENTRAL	www.agenciacentral.com.uy	3
-24	Greyhound	www.greyhound.com	3
-25	BERRUTTI	www.berruttiturismo.com	3
-26	BRUNO	www.empresabruno.com.uy	3
-27	CITA	www.cita.com.uy	3
-28	NUNEZ	www.nunez.com.uy	3
-29	COPSA	www.copsa.com.uy	3
-30	CUT	www.cutcorporacion.com.uy	3
-31	EGA	www.ega.com.uy	3
-32	COTAR	www.grupocotar.com.uy	3
+1	Aerolineas Argentinas	http://www.aerolineas.com.ar	1
+2	Aeromás	http://www.aeromas.com	1
+3	Air Class	http://www.airclass.com.uy	1
+4	Air Europa	http://www.aireuropa.com	1
+17	Air France	http://www.airfrance.com.uy	1
+21	Amaszonas Uruguay	http://www.amaszonas.com	1
+7	Amaszonas Paraguay	http://www.amaszonas.com	1
+8	American Airlines	http://www.aa.com	1
+9	Austral	http://www.austral.com.ar	1
+10	Avianca	http://www.avianca.com	1
+11	Azul	http://www.voeazul.com.br	1
+12	Copa Airlines	http://www.copaair.com	1
+13	Gol Linhas Aéreas	http://www.voegol.com	1
+14	Iberia	http://www.iberia.com.uy	1
+15	Latam Airlines	http://www.latam.com	1
+16	Sky	http://www.skyairline.cl	1
+5	Buquebus	http://www.buquebus.com.uy	2
+18	Seacat	http://www.seacatcolonia.com	2
+19	La Cacciola	http://www.cacciolaviajes.com	2
+20	Colonia Express	http://coloniaexpress.com/uy/	2
+6	Tres Cruces	http://www.trescruces.com.uy	3
+22	COPAY	http://www.copay.coop	3
+23	AGENCIA CENTRAL	http://www.agenciacentral.com.uy	3
+24	Greyhound	http://www.greyhound.com	3
+25	BERRUTTI	http://www.berruttiturismo.com	3
+26	BRUNO	http://www.empresabruno.com.uy	3
+27	CITA	http://www.cita.com.uy	3
+28	NUNEZ	http://www.nunez.com.uy	3
+29	COPSA	http://www.copsa.com.uy	3
+30	CUT	http://www.cutcorporacion.com.uy	3
+31	EGA	http://www.ega.com.uy	3
+32	COTAR	http://www.grupocotar.com.uy	3
 33	EMTUR	NULL	3
-34	EL NORTEÑO	busdelnorte.com.uy	3
-35	EL RAPIDO	www.el-rapido.com.ar	3
-36	FLECHA BUS	www.flechabus.com.ar	3
-37	INTERTUR	www.intertur.com.uy	3
-38	JOTA ELE	www.jotaele.com.uy	3
-39	NOSSAR	www.nossar.com.uy	3
-40	RUTAS DEL SOL	turismorocha.gub.uy/destinos/rocha/empresas-de-transporte/rutas-del-sol	3
-41	TTL	www.ttl.com.br	3
-42	TURIL	www.turil.com.uy	3
-43	TURISMAR	www.turismar.com.uy	3
-44	Cauvi	www.retiro.com.ar/empresa/89/cauvi	3
-45	Condor	condorestrella.com.ar	3
-46	Pullman	www.ventapasajes.cl/pullmanbus	3
-47	COIT	www.coitviajes.com.uy	3
-48	COT	www.cot.com.uy	3
-49	Ciudad de Gualeguay	www.ciudaddegualeguay.com	3
+34	EL NORTEÑO	http://busdelnorte.com.uy	3
+35	EL RAPIDO	http://www.el-rapido.com.ar	3
+36	FLECHA BUS	http://www.flechabus.com.ar	3
+37	INTERTUR	http://www.intertur.com.uy	3
+38	JOTA ELE	http://www.jotaele.com.uy	3
+39	NOSSAR	http://www.nossar.com.uy	3
+40	RUTAS DEL SOL	http://turismorocha.gub.uy/destinos/rocha/empresas-de-transporte/rutas-del-sol	3
+41	TTL	http://www.ttl.com.br	3
+42	TURIL	http://www.turil.com.uy	3
+43	TURISMAR	http://www.turismar.com.uy	3
+44	Cauvi	http://www.retiro.com.ar/empresa/89/cauvi	3
+45	Condor	http://condorestrella.com.ar	3
+46	Pullman	http://www.ventapasajes.cl/pullmanbus	3
+47	COIT	http://www.coitviajes.com.uy	3
+48	COT	http://www.cot.com.uy	3
+49	Ciudad de Gualeguay	http://www.ciudaddegualeguay.com	3
 50	COTABU	NULL	3
 51	COA	NULL	3
 52	GABARD	NULL	3
@@ -194,9 +198,15 @@ COPY TravelAgency(id, name, reference, traveltype) FROM stdin;
 57	Andesmar	https://www.andesmar.com/	3
 58	Chevallier	http://nuevachevallier.com/	3
 59	Alaska	https://www.alaskaair.com/	1
-100	Google Flights	www.google.es/flights/#search	1
-101	Central de Pasajes	www.centraldepasajes.com.ar	3
-102	UruBus	www.urubus.com.uy	3
+60	United	https://www.united.com/ual/en/us/	1
+61	JetBlue	https://www.jetblue.com/#/	1
+62	Delta	https://www.delta.com/	1
+63	Frontier	https://www.flyfrontier.com/	1
+64	Sun	https://www.suncountry.com/booking/search.html	1
+65	Spirit	https://www.spirit.com/	1
+100	Google Flights	https://www.google.es/flights/#search	1
+101	Central de Pasajes	https://www.centraldepasajes.com.ar	3
+102	UruBus	https://www.urubus.com.uy	3
 \.
 
 COPY TravelAgencyAlias(id, traveltype, travelagency, alias) FROM stdin;
@@ -216,8 +226,8 @@ COPY TravelAgencyAlias(id, traveltype, travelagency, alias) FROM stdin;
 14	3	45	El Condor
 15	3	46	Pullman Gral.Belgrano
 16	1	15	LATAM
-17	1	1	AR 
-18	1	15	LA 
+17	1	1	AR
+18	1	15	LA
 19	3	36	Flechabus
 20	3	39	Nossar
 21	3	26	BRUNO HNOS
@@ -225,6 +235,17 @@ COPY TravelAgencyAlias(id, traveltype, travelagency, alias) FROM stdin;
 23	3	53	PLAMA
 24	3	53	ALONSO
 25	1	59	Alaska Air
+26	1	60	United Airlines
+27	1	61	JetBlue Airways
+28	1	62	DL
+29	1	63	Frontier Airlines
+30	1	64	Sun Country
+31	1	64	Sun Country Airlines
+32	1	64	Sun Airlines
+33	1	8	American
+34	1	60	UA
+35	1	65	Spirit Airlines
+36	1	8	AA
 100	3	101	Central de Pasajes 2
 101	3	101	Central de Pasajes 3
 102	3	101	Central de Pasajes 4

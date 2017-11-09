@@ -15,7 +15,7 @@
                {% include 'header.html' %}
                <!-- banner-text -->
                <div class="banner-text">
-                  <h2>WE ARE YOUR BEST CHOICE</h2>
+                  <h2>FIND THE BEST PRICE TO TRAVEL</h2>
                   <div style="background: rgba(0,0,0, 0.5); padding:5%" class="book-form" id="register">
                      <p style="font-weight:bold">Select your destination</p>
                      <div type="submit" id="searchForm" >
@@ -23,18 +23,18 @@
                         <div class="col-md-3 form-time-w3layouts">
                           <div class="ui-widget">
                             <label for="From">Travelling From </label>
-                            <input id="fromName" type="text" name="fromName" placeholder="from..." onfocus="this.value = '';"/>
+                            <input id="fromName" type="text" name="fromName" placeholder="from..."/>
                             <input id="from" type="hidden" name= "from" display="hidden" />
                           </div>
                         </div>
                         <div class="col-md-3 form-left-agileits-w3layouts ">
                            <label>Travelling To</label>
-                           <input id="toName"  type="text" name="toName" placeholder="to" onfocus="this.value = '';"/>
+                           <input id="toName"  type="text" name="toName" placeholder="to..." />
                            <input id="to" type="hidden" name= "to" display="hidden" />
                         </div>
                         <div class="col-md-3 form-date-w3-agileits">
                            <label>Departure Date</label>
-                           <input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
+                           <input  id="datepicker1" name="date" type="text" placeholder="mm/dd/yyyy" onblur="if (this.value == '') {this.value = 'mm/dd/yyyy';}" required="">
 
                         </div>
                         <div class="col-md-3 form-left-agileits-submit">
@@ -45,7 +45,7 @@
                   </div>
                   <!--loading bar before search results-->
                   <div id="gif" class="gif" type="hidden" display="hidden" style="display:none">
-                    <img src="{% static "images/2.gif" %}" >
+                    <img src="{% static "images/loading-animated.gif" %}" >
                   </div>
                </div>
             </div>
