@@ -27,25 +27,25 @@ def load_travels(origin_city, start_date):
         origin_city = origin_city,
         departure__gte = start_date,
         departure__lte = start_date + timedelta(hours=12)
-    ).order_by('departure','price','duration').distinct('departure','destination_city','price','duration','traveltype')
+    ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
     last_travels_day_1 = Travel.objects.filter(
         origin_city = origin_city,
         departure__gte = start_date + timedelta(hours=12),
         departure__lte = start_date + timedelta(hours=24)
-    ).order_by('departure','price','duration').distinct('departure','destination_city','price','duration','traveltype')
+    ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
     first_travels_day_2 = Travel.objects.filter(
         origin_city = origin_city,
         departure__gte = start_date + timedelta(hours=24),
         departure__lte = start_date + timedelta(hours=36)
-    ).order_by('departure','price','duration').distinct('departure','destination_city','price','duration','traveltype')
+    ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
     last_travels_day_2 = Travel.objects.filter(
         origin_city = origin_city,
         departure__gte = start_date + timedelta(hours=36),
         departure__lte = start_date + timedelta(hours=48)
-    ).order_by('departure','price','duration').distinct('departure','destination_city','price','duration','traveltype')
+    ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
 
     first_travels_day_3 = Travel.objects.filter(
@@ -53,13 +53,13 @@ def load_travels(origin_city, start_date):
         Q(departure__gte = start_date + timedelta(hours=48)) &
         Q(departure__lte = start_date + timedelta(hours=60)) &
         Q(departure__lte = start_date + (timedelta(minutes=1) * F("duration")))
-    ).order_by('departure','price','duration').distinct('departure','destination_city','price','duration','traveltype')
+    ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
     last_travels_day_3 = Travel.objects.filter(
         Q(origin_city = origin_city) &
         Q(departure__gte = start_date + timedelta(hours=48)) &
         Q(departure__lte = start_date + (timedelta(minutes=1) * F("duration")))
-    ).order_by('departure','price','duration').distinct('departure','destination_city','price','duration','traveltype')
+    ).order_by('departure','price').distinct('departure','destination_city','price','duration','traveltype')
 
 
     # The current origin_city is added to the set of processed cities
@@ -73,44 +73,52 @@ def load_travels(origin_city, start_date):
     processed_cities[origin_city]['last_travels_d3'] = list(last_travels_day_3)
 
 def get_travels_for_origin_city(origin_city, current_date, start_date):
-
+    start_time = time.clock()
     time_diff = current_date - start_date
 
     if time_diff == timedelta(seconds=0):
-        from_origin_city_travels = ( processed_cities[origin_city]['first_travels_d1'] +
+        d1 = [t for t in processed_cities[origin_city]['first_travels_d1'] if t.departure >= current_date ]
+        from_origin_city_travels = ( d1 +
                                      processed_cities[origin_city]['last_travels_d1'] )
 
     elif time_diff <= timedelta(hours=12):
-        from_origin_city_travels = ( processed_cities[origin_city]['first_travels_d1'] +
-                                     processed_cities[origin_city]['last_travels_d1'] +
-                                     processed_cities[origin_city]['first_travels_d2'] +
-                                     processed_cities[origin_city]['last_travels_d2'] +
-                                     processed_cities[origin_city]['first_travels_d3'] +
-                                     processed_cities[origin_city]['last_travels_d3'] )
+        d1 = [t for t in processed_cities[origin_city]['first_travels_d1'] if t.departure >= current_date ]
+        from_origin_city_travels = ( d1 +
+                                     processed_cities[origin_city]['last_travels_d1'])# +
+                                    #  processed_cities[origin_city]['first_travels_d2'] +
+                                    #  processed_cities[origin_city]['last_travels_d2'] +
+                                    #  processed_cities[origin_city]['first_travels_d3'] +
+                                    #  processed_cities[origin_city]['last_travels_d3'] )
 
     elif time_diff <= timedelta(hours=24):
-        from_origin_city_travels = ( processed_cities[origin_city]['last_travels_d1'] +
-                                     processed_cities[origin_city]['first_travels_d2'] +
-                                     processed_cities[origin_city]['last_travels_d2'] +
-                                     processed_cities[origin_city]['first_travels_d3'] +
-                                     processed_cities[origin_city]['last_travels_d3'] )
+        d1 = [t for t in processed_cities[origin_city]['last_travels_d1'] if t.departure >= current_date ]
+        from_origin_city_travels = ( d1 +
+                                     processed_cities[origin_city]['first_travels_d2'])# +
+                                    #  processed_cities[origin_city]['last_travels_d2'] +
+                                    #  processed_cities[origin_city]['first_travels_d3'] +
+                                    #  processed_cities[origin_city]['last_travels_d3'] )
     elif time_diff <= timedelta(hours=36):
-        from_origin_city_travels = ( processed_cities[origin_city]['first_travels_d2'] +
-                                     processed_cities[origin_city]['last_travels_d2'] +
-                                     processed_cities[origin_city]['first_travels_d3'] +
-                                     processed_cities[origin_city]['last_travels_d3'] )
+        d2 = [t for t in processed_cities[origin_city]['first_travels_d2'] if t.departure >= current_date ]
+        from_origin_city_travels = ( d2 +
+                                     processed_cities[origin_city]['last_travels_d2'])# +
+                                    #  processed_cities[origin_city]['first_travels_d3'] +
+                                    #  processed_cities[origin_city]['last_travels_d3'] )
     elif time_diff <= timedelta(hours=48):
-        from_origin_city_travels = ( processed_cities[origin_city]['last_travels_d2'] +
-                                    processed_cities[origin_city]['first_travels_d3'] +
-                                    processed_cities[origin_city]['last_travels_d3'] )
+        d2 = [t for t in processed_cities[origin_city]['last_travels_d2'] if t.departure >= current_date ]
+        from_origin_city_travels = (d2 +
+                                    processed_cities[origin_city]['first_travels_d3'])# +
+                                    #processed_cities[origin_city]['last_travels_d3'] )
 
     elif time_diff <= timedelta(hours=60):
-        from_origin_city_travels = ( processed_cities[origin_city]['first_travels_d3'] +
+        d3 = [t for t in processed_cities[origin_city]['first_travels_d3'] if t.departure >= current_date ]
+        from_origin_city_travels = ( d3+
                                     processed_cities[origin_city]['last_travels_d3'] )
 
     else:
-        from_origin_city_travels = processed_cities[origin_city]['last_travels_d3']
+        d3 = [t for t in processed_cities[origin_city]['last_travels_d3'] if t.departure >= current_date ]
+        from_origin_city_travels = d3
 
+    count_time['armado_lista'] += time.clock() - start_time
     return from_origin_city_travels
 
 def sortVectores(travel_list, travels_price_list, quantity_travels):
@@ -163,28 +171,26 @@ def verifyBestOption(list_trips_traveled,cost,travel_list,travels_price_list):
     exists_better_option = False
     exist_same_condition = False
     index_same_condition = 0
-    # duration = list_trips_traveled[-1].departure - list_trips_traveled[0].departure + timedelta(minutes=list_trips_traveled[-1].duration)
-    #
-    # first_travel = list_trips_traveled[0]
-    # origin_city = first_travel.origin_city
-    # departure = first_travel.departure
-    # cont = 0
-    #
-    # for travels in travel_list:
-    #     travel_ini = travels[0]
-    #     if origin_city.id == travel_ini.origin_city.id and str(departure) == str(travel_ini.departure) and str(cost) == str(travels_price_list[cont]):
-    #         duration_aux = travels[-1].departure - travels[0].departure + timedelta(minutes=travels[-1].duration)
-    #
-    #         if duration < duration_aux:
-    #             exists_better_option = False
-    #             exist_same_condition = True
-    #             index_same_condition = cont
-    #             return exists_better_option,exist_same_condition,index_same_condition
-    #         else :
-    #             exists_better_option = True
-    #
-    #     cont +=1
+    duration = list_trips_traveled[-1].departure - list_trips_traveled[0].departure + timedelta(minutes=list_trips_traveled[-1].duration)
 
+    first_travel = list_trips_traveled[0]
+    origin_city = first_travel.origin_city
+    departure = first_travel.departure
+    cont = 0
+
+    for travels in travel_list:
+        travel_ini = travels[0]
+        if origin_city.id == travel_ini.origin_city.id and str(departure) == str(travel_ini.departure) and str(cost) == str(travels_price_list[cont]):
+            duration_aux = travels[-1].departure - travels[0].departure + timedelta(minutes=travels[-1].duration)
+
+            if duration < duration_aux:
+                exists_better_option = False
+                exist_same_condition = True
+                index_same_condition = cont
+                return exists_better_option,exist_same_condition,index_same_condition
+            else :
+                exists_better_option = True
+        cont +=1
     return exists_better_option,exist_same_condition,index_same_condition
 
 #######################################
@@ -264,6 +270,7 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 
                         # If the destination of the trip isn't the city you are looking for,
                         else:
+                            count_time['cantidad_llamados_recursivos'] += 1
                             cities_visited.append(str(t.destination_city.id))
                             # Conversion to hours and minutes of the duration of travel
                             minutes  = t.duration % 60
@@ -279,7 +286,10 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 
                         list_trips_traveled.pop()
                     cost -= t.price
-
+                else:
+                    count_time['cantidad_loop'] += 1
+            else:
+                count_time['cantidad_no_date'] += 1
 ################################################
 # Do_Search [Backtracking First call]
 ################################################
@@ -288,7 +298,7 @@ def do_search(origin_city, destination_city, date, timezone):
     # The requested date is returned to TimeZone 0 (Date - timezone offset)
 
     global count_time
-    count_time = {'total_time':time.clock()}
+    count_time = {'total_time':time.clock(),'loop_time':0,'cantidad_loop':0,'cantidad_llamados_recursivos':0,'cantidad_no_date':0,'armado_lista':0}
 
 
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
@@ -333,6 +343,11 @@ def do_search(origin_city, destination_city, date, timezone):
     count_time['total_time'] = time.clock() - count_time['total_time']
 
     print 'total', count_time['total_time']
+    print 'armado_lista', count_time['armado_lista']
+    print 'cantidad_no_date', count_time['cantidad_no_date']
+    print 'cantidad_loop', count_time['cantidad_loop']
+    print 'cantidad_llamados_recursivos', count_time['cantidad_llamados_recursivos']
+    print 'loop_time', count_time['loop_time']
 
 
 
