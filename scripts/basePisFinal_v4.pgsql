@@ -70746,35 +70746,35 @@ COPY TravelAgency(id, name, reference, traveltype) FROM stdin;
 37	INTERTUR	http://www.intertur.com.uy	3
 38	JOTA ELE	http://www.jotaele.com.uy	3
 39	NOSSAR	http://www.nossar.com.uy	3
-40	RUTAS DEL SOL  NULL  3
+40	RUTAS DEL SOL	NULL	3
 41	TTL	http://www.ttl.com.br	3
 42	TURIL	http://www.turil.com.uy	3
 43	TURISMAR	http://www.turismar.com.uy	3
-44	Cauvi  NULL  3
+44	Cauvi	NULL	3
 45	Condor	http://condorestrella.com.ar	3
-46	Pullman  NULL 3
+46	Pullman	NULL	3
 47	COIT	http://www.coitviajes.com.uy	3
 48	COT	http://www.cot.com.uy	3
 49	Ciudad de Gualeguay	http://www.ciudaddegualeguay.com	3
 50	COTABU	NULL	3
 51	COA	NULL	3
-52	GABARD	NULL  3
-53	Grupo Vittori	http://grupovittori.com.uy 3
-54	TUR-ESTE	http://tureste.com  3
+52	GABARD	NULL	3
+53	Grupo Vittori	http://grupovittori.com.uy	3
+54	TUR-ESTE	http://tureste.com	3
 55	POSADA	NULL	3
 56	COTMI	NULL	3
-57	Andesmar	https://www.andesmar.com  3
-58	Chevallier	http://nuevachevallier.com  3
-59	Alaska	https://www.alaskaair.com 1
-60	United	https://www.united.com  1
-61	JetBlue	https://www.jetblue.com  1
-62	Delta	https://www.delta.com  1
-63	Frontier	https://www.flyfrontier.com 1
-64	Sun	https://www.suncountry.com/booking/search.html 1
-65	Spirit	https://www.spirit.com  1
-100	Google Flights	https://www.google.es/flights/#search  1
-101	Central de Pasajes	https://www.centraldepasajes.com.ar  3
-102	UruBus	https://www.urubus.com.uy  3
+57	Andesmar	https://www.andesmar.com	3
+58	Chevallier	http://nuevachevallier.com	3
+59	Alaska	https://www.alaskaair.com	1
+60	United	https://www.united.com	1
+61	JetBlue	https://www.jetblue.com	1
+62	Delta	https://www.delta.com	1
+63	Frontier	https://www.flyfrontier.com	1
+64	Sun	https://www.suncountry.com/booking/search.html	1
+65	Spirit	https://www.spirit.com	1
+100	Google Flights	https://www.google.es/flights/#search	1
+101	Central de Pasajes	https://www.centraldepasajes.com.ar	3
+102	UruBus	https://www.urubus.com.uy	3
 \.
 
 
