@@ -73,7 +73,7 @@ def load_travels(origin_city, start_date, maximum_date):
     processed_cities[origin_city]['last_travels_d3'] = list(last_travels_day_3)
 
 def get_travels_for_origin_city(origin_city, current_date, start_date):
-    start_time = time.clock()
+
     time_diff = current_date - start_date
 
     if time_diff == timedelta(seconds=0):
@@ -118,7 +118,6 @@ def get_travels_for_origin_city(origin_city, current_date, start_date):
         d3 = [t for t in processed_cities[origin_city]['last_travels_d3'] if t.departure >= current_date ]
         from_origin_city_travels = d3
 
-    count_time['armado_lista'] += time.clock() - start_time
     return from_origin_city_travels
 
 def sortVectores(travel_list, travels_price_list, quantity_travels):
@@ -270,7 +269,6 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 
                         # If the destination of the trip isn't the city you are looking for,
                         else:
-                            count_time['cantidad_llamados_recursivos'] += 1
                             cities_visited.append(str(t.destination_city.id))
                             # Conversion to hours and minutes of the duration of travel
                             minutes  = t.duration % 60
@@ -286,10 +284,6 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 
                         list_trips_traveled.pop()
                     cost -= t.price
-                else:
-                    count_time['cantidad_loop'] += 1
-            else:
-                count_time['cantidad_no_date'] += 1
 ################################################
 # Do_Search [Backtracking First call]
 ################################################
@@ -297,8 +291,8 @@ def do_search(origin_city, destination_city, date, timezone):
     # Initialization of variables for backtracking
     # The requested date is returned to TimeZone 0 (Date - timezone offset)
 
-    global count_time
-    count_time = {'total_time':time.clock(),'loop_time':0,'cantidad_loop':0,'cantidad_llamados_recursivos':0,'cantidad_no_date':0,'armado_lista':0}
+    #global count_time
+    #count_time = {'total_time':time.clock(),'loop_time':0,'cantidad_loop':0,'cantidad_llamados_recursivos':0,'cantidad_no_date':0,'armado_lista':0}
 
 
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
@@ -340,14 +334,6 @@ def do_search(origin_city, destination_city, date, timezone):
     travel_list,travels_price_list = sortVectores(travel_list, travels_price_list, quantity_travels)
 
 
-    count_time['total_time'] = time.clock() - count_time['total_time']
-
-    print 'total', count_time['total_time']
-    print 'armado_lista', count_time['armado_lista']
-    print 'cantidad_no_date', count_time['cantidad_no_date']
-    print 'cantidad_loop', count_time['cantidad_loop']
-    print 'cantidad_llamados_recursivos', count_time['cantidad_llamados_recursivos']
-    print 'loop_time', count_time['loop_time']
 
 
 
