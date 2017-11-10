@@ -10,11 +10,8 @@ def loadExchange():
     response = html.fromstring(page.content)
     base = Currency.objects.filter(base = True).first()
     currencies = [c for c in Currency.objects.all() if c.cod != base.cod ]
-    print 'dólar'
     for currency in currencies:
         #if the currency is local, have to use "sell" exchange, else have to use arbitrage
-        print currency.cod
-        print base.name
         if currency.local:
             #ipdb.set_trace()
             context    = response.xpath('(//tbody)[1]/tr[contains(td, $mda)]',mda = base.name)[0]
@@ -28,4 +25,3 @@ def loadExchange():
         div = float(div)
         Currency.objects.filter(cod=currency.cod).update(divisor=div)
     #convert currency objects to currency strings with the code for easy usage, and return a dictionary  --> currency:divider
-    
