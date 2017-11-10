@@ -360,7 +360,9 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                 element = javascriptParameterOptions(line, phantom)
                 if isinstance(element,list):
                     range_inputs = 0
-                    while range_inputs < len(element):
+                    while range_inputs <= len(element):
+                        if(len(element) == 0):
+                            break
                         elem = element[range_inputs]
                         if data == "click":
                             elem.click()
@@ -368,7 +370,6 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                             elem.clear()
                             elem.send_keys(data)
                         element = javascriptParameterOptions(line, phantom)
-                        range_inputs += 1
                 else:
                     if data == "click":
                         element.click()
