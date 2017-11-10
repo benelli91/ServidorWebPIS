@@ -6,6 +6,10 @@
      {% include 'meta-links.html' %}
    </head>
    <body>
+     <!-- <div id="spinner" class="loading">Loading&#8230;</div> -->
+     <div id="spinner" class="loading">
+       <img src="{% static "images/loading-animated.gif" %}" >
+     </div>
       <!-- banner -->
     <div id="containerAll">
       <div class="banner" id="home">
@@ -44,9 +48,9 @@
                      <div class="clearfix"></div>
                   </div>
                   <!--loading bar before search results-->
-                  <div id="gif" class="gif" type="hidden" display="hidden" style="display:none">
+                  <!-- <div id="gif" class="gif" type="hidden" display="hidden" style="display:none">
                     <img src="{% static "images/loading-animated.gif" %}" >
-                  </div>
+                  </div> -->
                </div>
             </div>
          </div>
