@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#SELENIUM!
-##PRIMER MODULO
+#SELENIUM
+##PRIMER MODULO-phantom
 sudo apt-get update
 sudo apt-get install build-essential chrpath libssl-dev libxft-dev -y
 sudo apt-get install libfreetype6 libfreetype6-dev -y
@@ -13,7 +13,7 @@ sudo tar xvjf $PHANTOM_JS.tar.bz2
 sudo mv $PHANTOM_JS /usr/local/share
 sudo ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 phantomjs --version
-##SEGUNDO MODULO
+##SEGUNDO MODULO-unidecode
 sudo pip install unidecode
 
 #API DJANGO!
@@ -28,7 +28,12 @@ sudo mv geckodriver /usr/local/share
 sudo ln -sf /usr/local/share/geckodriver /usr/local/bin
 sudo chmod +x /usr/local/bin/geckodriver
 ##display para que ande firefox en servidor
-sudo apt-get install xvfb
+sudo apt-get install xvfb   
 sudo pip install pyvirtualdisplay
-##
+
+
+#Otros
 sudo pip install requests
+sudo pip install lxml
+sudo pip install ipdb
+

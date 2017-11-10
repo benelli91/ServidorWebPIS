@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import bs4
@@ -7,18 +5,14 @@ from bs4 import BeautifulSoup
 from datetime import datetime,timedelta,tzinfo
 from .models import *
 import time
-import sys
 import os
 import json
-from django.db import transaction
 import unicodedata
 import threading
 #from extractDataSubroutines import *
 from parameterOptions import *
 import re
-import calendar
 from pyvirtualdisplay import Display
-import requests
 from logger import *
 
 CONFIG_DIRECTORY_PATH = 'tlc/config_files/'
@@ -210,7 +204,6 @@ def loadWebpage(conf_file):
         dates.append(dates[-1] + timedelta(days=1))
 
     travels = []
-    url = conf_file["webpage"]["uri_start"]
     page_type = conf_file["webpage"]["page_type"]
 
     if(page_type == 1): #URL type pages
@@ -286,7 +279,7 @@ def loadWebpage(conf_file):
         try:
             phantom.quit()
         except:
-            a = 0
+            pass
     display.stop()
 
 def createURL(conf_file, origin_city, destination_city, departure, phantom, logger_lock):
@@ -303,8 +296,6 @@ def createURL(conf_file, origin_city, destination_city, departure, phantom, logg
         if conf_file["webpage"]["header_parameters"].has_key("parameters"):
             total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
             counter = 0
-            origin_country = Country.objects.filter(id = origin_city.country.id)[0]
-            destination_country = Country.objects.filter(id = destination_city.country.id)[0]
             for line in conf_file["webpage"]["header_parameters"]["parameters"]:
                 url += line["parameter"]
                 url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
@@ -339,8 +330,6 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
         if conf_file["webpage"]["header_parameters"].has_key("parameters"):
             total_parameters = len(conf_file["webpage"]["header_parameters"]["parameters"])
             counter = 0
-            origin_country = Country.objects.filter(id = origin_city.country.id)[0]
-            destination_country = Country.objects.filter(id = destination_city.country.id)[0]
             for line in conf_file["webpage"]["header_parameters"]["parameters"]:
                 url += line["parameter"]
                 url += dataParameterOptions(line, conf_file, origin_city, destination_city, departure)
@@ -371,7 +360,9 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                 element = javascriptParameterOptions(line, phantom)
                 if isinstance(element,list):
                     range_inputs = 0
-                    while range_inputs < len(element):
+                    while range_inputs <= len(element):
+                        if(len(element) == 0):
+                            break
                         elem = element[range_inputs]
                         if data == "click":
                             elem.click()
@@ -379,7 +370,6 @@ def executeJavaScript(conf_file, origin_city, destination_city, departure, phant
                             elem.clear()
                             elem.send_keys(data)
                         element = javascriptParameterOptions(line, phantom)
-                        range_inputs += 1
                 else:
                     if data == "click":
                         element.click()
@@ -587,11 +577,7 @@ def extractDataWithBlocks(conf_file, html_file, origin_city, destination_city,de
     error_number = 6
     log_file = LOG_DIRECTORY_PATH + conf_file["webpage"]["name"].replace(" ", "") + '.log'
     travels_to_add = []
-    UTC = conf_file["webpage"]["UTC"]
-    STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
-    departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
     number_traveltype = int(conf_file["webpage"]["travel_type"])
-    page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)
 
     #travel_block extraction_tags
     try:
@@ -618,7 +604,6 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
         UTC = conf_file["webpage"]["UTC"]
         travel_agencies = Travelagency.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
         travel_agencies_alias = Travelagencyalias.objects.filter(traveltype = conf_file["webpage"]["travel_type"])
-        STATUS = origin_city.name.upper() +'-'+destination_city.name.upper()
         departure_with_time = datetime(year=departure.year,month=departure.month,day=departure.day)
         number_traveltype = int(conf_file["webpage"]["travel_type"])
         page_traveltype = Traveltype.objects.get(traveltype = number_traveltype)

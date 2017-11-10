@@ -14,7 +14,7 @@
 	"currency":"USD",
 	"page_type":2,
 	"reload_time": 2,
-	"threads":3,
+	"threads":1,
 	"header_parameters":{
 		"separator": ";",
 		"parameters":[
@@ -26,7 +26,7 @@
 		"wait":2,
 		"loading_time":5,
 		"buttons":[
-      {"field_type":"input", "tag_type": "multiple_class_name" , "id":"LJV2HGB-cc-h", "data":["click"]}
+      {"field_type":"input", "tag_type": "multiple_class_name" , "id":"LJV2HGB-ec-d", "data":["click"]}
       ]},
 	"iterators":{},
 	"extraction_tags":{
