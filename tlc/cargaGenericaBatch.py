@@ -20,6 +20,7 @@ LOCAL_CODES_DIRECTORY_PATH = 'tlc/local_city_codes/'
 LOG_DIRECTORY_PATH = 'log_files/'
 DISTANCE_MATRIX = 'tlc/citiesDistanceMatrix.json'
 DEFAULT_SPAN = 30
+PRUNE_DENSITY = 4
 
 def timedGenericLoader():
     config_directory = CONFIG_DIRECTORY_PATH
@@ -263,9 +264,9 @@ def loadWebpage(conf_file):
             finished = finished and (not flag)
 
     if len(travels) > 0 :
-        if conf_file["webpage"]["extraction_tags"]["travel_agency"]["format"] != "":
-            to_delete = Travel.objects.filter(webpage = conf_file["webpage"]["name"])
-            to_delete.delete()
+        to_delete = Travel.objects.filter(webpage = conf_file["webpage"]["name"])
+        to_delete.delete()
+        travels = filterTravels(travels, conf_file, dates[0])
         for travel in travels:
             travel.save()
     else:
@@ -783,3 +784,29 @@ def extractDataWithoutBlocks(conf_file, html_file, origin_city, destination_city
                 logger('error', [error_number, origin_city, destination_city, departure], conf_file, None, log_file, logger_lock)
 
     return travels_to_add
+
+def filterTravels(travels, conf_file, starting_date):
+    #filters the travels in order to just keep the cheapest out of each combination of cities and for each time region defined by PRUNE_DENSITY
+    cities = City.objects.all().order_by('-id')[0]
+    cities_no = cities.id
+    starting_time = datetime(starting_date.year, starting_date.month, starting_date.day) - timedelta(hours = conf_file["webpage"]["UTC"])
+    print starting_time
+    time_ranges_no = (conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"])*24//PRUNE_DENSITY
+    cheapest_travels = [[[None for k in range(cities_no+1)] for j in range(cities_no + 1)] for i in range(time_ranges_no)]
+    cheapest_prices = [[[None for k in range(cities_no+1)] for j in range(cities_no + 1)] for i in range(time_ranges_no)]
+    travels_to_remove = []
+    for travel in travels:
+        relative_start = travel.departure - starting_time
+        time_region = int((relative_start.seconds // 3600) // PRUNE_DENSITY)
+        if(cheapest_prices[time_region][travel.origin_city.id][travel.destination_city.id] == None):
+            cheapest_prices[time_region][travel.origin_city.id][travel.destination_city.id] = travel.price
+            cheapest_travels[time_region][travel.origin_city.id][travel.destination_city.id] = travel
+        elif(cheapest_prices[time_region][travel.origin_city.id][travel.destination_city.id] >= travel.price):
+            travels_to_remove.append(travel)
+        else:
+            travels_to_remove.append(cheapest_travels[time_region][travel.origin_city.id][travel.destination_city.id])
+            cheapest_prices[time_region][travel.origin_city.id][travel.destination_city.id] = travel.price
+            cheapest_travels[time_region][travel.origin_city.id][travel.destination_city.id] = travel
+    for travel_to_remove in travels_to_remove:
+        travels.remove(travel_to_remove)
+    return travels
