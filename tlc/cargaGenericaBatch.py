@@ -95,66 +95,6 @@ def genericLoader():
         timers.append(threading.Thread(target = cron, args = [f]))
         timers[-1].start()
 
-def BuquebusLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "Buquebus.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def Buquebus2Loader():
-    config_directory = 'tlc/config_files/'
-    with open(config_directory + "Buquebus2.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def GoogleFlightsLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "GoogleFlights.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def CopayLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "Copay.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def TresCrucesLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "TresCruces.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def AgenciaCentralLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "AgenciaCentral.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def ColoniaExpressLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "ColoniaExpress.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def GreyhoundLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "Greyhound.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def CentralDePasajesLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "CentralDePasajes.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
-def UruBusLoader():
-    config_directory = CONFIG_DIRECTORY_PATH
-    with open(config_directory + "UruBus.json") as data_file:
-        data = json.load(data_file)
-        loadWebpage(data)
-
 def loadWebpage(conf_file):
     webpage_name = conf_file["webpage"]["name"]
     display = Display(visible=0, size=(1024, 768))
@@ -266,7 +206,9 @@ def loadWebpage(conf_file):
     if len(travels) > 0 :
         to_delete = Travel.objects.filter(webpage = conf_file["webpage"]["name"])
         to_delete.delete()
-        travels = filterTravels(travels, conf_file, dates[0])
+        original_length = len(travels)
+        if(conf_file["webpage"]["travel_type"] == 3):
+            travels = filterTravels(travels, conf_file, dates[0])
         for travel in travels:
             travel.save()
     else:
@@ -275,7 +217,7 @@ def loadWebpage(conf_file):
         for travel in to_update:
             travel.updated = False
             travel.save()
-    logger('end', [len(travels), start_time], conf_file, local_codes, log_file, logger_lock)
+    logger('end', [len(travels), original_length, start_time], conf_file, local_codes, log_file, logger_lock)
     for phantom in phantoms:
         try:
             phantom.quit()

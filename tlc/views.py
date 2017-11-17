@@ -7,7 +7,6 @@ from .forms import NameForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from algoritmo import do_search
-from cargaGoogleBatch import cargaGoogleB
 from cargaGenericaBatch import *
 from rest_framework import viewsets, status
 from rest_framework.decorators import detail_route, list_route
@@ -95,66 +94,8 @@ def loadExchange(request):
     loadExchange()
     return redirect('/')
 
-def cargaGoogle(request):
-    resultado = {}
-    #if request.method == 'POST':
-    #    resultado = do_search(str(data.get("from", "")),str(data.get("to")),str(data.get("date")))
-    cargaGoogleB()
-
-    return render(request, 'scraping.html',  resultado)
-
 def cargaGenerica(request):
     genericLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaBuquebus(request):
-    BuquebusLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaBuquebus2(request):
-    Buquebus2Loader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaGoogleFlights(request):
-    GoogleFlightsLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaCopay(request):
-    CopayLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaTresCruces(request):
-    TresCrucesLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaAgenciaCentral(request):
-    AgenciaCentralLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaColoniaExpress(request):
-    ColoniaExpressLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaGreyhound(request):
-    GreyhoundLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaUruBus(request):
-    UruBusLoader()
-    resultado = {}
-    return render(request, 'scraping.html', resultado)
-
-def cargaCentralDePasajes(request):
-    CentralDePasajesLoader()
     resultado = {}
     return render(request, 'scraping.html', resultado)
 

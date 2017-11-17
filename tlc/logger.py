@@ -15,9 +15,12 @@ def logger(message_type, args, conf_file, local_codes, output_file, my_lock):
         message += 'Started at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
     elif(message_type == 'end'):
         end_time = datetime.now()
-        duration = end_time - args[1]
+        duration = end_time - args[2]
         message += 'LOADING PROCESS ENDED\n'
-        message += 'Number of travels loaded: ' + str(args[0]) + '\n'
+        message += 'Number of travels loaded: ' + str(args[0])
+        if(args[0] != args[1]):
+            message += '(plus ' + str(args[1] - args[0]) + ' pruned)'
+        message += '\n'
         message += 'Ended at: ' + datetime.now().strftime('%d-%m-%Y %H:%M:%S') + '\n'
         message += 'Time spent loading: ' + str(duration) + '\n'
         message += '----------------------------------------------------' + '\n'
