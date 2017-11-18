@@ -52,6 +52,9 @@
     $( "#datepicker,#datepicker1,#datepicker2,#datepicker3" )
       .datepicker({minDate: '11/12/2017',maxDate: '12/05/2017'});
       $("#spinner").hide();
+      $("#divErrorFrom").hide();
+      $("#divErrorTo").hide();
+      $("#divErrorDate").hide();
   });
 </script>
 <!-- Calendar -->
@@ -133,6 +136,9 @@
 
         if (foundTo && foundFrom && validDate){
           $("#spinner").show()
+          $("#divErrorFrom").hide();
+          $("#divErrorTo").hide();
+          $("#divErrorDate").hide();
           // $('#gif').show()
           //$('#gif').fadeIn(200)
           var request = $.ajax({
@@ -157,13 +163,37 @@
             // $('#gif').hide()
             //$('#gif').fadeOut(200)
           });
-        } else if (!foundFrom) {
-          alert('Ingrese un origen correcto.')
-        } else if (!foundTo) {
-          alert('Ingrese un destino correcto.')
-        } else if (!validDate) {
-          alert('Ingrese una fecha correcta.')
         }
+        if (!foundFrom) {
+           document.getElementById("errorFrom").innerHTML = 'Wrong origin.';
+           $("#divErrorFrom").show();
+           if (foundTo) {
+             $("#divErrorTo").hide();
+           }
+           if (validDate) {
+             $("#divErrorDate").hide();
+           }
+         }
+         if (!foundTo) {
+           document.getElementById("errorTo").innerHTML = 'Wrong destination.';
+           $("#divErrorTo").show();
+           if (foundFrom) {
+             $("#divErrorFrom").hide();
+           }
+           if (validDate) {
+             $("#divErrorDate").hide();
+           }
+         }
+        if (!validDate) {
+          document.getElementById("errorDate").innerHTML = 'Wrong date.';
+           $("#divErrorDate").show();
+           if (foundTo) {
+             $("#divErrorTo").hide();
+           }
+           if (foundFrom) {
+             $("#divErrorFrom").hide();
+           }
+         }
 
       });
     });
