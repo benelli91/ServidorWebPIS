@@ -19,7 +19,7 @@ def load_exchanges():
     cotizaciones = dict(cotizaciones)
     return cotizaciones
 
-def load_travels(origin_city, start_date, maximum_date):
+def load_travels(origin_city, start_date, maximum_date,processed_cities):
 
     processed_cities[origin_city] = {}
 
@@ -72,7 +72,7 @@ def load_travels(origin_city, start_date, maximum_date):
     processed_cities[origin_city]['first_travels_d3'] = list(first_travels_day_3)
     processed_cities[origin_city]['last_travels_d3'] = list(last_travels_day_3)
 
-def get_travels_for_origin_city(origin_city, current_date, start_date):
+def get_travels_for_origin_city(origin_city, current_date, start_date,processed_cities):
 
     time_diff = current_date - start_date
 
@@ -195,7 +195,7 @@ def verifyBestOption(list_trips_traveled,cost,travel_list,travels_price_list):
 #######################################
 # Recursion de Backtracking
 #######################################
-def recursion(origin_city, destination_city, cost, start_date, current_date, maximum_date, travel_list, travels_price_list, list_trips_traveled, quantity_travels, max_scales, max_cost, cotizaciones):
+def recursion(origin_city, destination_city, cost, start_date, current_date, maximum_date, travel_list, travels_price_list, list_trips_traveled, quantity_travels, max_scales, max_cost, cotizaciones,processed_cities,cities_visited):
 
     max_scales += 1
     if max_scales <= 4:
@@ -204,9 +204,9 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
         # Check if the city of origin was processed in another iteration:
         if not processed_cities.has_key(origin_city):
             # Otherwise, the query is made in the database:
-            load_travels(origin_city, start_date, maximum_date)
+            load_travels(origin_city, start_date, maximum_date,processed_cities)
 
-        from_origin_city_travels = get_travels_for_origin_city(origin_city,current_date, start_date)
+        from_origin_city_travels = get_travels_for_origin_city(origin_city,current_date, start_date,processed_cities)
 
         # For all trips that exist starting from the current city:
         for t in from_origin_city_travels:
@@ -278,7 +278,7 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
 
                             # The destination of the processed trip becomes the origin of the next iteration
                             origin_city = key_travel_destination
-                            recursion(origin_city, destination_city, cost,start_date,aux_current_date,maximum_date,travel_list,travels_price_list,list_trips_traveled,quantity_travels,max_scales,max_cost,cotizaciones)
+                            recursion(origin_city, destination_city, cost,start_date,aux_current_date,maximum_date,travel_list,travels_price_list,list_trips_traveled,quantity_travels,max_scales,max_cost,cotizaciones,processed_cities, cities_visited)
 
                             cities_visited.pop()
 
@@ -305,10 +305,10 @@ def do_search(origin_city, destination_city, date, timezone):
     cost = 0
     max_cost = [0]
 
-    global processed_cities
+    #global processed_cities
     processed_cities = {}
 
-    global cities_visited
+    #global cities_visited
     cities_visited = [str(origin_city)]
 
     # The minimum and maximum duration of a trip is determined
@@ -328,7 +328,9 @@ def do_search(origin_city, destination_city, date, timezone):
         quantity_travels,
         0, # max_scales :O
         max_cost,
-        cotizaciones
+        cotizaciones,
+        processed_cities,
+        cities_visited
     )
     # The results of the recursion are sorted
     travel_list,travels_price_list = sortVectores(travel_list, travels_price_list, quantity_travels)
