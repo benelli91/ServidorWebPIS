@@ -283,7 +283,6 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
                             hours = (t.duration - minutes) / 60
                             # The current_date is updated + extra hours between travels
                             aux_current_date = t.departure + timedelta(hours=hours + WAITING_HOURS_BETEEN_TRIPS, minutes = minutes)
-
                             # The destination of the processed trip becomes the origin of the next iteration
                             origin_city = key_travel_destination
                             recursion(origin_city, destination_city, cost,start_date,aux_current_date,maximum_date,travel_list,travels_price_list,list_trips_traveled,quantity_travels,actual_scales,max_cost,cotizaciones,processed_cities, cities_visited)
@@ -299,7 +298,6 @@ def do_search(origin_city, destination_city, date, timezone):
     # Initialization of variables for backtracking
     # The requested date is returned to TimeZone 0 (Date - timezone offset)
 
-    print MAXIMUM_TRAVEL_DAYS,MAX_SCALES,WAITING_HOURS_BETEEN_TRIPS
 
 
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
