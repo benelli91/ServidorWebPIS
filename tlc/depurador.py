@@ -5,7 +5,7 @@ import time
 
 
 start_time = datetime.now()
-print ''
+# print ''
 # Buses = 3
 def load_exchanges():
     #loads exchanges from database
@@ -13,7 +13,7 @@ def load_exchanges():
     cotizaciones = [(c.cod,c.divisor) for c in Currency.objects.all() if c.cod != base.cod ]
     cotizaciones = dict(cotizaciones)
     return cotizaciones
-print 'entra1'
+# print 'entra1'
 cotizaciones = load_exchanges()
 travels_id_to_keep = []
 
@@ -31,7 +31,7 @@ for city in cities:
     for t in travel_per_city:
         city2 = t.destination_city
         if city.id != city2.id:
-            print 'pair:' + city.name + ' - ' + city2.name
+            # print 'pair:' + city.name + ' - ' + city2.name
             # for travel_per_day in dates:
             #     aux_date = travel_per_day.departure.date()
             #     current_date = datetime(year=aux_date.year, month=aux_date.month, day=aux_date.day)
@@ -67,10 +67,10 @@ for city in cities:
                     travels_id_to_keep.append(best_travel.idtravel)
                     #print travels_id_to_keep
                 current_date = current_date + timedelta(hours=4)
-    print 'to keep: '+ str(len(travels_id_to_keep))
+    # print 'to keep: '+ str(len(travels_id_to_keep))
 # Vamo a borrar
 Travel.objects.filter(~Q(pk__in=travels_id_to_keep) & Q(traveltype=3)).delete()
 
-print 'tiempo total:' , datetime.now() - start_time
-print 'empezo:' , start_time
-print 'termino:' , datetime.now()
+# print 'tiempo total:' , datetime.now() - start_time
+# print 'empezo:' , start_time
+# print 'termino:' , datetime.now()

@@ -1,15 +1,23 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+# from django.shortcuts import render
+# from django.http import HttpResponse
 from datetime import datetime,timedelta
 from .models import *
 from django.db.models import F, Q
-import sys
-import requests
-from bs4 import BeautifulSoup
-import re
-import time
-import ipdb
-from lxml import html
+# import sys
+# import requests
+# from bs4 import BeautifulSoup
+# import re
+# import time
+# import ipdb
+# from lxml import html
+import json
+
+
+with open('tlc/generalParameters.json') as data_file:
+    general_parameters_file = json.load(data_file)
+MAXIMUM_TRAVEL_DAYS = general_parameters_file["maximum_travel_days"]
+MAX_SCALES = general_parameters_file["max_scales"]
+WAITING_HOURS_BETEEN_TRIPS = general_parameters_file["waiting_hours_between_trips"]
 
 
 def load_exchanges():
@@ -195,10 +203,10 @@ def verifyBestOption(list_trips_traveled,cost,travel_list,travels_price_list):
 #######################################
 # Recursion de Backtracking
 #######################################
-def recursion(origin_city, destination_city, cost, start_date, current_date, maximum_date, travel_list, travels_price_list, list_trips_traveled, quantity_travels, max_scales, max_cost, cotizaciones,processed_cities,cities_visited):
+def recursion(origin_city, destination_city, cost, start_date, current_date, maximum_date, travel_list, travels_price_list, list_trips_traveled, quantity_travels, actual_scales, max_cost, cotizaciones,processed_cities,cities_visited):
 
-    max_scales += 1
-    if max_scales <= 4:
+    actual_scales += 1
+    if actual_scales <= MAX_SCALES:
         # [ Identification of the destination city is unique ]
         key_destination = str(destination_city)
         # Check if the city of origin was processed in another iteration:
@@ -273,12 +281,12 @@ def recursion(origin_city, destination_city, cost, start_date, current_date, max
                             # Conversion to hours and minutes of the duration of travel
                             minutes  = t.duration % 60
                             hours = (t.duration - minutes) / 60
-                            # The current_date is updated
-                            aux_current_date = t.departure + timedelta(hours=hours, minutes = minutes)
+                            # The current_date is updated + extra hours between travels
+                            aux_current_date = t.departure + timedelta(hours=hours + WAITING_HOURS_BETEEN_TRIPS, minutes = minutes)
 
                             # The destination of the processed trip becomes the origin of the next iteration
                             origin_city = key_travel_destination
-                            recursion(origin_city, destination_city, cost,start_date,aux_current_date,maximum_date,travel_list,travels_price_list,list_trips_traveled,quantity_travels,max_scales,max_cost,cotizaciones,processed_cities, cities_visited)
+                            recursion(origin_city, destination_city, cost,start_date,aux_current_date,maximum_date,travel_list,travels_price_list,list_trips_traveled,quantity_travels,actual_scales,max_cost,cotizaciones,processed_cities, cities_visited)
 
                             cities_visited.pop()
 
@@ -291,8 +299,7 @@ def do_search(origin_city, destination_city, date, timezone):
     # Initialization of variables for backtracking
     # The requested date is returned to TimeZone 0 (Date - timezone offset)
 
-    #global count_time
-    #count_time = {'total_time':time.clock(),'loop_time':0,'cantidad_loop':0,'cantidad_llamados_recursivos':0,'cantidad_no_date':0,'armado_lista':0}
+    print MAXIMUM_TRAVEL_DAYS,MAX_SCALES,WAITING_HOURS_BETEEN_TRIPS
 
 
     initial_date = datetime.strptime(date+' 12:00AM', '%m/%d/%Y %I:%M%p') + timedelta(minutes=-timezone)
@@ -313,7 +320,7 @@ def do_search(origin_city, destination_city, date, timezone):
 
     # The minimum and maximum duration of a trip is determined
     current_date = initial_date
-    maximum_date= initial_date + timedelta(days=3)
+    maximum_date= initial_date + timedelta(days=MAXIMUM_TRAVEL_DAYS)
 
     # Recursive calls of Backtracking
     recursion(origin_city,
@@ -326,7 +333,7 @@ def do_search(origin_city, destination_city, date, timezone):
         travels_price_list,
         list_trips_traveled,
         quantity_travels,
-        0, # max_scales :O
+        0, # actual_scales :O
         max_cost,
         cotizaciones,
         processed_cities,
@@ -334,7 +341,6 @@ def do_search(origin_city, destination_city, date, timezone):
     )
     # The results of the recursion are sorted
     travel_list,travels_price_list = sortVectores(travel_list, travels_price_list, quantity_travels)
-
 
 
 

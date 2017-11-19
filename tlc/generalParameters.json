@@ -1,0 +1,6 @@
+{
+  "max_scales": 4 ,
+  "pruning_time" : 4,
+  "waiting_hours_between_trips" : 1,
+  "maximum_travel_days" : 3
+}

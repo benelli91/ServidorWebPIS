@@ -20,7 +20,11 @@ LOCAL_CODES_DIRECTORY_PATH = 'tlc/local_city_codes/'
 LOG_DIRECTORY_PATH = 'log_files/'
 DISTANCE_MATRIX = 'tlc/citiesDistanceMatrix.json'
 DEFAULT_SPAN = 30
-PRUNE_DENSITY = 4
+with open('tlc/generalParameters.json') as data_file:
+    general_parameters_file = json.load(data_file)
+#this constant indicates the number of hours of each interval,
+#from which the best trip between two cities will be obtained and the rest will be eliminated
+PRUNE_DENSITY = general_parameters_file["pruning_time"]
 
 def timedGenericLoader():
     config_directory = CONFIG_DIRECTORY_PATH
@@ -732,7 +736,7 @@ def filterTravels(travels, conf_file, starting_date):
     cities = City.objects.all().order_by('-id')[0]
     cities_no = cities.id
     starting_time = datetime(starting_date.year, starting_date.month, starting_date.day) - timedelta(hours = conf_file["webpage"]["UTC"])
-    print starting_time
+    # print starting_time
     time_ranges_no = (conf_file["webpage"]["date_span_finish"] - conf_file["webpage"]["date_span_start"])*24//PRUNE_DENSITY
     cheapest_travels = [[[None for k in range(cities_no+1)] for j in range(cities_no + 1)] for i in range(time_ranges_no)]
     cheapest_prices = [[[None for k in range(cities_no+1)] for j in range(cities_no + 1)] for i in range(time_ranges_no)]

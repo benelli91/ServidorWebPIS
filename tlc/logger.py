@@ -78,7 +78,7 @@ def logger(message_type, args, conf_file, local_codes, output_file, my_lock):
     elif(message_type == 'connection'):
         message += 'ERROR: Connection error while loading the webpage for travels from ' + args[0] + ' to ' + args[1] + ' the ' + args[2] + '. Check the file for errors.\n'
 
-    print message
+    # print message
     if(isinstance(message, unicode)):
         message = unicodedata.normalize('NFKD', message).encode('ascii','ignore')
     text_file.write(message)
